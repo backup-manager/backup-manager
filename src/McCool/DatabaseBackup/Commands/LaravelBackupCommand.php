@@ -25,6 +25,10 @@ class LaravelBackupCommand extends Command
         $backup = new BackupProcedure($dumper, $archiver, $storer);
 
         $backup->backup();
+
+        if ($this->option('cleanup')) {
+            $backup->cleanup();
+        }
     }
 
     protected function getArguments()
@@ -74,9 +78,9 @@ class LaravelBackupCommand extends Command
     private function getStorer()
     {
         if ($this->option('s3-bucket')) {
-            $awsKey    = Config::get('package::aws.key');
-            $awsSecret = Config::get('package::aws.secret');
-            $awsRegion = Config::get('package::aws.region');
+            $awsKey    = Config::get('aws.key');
+            $awsSecret = Config::get('aws.secret');
+            $awsRegion = Config::get('aws.region');
 
             return new S3Storer($awsKey, $awsSecret, $awsRegion, $this->option('s3-bucket'), $this->option('s3-path'));
         }

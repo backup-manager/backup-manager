@@ -24,6 +24,13 @@ class BackupProcedure
         $this->store();
     }
 
+    public function cleanup()
+    {
+        if (file_exists($this->workingFile)) {
+            unlink($this->workingFile);
+        }
+    }
+
     private function dump()
     {
         $this->dumper->dump();
