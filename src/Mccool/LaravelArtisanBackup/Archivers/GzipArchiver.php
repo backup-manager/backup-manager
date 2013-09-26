@@ -18,7 +18,7 @@ class GzipArchiver implements ArchiverInterface
         $this->filename = $filename;
     }
 
-    public function getOutputFilename($filename)
+    public function getOutputFilename()
     {
         return $this->filename . '.gz';
     }

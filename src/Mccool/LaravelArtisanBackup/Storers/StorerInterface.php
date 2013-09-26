@@ -2,6 +2,6 @@
 
 Interface StorerInterface
 {
-    public function setInputFile($filename);
+    public function setInputFilename($filename);
     public function store();
 }

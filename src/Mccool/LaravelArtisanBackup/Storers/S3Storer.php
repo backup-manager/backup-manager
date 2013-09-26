@@ -4,6 +4,7 @@ class S3Storer implements StorerInterface
 {
     private $bucket;
     private $s3Path;
+    private $filename;
 
     public function __construct($bucket, $s3Path)
     {
@@ -11,7 +12,7 @@ class S3Storer implements StorerInterface
         $this->s3Path = $s3Path;
     }
 
-    public function setInputFile($filename);
+    public function setInputFilename($filename)
     {
         $this->filename = $filename;
     }
@@ -22,17 +23,22 @@ class S3Storer implements StorerInterface
 
         $s3->putObject(array(
             'Bucket'     => $this->bucket,
-            'Key'        => $this->getS3Path() . $this->fileName,
+            'Key'        => $this->getS3Path() . $this->getFilename(),
             'SourceFile' => $this->filename,
         ));
     }
 
     private function getS3Path()
     {
-        if ( ! preg_match("/\//$", $this->s3Path)) {
+        if ( ! preg_match("/\/$/", $this->s3Path)) {
             return $this->s3Path . '/';
         }
 
         return $this->s3Path;
+    }
+
+    private function getFilename()
+    {
+        return basename($this->filename);
     }
 }
