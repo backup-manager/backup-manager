@@ -1,3 +1,7 @@
 <?php namespace McCool\DatabaseBackup\Processors;
 
-interface ProcessorInterface {}
+interface ProcessorInterface
+{
+    public function process($command);
+    public function getErrors();
+}

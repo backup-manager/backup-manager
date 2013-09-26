@@ -24,22 +24,6 @@ class ShellProcessor implements ProcessorInterface
     }
 
     /**
-     * Determines if the process was successfully run.
-     *
-     * @return bool|null
-     */
-    public function wasSuccessful()
-    {
-        if ( ! isset($this->process)) return null;
-
-        if ($this->process->isSuccessful()) {
-            return true;
-        }
-
-        return false;
-    }
-
-    /**
      * Returns errors which happened during the command execution.
      *
      * @return string|null
