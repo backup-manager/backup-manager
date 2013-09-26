@@ -1,7 +1,7 @@
-<?php namespace Mccool\LaravelArtisanBackup\ServiceProviders;
+<?php namespace McCool\DatabaseBackup\ServiceProviders;
 
 use Illuminate\Support\ServiceProvider;
-use Mccool\LaravelArtisanBackup\Commands\BackupCommand;
+use McCool\DatabaseBackup\Commands\BackupCommand;
 
 class LaravelServiceProvider extends ServiceProvider
 {

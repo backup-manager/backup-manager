@@ -1,4 +1,4 @@
-<?php namespace Mccool\LaravelArtisanBackup\Processors;
+<?php namespace McCool\DatabaseBackup\Processors;
 
 use Symfony\Component\Process\Process;
 

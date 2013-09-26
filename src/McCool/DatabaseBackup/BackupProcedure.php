@@ -1,4 +1,4 @@
-<?php namespace Mccool\LaravelArtisanBackup;
+<?php namespace McCool\DatabaseBackup;
 
 class BackupProcedure
 {

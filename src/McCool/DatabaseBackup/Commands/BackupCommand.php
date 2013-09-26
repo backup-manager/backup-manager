@@ -1,4 +1,4 @@
-<?php namespace Mccool\LaravelArtisanBackup\Commands;
+<?php namespace McCool\DatabaseBackup\Commands;
 
 use Illuminate\Console\Command;
 use Symfony\Component\Console\Input\InputOption;
@@ -42,7 +42,7 @@ class BackupCommand extends Command {
         $archiver = $this->getArchiver();
         $storer   = $this->getStorer();
 
-        $backup = new \Mccool\LaravelArtisanBackup\BackupProcedure($dumper, $archiver, $storer);
+        $backup = new \McCool\DatabaseBackup\BackupProcedure($dumper, $archiver, $storer);
 
         $backup->backup();
     }
@@ -85,17 +85,17 @@ class BackupCommand extends Command {
         $filename = $conn['database'] .'-'. date('Y-m-d_H-i-s') . '.sql';
         $filePath = $localPath . '/'.$filename;
 
-        $processor = new \Mccool\LaravelArtisanBackup\Processors\ShellProcessor;
+        $processor = new \McCool\DatabaseBackup\Processors\ShellProcessor;
 
-        return new \Mccool\LaravelArtisanBackup\Dumpers\MysqlDumper($processor, $conn['host'], 3306, $conn['username'], $conn['password'], $conn['database'], $filePath);
+        return new \McCool\DatabaseBackup\Dumpers\MysqlDumper($processor, $conn['host'], 3306, $conn['username'], $conn['password'], $conn['database'], $filePath);
     }
 
     private function getArchiver()
     {
         if ($this->option('gzip')) {
-            $processor = new \Mccool\LaravelArtisanBackup\Processors\ShellProcessor;
+            $processor = new \McCool\DatabaseBackup\Processors\ShellProcessor;
 
-            return new \Mccool\LaravelArtisanBackup\Archivers\GzipArchiver($processor);
+            return new \McCool\DatabaseBackup\Archivers\GzipArchiver($processor);
         }
 
         return null;
@@ -104,7 +104,7 @@ class BackupCommand extends Command {
     private function getStorer()
     {
         if ($this->option('s3-bucket')) {
-            return new \Mccool\LaravelArtisanBackup\Storers\S3Storer($this->option('s3-bucket'), $this->option('s3-path'));
+            return new \McCool\DatabaseBackup\Storers\S3Storer($this->option('s3-bucket'), $this->option('s3-path'));
         }
 
         return null;

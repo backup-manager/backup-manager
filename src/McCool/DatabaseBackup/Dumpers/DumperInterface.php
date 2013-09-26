@@ -1,4 +1,4 @@
-<?php namespace Mccool\LaravelArtisanBackup\Dumpers;
+<?php namespace McCool\DatabaseBackup\Dumpers;
 
 interface DumperInterface
 {

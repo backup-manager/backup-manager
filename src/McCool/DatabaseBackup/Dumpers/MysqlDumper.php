@@ -1,7 +1,7 @@
-<?php namespace Mccool\LaravelArtisanBackup\Dumpers;
+<?php namespace McCool\DatabaseBackup\Dumpers;
 
-use Mccool\LaravelArtisanBackup\Processors\ProcessorInterface;
-use Mccool\LaravelArtisanBackup\Processors\ProcessorException;
+use McCool\DatabaseBackup\Processors\ProcessorInterface;
+use McCool\DatabaseBackup\Processors\ProcessorException;
 
 class MysqlDumper implements DumperInterface
 {

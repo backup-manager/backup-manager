@@ -1,4 +1,4 @@
-<?php namespace Mccool\LaravelArtisanBackup\Storers;
+<?php namespace McCool\DatabaseBackup\Storers;
 
 class S3Storer implements StorerInterface
 {

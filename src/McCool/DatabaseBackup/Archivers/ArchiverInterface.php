@@ -1,4 +1,4 @@
-<?php namespace Mccool\LaravelArtisanBackup\Archivers;
+<?php namespace McCool\DatabaseBackup\Archivers;
 
 interface ArchiverInterface
 {

@@ -1,5 +1,5 @@
 {
-    "name": "mccool/laravel-artisan-backup",
+    "name": "mccool/database-backup",
     "description": "",
     "authors": [
         {
@@ -14,7 +14,7 @@
     },
     "autoload": {
         "psr-0": {
-            "Mccool\\LaravelArtisanBackup": "src/"
+            "McCool\\DatabaseBackup": "src/"
         }
     },
     "minimum-stability": "dev"
