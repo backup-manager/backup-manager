@@ -42,7 +42,7 @@ class BackupProcedure
      * @param  \McCool\DatabaseBackup\Storers\StorerInterface  $storer
      * @return self
      */
-    public function __construct(DumperInterface $dumper, ArchiverInterface $archiver, StorerInterface $storer)
+    public function __construct(DumperInterface $dumper, ArchiverInterface $archiver = null, StorerInterface $storer = null)
     {
         $this->dumper   = $dumper;
         $this->archiver = $archiver;
