@@ -25,6 +25,20 @@ A framework-agnostic database backup package.
 
 5. add key / secret to the config file in ```app/config/packages/mccool/database-backup/aws.php```
 
+## Native PHP
+
+1. add to composer.json
+
+    "mccool/database-backup": "dev-master"
+
+2. install dependency
+
+    composer update
+
+3. make sure that your app requires the composer autoloader
+
+    require '../vendor/autoload.php';
+
 # Usage
 
 ## Laravel
