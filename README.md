@@ -11,7 +11,6 @@ A framework-agnostic database backup package.
 ```JSON
 "mccool/database-backup": "dev-master"
 ```
-
 2. install dependency
 ```SHELL
 composer update
@@ -29,14 +28,17 @@ php artisan config:publish mccool/database-backup
 ## Native PHP
 
 1. add to composer.json
+
 ```JSON
 "mccool/database-backup": "dev-master"
 ```
 2. install dependency
+
 ```SHELL
 composer update
 ```
 3. make sure that your app requires the composer autoloader
+
 ```PHP
 require '../vendor/autoload.php';
 ```
