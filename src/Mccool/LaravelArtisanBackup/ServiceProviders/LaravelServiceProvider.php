@@ -3,7 +3,7 @@
 use Illuminate\Support\ServiceProvider;
 use Mccool\LaravelArtisanBackup\Commands\BackupCommand;
 
-class LaravelArtisanBackupServiceProvider extends ServiceProvider
+class LaravelServiceProvider extends ServiceProvider
 {
     /**
      * Register the service provider.
