@@ -5,63 +5,33 @@ use Symfony\Component\Console\Input\InputOption;
 use Symfony\Component\Console\Input\InputArgument;
 use Config;
 
-class BackupCommand extends Command {
+use McCool\DatabaseBackup\BackupProcedure;
+use McCool\DatabaseBackup\Processors\ShellProcessor;
+use McCool\DatabaseBackup\Dumpers\MysqlDumper;
+use McCool\DatabaseBackup\Archivers\GzipArchiver;
+use McCool\DatabaseBackup\Storers\S3Storer;
 
-    /**
-     * The console command name.
-     *
-     * @var string
-     */
+class LaravelBackupCommand extends Command
+{
     protected $name = 'db:backup';
-
-    /**
-     * The console command description.
-     *
-     * @var string
-     */
     protected $description = 'Backup the database, optionally to S3.';
 
-    /**
-     * Create a new command instance.
-     *
-     * @return void
-     */
-    public function __construct()
-    {
-        parent::__construct();
-    }
-
-    /**
-     * Execute the console command.
-     *
-     * @return void
-     */
     public function fire()
     {
         $dumper   = $this->getDumper();
         $archiver = $this->getArchiver();
         $storer   = $this->getStorer();
 
-        $backup = new \McCool\DatabaseBackup\BackupProcedure($dumper, $archiver, $storer);
+        $backup = new BackupProcedure($dumper, $archiver, $storer);
 
         $backup->backup();
     }
 
-    /**
-     * Get the console command arguments.
-     *
-     * @return array
-     */
     protected function getArguments()
     {
         return array();
     }
 
-    /**
-     * Get the console command options.
-     *
-     * @return array
-     */
     protected function getOptions()
     {
         return array(
@@ -85,17 +55,17 @@ class BackupCommand extends Command {
         $filename = $conn['database'] .'-'. date('Y-m-d_H-i-s') . '.sql';
         $filePath = $localPath . '/'.$filename;
 
-        $processor = new \McCool\DatabaseBackup\Processors\ShellProcessor;
+        $processor = new ShellProcessor;
 
-        return new \McCool\DatabaseBackup\Dumpers\MysqlDumper($processor, $conn['host'], 3306, $conn['username'], $conn['password'], $conn['database'], $filePath);
+        return new MysqlDumper($processor, $conn['host'], 3306, $conn['username'], $conn['password'], $conn['database'], $filePath);
     }
 
     private function getArchiver()
     {
         if ($this->option('gzip')) {
-            $processor = new \McCool\DatabaseBackup\Processors\ShellProcessor;
+            $processor = new ShellProcessor;
 
-            return new \McCool\DatabaseBackup\Archivers\GzipArchiver($processor);
+            return new GzipArchiver($processor);
         }
 
         return null;
@@ -104,7 +74,11 @@ class BackupCommand extends Command {
     private function getStorer()
     {
         if ($this->option('s3-bucket')) {
-            return new \McCool\DatabaseBackup\Storers\S3Storer($this->option('s3-bucket'), $this->option('s3-path'));
+            $awsKey    = Config::get('package::aws.key');
+            $awsSecret = Config::get('package::aws.secret');
+            $awsRegion = Config::get('package::aws.region');
+
+            return new S3Storer($awsKey, $awsSecret, $awsRegion, $this->option('s3-bucket'), $this->option('s3-path'));
         }
 
         return null;
