@@ -1,0 +1,21 @@
+{
+    "name": "mccool/laravel-artisan-backup",
+    "description": "",
+    "authors": [
+        {
+            "name": "Shawn McCool",
+            "email": "shawn@heybigname.com"
+        }
+    ],
+    "require": {
+        "php": ">=5.3.0",
+        "illuminate/support": "4.0.x",
+        "aws/aws-sdk-php-laravel": "1.*"
+    },
+    "autoload": {
+        "psr-0": {
+            "Mccool\\LaravelArtisanBackup": "src/"
+        }
+    },
+    "minimum-stability": "dev"
+}
