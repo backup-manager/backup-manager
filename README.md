@@ -51,9 +51,41 @@ A framework-agnostic database backup package.
 
 ## Laravel
 
-### Get a List of Options
+**Dump the database to app/storage/databasename_timestamp.sql**
 
-    php artisan help db:backup
+```SHELL
+php artisan db:backup
+```
+
+**Store the database to backups/databasename_timestamp.sql**
+
+```SHELL
+php artisan db:backup --local-path=backups
+```
+
+**Gzip the database.**
+
+```SHELL
+php artisan db:backup --gzip
+```
+
+**Choose a database to dump other than the default (names are configured in Laravel's config/database.php).**
+
+```SHELL
+php artisan db:backup --database=otherdatabaseconnection
+```
+
+**Upload the backup to S3**
+
+```SHELL
+php artisan db:backup --s3-bucket=whatever --s3-path=/this/is/optional/
+```
+
+**Cleanup file when we're done**
+
+```SHELL
+php artisan db:backup --s3-bucket=whatever --s3-path=/this/is/optional/ --cleanup
+```
 
 ## Native PHP
 
