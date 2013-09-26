@@ -1,4 +1,8 @@
-database-backup
+Database Backup
 ===============
 
-A database backup package.
+A framework-agnostic database backup package.
+
+## License
+
+MIT
