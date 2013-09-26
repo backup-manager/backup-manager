@@ -22,8 +22,17 @@ class S3Storer implements StorerInterface
 
         $s3->putObject(array(
             'Bucket'     => $this->bucket,
-            'Key'        => $this->getS3DumpsPath() . '/' . $this->fileName,
-            'SourceFile' => $this->filePath,
+            'Key'        => $this->getS3Path() . $this->fileName,
+            'SourceFile' => $this->filename,
         ));
+    }
+
+    private function getS3Path()
+    {
+        if ( ! preg_match("/\//$", $this->s3Path)) {
+            return $this->s3Path . '/';
+        }
+
+        return $this->s3Path;
     }
 }
