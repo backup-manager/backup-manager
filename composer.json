@@ -17,5 +17,6 @@
             "McCool\\DatabaseBackup": "src/"
         }
     },
+    "license": "MIT",
     "minimum-stability": "dev"
 }
