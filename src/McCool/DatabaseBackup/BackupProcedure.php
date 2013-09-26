@@ -10,7 +10,7 @@ class BackupProcedure
 
     private $workingFile;
 
-    public function __construct($dumper, $archiver, $storer)
+    public function __construct($dumper, $archiver = null, $storer = null)
     {
         $this->dumper   = $dumper;
         $this->archiver = $archiver;
