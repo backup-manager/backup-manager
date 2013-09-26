@@ -8,6 +8,8 @@ class BackupProcedure
     private $archiver;
     private $storer;
 
+    private $workingFile;
+
     public function __construct($dumper, $archiver, $storer)
     {
         $this->dumper   = $dumper;
@@ -17,12 +19,34 @@ class BackupProcedure
 
     public function backup()
     {
+        $this->dump();
+        $this->archive();
+        $this->store();
+    }
+
+    private function dump()
+    {
         $this->dumper->dump();
 
-        $this->archiver->setInputFilename($this->dumper->getOutputFilename());
-        $this->archiver->archive();
+        $this->workingFile = $this->dumper->getOutputFilename();
+    }
 
-        $this->storer->setInputFilename($this->archiver->getOutputFilename());
-        $this->storer->store();
+    private function archive()
+    {
+        if ($this->archiver) {
+            $this->archiver->setInputFilename($this->workingFile);
+            $this->archiver->archive();
+
+            $this->workingFile = $this->archiver->getOutputFilename();
+        }
+    }
+
+    private function store()
+    {
+        if ($this->storer) {
+            $this->storer->setInputFilename($this->workingFile);
+
+            $this->storer->store();
+        }
     }
 }
