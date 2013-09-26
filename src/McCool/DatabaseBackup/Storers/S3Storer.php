@@ -41,9 +41,9 @@ class S3Storer implements StorerInterface
     private function getS3()
     {
         return Aws::factory([
-            $this->awsKey,
-            $this->awsSecret,
-            $this->awsRegion,
+            'key'    => $this->awsKey,
+            'secret' => $this->awsSecret,
+            'region' => $this->awsRegion,
         ])->get('s3');
     }
 
