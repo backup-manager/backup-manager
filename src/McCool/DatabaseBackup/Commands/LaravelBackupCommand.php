@@ -1,21 +1,37 @@
 <?php namespace McCool\DatabaseBackup\Commands;
 
+use Config;
 use Illuminate\Console\Command;
 use Symfony\Component\Console\Input\InputOption;
 use Symfony\Component\Console\Input\InputArgument;
-use Config;
 
 use McCool\DatabaseBackup\BackupProcedure;
-use McCool\DatabaseBackup\Processors\ShellProcessor;
+use McCool\DatabaseBackup\Storers\S3Storer;
 use McCool\DatabaseBackup\Dumpers\MysqlDumper;
 use McCool\DatabaseBackup\Archivers\GzipArchiver;
-use McCool\DatabaseBackup\Storers\S3Storer;
+use McCool\DatabaseBackup\Processors\ShellProcessor;
 
 class LaravelBackupCommand extends Command
 {
+    /**
+     * The console command name.
+     *
+     * @var string
+     */
     protected $name = 'db:backup';
+
+    /**
+     * The console command description.
+     *
+     * @var string
+     */
     protected $description = 'Backup the database, optionally to S3.';
 
+    /**
+     * Execure the backup command.
+     *
+     * @return void
+     */
     public function fire()
     {
         $dumper   = $this->getDumper();
@@ -31,11 +47,21 @@ class LaravelBackupCommand extends Command
         }
     }
 
+    /**
+     * Get the console command arguments.
+     *
+     * @return array
+     */
     protected function getArguments()
     {
         return array();
     }
 
+    /**
+     * Get the console command options.
+     *
+     * @return array
+     */
     protected function getOptions()
     {
         return array(
@@ -48,9 +74,14 @@ class LaravelBackupCommand extends Command
         );
     }
 
+    /**
+     * Returns a MysqlDumper instance.
+     *
+     * @return \McCool\DatabaseBackup\Dumpers\MysqlDumper
+     */
     private function getDumper()
     {
-        // configure dumper
+        // Configure dumper.
         $connections = Config::get('database.connections');
         $connection = $this->option('database') ?: Config::get('database.default');
         $conn = $connections[$connection];
@@ -64,6 +95,11 @@ class LaravelBackupCommand extends Command
         return new MysqlDumper($processor, $conn['host'], 3306, $conn['username'], $conn['password'], $conn['database'], $filePath);
     }
 
+    /**
+     * Returns the GzipArchiver instance.
+     *
+     * @return \McCool\DatabaseBackup\Archivers\GzipArchiver|null
+     */
     private function getArchiver()
     {
         if ($this->option('gzip')) {
@@ -75,6 +111,11 @@ class LaravelBackupCommand extends Command
         return null;
     }
 
+    /**
+     * Returns the S3Storer instance.
+     *
+     * return \McCool\DatabaseBackup\Storers\S3Storer|null
+     */
     private function getStorer()
     {
         if ($this->option('s3-bucket')) {

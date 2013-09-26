@@ -4,15 +4,58 @@ use Aws\Common\Aws;
 
 class S3Storer implements StorerInterface
 {
+    /**
+     * The AWS key.
+     *
+     * @var string
+     */
     private $awsKey;
+
+    /**
+     * The AWS secret.
+     *
+     * @var string
+     */
     private $awsSecret;
+
+    /**
+     * The AWS region.
+     *
+     * @var string
+     */
     private $awsRegion;
 
+    /**
+     * The AWS S3 bucket.
+     *
+     * @var string
+     */
     private $bucket;
+
+    /**
+     * The AWS S3 path.
+     *
+     * @var string
+     */
     private $s3Path;
 
+    /**
+     * The backup filename.
+     *
+     * @var string
+     */
     private $filename;
 
+    /**
+     * Initialize the S3Storer instance.
+     *
+     * @param  string  $awsKey
+     * @param  string  $awsSecret
+     * @param  string  $awsRegion
+     * @param  string  $bucket
+     * @param  string  $s3Path
+     * @return self
+     */
     public function __construct($awsKey, $awsSecret, $awsRegion, $bucket, $s3Path)
     {
         $this->awsKey    = $awsKey;
@@ -23,11 +66,22 @@ class S3Storer implements StorerInterface
         $this->s3Path = $s3Path;
     }
 
+    /**
+     * Sets the filename for the backup.
+     *
+     * @param  string  $filename
+     * @return void
+     */
     public function setInputFilename($filename)
     {
         $this->filename = $filename;
     }
 
+    /**
+     * Stores the backup to the given storage provider.
+     *
+     * @return void
+     */
     public function store()
     {
         $this->getS3()->putObject([
@@ -38,6 +92,11 @@ class S3Storer implements StorerInterface
         ]);
     }
 
+    /**
+     * Returns the S3 client.
+     *
+     * @return \Aws\S3\S3Client
+     */
     private function getS3()
     {
         return Aws::factory([
@@ -47,6 +106,11 @@ class S3Storer implements StorerInterface
         ])->get('s3');
     }
 
+    /**
+     * Returns the S3 path.
+     *
+     * @return string
+     */
     private function getS3Path()
     {
         if ( ! preg_match("/\/$/", $this->s3Path)) {
@@ -56,6 +120,11 @@ class S3Storer implements StorerInterface
         return $this->s3Path;
     }
 
+    /**
+     * Returns the base backup filename.
+     *
+     * @return string
+     */
     private function getFilename()
     {
         return basename($this->filename);
