@@ -8,42 +8,44 @@ A framework-agnostic database backup package.
 ## Laravel
 
 1. add to composer.json
-
-    "mccool/database-backup": "dev-master"
+```JSON
+"mccool/database-backup": "dev-master"
+```
 
 2. install dependency
-
-    composer update
-
+```SHELL
+composer update
+```
 3. install configuration file
-
-    php artisan config:publish mccool/database-backup
-
+```SHELL
+php artisan config:publish mccool/database-backup
+```
 4. add service provider to config/app.php
-
-    'McCool\DatabaseBackup\ServiceProviders\LaravelServiceProvider',
-
+```PHP
+'McCool\DatabaseBackup\ServiceProviders\LaravelServiceProvider',
+```
 5. add key / secret to the config file in ```app/config/packages/mccool/database-backup/aws.php```
 
 ## Native PHP
 
 1. add to composer.json
-
-    "mccool/database-backup": "dev-master"
-
+```JSON
+"mccool/database-backup": "dev-master"
+```
 2. install dependency
-
-    composer update
-
+```SHELL
+composer update
+```
 3. make sure that your app requires the composer autoloader
-
-    require '../vendor/autoload.php';
+```PHP
+require '../vendor/autoload.php';
+```
 
 # Usage
 
 ## Laravel
 
-**Get a List of Options**
+### Get a List of Options
 
     php artisan help db:backup
 
