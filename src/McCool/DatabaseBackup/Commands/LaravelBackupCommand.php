@@ -8,7 +8,6 @@ use Symfony\Component\Console\Input\InputArgument;
 use McCool\DatabaseBackup\BackupProcedure;
 use McCool\DatabaseBackup\Storers\S3Storer;
 use McCool\DatabaseBackup\Dumpers\MysqlDumper;
-use McCool\DatabaseBackup\Archivers\GzipArchiver;
 use McCool\DatabaseBackup\Processors\ShellProcessor;
 
 class LaravelBackupCommand extends Command
@@ -110,7 +109,7 @@ class LaravelBackupCommand extends Command
     private function getArchiver()
     {
         if ($this->option('gzip')) {
-            return App::make('McCool\DatabaseBackup\Archivers\GzipArchiver');
+            return App::make('databasebackup.gziparchiver');
         }
 
         return null;

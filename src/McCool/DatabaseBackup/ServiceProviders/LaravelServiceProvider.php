@@ -1,9 +1,12 @@
 <?php namespace McCool\DatabaseBackup\ServiceProviders;
 
 use Illuminate\Support\ServiceProvider;
-use McCool\DatabaseBackup\Commands\LaravelBackupCommand;
-use Aws\Common\Aws;
 use App, Config;
+
+use McCool\DatabaseBackup\Commands\LaravelBackupCommand;
+use McCool\DatabaseBackup\Archivers\GzipArchiver;
+use McCool\DatabaseBackup\Processors\ShellProcessor;
+use Aws\Common\Aws;
 
 class LaravelServiceProvider extends ServiceProvider
 {
@@ -37,5 +40,8 @@ class LaravelServiceProvider extends ServiceProvider
             ])->get('s3');
         });
 
+        App::bind('databasebackup.gziparchiver', function($app) {
+            return new GzipArchiver(new ShellProcessor);
+        });
     }
 }
