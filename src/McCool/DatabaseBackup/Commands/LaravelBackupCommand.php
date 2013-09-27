@@ -110,7 +110,7 @@ class LaravelBackupCommand extends Command
     private function getArchiver()
     {
         if ($this->option('gzip')) {
-            return App::make('McCool\DatabaseBackups\Archivers\GzipArchiver');
+            return App::make('McCool\DatabaseBackup\Archivers\GzipArchiver');
         }
 
         return null;
