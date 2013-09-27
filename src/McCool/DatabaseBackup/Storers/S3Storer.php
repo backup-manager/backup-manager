@@ -1,7 +1,5 @@
 <?php namespace McCool\DatabaseBackup\Storers;
 
-use Aws\Common\Aws;
-
 class S3Storer implements StorerInterface
 {
     /**

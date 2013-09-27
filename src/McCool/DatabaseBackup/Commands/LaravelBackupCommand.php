@@ -11,6 +11,8 @@ use McCool\DatabaseBackup\Dumpers\MysqlDumper;
 use McCool\DatabaseBackup\Archivers\GzipArchiver;
 use McCool\DatabaseBackup\Processors\ShellProcessor;
 
+use Aws\Common\Aws;
+
 class LaravelBackupCommand extends Command
 {
     /**
