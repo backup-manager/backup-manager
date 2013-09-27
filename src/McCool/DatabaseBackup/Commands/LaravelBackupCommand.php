@@ -1,6 +1,5 @@
 <?php namespace McCool\DatabaseBackup\Commands;
 
-use App, Config;
 use Illuminate\Console\Command;
 use Symfony\Component\Console\Input\InputOption;
 use Symfony\Component\Console\Input\InputArgument;
@@ -86,16 +85,16 @@ class LaravelBackupCommand extends Command
      */
     private function getDumper()
     {
-        // Configure dumper.
-        $connections = Config::get('database.connections');
-        $connection = $this->option('database') ?: Config::get('database.default');
+        // Create the dumper.
+        $connections = $this->laravel['config']->get('database.connections');
+        $connection = $this->option('database') ?: $this->laravel['config']->get('database.default');
         $conn = $connections[$connection];
 
         $localPath = $this->option('local-path') ?: storage_path() . '/dumps';
         $filename = $conn['database'] .'-'. date('Y-m-d_H-i-s') . '.sql';
         $filePath = $localPath . '/'.$filename;
 
-        $processor = App::make('databasebackup.processors.shellprocessor');
+        $processor = $this->laravel->make('databasebackup.processors.shellprocessor');
 
         return new MysqlDumper($processor, $conn['host'], 3306, $conn['username'], $conn['password'], $conn['database'], $filePath);
     }
@@ -108,7 +107,7 @@ class LaravelBackupCommand extends Command
     private function getArchiver()
     {
         if ($this->option('gzip')) {
-            return App::make('databasebackup.archivers.gziparchiver');
+            return $this->laravel->make('databasebackup.archivers.gziparchiver');
         }
 
         return null;
@@ -122,7 +121,7 @@ class LaravelBackupCommand extends Command
     private function getStorer()
     {
         if ($this->option('s3-bucket')) {
-            return new S3Storer(App::make('databasebackup.s3client'), $this->option('s3-bucket'), $this->option('s3-path'));
+            return new S3Storer($this->laravel->make('databasebackup.s3client'), $this->option('s3-bucket'), $this->option('s3-path'));
         }
 
         return null;
