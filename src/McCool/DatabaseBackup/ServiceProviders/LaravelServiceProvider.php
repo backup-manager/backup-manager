@@ -1,7 +1,6 @@
 <?php namespace McCool\DatabaseBackup\ServiceProviders;
 
 use Illuminate\Support\ServiceProvider;
-use App, Config;
 
 use McCool\DatabaseBackup\Commands\LaravelBackupCommand;
 use McCool\DatabaseBackup\Archivers\GzipArchiver;
@@ -29,24 +28,24 @@ class LaravelServiceProvider extends ServiceProvider
      */
     public function register()
     {
-        App::bind('databasebackup.backupcommand', function($app) {
+        $this->app->bind('databasebackup.backupcommand', function($app) {
             return new LaravelBackupCommand();
         });
         $this->commands('databasebackup.backupcommand');
 
-        App::bind('databasebackup.s3client', function($app) {
+        $this->app->bind('databasebackup.s3client', function($app) {
             return Aws::factory([
-                'key'    => Config::get('aws.key'),
-                'secret' => Config::get('aws.secret'),
-                'region' => Config::get('aws.region'),
+                'key'    => $app['config']->get('aws.key'),
+                'secret' => $app['config']->get('aws.secret'),
+                'region' => $app['config']->get('aws.region'),
             ])->get('s3');
         });
 
-        App::bind('databasebackup.archivers.gziparchiver', function($app) {
+        $this->app->bind('databasebackup.archivers.gziparchiver', function($app) {
             return new GzipArchiver(new ShellProcessor(new Process('')));
         });
 
-        App::bind('databasebackup.processors.shellprocessor', function($app) {
+        $this->app->bind('databasebackup.processors.shellprocessor', function($app) {
             return new ShellProcessor(new Process(''));
         });
     }
