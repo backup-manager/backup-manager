@@ -43,7 +43,7 @@ class LaravelServiceProvider extends ServiceProvider
         });
 
         App::bind('databasebackup.archivers.gziparchiver', function($app) {
-            return new GzipArchiver(new ShellProcessor);
+            return new GzipArchiver(new ShellProcessor(new Process('')));
         });
 
         App::bind('databasebackup.processors.shellprocessor', function($app) {
