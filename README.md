@@ -6,7 +6,8 @@ A framework-agnostic database backup package.
 Be aware that this package uses ```mysqldump``` for MySQL backups.
 
 # Requirements
-    * 5.4 (would openly accept pull requests to lower to 5.3)
+
+* 5.4 (would openly accept pull requests to lower to 5.3)
 
 # Installation
 
