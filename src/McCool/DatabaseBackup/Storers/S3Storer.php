@@ -7,28 +7,28 @@ class S3Storer implements StorerInterface
      *
      * @var string
      */
-    private $s3Client;
+    protected $s3Client;
 
     /**
      * The AWS S3 bucket.
      *
      * @var string
      */
-    private $bucket;
+    protected $bucket;
 
     /**
      * The AWS S3 path.
      *
      * @var string
      */
-    private $s3Path;
+    protected $s3Path;
 
     /**
      * The backup filename.
      *
      * @var string
      */
-    private $filename;
+    protected $filename;
 
     /**
      * Initialize the S3Storer instance.
@@ -76,7 +76,7 @@ class S3Storer implements StorerInterface
      *
      * @return string
      */
-    private function getS3Path()
+    protected function getS3Path()
     {
         if ( ! preg_match("/\/$/", $this->s3Path)) {
             return $this->s3Path . '/';
@@ -90,7 +90,7 @@ class S3Storer implements StorerInterface
      *
      * @return string
      */
-    private function getFilename()
+    protected function getFilename()
     {
         return basename($this->filename);
     }

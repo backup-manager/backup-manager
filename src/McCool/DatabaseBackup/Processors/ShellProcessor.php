@@ -9,7 +9,7 @@ class ShellProcessor implements ProcessorInterface
      *
      * @var \Symfony\Component\Process\Process
      */
-    private $process;
+    protected $process;
 
     public function __construct(Process $process)
     {

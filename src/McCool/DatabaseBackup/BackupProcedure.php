@@ -11,28 +11,28 @@ class BackupProcedure
      *
      * @var \McCool\DatabaseBackup\Dumpers\DumperInterface
      */
-    private $dumper;
+    protected $dumper;
 
     /**
      * The Backup Archiver instance.
      *
      * @var \McCool\DatabaseBackup\Archivers\ArchiverInterface
      */
-    private $archiver;
+    protected $archiver;
 
     /**
      * The Backup Storer instance.
      *
      * @var \McCool\DatabaseBackup\Storers\StorerInterface
      */
-    private $storer;
+    protected $storer;
 
     /**
      * The filename for the working file.
      *
      * @var string
      */
-    private $workingFile;
+    protected $workingFile;
 
     /**
      * Initializes the BackupProcedure instance.
@@ -96,7 +96,7 @@ class BackupProcedure
      *
      * @return void
      */
-    private function dump()
+    protected function dump()
     {
         $this->dumper->dump();
 
@@ -108,7 +108,7 @@ class BackupProcedure
      *
      * @return void
      */
-    private function archive()
+    protected function archive()
     {
         if ($this->archiver) {
             $this->archiver->setInputFilename($this->workingFile);
@@ -123,7 +123,7 @@ class BackupProcedure
      *
      * return void
      */
-    private function store()
+    protected function store()
     {
         if ($this->storer) {
             $this->storer->setInputFilename($this->workingFile);

@@ -10,49 +10,49 @@ class MysqlDumper implements DumperInterface
      *
      * @var \McCool\DatabaseBackup\Processors\ProcessorInterface
      */
-    private $processor;
+    protected $processor;
 
     /**
      * The database host.
      *
      * @var string
      */
-    private $host;
+    protected $host;
 
     /**
      * The database port number.
      *
      * @var string
      */
-    private $port;
+    protected $port;
 
     /**
      * The database username.
      *
      * @var string
      */
-    private $username;
+    protected $username;
 
     /**
      * The database password.
      *
      * @var string
      */
-    private $password;
+    protected $password;
 
     /**
      * The database name.
      *
      * @var string
      */
-    private $database;
+    protected $database;
 
     /**
      * The backup filename.
      *
      * @var string
      */
-    private $destinationPath;
+    protected $destinationPath;
 
     /**
      * Initializes the MysqlDumper instance.
@@ -102,7 +102,7 @@ class MysqlDumper implements DumperInterface
      * @return void
      * @throws \McCool\DatabaseBackup\Processors\ProcessorException
      */
-    private function process()
+    protected function process()
     {
         $this->processor->process($this->getCommand());
 
@@ -116,7 +116,7 @@ class MysqlDumper implements DumperInterface
      *
      * @return string
      */
-    private function getCommand()
+    protected function getCommand()
     {
         return sprintf('mysqldump --host=%s --port=%s --user=%s --password=%s %s > %s',
             escapeshellarg($this->host),

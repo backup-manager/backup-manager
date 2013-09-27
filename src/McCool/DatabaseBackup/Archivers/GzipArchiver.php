@@ -10,14 +10,14 @@ class GzipArchiver implements ArchiverInterface
      *
      * @var \McCool\DatabaseBackup\Processors\ProcessorInterface
      */
-    private $processor;
+    protected $processor;
 
     /**
      * The backup filename.
      *
      * @var string
      */
-    private $filename;
+    protected $filename;
 
     /**
      * Initializes the GzipArchiver instance.
@@ -74,7 +74,7 @@ class GzipArchiver implements ArchiverInterface
      *
      * @return string
      */
-    private function getCommand()
+    protected function getCommand()
     {
         return "gzip {$this->filename}";
     }
