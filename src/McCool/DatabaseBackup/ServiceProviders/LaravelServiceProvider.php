@@ -2,6 +2,8 @@
 
 use Illuminate\Support\ServiceProvider;
 use McCool\DatabaseBackup\Commands\LaravelBackupCommand;
+use Aws\Common\Aws;
+use App, Config;
 
 class LaravelServiceProvider extends ServiceProvider
 {
@@ -22,10 +24,18 @@ class LaravelServiceProvider extends ServiceProvider
      */
     public function register()
     {
-        $this->app['databasebackup.backupcommand'] = $this->app->share(function($app) {
+        App::bind('databasebackup.backupcommand', function($app) {
             return new LaravelBackupCommand();
         });
-
         $this->commands('databasebackup.backupcommand');
+
+        App::bind('databasebackup.s3client', function($app) {
+            return Aws::factory([
+                'key'    => Config::get('aws.key'),
+                'secret' => Config::get('aws.secret'),
+                'region' => Config::get('aws.region'),
+            ])->get('s3');
+        });
+
     }
 }

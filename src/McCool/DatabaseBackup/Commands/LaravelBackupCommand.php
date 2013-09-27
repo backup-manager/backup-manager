@@ -1,6 +1,6 @@
 <?php namespace McCool\DatabaseBackup\Commands;
 
-use Config;
+use App, Config;
 use Illuminate\Console\Command;
 use Symfony\Component\Console\Input\InputOption;
 use Symfony\Component\Console\Input\InputArgument;
@@ -10,8 +10,6 @@ use McCool\DatabaseBackup\Storers\S3Storer;
 use McCool\DatabaseBackup\Dumpers\MysqlDumper;
 use McCool\DatabaseBackup\Archivers\GzipArchiver;
 use McCool\DatabaseBackup\Processors\ShellProcessor;
-
-use Aws\Common\Aws;
 
 class LaravelBackupCommand extends Command
 {
@@ -112,9 +110,7 @@ class LaravelBackupCommand extends Command
     private function getArchiver()
     {
         if ($this->option('gzip')) {
-            $processor = new ShellProcessor;
-
-            return new GzipArchiver($processor);
+            return App::make('McCool\DatabaseBackups\Archivers\GzipArchiver');
         }
 
         return null;
@@ -128,13 +124,7 @@ class LaravelBackupCommand extends Command
     private function getStorer()
     {
         if ($this->option('s3-bucket')) {
-            $s3Client = Aws::factory([
-                'key'    => Config::get('aws.key'),
-                'secret' => Config::get('aws.secret'),
-                'region' => Config::get('aws.region'),
-            ])->get('s3');
-
-            return new S3Storer($s3Client, $this->option('s3-bucket'), $this->option('s3-path'));
+            return new S3Storer(App::make('databasebackup.s3client'), $this->option('s3-bucket'), $this->option('s3-path'));
         }
 
         return null;
