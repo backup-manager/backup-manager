@@ -85,20 +85,28 @@ class LaravelBackupCommand extends Command
      */
     protected function getDumper()
     {
-        // Create the dumper.
+        // laravel config
         $connections = $this->laravel['config']->get('database.connections');
         $connection = $this->option('database') ?: $this->laravel['config']->get('database.default');
         $conn = $connections[$connection];
 
+        // file path
         $storagePath = $this->laravel['path.storage'];
-
         $localPath = $this->option('local-path') ?: $storagePath . '/dumps';
         $filename = $conn['database'] .'-'. date('Y-m-d_H-i-s') . '.sql';
         $filePath = $localPath . '/'.$filename;
 
-        $processor = $this->laravel->make('databasebackup.processors.shellprocessor');
+        // dumper config
+        $config = [
+            'host'     => $conn['host'],
+            'port'     => 3306,
+            'username' => $conn['username'],
+            'password' => $conn['password'],
+            'database' => $conn['database'],
+            'filePath' => $filePath,
+        ];
 
-        return new MysqlDumper($processor, $conn['host'], 3306, $conn['username'], $conn['password'], $conn['database'], $filePath);
+        return $this->laravel->make('databasebackup.dumpers.mysqldumper', $config);
     }
 
     /**
@@ -123,7 +131,10 @@ class LaravelBackupCommand extends Command
     protected function getStorer()
     {
         if ($this->option('s3-bucket')) {
-            return new S3Storer($this->laravel->make('databasebackup.s3client'), $this->option('s3-bucket'), $this->option('s3-path'));
+            return $this->laravel->make('databasebackup.storers.s3storer', [
+                's3-bucket' => $this->option('s3-bucket'),
+                's3-path'   => $this->option('s3-path'),
+            ]);
         }
 
         return null;

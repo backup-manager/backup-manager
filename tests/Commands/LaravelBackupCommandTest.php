@@ -21,36 +21,85 @@ class LaravelBackupCommandTest extends \PHPUnit_Framework_TestCase
 
     public function testCanDump()
     {
-        // @todo - move mysqldumper stuff into the service provider so that I can mock it out
-        $this->runCommand();
+        $app = $this->getApp();
+
+        // ensure that dumper is called
+        $dumper = m::mock('McCool\DatabaseBackup\Dumpers\MysqlDumper');
+        $dumper->shouldReceive('getOutputFilename');
+        $dumper->shouldReceive('dump')->once();
+        $app['databasebackup.dumpers.mysqldumper'] = $dumper;
+
+        // prepare
+        $command = $this->getCommand();
+        $command->setLaravel($app);
+
+        // run
+        $this->runCommand($command, ['gzip' => true]);
     }
 
-    private function runCommand()
+    public function testCanDumpAndArchive()
     {
-        $command = $this->getCommand();
+        $app = $this->getApp();
 
+        // ensure that dumper is called
+        $dumper = m::mock('McCool\DatabaseBackup\Dumpers\DumperInterface');
+        $dumper->shouldReceive('getOutputFilename');
+        $dumper->shouldReceive('dump')->once();
+        $app['databasebackup.dumpers.mysqldumper'] = $dumper;
+
+        // ensure that archiver is called
+        $archiver = m::mock('McCool\DatabaseBackup\Archivers\ArchiverInterface');
+        $archiver->shouldReceive('getOutputFilename');
+        $archiver->shouldReceive('archive')->once();
+        $app['databasebackup.archivers.gziparchiver'] = $archiver;
+
+        // prepare
+        $command = $this->getCommand();
+        $command->setLaravel($app);
+
+        // run
+        $this->runCommand($command);
+    }
+
+    private function runCommand($command, $options = [])
+    {
         $input = m::mock('Symfony\Component\Console\Input\InputInterface');
         $input->shouldReceive('bind', 'isInteractive', 'validate');
-        $input->shouldReceive('getOption');
+
+        $defaultOptions = [
+            'database'   => false,
+            'local-path' => false,
+            's3-bucket'  => false,
+            'cleanup'    => false,
+            'gzip'       => false,
+        ];
+
+        $options = array_merge($defaultOptions, $options);
+
+        foreach ($options as $key => $value) {
+            $input->shouldReceive('getOption')->with($key)->andReturn($value);
+        }
 
         $output = m::mock('Symfony\Component\Console\Output\OutputInterface');
 
         $command->run($input, $output);
     }
 
-    private function getCommand()
+    private function getCommand($options = [], $arguments = [])
     {
         date_default_timezone_set('UTC');
 
         $helperSet = new Symfony\Component\Console\Helper\HelperSet;
-        $definition = new Symfony\Component\Console\Input\InputDefinition;
+
+        $input = m::mock('Symfony\Component\Console\Input\InputDefinition');
+        $input->shouldReceive('getOptions')->andReturn($options);
+        $input->shouldReceive('getArguments')->andReturn($arguments);
 
         $consoleApplication = m::mock('Symfony\Component\Console\Application');
         $consoleApplication->shouldReceive('getHelperSet')->andReturn($helperSet);
-        $consoleApplication->shouldReceive('getDefinition')->andReturn($definition);
+        $consoleApplication->shouldReceive('getDefinition')->andReturn($input);
 
         $command = new LaravelBackupCommand;
-        $command->setLaravel($this->getApp());
         $command->setApplication($consoleApplication);
 
         return $command;
@@ -60,6 +109,7 @@ class LaravelBackupCommandTest extends \PHPUnit_Framework_TestCase
     {
         $app = $this->getContainer();
 
+        // mock out laravel environment configuration
         $app['files'] = m::mock();
         $app['files']->shouldReceive('isDirectory');
 
@@ -72,6 +122,7 @@ class LaravelBackupCommandTest extends \PHPUnit_Framework_TestCase
         $app['path'] = "path";
         $app['path.storage'] = "storage path";
 
+        // register ioc bindings
         $provider = new LaravelServiceProvider($app);
         $provider->register();
 

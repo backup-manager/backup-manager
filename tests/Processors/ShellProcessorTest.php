@@ -13,9 +13,9 @@ class ShellProcessorTest extends \PHPUnit_Framework_TestCase
     public function testShellProcessor()
     {
         // for some reason a regular mock is crashing my php5-cli
-        $process = m::mock('alias:Symfony\Component\Process\Process');
+        $process = m::mock('Symfony\Component\Process\Process');
+        $process->shouldReceive('run', 'stop');
         $process->shouldReceive('setCommandLine')->with('test command');
-        $process->shouldReceive('run');
         $process->shouldReceive('getErrorOutput')->andReturn('no errors');
 
         $processor = new ShellProcessor($process);

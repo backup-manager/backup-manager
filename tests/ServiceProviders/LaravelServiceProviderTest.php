@@ -74,6 +74,36 @@ class LaravelServiceProviderTest extends \PHPUnit_Framework_TestCase
         $this->assertInstanceOf('McCool\DatabaseBackup\Processors\ShellProcessor', $app->make('databasebackup.processors.shellprocessor'));
     }
 
+    public function testCanCreateS3Storer()
+    {
+        $app = $this->getApp();
+
+        $provider = new LaravelServiceProvider($app);
+        $provider->register();
+
+        $s3Config = ['s3-bucket' => 'bucket', 's3-path' => 'path'];
+        $this->assertInstanceOf('McCool\DatabaseBackup\Storers\S3Storer', $app->make('databasebackup.storers.s3storer', $s3Config));
+    }
+
+    public function testCanCreateMysqlDumper()
+    {
+        $app = $this->getApp();
+
+        $provider = new LaravelServiceProvider($app);
+        $provider->register();
+
+        $dumperConfig = [
+            'host'     => 'bucket',
+            'port'     => 3306,
+            'username' => 'username',
+            'password' => 'password',
+            'database' => 'database',
+            'filePath' => 'filePath',
+        ];
+
+        $this->assertInstanceOf('McCool\DatabaseBackup\Dumpers\MysqlDumper', $app->make('databasebackup.dumpers.mysqldumper', $dumperConfig));
+    }
+
     private function getApp()
     {
         $app = $this->getContainer();
