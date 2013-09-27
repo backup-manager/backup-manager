@@ -6,6 +6,8 @@ use App, Config;
 use McCool\DatabaseBackup\Commands\LaravelBackupCommand;
 use McCool\DatabaseBackup\Archivers\GzipArchiver;
 use McCool\DatabaseBackup\Processors\ShellProcessor;
+
+use Symfony\Component\Process\Process;
 use Aws\Common\Aws;
 
 class LaravelServiceProvider extends ServiceProvider
@@ -40,8 +42,12 @@ class LaravelServiceProvider extends ServiceProvider
             ])->get('s3');
         });
 
-        App::bind('databasebackup.gziparchiver', function($app) {
+        App::bind('databasebackup.archivers.gziparchiver', function($app) {
             return new GzipArchiver(new ShellProcessor);
+        });
+
+        App::bind('databasebackup.processors.shellprocessor', function($app) {
+            return new ShellProcessor(new Process(''));
         });
     }
 }

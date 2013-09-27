@@ -95,7 +95,7 @@ class LaravelBackupCommand extends Command
         $filename = $conn['database'] .'-'. date('Y-m-d_H-i-s') . '.sql';
         $filePath = $localPath . '/'.$filename;
 
-        $processor = App::make('McCool\DatabaseBackup\Processors\ShellProcessor');
+        $processor = App::make('databasebackup.processors.shellprocessor');
 
         return new MysqlDumper($processor, $conn['host'], 3306, $conn['username'], $conn['password'], $conn['database'], $filePath);
     }
@@ -108,7 +108,7 @@ class LaravelBackupCommand extends Command
     private function getArchiver()
     {
         if ($this->option('gzip')) {
-            return App::make('databasebackup.gziparchiver');
+            return App::make('databasebackup.archivers.gziparchiver');
         }
 
         return null;
