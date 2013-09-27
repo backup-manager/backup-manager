@@ -14,6 +14,8 @@ class LaravelServiceProviderTest extends \PHPUnit_Framework_TestCase
     public function testCanCreate()
     {
         $provider = new LaravelServiceProvider($this->getContainer());
+
+        $this->assertInstanceOf('McCool\DatabaseBackup\ServiceProviders\LaravelServiceProvider', $provider);
     }
 
     public function testCanBoot()

@@ -83,14 +83,16 @@ class LaravelBackupCommand extends Command
      *
      * @return \McCool\DatabaseBackup\Dumpers\MysqlDumper
      */
-    private function getDumper()
+    protected function getDumper()
     {
         // Create the dumper.
         $connections = $this->laravel['config']->get('database.connections');
         $connection = $this->option('database') ?: $this->laravel['config']->get('database.default');
         $conn = $connections[$connection];
 
-        $localPath = $this->option('local-path') ?: storage_path() . '/dumps';
+        $storagePath = $this->laravel['path.storage'];
+
+        $localPath = $this->option('local-path') ?: $storagePath . '/dumps';
         $filename = $conn['database'] .'-'. date('Y-m-d_H-i-s') . '.sql';
         $filePath = $localPath . '/'.$filename;
 
@@ -104,7 +106,7 @@ class LaravelBackupCommand extends Command
      *
      * @return \McCool\DatabaseBackup\Archivers\GzipArchiver|null
      */
-    private function getArchiver()
+    protected function getArchiver()
     {
         if ($this->option('gzip')) {
             return $this->laravel->make('databasebackup.archivers.gziparchiver');
@@ -118,7 +120,7 @@ class LaravelBackupCommand extends Command
      *
      * return \McCool\DatabaseBackup\Storers\S3Storer|null
      */
-    private function getStorer()
+    protected function getStorer()
     {
         if ($this->option('s3-bucket')) {
             return new S3Storer($this->laravel->make('databasebackup.s3client'), $this->option('s3-bucket'), $this->option('s3-path'));
