@@ -4,9 +4,10 @@ Database Backup
 A framework-agnostic database backup package.
 
 Drivers: At this moment the package supports MySQL, gzip, and Amazon S3. However, it's modular and could be extended to support much more.
+
 Frameworks: This package doesn't require a framework, but a Laravel service provider and Artisan command are made available for convenience.
 
-Be aware that this package uses ```mysqldump``` for MySQL backups.
+Note: be aware that this package uses ```mysqldump``` for MySQL backups.
 
 # Example
 
