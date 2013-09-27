@@ -115,14 +115,16 @@ php artisan db:backup --s3-bucket=whatever --s3-path=/this/is/optional/ --cleanu
 require '../vendor/autoload.php';
 
 // dump the database to backup/test.sql
-$dumper = new McCool\DatabaseBackup\Dumpers\MysqlDumper(new McCool\DatabaseBackup\Processors\ShellProcessor, 'localhost', 3306, 'username', 'password', 'test_db', 'backup/test.sql');
+$shellProcessor = new McCool\DatabaseBackup\Processors\ShellProcessor(new Symfony\Component\Process\Process(''));
+$dumper = new McCool\DatabaseBackup\Dumpers\MysqlDumper($shellProcessor, 'localhost', 3306, 'username', 'password', 'test_db', 'backup/test.sql');
 
 $backup = new McCool\DatabaseBackup\BackupProcedure($dumper);
 $backup->backup();
 
 // dump the database to backup/test.sql and gzip it
-$dumper   = new McCool\DatabaseBackup\Dumpers\MysqlDumper(new McCool\DatabaseBackup\Processors\ShellProcessor, 'localhost', 3306, 'username', 'password', 'test_db', 'backup/test.sql');
-$archiver = new McCool\DatabaseBackup\Archivers\GzipArchiver(new McCool\DatabaseBackup\Processors\ShellProcessor);
+$shellProcessor = new McCool\DatabaseBackup\Processors\ShellProcessor(new Symfony\Component\Process\Process(''));
+$dumper   = new McCool\DatabaseBackup\Dumpers\MysqlDumper($shellProcessor, 'localhost', 3306, 'username', 'password', 'test_db', 'backup/test.sql');
+$archiver = new McCool\DatabaseBackup\Archivers\GzipArchiver($shellProcessor);
 
 $backup = new McCool\DatabaseBackup\BackupProcedure($dumper);
 $backup->setArchiver($archiver);
@@ -130,8 +132,9 @@ $backup->setArchiver($archiver);
 $backup->backup();
 
 // dump the database to backup/test.sql, gzip it, upload it to S3, and clean up after ourselves
-$dumper   = new McCool\DatabaseBackup\Dumpers\MysqlDumper(new McCool\DatabaseBackup\Processors\ShellProcessor, 'localhost', 3306, 'username', 'password', 'test_db', 'backup/test.sql');
-$archiver = new McCool\DatabaseBackup\Archivers\GzipArchiver(new McCool\DatabaseBackup\Processors\ShellProcessor);
+$shellProcessor = new McCool\DatabaseBackup\Processors\ShellProcessor(new Symfony\Component\Process\Process(''));
+$dumper   = new McCool\DatabaseBackup\Dumpers\MysqlDumper($shellProcessor, 'localhost', 3306, 'username', 'password', 'test_db', 'backup/test.sql');
+$archiver = new McCool\DatabaseBackup\Archivers\GzipArchiver($shellProcessor);
 $storer   = new McCool\DatabaseBackup\Storers\S3Storer($awsKey, $awsSecret, 'us-east-1', $bucket, $s3Path);
 
 $backup = new McCool\DatabaseBackup\BackupProcedure($dumper);
