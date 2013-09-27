@@ -34,10 +34,25 @@ class LaravelBackupCommandTest extends \PHPUnit_Framework_TestCase
         $command->setLaravel($app);
 
         // run
-        $this->runCommand($command, ['gzip' => true]);
+        $this->runCommand($command);
     }
 
-    public function testCanDumpAndArchive()
+    public function testCanChooseDbConfig()
+    {
+
+    }
+
+    public function testGetDefaultDbConfig()
+    {
+
+    }
+
+    public function testCanChangeLocalPath()
+    {
+
+    }
+
+    public function testCanArchive()
     {
         $app = $this->getApp();
 
@@ -49,7 +64,7 @@ class LaravelBackupCommandTest extends \PHPUnit_Framework_TestCase
 
         // ensure that archiver is called
         $archiver = m::mock('McCool\DatabaseBackup\Archivers\ArchiverInterface');
-        $archiver->shouldReceive('getOutputFilename');
+        $archiver->shouldReceive('getOutputFilename', 'setInputFilename');
         $archiver->shouldReceive('archive')->once();
         $app['databasebackup.archivers.gziparchiver'] = $archiver;
 
@@ -58,7 +73,35 @@ class LaravelBackupCommandTest extends \PHPUnit_Framework_TestCase
         $command->setLaravel($app);
 
         // run
-        $this->runCommand($command);
+        $this->runCommand($command, ['gzip' => true]);
+    }
+
+    public function testCanStore()
+    {
+        $app = $this->getApp();
+
+        // ensure that dumper is called
+        $dumper = m::mock('McCool\DatabaseBackup\Dumpers\DumperInterface');
+        $dumper->shouldReceive('getOutputFilename');
+        $dumper->shouldReceive('dump')->once();
+        $app['databasebackup.dumpers.mysqldumper'] = $dumper;
+
+        // ensure that storer is called
+        $storer = m::mock('McCool\DatabaseBackup\Storers\StorerInterface');
+        $storer->shouldReceive('getOutputFilename', 'setInputFilename');
+        $storer->shouldReceive('store')->once();
+        $app['databasebackup.storers.s3storer'] = $storer;
+
+        // prepare
+        $command = $this->getCommand();
+        $command->setLaravel($app);
+
+        // run
+        $this->runCommand($command, ['s3-bucket' => 'bucket', 's3-path' => 'path']);
+    }
+
+    public function testCanCleanup()
+    {
     }
 
     private function runCommand($command, $options = [])
