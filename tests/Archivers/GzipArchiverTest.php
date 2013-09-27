@@ -22,4 +22,17 @@ class GzipArchiverTest extends \PHPUnit_Framework_TestCase
 
         $this->assertEquals('test.sql.gz', $archiver->getOutputFilename());
     }
+
+    /**
+     * @expectedException McCool\DatabaseBackup\Processors\ProcessorException
+     */
+    public function testThrowsExceptionOnError()
+    {
+        $processor = m::mock('McCool\DatabaseBackup\Processors\ProcessorInterface');
+        $processor->shouldReceive('process');
+        $processor->shouldReceive('getErrors')->andReturn(true);
+
+        $archiver  = new \McCool\DatabaseBackup\Archivers\GzipArchiver($processor);
+        $archiver->archive();
+    }
 }

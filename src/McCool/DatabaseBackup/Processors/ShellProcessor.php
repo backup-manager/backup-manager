@@ -11,6 +11,11 @@ class ShellProcessor implements ProcessorInterface
      */
     private $process;
 
+    public function __construct(Process $process)
+    {
+        $this->process = $process;
+    }
+
     /**
      * Executes the given command.
      *
@@ -19,7 +24,7 @@ class ShellProcessor implements ProcessorInterface
      */
     public function process($command)
     {
-        $this->process = new Process($command);
+        $this->process->setCommandLine($command);
         $this->process->run();
     }
 
@@ -30,8 +35,6 @@ class ShellProcessor implements ProcessorInterface
      */
     public function getErrors()
     {
-        if ( ! isset($this->process)) return null;
-
         return $this->process->getErrorOutput();
     }
 }
