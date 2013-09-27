@@ -109,7 +109,9 @@ $backup->backup();
 $dumper   = new McCool\DatabaseBackup\Dumpers\MysqlDumper(new McCool\DatabaseBackup\Processors\ShellProcessor, 'localhost', 3306, 'username', 'password', 'test_db', 'backup/test.sql');
 $archiver = new McCool\DatabaseBackup\Archivers\GzipArchiver(new McCool\DatabaseBackup\Processors\ShellProcessor);
 
-$backup = new McCool\DatabaseBackup\BackupProcedure($dumper, $archiver);
+$backup = new McCool\DatabaseBackup\BackupProcedure($dumper);
+$backup->setArchiver($archiver);
+
 $backup->backup();
 
 // dump the database to backup/test.sql, gzip it, upload it to S3, and clean up after ourselves
@@ -117,7 +119,10 @@ $dumper   = new McCool\DatabaseBackup\Dumpers\MysqlDumper(new McCool\DatabaseBac
 $archiver = new McCool\DatabaseBackup\Archivers\GzipArchiver(new McCool\DatabaseBackup\Processors\ShellProcessor);
 $storer   = new McCool\DatabaseBackup\Storers\S3Storer($awsKey, $awsSecret, 'us-east-1', $bucket, $s3Path);
 
-$backup = new McCool\DatabaseBackup\BackupProcedure($dumper, $archiver, $storer);
+$backup = new McCool\DatabaseBackup\BackupProcedure($dumper);
+$backup->setArchiver($archiver);
+$backup->setStorer($storer);
+
 $backup->backup();
 $backup->cleanup();
 ```

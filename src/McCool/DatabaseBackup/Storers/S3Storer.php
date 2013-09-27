@@ -5,25 +5,11 @@ use Aws\Common\Aws;
 class S3Storer implements StorerInterface
 {
     /**
-     * The AWS key.
+     * The AWS S3 client instance.
      *
      * @var string
      */
-    private $awsKey;
-
-    /**
-     * The AWS secret.
-     *
-     * @var string
-     */
-    private $awsSecret;
-
-    /**
-     * The AWS region.
-     *
-     * @var string
-     */
-    private $awsRegion;
+    private $s3Client;
 
     /**
      * The AWS S3 bucket.
@@ -49,21 +35,16 @@ class S3Storer implements StorerInterface
     /**
      * Initialize the S3Storer instance.
      *
-     * @param  string  $awsKey
-     * @param  string  $awsSecret
-     * @param  string  $awsRegion
+     * @param  string  $s3Client
      * @param  string  $bucket
      * @param  string  $s3Path
      * @return self
      */
-    public function __construct($awsKey, $awsSecret, $awsRegion, $bucket, $s3Path)
+    public function __construct($s3Client, $bucket, $s3Path)
     {
-        $this->awsKey    = $awsKey;
-        $this->awsSecret = $awsSecret;
-        $this->awsRegion = $awsRegion;
-
-        $this->bucket = $bucket;
-        $this->s3Path = $s3Path;
+        $this->s3Client = $s3Client;
+        $this->bucket   = $bucket;
+        $this->s3Path   = $s3Path;
     }
 
     /**
@@ -84,26 +65,12 @@ class S3Storer implements StorerInterface
      */
     public function store()
     {
-        $this->getS3()->putObject([
+        $this->s3Client->putObject([
             'Bucket'     => $this->bucket,
             'Key'        => $this->getS3Path() . $this->getFilename(),
             'SourceFile' => $this->filename,
             'ACL'        => 'private',
         ]);
-    }
-
-    /**
-     * Returns the S3 client.
-     *
-     * @return \Aws\S3\S3Client
-     */
-    private function getS3()
-    {
-        return Aws::factory([
-            'key'    => $this->awsKey,
-            'secret' => $this->awsSecret,
-            'region' => $this->awsRegion,
-        ])->get('s3');
     }
 
     /**

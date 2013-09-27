@@ -34,11 +34,18 @@ class LaravelBackupCommand extends Command
      */
     public function fire()
     {
-        $dumper   = $this->getDumper();
+        $backup = new BackupProcedure($this->getDumper());
+
         $archiver = $this->getArchiver();
         $storer   = $this->getStorer();
 
-        $backup = new BackupProcedure($dumper, $archiver, $storer);
+        if ($archiver) {
+            $backup->setArchiver($archiver);
+        }
+
+        if ($storer) {
+            $backup->setStorer($storer);
+        }
 
         $backup->backup();
 
@@ -119,11 +126,13 @@ class LaravelBackupCommand extends Command
     private function getStorer()
     {
         if ($this->option('s3-bucket')) {
-            $awsKey    = Config::get('aws.key');
-            $awsSecret = Config::get('aws.secret');
-            $awsRegion = Config::get('aws.region');
+            $s3Client = Aws::factory([
+                'key'    => Config::get('aws.key'),
+                'secret' => Config::get('aws.secret'),
+                'region' => Config::get('aws.region'),
+            ])->get('s3');
 
-            return new S3Storer($awsKey, $awsSecret, $awsRegion, $this->option('s3-bucket'), $this->option('s3-path'));
+            return new S3Storer($s3Client, $this->option('s3-bucket'), $this->option('s3-path'));
         }
 
         return null;

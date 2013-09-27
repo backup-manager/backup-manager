@@ -38,15 +38,11 @@ class BackupProcedure
      * Initializes the BackupProcedure instance.
      *
      * @param  \McCool\DatabaseBackup\Dumpers\DumperInterface  $dumper
-     * @param  \McCool\DatabaseBackup\Archivers\ArchiverInterface  $archiver
-     * @param  \McCool\DatabaseBackup\Storers\StorerInterface  $storer
      * @return self
      */
-    public function __construct(DumperInterface $dumper, ArchiverInterface $archiver = null, StorerInterface $storer = null)
+    public function __construct(DumperInterface $dumper)
     {
-        $this->dumper   = $dumper;
-        $this->archiver = $archiver;
-        $this->storer   = $storer;
+        $this->dumper = $dumper;
     }
 
     /**
@@ -59,6 +55,28 @@ class BackupProcedure
         $this->dump();
         $this->archive();
         $this->store();
+    }
+
+    /**
+     * Inject an Archiver
+     *
+     * @param  \McCool\DatabaseBackup\Archivers\ArchiverInterface  $archiver
+     * @return void
+     */
+    public function setArchiver(ArchiverInterface $archiver)
+    {
+        $this->archiver = $archiver;
+    }
+
+    /**
+     * Inject a Storer
+     *
+     * @param  \McCool\DatabaseBackup\Storers\StorerInterface  $storer
+     * @return void
+     */
+    public function setStorer(StorerInterface $storer)
+    {
+        $this->storer = $storer;
     }
 
     /**
