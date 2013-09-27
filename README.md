@@ -3,7 +3,20 @@ Database Backup
 
 A framework-agnostic database backup package.
 
+Drivers: At this moment the package supports MySQL, gzip, and Amazon S3. However, it's modular and could be extended to support much more.
+Frameworks: This package doesn't require a framework, but a Laravel service provider and Artisan command are made available for convenience.
+
 Be aware that this package uses ```mysqldump``` for MySQL backups.
+
+# Example
+
+Laravel users can run the following command if they'd like to backup the db, gzip it, upload it to s3, and remove the local backup file:
+
+```PHP
+php artisan db:backup --s3-bucket=whatever --s3-path=/this/is/optional/ --cleanup --gzip
+```
+
+Non-Laravel users can look at the Usage section below.
 
 # Requirements
 
