@@ -8,7 +8,6 @@ use Symfony\Component\Console\Input\InputArgument;
 use McCool\DatabaseBackup\BackupProcedure;
 use McCool\DatabaseBackup\Storers\S3Storer;
 use McCool\DatabaseBackup\Dumpers\MysqlDumper;
-use McCool\DatabaseBackup\Processors\ShellProcessor;
 
 class LaravelBackupCommand extends Command
 {
@@ -96,7 +95,7 @@ class LaravelBackupCommand extends Command
         $filename = $conn['database'] .'-'. date('Y-m-d_H-i-s') . '.sql';
         $filePath = $localPath . '/'.$filename;
 
-        $processor = new ShellProcessor;
+        $processor = App::make('McCool\DatabaseBackup\Processors\ShellProcessor');
 
         return new MysqlDumper($processor, $conn['host'], 3306, $conn['username'], $conn['password'], $conn['database'], $filePath);
     }
