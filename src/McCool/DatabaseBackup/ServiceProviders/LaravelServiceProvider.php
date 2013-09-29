@@ -20,7 +20,8 @@ class LaravelServiceProvider extends ServiceProvider
      */
     public function boot()
     {
-        $this->package('mccool/database-backup');
+        $path = realpath( $this->guessPackagePath() . '/..' );
+        $this->package('mccool/database-backup', 'database-backup', $path);
     }
 
     /**
