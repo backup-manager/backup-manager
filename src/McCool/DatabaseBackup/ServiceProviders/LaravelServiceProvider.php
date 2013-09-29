@@ -37,9 +37,9 @@ class LaravelServiceProvider extends ServiceProvider
 
         $this->app->bind('databasebackup.s3client', function($app) {
             return Aws::factory([
-                'key'    => $app['config']->get('aws.key'),
-                'secret' => $app['config']->get('aws.secret'),
-                'region' => $app['config']->get('aws.region'),
+                'key'    => $app['config']->get('database-backup::aws.key'),
+                'secret' => $app['config']->get('database-backup::aws.secret'),
+                'region' => $app['config']->get('database-backup::aws.region'),
             ])->get('s3');
         });
 
