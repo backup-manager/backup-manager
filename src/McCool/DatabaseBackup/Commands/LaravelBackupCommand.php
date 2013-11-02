@@ -73,6 +73,7 @@ class LaravelBackupCommand extends Command
             array('local-path', null, InputOption::VALUE_OPTIONAL, 'The local storage path for the dump. Defaults to app/storage/dumps.', null),
             array('s3-bucket', null, InputOption::VALUE_OPTIONAL, 'Specify this option to upload to S3.', null),
             array('s3-path', null, InputOption::VALUE_OPTIONAL, 'Define the path on the S3 bucket to store the file.', null),
+            array('filename', null, InputOption::VALUE_OPTIONAL, 'Define the filename to be used.', null),
             array('gzip', null, InputOption::VALUE_NONE, 'Gzip the backup.', null),
             array('cleanup', null, InputOption::VALUE_NONE, 'Remove the dump when the process finishes.', null),
         );
@@ -93,7 +94,7 @@ class LaravelBackupCommand extends Command
         // file path
         $storagePath = $this->laravel['path.storage'];
         $localPath = $this->option('local-path') ?: $storagePath . '/dumps';
-        $filename = $conn['database'] .'-'. date('Y-m-d_H-i-s') . '.sql';
+        $filename = $this->option('filename') ?: ($conn['database'] .'-'. date('Y-m-d_H-i-s') . '.sql');
         $filePath = $localPath . '/'.$filename;
 
         // dumper config
