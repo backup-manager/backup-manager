@@ -71,7 +71,7 @@ Non-Laravel users can look at the Usage section below.
 
 ## Laravel
 
-**Dump the database to app/storage/databasename_timestamp.sql**
+**Dump the database to app/storage/dumps/databasename_timestamp.sql**
 
 ```SHELL
 php artisan db:backup
