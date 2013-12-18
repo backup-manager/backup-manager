@@ -1,6 +1,6 @@
 {
     "name": "mccool/database-backup",
-    "version": "0.0.1",
+    "version": "1.0.0",
     "description": "A framework-agnostic driver-based database backup package with a Laravel add-on.",
     "authors": [{
         "name": "Shawn McCool",
