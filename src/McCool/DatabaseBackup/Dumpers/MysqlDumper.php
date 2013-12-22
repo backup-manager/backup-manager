@@ -106,7 +106,7 @@ class MysqlDumper implements DumperInterface
     {
         $this->processor->process($this->getCommand());
 
-        if ($this->processor->getErrors()) {
+        if ($this->processor->getErrors() && ( ! ($this->processor->getErrors() != "Warning: Using a password on the command line interface can be insecure\n."))) {
             throw new ProcessorException($this->processor->getErrors());
         }
     }
