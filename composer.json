@@ -1,6 +1,6 @@
 {
     "name": "mccool/database-backup",
-    "version": "1.0.0",
+    "version": "1.0.1",
     "description": "A framework-agnostic driver-based database backup package with a Laravel add-on.",
     "authors": [{
         "name": "Shawn McCool",
@@ -8,7 +8,7 @@
     }],
     "require": {
         "php": ">=5.3.0",
-        "aws/aws-sdk-php": "dev-master",
+        "aws/aws-sdk-php": "2.4.*",
         "symfony/process": "2.*"
     },
     "require-dev": {
