@@ -95,6 +95,12 @@ php artisan db:backup --gzip
 php artisan db:backup --database=otherdatabaseconnection
 ```
 
+**Choose a specific filename other than the default (default is 'Y-m-d_H-i-s' ). Note, do not include the file extension .sql, we will do that for you**
+
+```SHELL
+php artisan db:backup --filename=my_project_backup
+```
+
 **Upload the backup to S3**
 
 ```SHELL
