@@ -15,7 +15,7 @@ class MysqlDumperTest extends \PHPUnit_Framework_TestCase
         $processor->shouldReceive('process')->with("mysqldump --host='localhost' --port='3306' --user='username' --password='password' 'db_name' > 'output.sql'");
         $processor->shouldReceive('getErrors')->andReturn(null);
 
-        $dumper = new \McCool\DatabaseBackup\Dumpers\MysqlDumper($processor, 'localhost', 3306, 'username', 'password', 'db_name', 'output.sql');
+        $dumper = new \McCool\DatabaseBackup\Mysql\Mysql($processor, 'localhost', 3306, 'username', 'password', 'db_name', 'output.sql');
 
         $dumper->dump();
 
@@ -23,7 +23,7 @@ class MysqlDumperTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * @expectedException McCool\DatabaseBackup\Processors\ProcessorException
+     * @expectedException \McCool\DatabaseBackup\Shell\ShellProcessorException
      */
     public function testThrowsExceptionOnError()
     {
@@ -31,7 +31,7 @@ class MysqlDumperTest extends \PHPUnit_Framework_TestCase
         $processor->shouldReceive('process');
         $processor->shouldReceive('getErrors')->andReturn(true);
 
-        $dumper = new \McCool\DatabaseBackup\Dumpers\MysqlDumper($processor, 'localhost', 3306, 'username', 'password', 'db_name', 'output.sql');
+        $dumper = new \McCool\DatabaseBackup\Mysql\Mysql($processor, 'localhost', 3306, 'username', 'password', 'db_name', 'output.sql');
         $dumper->dump();
     }
 }

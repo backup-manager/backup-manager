@@ -19,7 +19,7 @@ class S3StorerTest extends \PHPUnit_Framework_TestCase
             'ACL'        => 'private',
         ]);
 
-        $storer = new \McCool\DatabaseBackup\Storers\S3Storer($s3Client, 'bucket', 'path');
+        $storer = new \McCool\DatabaseBackup\S3\S3($s3Client, 'bucket', 'path');
         $storer->setInputFilename('backups/iceking.sql.gz');
         $storer->store();
     }

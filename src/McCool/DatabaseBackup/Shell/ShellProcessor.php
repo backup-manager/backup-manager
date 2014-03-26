@@ -1,16 +1,21 @@
-<?php namespace McCool\DatabaseBackup\Processors;
+<?php namespace McCool\DatabaseBackup\Shell;
 
 use Symfony\Component\Process\Process;
 
-class ShellProcessor implements ProcessorInterface
+/**
+ * Class ShellProcessor
+ * @package McCool\DatabaseBackup\Shell
+ */
+class ShellProcessor implements ShellProcessorInterface
 {
     /**
-     * The Symfony Process instance.
-     *
      * @var \Symfony\Component\Process\Process
      */
-    protected $process;
+    private $process;
 
+    /**
+     * @param Process $process
+     */
     public function __construct(Process $process)
     {
         $this->process = $process;
@@ -18,7 +23,6 @@ class ShellProcessor implements ProcessorInterface
 
     /**
      * Executes the given command.
-     *
      * @param  string  $command
      * @return void
      */
@@ -30,7 +34,6 @@ class ShellProcessor implements ProcessorInterface
 
     /**
      * Returns errors which happened during the command execution.
-     *
      * @return string|null
      */
     public function getErrors()

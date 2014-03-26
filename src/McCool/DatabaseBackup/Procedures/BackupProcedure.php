@@ -1,7 +1,7 @@
-<?php namespace McCool\DatabaseBackup;
+<?php namespace McCool\DatabaseBackup\Procedures;
 
 use McCool\DatabaseBackup\Dumpers\DumperInterface;
-use McCool\DatabaseBackup\Storers\StorerInterface;
+use McCool\DatabaseBackup\StorerInterface;
 use McCool\DatabaseBackup\Archivers\ArchiverInterface;
 
 class BackupProcedure
@@ -12,18 +12,11 @@ class BackupProcedure
      * @var \McCool\DatabaseBackup\Dumpers\DumperInterface
      */
     protected $dumper;
-
-    /**
-     * The Backup Archiver instance.
-     *
-     * @var \McCool\DatabaseBackup\Archivers\ArchiverInterface
-     */
-    protected $archiver;
-
+    protected $archivers = [];
     /**
      * The Backup Storer instance.
      *
-     * @var \McCool\DatabaseBackup\Storers\StorerInterface
+     * @var \McCool\DatabaseBackup\StorerInterface
      */
     protected $storer;
 
@@ -71,7 +64,7 @@ class BackupProcedure
     /**
      * Inject a Storer
      *
-     * @param  \McCool\DatabaseBackup\Storers\StorerInterface  $storer
+     * @param  \McCool\DatabaseBackup\StorerInterface  $storer
      * @return void
      */
     public function setStorer(StorerInterface $storer)

@@ -1,8 +1,8 @@
 <?php
 
 use Illuminate\Container\Container;
-use McCool\DatabaseBackup\Commands\LaravelBackupCommand;
-use McCool\DatabaseBackup\ServiceProviders\LaravelServiceProvider;
+use McCool\DatabaseBackup\Frameworks\Laravel\LaravelBackupCommand;
+use McCool\DatabaseBackup\Frameworks\Laravel\LaravelServiceProvider;
 use Mockery as m;
 
 class LaravelBackupCommandTest extends \PHPUnit_Framework_TestCase
@@ -16,7 +16,7 @@ class LaravelBackupCommandTest extends \PHPUnit_Framework_TestCase
     {
         $command = $this->getCommand();
 
-        $this->assertInstanceOf('McCool\DatabaseBackup\Commands\LaravelBackupCommand', $command);
+        $this->assertInstanceOf('McCool\DatabaseBackup\Frameworks\Laravel\LaravelBackupCommand', $command);
     }
 
     public function testCanDump()
@@ -24,7 +24,7 @@ class LaravelBackupCommandTest extends \PHPUnit_Framework_TestCase
         $app = $this->getApp();
 
         // ensure that dumper is called
-        $dumper = m::mock('McCool\DatabaseBackup\Dumpers\MysqlDumper');
+        $dumper = m::mock('McCool\DatabaseBackup\Mysql\MysqlDumper');
         $dumper->shouldReceive('getOutputFilename');
         $dumper->shouldReceive('dump')->once();
         $app['databasebackup.dumpers.mysqldumper'] = $dumper;
@@ -87,7 +87,7 @@ class LaravelBackupCommandTest extends \PHPUnit_Framework_TestCase
         $app['databasebackup.dumpers.mysqldumper'] = $dumper;
 
         // ensure that storer is called
-        $storer = m::mock('McCool\DatabaseBackup\Storers\StorerInterface');
+        $storer = m::mock('McCool\DatabaseBackup\StorerInterface');
         $storer->shouldReceive('getOutputFilename', 'setInputFilename');
         $storer->shouldReceive('store')->once();
         $app['databasebackup.storers.s3storer'] = $storer;

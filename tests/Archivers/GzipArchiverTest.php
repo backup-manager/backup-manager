@@ -15,7 +15,7 @@ class GzipArchiverTest extends \PHPUnit_Framework_TestCase
         $processor->shouldReceive('process')->with('gzip test.sql');
         $processor->shouldReceive('getErrors')->andReturn(null);
 
-        $archiver  = new \McCool\DatabaseBackup\Archivers\GzipArchiver($processor);
+        $archiver  = new \McCool\DatabaseBackup\Gzip\Gzip($processor);
 
         $archiver->setInputFilename('test.sql');
         $archiver->archive();
@@ -24,7 +24,7 @@ class GzipArchiverTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * @expectedException McCool\DatabaseBackup\Processors\ProcessorException
+     * @expectedException \McCool\DatabaseBackup\Shell\ShellProcessorException
      */
     public function testThrowsExceptionOnError()
     {
@@ -32,7 +32,7 @@ class GzipArchiverTest extends \PHPUnit_Framework_TestCase
         $processor->shouldReceive('process');
         $processor->shouldReceive('getErrors')->andReturn(true);
 
-        $archiver  = new \McCool\DatabaseBackup\Archivers\GzipArchiver($processor);
+        $archiver  = new \McCool\DatabaseBackup\Gzip\Gzip($processor);
         $archiver->archive();
     }
 }

@@ -1,6 +1,6 @@
 <?php
 
-use McCool\DatabaseBackup\Processors\ShellProcessor;
+use McCool\DatabaseBackup\Processors\ShellShellProcessor;
 use Mockery as m;
 
 class ShellProcessorTest extends \PHPUnit_Framework_TestCase
@@ -18,7 +18,7 @@ class ShellProcessorTest extends \PHPUnit_Framework_TestCase
         $process->shouldReceive('setCommandLine')->with('test command');
         $process->shouldReceive('getErrorOutput')->andReturn('no errors');
 
-        $processor = new ShellProcessor($process);
+        $processor = new ShellShellProcessor($process);
         $processor->process('test command');
 
         $this->assertEquals('no errors', $processor->getErrors());
