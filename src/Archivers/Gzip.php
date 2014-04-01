@@ -1,12 +1,11 @@
-<?php namespace McCool\DatabaseBackup\Gzip;
+<?php namespace McCool\DatabaseBackup\Archivers;
 
-use McCool\DatabaseBackup\Archivers\Archiver;
-use McCool\DatabaseBackup\Shell\ShellProcessorException;
+use McCool\DatabaseBackup\Exceptions\FailingShellProcess;
 use McCool\DatabaseBackup\CommandProcessor;
 
 /**
  * Class Gzip
- * @package McCool\DatabaseBackup\Gzip
+ * @package McCool\DatabaseBackup\Archivers
  */
 class Gzip implements Archiver
 {
@@ -55,7 +54,7 @@ class Gzip implements Archiver
      * Executes the backup command.
      * @param string $filePath
      * @return void
-     * @throws \McCool\DatabaseBackup\Shell\ShellProcessorException
+     * @throws \McCool\DatabaseBackup\Exceptions\FailingShellProcess
      */
     public function archive($filePath)
     {
@@ -67,7 +66,7 @@ class Gzip implements Archiver
     /**
      * @param $filePath to extract
      * @return string filename of the extracted file
-     * @throws \McCool\DatabaseBackup\Shell\ShellProcessorException
+     * @throws \McCool\DatabaseBackup\Exceptions\FailingShellProcess
      */
     public function extract($filePath)
     {
@@ -94,12 +93,12 @@ class Gzip implements Archiver
     }
 
     /**
-     * @throws \McCool\DatabaseBackup\Shell\ShellProcessorException
+     * @throws \McCool\DatabaseBackup\Exceptions\FailingShellProcess
      */
     private function handleProcessorErrors()
     {
         if ($this->processor->getErrors()) {
-            throw new ShellProcessorException($this->processor->getErrors());
+            throw new FailingShellProcess($this->processor->getErrors());
         }
     }
 

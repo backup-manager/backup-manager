@@ -16,14 +16,14 @@ interface Archiver
     /**
      * Executes the backup command.
      * @params string $filePath
-     * @throws \McCool\DatabaseBackup\Shell\ShellProcessorException
+     * @throws \McCool\DatabaseBackup\Exceptions\FailingShellProcess
      */
     public function archive($filePath);
 
     /**
      * @param $filePath to extract
      * @return string filename of the extracted file
-     * @throws \McCool\DatabaseBackup\Shell\ShellProcessorException
+     * @throws \McCool\DatabaseBackup\Exceptions\FailingShellProcess
      */
     public function extract($filePath);
 }
