@@ -1,8 +1,6 @@
 <?php namespace McCool\DatabaseBackup\S3;
 
 use Aws\Common\Aws;
-use McCool\DatabaseBackup\Downloaders\Downloader;
-use McCool\DatabaseBackup\Storer;
 
 /**
  * Class S3
