@@ -2,7 +2,7 @@
 
 use McCool\DatabaseBackup\Commands\Command;
 
-class RestoreCommand extends Command
+class RestoreCommand implements Command
 {
     private $path;
     private $details;

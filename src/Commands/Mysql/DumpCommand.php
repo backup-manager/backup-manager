@@ -2,7 +2,7 @@
 
 use McCool\DatabaseBackup\Commands\Command;
 
-class DumpCommand extends Command
+class DumpCommand implements Command
 {
     private $path;
     private $details;

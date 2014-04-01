@@ -2,7 +2,7 @@
 
 use McCool\DatabaseBackup\Commands\Command;
 
-class ZipCommand extends Command
+class ZipCommand implements Command
 {
     private $path;
 

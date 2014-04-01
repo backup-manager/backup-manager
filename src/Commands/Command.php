@@ -1,6 +1,6 @@
 <?php namespace McCool\DatabaseBackup\Commands;
 
-abstract class Command
+interface Command
 {
-    abstract public function getShellCommand();
+    public function getShellCommand();
 } 

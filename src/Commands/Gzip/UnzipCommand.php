@@ -2,7 +2,7 @@
 
 use McCool\DatabaseBackup\Commands\Command;
 
-class UnzipCommand extends Command
+class UnzipCommand implements Command
 {
     private $path;
 
