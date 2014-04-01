@@ -1,4 +1,4 @@
-<?php namespace McCool\DatabaseBackup\Mysql;
+<?php namespace McCool\DatabaseBackup\Database;
 
 use McCool\DatabaseBackup\Dumpers\Dumper;
 use McCool\DatabaseBackup\Restorer;
