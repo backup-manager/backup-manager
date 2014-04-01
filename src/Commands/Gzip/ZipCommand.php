@@ -4,13 +4,15 @@ use McCool\DatabaseBackup\Commands\Command;
 
 class ZipCommand extends Command
 {
-    protected function getShellCommand($path)
+    private $path;
+
+    public function __construct($path)
     {
-        return "gzip {$path}";
+        $this->path = $path;
     }
 
-    protected function getArchivedFileName($path)
+    public function getShellCommand()
     {
-        return "{$path}.gz";
+        return "gzip {$this->path}";
     }
 }

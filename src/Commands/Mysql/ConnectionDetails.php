@@ -1,6 +1,6 @@
-<?php namespace McCool\DatabaseBackup\Mysql; 
+<?php namespace McCool\DatabaseBackup\Commands\Mysql; 
 
-class MysqlConnectionDetails
+class ConnectionDetails
 {
     public $host;
     public $port;

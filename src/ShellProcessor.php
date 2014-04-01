@@ -1,5 +1,6 @@
 <?php namespace McCool\DatabaseBackup;
 
+use McCool\DatabaseBackup\Commands\Command;
 use Symfony\Component\Process\Process;
 
 /**
@@ -26,9 +27,9 @@ class ShellProcessor
      * @param  string  $command
      * @return void
      */
-    public function process($command)
+    public function process(Command $command)
     {
-        $this->process->setCommandLine($command);
+        $this->process->setCommandLine($command->getShellCommand());
         $this->process->run();
     }
 
