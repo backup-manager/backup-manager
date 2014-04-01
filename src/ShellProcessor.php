@@ -24,21 +24,16 @@ class ShellProcessor
 
     /**
      * Executes the given command.
-     * @param  string  $command
+     * @param \McCool\DatabaseBackup\Commands\Command|string $command
+     * @throws ShellProcessFailed
      * @return void
      */
     public function process(Command $command)
     {
         $this->process->setCommandLine($command->getShellCommand());
         $this->process->run();
-    }
-
-    /**
-     * Returns errors which happened during the command execution.
-     * @return string|null
-     */
-    public function getErrors()
-    {
-        return $this->process->getErrorOutput();
+        if ( ! $this->process->isSuccessful()) {
+            throw new ShellProcessFailed($this->process->getErrorOutput());
+        }
     }
 }
