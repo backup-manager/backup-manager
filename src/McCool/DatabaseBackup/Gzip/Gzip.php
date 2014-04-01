@@ -1,29 +1,29 @@
 <?php namespace McCool\DatabaseBackup\Gzip;
 
-use McCool\DatabaseBackup\Archivers\ArchiverInterface;
+use McCool\DatabaseBackup\Archivers\Archiver;
 use McCool\DatabaseBackup\Shell\ShellProcessorException;
-use McCool\DatabaseBackup\Shell\ShellProcessorInterface;
+use McCool\DatabaseBackup\CommandProcessor;
 
 /**
  * Class Gzip
  * @package McCool\DatabaseBackup\Gzip
  */
-class Gzip implements ArchiverInterface
+class Gzip implements Archiver
 {
     /**
      * The processor instance.
      *
-     * @var \McCool\DatabaseBackup\Shell\ShellProcessorInterface
+     * @var \McCool\DatabaseBackup\CommandProcessor
      */
     protected $processor;
 
     /**
      * Initializes the Gzip instance.
      *
-     * @param  \McCool\DatabaseBackup\Shell\ShellProcessorInterface  $processor
+     * @param  \McCool\DatabaseBackup\CommandProcessor  $processor
      * @return self
      */
-    public function __construct(ShellProcessorInterface $processor)
+    public function __construct(CommandProcessor $processor)
     {
         $this->processor = $processor;
     }

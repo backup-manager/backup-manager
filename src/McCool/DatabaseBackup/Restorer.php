@@ -1,11 +1,11 @@
 <?php namespace McCool\DatabaseBackup;
 
 /**
- * Interface RestorerInterface
+ * Interface Restorer
  * Restore a database from source.
  * @package McCool\DatabaseBackup\Restorers
  */
-interface RestorerInterface
+interface Restorer
 {
     /**
      * @param $sourceFilePath

@@ -1,6 +1,6 @@
 <?php namespace McCool\DatabaseBackup\Archivers;
 
-interface ArchiverInterface
+interface Archiver
 {
     /**
      * @return array of file extensions

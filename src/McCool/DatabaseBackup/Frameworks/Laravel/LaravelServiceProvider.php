@@ -6,7 +6,7 @@ use McCool\DatabaseBackup\Mysql\Mysql;
 use McCool\DatabaseBackup\Gzip\Gzip;
 use McCool\DatabaseBackup\Mysql\MysqlConnectionDetails;
 use McCool\DatabaseBackup\S3\S3;
-use McCool\DatabaseBackup\Shell\ShellProcessor;
+use McCool\DatabaseBackup\CommandProcessor;
 use Symfony\Component\Process\Process;
 use Aws\Common\Aws;
 
@@ -42,11 +42,11 @@ class LaravelServiceProvider extends ServiceProvider
         });
 
         $this->app->bind('databasebackup.gzip', function($app) {
-            return new Gzip(new ShellProcessor(new Process('')));
+            return new Gzip(new CommandProcessor(new Process('')));
         });
 
         $this->app->bind('databasebackup.processors.shellprocessor', function($app) {
-            return new ShellProcessor(new Process(''));
+            return new CommandProcessor(new Process(''));
         });
 
         $this->app->bind('databasebackup.s3', function($app, $params) {

@@ -1,7 +1,7 @@
 <?php namespace McCool\DatabaseBackup\Procedures;
 
-use McCool\DatabaseBackup\Archivers\ArchiverInterface;
-use McCool\DatabaseBackup\Downloaders\DownloaderInterface;
+use McCool\DatabaseBackup\Archivers\Archiver;
+use McCool\DatabaseBackup\Downloaders\Downloader;
 use McCool\DatabaseBackup\NoValidArchiverFoundException;
 
 class RestoreProcedure
@@ -11,7 +11,7 @@ class RestoreProcedure
      */
     private $restorer;
     /**
-     * @var \McCool\DatabaseBackup\Downloaders\DownloaderInterface
+     * @var \McCool\DatabaseBackup\Downloaders\Downloader
      */
     private $downloader;
     /**
@@ -19,16 +19,16 @@ class RestoreProcedure
      */
     private $storagePath;
     /**
-     * @var ArchiverInterface[]
+     * @var Archiver[]
      */
     private $archivers = [];
 
     /**
      * @param RestorerInterface $restorer
-     * @param DownloaderInterface $downloader
+     * @param Downloader $downloader
      * @param $storagePath
      */
-    public function __construct(RestorerInterface $restorer, DownloaderInterface $downloader, $storagePath)
+    public function __construct(RestorerInterface $restorer, Downloader $downloader, $storagePath)
     {
         $this->restorer = $restorer;
         $this->downloader = $downloader;
@@ -36,9 +36,9 @@ class RestoreProcedure
     }
 
     /**
-     * @param ArchiverInterface $archiver
+     * @param Archiver $archiver
      */
-    public function addArchiver(ArchiverInterface $archiver)
+    public function addArchiver(Archiver $archiver)
     {
         $this->archivers[] = $archiver;
     }

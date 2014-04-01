@@ -1,20 +1,20 @@
 <?php namespace McCool\DatabaseBackup\Mysql;
 
-use McCool\DatabaseBackup\Dumpers\DumperInterface;
-use McCool\DatabaseBackup\RestorerInterface;
+use McCool\DatabaseBackup\Dumpers\Dumper;
+use McCool\DatabaseBackup\Restorer;
 use McCool\DatabaseBackup\Shell\ShellProcessorException;
-use McCool\DatabaseBackup\Shell\ShellProcessorInterface;
+use McCool\DatabaseBackup\CommandProcessor;
 
 /**
  * Class Mysql
  * @package McCool\DatabaseBackup\Mysql
  */
-class Mysql implements DumperInterface, RestorerInterface
+class Mysql implements Dumper, Restorer
 {
     /**
      * The processor instance.
      *
-     * @var \McCool\DatabaseBackup\Shell\ShellProcessorInterface
+     * @var \McCool\DatabaseBackup\CommandProcessor
      */
     protected $processor;
     /**
@@ -23,10 +23,10 @@ class Mysql implements DumperInterface, RestorerInterface
     private $connectionDetails;
 
     /**
-     * @param \McCool\DatabaseBackup\Shell\ShellProcessorInterface $processor
+     * @param \McCool\DatabaseBackup\CommandProcessor $processor
      * @param MysqlConnectionDetails $connectionDetails
      */
-    public function __construct(ShellProcessorInterface $processor, MysqlConnectionDetails $connectionDetails)
+    public function __construct(CommandProcessor $processor, MysqlConnectionDetails $connectionDetails)
     {
         $this->processor = $processor;
         $this->connectionDetails = $connectionDetails;

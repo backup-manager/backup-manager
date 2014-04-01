@@ -1,22 +1,29 @@
 <?php namespace McCool\DatabaseBackup\Procedures;
 
-use McCool\DatabaseBackup\Dumpers\DumperInterface;
-use McCool\DatabaseBackup\StorerInterface;
-use McCool\DatabaseBackup\Archivers\ArchiverInterface;
+use McCool\DatabaseBackup\Dumpers\Dumper;
+use McCool\DatabaseBackup\Storer;
+use McCool\DatabaseBackup\Archivers\Archiver;
 
+/**
+ * Class BackupProcedure
+ * @package McCool\DatabaseBackup\Procedures
+ */
 class BackupProcedure
 {
     /**
      * The Backup Dumper instance.
      *
-     * @var \McCool\DatabaseBackup\Dumpers\DumperInterface
+     * @var \McCool\DatabaseBackup\Dumpers\Dumper
      */
     protected $dumper;
+    /**
+     * @var array
+     */
     protected $archivers = [];
     /**
      * The Backup Storer instance.
      *
-     * @var \McCool\DatabaseBackup\StorerInterface
+     * @var \McCool\DatabaseBackup\Storer
      */
     protected $storer;
 
@@ -30,10 +37,10 @@ class BackupProcedure
     /**
      * Initializes the BackupProcedure instance.
      *
-     * @param  \McCool\DatabaseBackup\Dumpers\DumperInterface  $dumper
+     * @param  \McCool\DatabaseBackup\Dumpers\Dumper  $dumper
      * @return self
      */
-    public function __construct(DumperInterface $dumper)
+    public function __construct(Dumper $dumper)
     {
         $this->dumper = $dumper;
     }
@@ -53,10 +60,10 @@ class BackupProcedure
     /**
      * Inject an Archiver
      *
-     * @param  \McCool\DatabaseBackup\Archivers\ArchiverInterface  $archiver
+     * @param  \McCool\DatabaseBackup\Archivers\Archiver  $archiver
      * @return void
      */
-    public function setArchiver(ArchiverInterface $archiver)
+    public function setArchiver(Archiver $archiver)
     {
         $this->archiver = $archiver;
     }
@@ -64,10 +71,10 @@ class BackupProcedure
     /**
      * Inject a Storer
      *
-     * @param  \McCool\DatabaseBackup\StorerInterface  $storer
+     * @param  \McCool\DatabaseBackup\Storer  $storer
      * @return void
      */
-    public function setStorer(StorerInterface $storer)
+    public function setStorer(Storer $storer)
     {
         $this->storer = $storer;
     }

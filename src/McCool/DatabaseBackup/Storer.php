@@ -1,6 +1,10 @@
 <?php namespace McCool\DatabaseBackup;
 
-Interface StorerInterface
+/**
+ * Interface Storer
+ * @package McCool\DatabaseBackup
+ */
+Interface Storer
 {
     /**
      * Stores the backup to the given storage provider.

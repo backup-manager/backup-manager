@@ -1,10 +1,10 @@
 <?php namespace McCool\DatabaseBackup\Downloaders;
 
 /**
- * Interface DownloaderInterface
+ * Interface Downloader
  * @package McCool\DatabaseBackup\Downloaders
  */
-interface DownloaderInterface
+interface Downloader
 {
     /**
      * @param $filePath

@@ -1,6 +1,10 @@
 <?php namespace McCool\DatabaseBackup\Dumpers;
 
-interface DumperInterface
+/**
+ * Interface Dumper
+ * @package McCool\DatabaseBackup\Dumpers
+ */
+interface Dumper
 {
     /**
      * @param string $destinationPath

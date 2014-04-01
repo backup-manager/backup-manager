@@ -1,14 +1,14 @@
 <?php namespace McCool\DatabaseBackup\S3;
 
 use Aws\Common\Aws;
-use McCool\DatabaseBackup\Downloaders\DownloaderInterface;
-use McCool\DatabaseBackup\StorerInterface;
+use McCool\DatabaseBackup\Downloaders\Downloader;
+use McCool\DatabaseBackup\Storer;
 
 /**
  * Class S3
  * @package McCool\DatabaseBackup\S3
  */
-class S3 implements StorerInterface, DownloaderInterface
+class S3 implements Storer, Downloader
 {
     /**
      * @var S3ConnectionDetails

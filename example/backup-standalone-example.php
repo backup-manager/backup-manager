@@ -9,7 +9,7 @@ $backupFilename = 'test.sql';
 require '../vendor/autoload.php';
 
 // dump the database, gzip it, upload it to S3, and clean up after ourselves
-$shellProcessor = new McCool\DatabaseBackup\Shell\ShellProcessor(new Symfony\Component\Process\Process(''));
+$shellProcessor = new \McCool\DatabaseBackup\CommandProcessor(new Symfony\Component\Process\Process(''));
 
 $mysql = new \McCool\DatabaseBackup\Mysql\Mysql($shellProcessor, $mysqlConnectionDetails, $backupFilename);
 $archiver = new \McCool\DatabaseBackup\Gzip\Gzip($shellProcessor);

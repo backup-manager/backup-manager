@@ -1,12 +1,13 @@
 <?php namespace McCool\DatabaseBackup\Shell;
 
+use McCool\DatabaseBackup\CommandProcessor;
 use Symfony\Component\Process\Process;
 
 /**
- * Class ShellProcessor
+ * Class CommandProcessor
  * @package McCool\DatabaseBackup\Shell
  */
-class ShellProcessor implements ShellProcessorInterface
+class ShellProcessor implements \McCool\DatabaseBackup\CommandProcessor
 {
     /**
      * @var \Symfony\Component\Process\Process
