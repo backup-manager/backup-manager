@@ -5,22 +5,22 @@ use McCool\DatabaseBackup\Commands\Command;
 class RestoreCommand implements Command
 {
     private $path;
-    private $details;
+    private $connection;
 
-    public function __construct($path, ConnectionDetails $details)
+    public function __construct($path, Connection $connection)
     {
         $this->path = $path;
-        $this->details = $details;
+        $this->connection = $connection;
     }
 
     public function getShellCommand()
     {
         return sprintf('mysql -h%s -P%s -u%s -p=%s %s -e "source %s;"',
-            escapeshellarg($this->details->host),
-            escapeshellarg($this->details->port),
-            escapeshellarg($this->details->username),
-            escapeshellarg($this->details->password),
-            escapeshellarg($this->details->database),
+            escapeshellarg($this->connection->host),
+            escapeshellarg($this->connection->port),
+            escapeshellarg($this->connection->username),
+            escapeshellarg($this->connection->password),
+            escapeshellarg($this->connection->database),
             escapeshellarg($this->path)
         );
     }
