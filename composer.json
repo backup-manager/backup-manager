@@ -20,7 +20,7 @@
     },
     "autoload": {
         "psr-4": {
-            "McCool\\DatabaseBackup": "src/"
+            "McCool\\DatabaseBackup\\": "src/"
         }
     },
     "license": "MIT",
