@@ -1,8 +1,8 @@
 <?php namespace McCool\DatabaseBackup\Commands\Mysql; 
 
-use McCool\DatabaseBackup\Commands\Command;
+use McCool\DatabaseBackup\Commands\ShellCommand;
 
-class RestoreCommand implements Command
+class RestoreCommand implements ShellCommand
 {
     private $path;
     private $connection;
@@ -13,7 +13,7 @@ class RestoreCommand implements Command
         $this->connection = $connection;
     }
 
-    public function getShellCommand()
+    public function getCommand()
     {
         return sprintf('mysql -h%s -P%s -u%s -p=%s %s -e "source %s;"',
             escapeshellarg($this->connection->host),

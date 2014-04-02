@@ -1,8 +1,8 @@
 <?php namespace McCool\DatabaseBackup\Commands\Gzip; 
 
-use McCool\DatabaseBackup\Commands\Command;
+use McCool\DatabaseBackup\Commands\ShellCommand;
 
-class ZipCommand implements Command
+class ZipCommand implements ShellCommand
 {
     private $path;
 
@@ -11,7 +11,7 @@ class ZipCommand implements Command
         $this->path = $path;
     }
 
-    public function getShellCommand()
+    public function getCommand()
     {
         return "gzip {$this->path}";
     }

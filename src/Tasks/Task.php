@@ -2,4 +2,5 @@
 
 abstract class Task
 {
+    abstract public function execute();
 } 
