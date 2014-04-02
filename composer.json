@@ -7,7 +7,7 @@
         "email": "shawn@heybigname.com"
     },{
         "name": "Mitchell van Wijngaarden",
-        "email": "mitchell@kooding.pl"
+        "email": "mitchell@kooding.nl"
     }],
     "require": {
         "php": ">=5.3.0",
