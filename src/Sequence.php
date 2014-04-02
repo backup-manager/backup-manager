@@ -1,4 +1,4 @@
-<?php namespace BigName\DatabaseBackup\Procedures; 
+<?php namespace BigName\DatabaseBackup;
 
 use BigName\DatabaseBackup\Commands\Command;
 
