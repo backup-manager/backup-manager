@@ -3,18 +3,11 @@
   sudo: true
   vars:
     app_root: /vagrant
-    doc_root: /vagrant/public
-    mysql_databases:
-      - name: project_development
-      - name: project_production
     sys_packages: []
-    php_packages: ["php5-cli","php5-mcrypt","php5-curl","php5-gd"]
+    php_packages: ["php5-cli","php5-mcrypt"]
     php_ppa: php5-oldstable
   roles:
     - init
-    - rvm
     - mysql
-    - nginx
-    - php5-fpm
     - phpcommon
     - composer

@@ -7,7 +7,7 @@
     password: $mysql_root_password
   with_items:
    - "{{ansible_hostname}}"
-   - 127.0.0.1
+   - "%"
    - ::1
    - localhost
   when: ansible_hostname != 'localhost'
@@ -18,7 +18,7 @@
     host: "{{item}}"
     password: $mysql_root_password
   with_items:
-   - 127.0.0.1
+   - "%"
    - ::1
    - localhost
   when: ansible_hostname == 'localhost'
