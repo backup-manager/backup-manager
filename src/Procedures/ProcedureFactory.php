@@ -1,10 +1,10 @@
-<?php namespace BigName\DatabaseBackup;
+<?php namespace BigName\DatabaseBackup\Procedures;
 
+use BigName\DatabaseBackup\Config;
 use BigName\DatabaseBackup\Factories\ArchiverFactory;
 use BigName\DatabaseBackup\Factories\CommandFactory;
 use BigName\DatabaseBackup\Factories\ConnectionFactory;
 use BigName\DatabaseBackup\Factories\FilesystemFactory;
-use BigName\DatabaseBackup\Procedures\BackupProcedure;
 
 /**
  * Class ProcedureFactory

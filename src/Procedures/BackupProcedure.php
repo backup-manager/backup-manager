@@ -7,7 +7,7 @@ class BackupProcedure extends Procedure
         $localFilename = __DIR__.'/../../working/test.sql';
 
         $this->add($this->commandFactory->makeDumpDatabaseCommand($databaseName, $localFilename));
-        $this->add($this->commandFactory->makeSaveFileCommand($storageName, $localFilename, $destinationPath));
+//        $this->add($this->commandFactory->makeSaveFileCommand($storageName, $localFilename, $destinationPath));
 
         $this->execute();
     }

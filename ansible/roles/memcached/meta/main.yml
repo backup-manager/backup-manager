@@ -1,0 +1,26 @@
+---
+galaxy_info:
+  author: "Benno Joy"
+  company: AnsibleWorks
+  license: BSD
+  min_ansible_version: 1.4
+  platforms:
+   - name: EL
+     versions:
+      - 5
+      - 6
+   - name: Fedora
+     versions:
+      - 16
+      - 17
+      - 18
+   - name: Ubuntu
+     versions:
+      - precise
+      - quantal
+      - raring
+      - saucy
+  categories:
+   - web
+dependencies: []
+  

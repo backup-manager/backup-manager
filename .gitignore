@@ -6,7 +6,5 @@ composer.lock
 .DS_Store
 .idea
 phpunit.php
-/ansible
 .vagrant/
-Vagrantfile
 vagrant_ansible_inventory_default
