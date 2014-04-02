@@ -1,7 +1,7 @@
-<?php namespace McCool\DatabaseBackup\Commands\Storage;
+<?php namespace BigName\DatabaseBackup\Commands\Storage;
 
 use League\Flysystem\Filesystem;
-use McCool\DatabaseBackup\Commands\Command;
+use BigName\DatabaseBackup\Commands\Command;
 
 class SaveFile implements Command
 {

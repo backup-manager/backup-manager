@@ -1,12 +1,12 @@
-<?php namespace McCool\DatabaseBackup\Frameworks\Laravel;
+<?php namespace BigName\DatabaseBackup\Frameworks\Laravel;
 
 use Illuminate\Support\ServiceProvider;
 
-use McCool\DatabaseBackup\Mysql\Mysql;
-use McCool\DatabaseBackup\Gzip\Gzip;
-use McCool\DatabaseBackup\Mysql\MysqlConnectionDetails;
-use McCool\DatabaseBackup\S3\S3;
-use McCool\DatabaseBackup\CommandProcessor;
+use BigName\DatabaseBackup\Mysql\Mysql;
+use BigName\DatabaseBackup\Gzip\Gzip;
+use BigName\DatabaseBackup\Mysql\MysqlConnectionDetails;
+use BigName\DatabaseBackup\S3\S3;
+use BigName\DatabaseBackup\CommandProcessor;
 use Symfony\Component\Process\Process;
 use Aws\Common\Aws;
 

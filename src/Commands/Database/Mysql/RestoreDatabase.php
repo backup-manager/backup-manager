@@ -1,11 +1,11 @@
-<?php namespace McCool\DatabaseBackup\Commands\Database\Mysql;
+<?php namespace BigName\DatabaseBackup\Commands\Database\Mysql;
 
-use McCool\DatabaseBackup\Commands\Command;
-use McCool\DatabaseBackup\ShellProcessor;
+use BigName\DatabaseBackup\Commands\Command;
+use BigName\DatabaseBackup\ShellProcessor;
 
 /**
  * Class RestoreDatabase
- * @package McCool\DatabaseBackup\Commands\Database\Mysql
+ * @package BigName\DatabaseBackup\Commands\Database\Mysql
  */
 class RestoreDatabase implements Command
 {
@@ -18,7 +18,7 @@ class RestoreDatabase implements Command
      */
     private $connection;
     /**
-     * @var \McCool\DatabaseBackup\ShellProcessor
+     * @var \BigName\DatabaseBackup\ShellProcessor
      */
     private $shellProcessor;
 

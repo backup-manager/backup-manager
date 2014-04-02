@@ -1,12 +1,12 @@
-<?php namespace McCool\DatabaseBackup\Commands\Database\Mysql;
+<?php namespace BigName\DatabaseBackup\Commands\Database\Mysql;
 
-use McCool\DatabaseBackup\Commands\Command;
-use McCool\DatabaseBackup\Connections\MysqlConnection;
-use McCool\DatabaseBackup\ShellProcessor;
+use BigName\DatabaseBackup\Commands\Command;
+use BigName\DatabaseBackup\Connections\MysqlConnection;
+use BigName\DatabaseBackup\ShellProcessor;
 
 /**
  * Class DumpDatabase
- * @package McCool\DatabaseBackup\Commands\Database\Mysql
+ * @package BigName\DatabaseBackup\Commands\Database\Mysql
  */
 class DumpDatabase implements Command
 {
@@ -19,7 +19,7 @@ class DumpDatabase implements Command
      */
     private $connection;
     /**
-     * @var \McCool\DatabaseBackup\ShellProcessor
+     * @var \BigName\DatabaseBackup\ShellProcessor
      */
     private $shellProcessor;
 

@@ -1,11 +1,11 @@
-<?php namespace McCool\DatabaseBackup;
+<?php namespace BigName\DatabaseBackup;
 
-use McCool\DatabaseBackup\Commands\Command;
+use BigName\DatabaseBackup\Commands\Command;
 use Symfony\Component\Process\Process;
 
 /**
  * Class CommandProcessor
- * @package McCool\DatabaseBackup
+ * @package BigName\DatabaseBackup
  */
 class ShellProcessor
 {

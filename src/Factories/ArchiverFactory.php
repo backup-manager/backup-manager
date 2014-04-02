@@ -1,4 +1,4 @@
-<?php namespace McCool\DatabaseBackup\Factories;
+<?php namespace BigName\DatabaseBackup\Factories;
 
 class ArchiverFactory
 {

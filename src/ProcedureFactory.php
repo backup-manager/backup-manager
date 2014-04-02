@@ -1,14 +1,14 @@
-<?php namespace McCool\DatabaseBackup;
+<?php namespace BigName\DatabaseBackup;
 
-use McCool\DatabaseBackup\Factories\ArchiverFactory;
-use McCool\DatabaseBackup\Factories\CommandFactory;
-use McCool\DatabaseBackup\Factories\ConnectionFactory;
-use McCool\DatabaseBackup\Factories\FilesystemFactory;
-use McCool\DatabaseBackup\Procedures\BackupProcedure;
+use BigName\DatabaseBackup\Factories\ArchiverFactory;
+use BigName\DatabaseBackup\Factories\CommandFactory;
+use BigName\DatabaseBackup\Factories\ConnectionFactory;
+use BigName\DatabaseBackup\Factories\FilesystemFactory;
+use BigName\DatabaseBackup\Procedures\BackupProcedure;
 
 /**
  * Class ProcedureFactory
- * @package McCool\DatabaseBackup
+ * @package BigName\DatabaseBackup
  */
 class ProcedureFactory
 {

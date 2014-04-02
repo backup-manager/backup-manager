@@ -1,6 +1,6 @@
-<?php namespace McCool\DatabaseBackup\Procedures;
-use McCool\DatabaseBackup\Commands\Command;
-use McCool\DatabaseBackup\Factories\CommandFactory;
+<?php namespace BigName\DatabaseBackup\Procedures;
+use BigName\DatabaseBackup\Commands\Command;
+use BigName\DatabaseBackup\Factories\CommandFactory;
 
 /**
  * Class Procedure
@@ -9,7 +9,7 @@ use McCool\DatabaseBackup\Factories\CommandFactory;
 abstract class Procedure
 {
     /**
-     * @var \McCool\DatabaseBackup\Factories\CommandFactory
+     * @var \BigName\DatabaseBackup\Factories\CommandFactory
      */
     protected $commandFactory;
     /**

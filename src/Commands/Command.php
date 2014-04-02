@@ -1,4 +1,4 @@
-<?php namespace McCool\DatabaseBackup\Commands;
+<?php namespace BigName\DatabaseBackup\Commands;
 
 interface Command
 {

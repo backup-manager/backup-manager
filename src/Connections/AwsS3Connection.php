@@ -1,4 +1,4 @@
-<?php namespace McCool\DatabaseBackup\Connections;
+<?php namespace BigName\DatabaseBackup\Connections;
 
 use Aws\Common\Enum\Region;
 

@@ -1,4 +1,4 @@
-<?php namespace McCool\DatabaseBackup;
+<?php namespace BigName\DatabaseBackup;
 
 class Config
 {

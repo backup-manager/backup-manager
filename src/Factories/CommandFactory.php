@@ -1,16 +1,16 @@
-<?php namespace McCool\DatabaseBackup\Factories;
+<?php namespace BigName\DatabaseBackup\Factories;
 
-use McCool\DatabaseBackup\Commands\Database\Mysql\DumpDatabase;
-use McCool\DatabaseBackup\Commands\Storage\SaveFile;
-use McCool\DatabaseBackup\Config;
-use McCool\DatabaseBackup\Connections\MysqlConnection;
-use McCool\DatabaseBackup\ShellProcessor;
+use BigName\DatabaseBackup\Commands\Database\Mysql\DumpDatabase;
+use BigName\DatabaseBackup\Commands\Storage\SaveFile;
+use BigName\DatabaseBackup\Config;
+use BigName\DatabaseBackup\Connections\MysqlConnection;
+use BigName\DatabaseBackup\ShellProcessor;
 use Symfony\Component\Process\Process;
 
 class CommandFactory
 {
     /**
-     * @var \McCool\DatabaseBackup\Factories\FilesystemFactory
+     * @var \BigName\DatabaseBackup\Factories\FilesystemFactory
      */
     private $filesystemFactory;
     /**
@@ -18,7 +18,7 @@ class CommandFactory
      */
     private $archiverFactory;
     /**
-     * @var \McCool\DatabaseBackup\Config
+     * @var \BigName\DatabaseBackup\Config
      */
     private $config;
 

@@ -1,9 +1,9 @@
-<?php namespace McCool\DatabaseBackup\Factories;
+<?php namespace BigName\DatabaseBackup\Factories;
 
 use Aws\S3\S3Client;
 use League\Flysystem\Adapter\AwsS3;
 use League\Flysystem\Filesystem;
-use McCool\DatabaseBackup\Config;
+use BigName\DatabaseBackup\Config;
 
 class FilesystemFactory
 {

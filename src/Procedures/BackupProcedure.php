@@ -1,4 +1,4 @@
-<?php namespace McCool\DatabaseBackup\Procedures;
+<?php namespace BigName\DatabaseBackup\Procedures;
 
 class BackupProcedure extends Procedure
 {

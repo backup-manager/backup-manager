@@ -1,11 +1,11 @@
-<?php namespace McCool\DatabaseBackup\Frameworks\Laravel;
+<?php namespace BigName\DatabaseBackup\Frameworks\Laravel;
 
 use Illuminate\Console\Command;
-use McCool\DatabaseBackup\Mysql\MysqlConnectionDetails;
+use BigName\DatabaseBackup\Mysql\MysqlConnectionDetails;
 use Symfony\Component\Console\Input\InputOption;
 use Symfony\Component\Console\Input\InputArgument;
 
-use McCool\DatabaseBackup\Procedures\BackupProcedure;
+use BigName\DatabaseBackup\Procedures\BackupProcedure;
 
 class LaravelBackupCommand extends Command
 {
@@ -75,7 +75,7 @@ class LaravelBackupCommand extends Command
 
     /**
      * Returns a Mysql instance.
-     * @return \McCool\DatabaseBackup\Mysql\Mysql
+     * @return \BigName\DatabaseBackup\Mysql\Mysql
      */
     protected function getDumper()
     {
@@ -98,7 +98,7 @@ class LaravelBackupCommand extends Command
     /**
      * Returns the Gzip instance.
      *
-     * @return \McCool\DatabaseBackup\Gzip\Gzip|null
+     * @return \BigName\DatabaseBackup\Gzip\Gzip|null
      */
     protected function getArchiver()
     {
@@ -112,7 +112,7 @@ class LaravelBackupCommand extends Command
     /**
      * Returns the S3 instance.
      *
-     * return \McCool\DatabaseBackup\S3\S3|null
+     * return \BigName\DatabaseBackup\S3\S3|null
      */
     protected function getStorer()
     {
