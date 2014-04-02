@@ -2,6 +2,7 @@
 
 use BigName\DatabaseBackup\Commands\Command;
 use BigName\DatabaseBackup\Factories\CommandFactory;
+use BigName\DatabaseBackup\Sequence;
 
 /**
  * Class Procedure
