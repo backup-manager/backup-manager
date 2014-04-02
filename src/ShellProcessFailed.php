@@ -1,3 +1,3 @@
-<?php namespace McCool\DatabaseBackup\Exceptions;
+<?php namespace McCool\DatabaseBackup;
 
 class ShellProcessFailed extends \Exception {}

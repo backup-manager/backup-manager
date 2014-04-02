@@ -5,3 +5,4 @@ composer.lock
 phpunit.php
 .idea
 /working
+/config/*
