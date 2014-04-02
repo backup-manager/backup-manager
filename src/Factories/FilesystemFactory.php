@@ -2,6 +2,7 @@
 
 use Aws\S3\S3Client;
 use League\Flysystem\Adapter\AwsS3;
+use League\Flysystem\Adapter\Local;
 use League\Flysystem\Filesystem;
 use BigName\DatabaseBackup\Config;
 
@@ -34,5 +35,12 @@ class FilesystemFactory
         ]);
 
         return new Filesystem(new AwsS3($client, $this->config->get($name, 'bucket')));
+    }
+
+    /** @noinspection PhpUnusedPrivateMethodInspection */
+    private function makeLocalFilesystem($name)
+    {
+        $root = realpath($this->config->get($name, 'root-path'));
+        return new Filesystem(new Local($root));
     }
 }

@@ -1,6 +1,8 @@
 <?php namespace BigName\DatabaseBackup\Factories;
 
+use BigName\DatabaseBackup\Commands\Archiving\Zip;
 use BigName\DatabaseBackup\Commands\Database\Mysql\DumpDatabase;
+use BigName\DatabaseBackup\Commands\Storage\DeleteFile;
 use BigName\DatabaseBackup\Commands\Storage\SaveFile;
 use BigName\DatabaseBackup\Config;
 use BigName\DatabaseBackup\Connections\MysqlConnection;
@@ -35,6 +37,12 @@ class CommandFactory
         return new SaveFile($this->filesystemFactory->makeFilesystemFor($connectionName), $sourcePath, $destinationPath);
     }
 
+    public function makeDeleteFileCommand($connectionName, $filePath)
+    {
+        /** @noinspection PhpParamsInspection */
+        return new DeleteFile($this->filesystemFactory->makeFilesystemFor($connectionName), $filePath);
+    }
+
     public function makeDumpDatabaseCommand($databaseName, $destinationPath)
     {
         $mysql = new MysqlConnection(
@@ -44,6 +52,16 @@ class CommandFactory
             $this->config->get($databaseName, 'pass'),
             $this->config->get($databaseName, 'database')
         );
-        return new DumpDatabase($mysql, new ShellProcessor(new Process('')), $destinationPath);
+        return new DumpDatabase($mysql, $this->getShellProcessor(), $destinationPath);
+    }
+
+    public function makeZipCommand($sourcePath)
+    {
+        return new Zip($this->getShellProcessor(), $sourcePath);
+    }
+
+    private function getShellProcessor()
+    {
+        return new ShellProcessor(new Process(''));
     }
 } 
