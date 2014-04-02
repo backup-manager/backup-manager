@@ -3,7 +3,7 @@
 use BigName\DatabaseBackup\Commands\Command;
 use BigName\DatabaseBackup\ShellProcessor;
 
-class Zip implements Command
+class Gzip implements Command
 {
     /**
      * @var \BigName\DatabaseBackup\ShellProcessor
