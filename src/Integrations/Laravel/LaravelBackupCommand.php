@@ -1,32 +1,27 @@
-<?php namespace McCool\DatabaseBackup\Commands;
+<?php namespace BigName\DatabaseBackup\Frameworks\Laravel;
 
 use Illuminate\Console\Command;
+use BigName\DatabaseBackup\Mysql\MysqlConnectionDetails;
 use Symfony\Component\Console\Input\InputOption;
 use Symfony\Component\Console\Input\InputArgument;
 
-use McCool\DatabaseBackup\BackupProcedure;
-use McCool\DatabaseBackup\Storers\S3Storer;
-use McCool\DatabaseBackup\Dumpers\MysqlDumper;
+use BigName\DatabaseBackup\Procedures\BackupProcedure;
 
 class LaravelBackupCommand extends Command
 {
     /**
      * The console command name.
-     *
      * @var string
      */
     protected $name = 'db:backup';
-
     /**
      * The console command description.
-     *
      * @var string
      */
     protected $description = 'Backup the database, optionally to S3.';
 
     /**
      * Execure the backup command.
-     *
      * @return void
      */
     public function fire()
@@ -58,31 +53,29 @@ class LaravelBackupCommand extends Command
      */
     protected function getArguments()
     {
-        return array();
+        return [];
     }
 
     /**
      * Get the console command options.
-     *
      * @return array
      */
     protected function getOptions()
     {
-        return array(
-            array('database', null, InputOption::VALUE_OPTIONAL, 'The database connection to backup, uses the default if not specified.', null),
-            array('local-path', null, InputOption::VALUE_OPTIONAL, 'The local storage path for the dump. Defaults to app/storage/dumps.', null),
-            array('s3-bucket', null, InputOption::VALUE_OPTIONAL, 'Specify this option to upload to S3.', null),
-            array('s3-path', null, InputOption::VALUE_OPTIONAL, 'Define the path on the S3 bucket to store the file.', null),
-            array('filename', null, InputOption::VALUE_OPTIONAL, 'Define the filename to be used.', null),
-            array('gzip', null, InputOption::VALUE_NONE, 'Gzip the backup.', null),
-            array('cleanup', null, InputOption::VALUE_NONE, 'Remove the dump when the process finishes.', null),
-        );
+        return [
+            ['database', null, InputOption::VALUE_OPTIONAL, 'The database connection to backup, uses the default if not specified.', null],
+            ['local-path', null, InputOption::VALUE_OPTIONAL, 'The local storage path for the dump. Defaults to app/storage/dumps.', null],
+            ['s3-bucket', null, InputOption::VALUE_OPTIONAL, 'Specify this option to upload to S3.', null],
+            ['s3-path', null, InputOption::VALUE_OPTIONAL, 'Define the path on the S3 bucket to store the file.', null],
+            ['filename', null, InputOption::VALUE_OPTIONAL, 'Define the filename to be used.', null],
+            ['gzip', null, InputOption::VALUE_NONE, 'Gzip the backup.', null],
+            ['cleanup', null, InputOption::VALUE_NONE, 'Remove the dump when the process finishes.', null],
+        ];
     }
 
     /**
-     * Returns a MysqlDumper instance.
-     *
-     * @return \McCool\DatabaseBackup\Dumpers\MysqlDumper
+     * Returns a Mysql instance.
+     * @return \BigName\DatabaseBackup\Mysql\Mysql
      */
     protected function getDumper()
     {
@@ -97,23 +90,15 @@ class LaravelBackupCommand extends Command
         $filename = $this->option('filename') ?: ($conn['database'] .'-'. date('Y-m-d_H-i-s') . '.sql');
         $filePath = $localPath . '/'.$filename;
 
-        // dumper config
-        $config = [
-            'host'     => $conn['host'],
-            'port'     => 3306,
-            'username' => $conn['username'],
-            'password' => $conn['password'],
-            'database' => $conn['database'],
-            'filePath' => $filePath,
-        ];
-
-        return $this->laravel->make('databasebackup.dumpers.mysqldumper', $config);
+        //config
+        $mysqlConnectionDetails = new MysqlConnectionDetails($conn['host'], 3306, $conn['username'], $conn['password'], $conn['database']);
+        return $this->laravel->make('databasebackup.dumpers.mysqldumper', ['mysqlConnectionDetails' => $mysqlConnectionDetails]);
     }
 
     /**
-     * Returns the GzipArchiver instance.
+     * Returns the Gzip instance.
      *
-     * @return \McCool\DatabaseBackup\Archivers\GzipArchiver|null
+     * @return \BigName\DatabaseBackup\Gzip\Gzip|null
      */
     protected function getArchiver()
     {
@@ -125,9 +110,9 @@ class LaravelBackupCommand extends Command
     }
 
     /**
-     * Returns the S3Storer instance.
+     * Returns the S3 instance.
      *
-     * return \McCool\DatabaseBackup\Storers\S3Storer|null
+     * return \BigName\DatabaseBackup\S3\S3|null
      */
     protected function getStorer()
     {

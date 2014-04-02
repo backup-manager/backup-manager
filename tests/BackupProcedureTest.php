@@ -1,6 +1,6 @@
 <?php
 
-use McCool\DatabaseBackup\BackupProcedure;
+use McCool\DatabaseBackup\Procedures\BackupProcedure;
 use Mockery as m;
 
 class BackupProcedureTest extends \PHPUnit_Framework_TestCase
@@ -38,7 +38,7 @@ class BackupProcedureTest extends \PHPUnit_Framework_TestCase
         $dumper = m::mock('McCool\DatabaseBackup\Dumpers\DumperInterface');
         $dumper->shouldReceive('dump', 'getOutputFilename');
 
-        $storer = m::mock('McCool\DatabaseBackup\Storers\StorerInterface');
+        $storer = m::mock('McCool\DatabaseBackup\StorerInterface');
         $storer->shouldReceive('setInputFilename', 'store');
 
         $backup = new BackupProcedure($dumper);
@@ -55,7 +55,7 @@ class BackupProcedureTest extends \PHPUnit_Framework_TestCase
         $archiver = m::mock('McCool\DatabaseBackup\Archivers\ArchiverInterface');
         $archiver->shouldReceive('setInputFilename', 'archive', 'getOutputFilename');
 
-        $storer = m::mock('McCool\DatabaseBackup\Storers\StorerInterface');
+        $storer = m::mock('McCool\DatabaseBackup\StorerInterface');
         $storer->shouldReceive('setInputFilename', 'store');
 
         $backup = new BackupProcedure($dumper);

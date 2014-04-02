@@ -1,8 +1,8 @@
-/vendor
+vendor
+working
+config
 composer.phar
 composer.lock
 .DS_Store
-phpunit.php
 .idea
-config
-working
+phpunit.php

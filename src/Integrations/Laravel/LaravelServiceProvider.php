@@ -1,13 +1,12 @@
-<?php namespace McCool\DatabaseBackup\ServiceProviders;
+<?php namespace BigName\DatabaseBackup\Frameworks\Laravel;
 
 use Illuminate\Support\ServiceProvider;
 
-use McCool\DatabaseBackup\Commands\LaravelBackupCommand;
-use McCool\DatabaseBackup\Dumpers\MysqlDumper;
-use McCool\DatabaseBackup\Archivers\GzipArchiver;
-use McCool\DatabaseBackup\Processors\ShellProcessor;
-use McCool\DatabaseBackup\Storers\S3Storer;
-
+use BigName\DatabaseBackup\Mysql\Mysql;
+use BigName\DatabaseBackup\Gzip\Gzip;
+use BigName\DatabaseBackup\Mysql\MysqlConnectionDetails;
+use BigName\DatabaseBackup\S3\S3;
+use BigName\DatabaseBackup\CommandProcessor;
 use Symfony\Component\Process\Process;
 use Aws\Common\Aws;
 
@@ -15,18 +14,16 @@ class LaravelServiceProvider extends ServiceProvider
 {
     /**
      * Bootstrap the application events.
-     *
      * @return void
      */
     public function boot()
     {
-        $path = realpath( $this->guessPackagePath() . '/..' );
+        $path = realpath($this->guessPackagePath() . '/..');
         $this->package('mccool/database-backup', 'database-backup', $path);
     }
 
     /**
      * Register the service provider.
-     *
      * @return void
      */
     public function register()
@@ -44,20 +41,21 @@ class LaravelServiceProvider extends ServiceProvider
             ])->get('s3');
         });
 
-        $this->app->bind('databasebackup.archivers.gziparchiver', function($app) {
-            return new GzipArchiver(new ShellProcessor(new Process('')));
+        $this->app->bind('databasebackup.gzip', function($app) {
+            return new Gzip(new CommandProcessor(new Process('')));
         });
 
         $this->app->bind('databasebackup.processors.shellprocessor', function($app) {
-            return new ShellProcessor(new Process(''));
+            return new CommandProcessor(new Process(''));
         });
 
-        $this->app->bind('databasebackup.storers.s3storer', function($app, $params) {
-            return new S3Storer($app->make('databasebackup.s3client'), $params['s3-bucket'], $params['s3-path']);
+        $this->app->bind('databasebackup.s3', function($app, $params) {
+            return new S3($app->make('databasebackup.s3client'), $params['s3-bucket'], $params['s3-path']);
         });
 
-        $this->app->bind('databasebackup.dumpers.mysqldumper', function($app, $params) {
-            return new MysqlDumper($app['databasebackup.processors.shellprocessor'], $params['host'], $params['port'], $params['username'], $params['password'], $params['database'], $params['filePath']);
+        $this->app->bind('databasebackup.mysql', function($app, $params) {
+
+            return new Mysql($app['databasebackup.shellprocessor'], $params['mysqlConnectionDetails']);
         });
     }
 }

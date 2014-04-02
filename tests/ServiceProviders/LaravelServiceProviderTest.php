@@ -1,7 +1,7 @@
 <?php
 
 use Illuminate\Container\Container;
-use McCool\DatabaseBackup\ServiceProviders\LaravelServiceProvider;
+use McCool\DatabaseBackup\Frameworks\Laravel\LaravelServiceProvider;
 use Mockery as m;
 
 class LaravelServiceProviderTest extends \PHPUnit_Framework_TestCase
@@ -15,7 +15,7 @@ class LaravelServiceProviderTest extends \PHPUnit_Framework_TestCase
     {
         $provider = new LaravelServiceProvider($this->getContainer());
 
-        $this->assertInstanceOf('McCool\DatabaseBackup\ServiceProviders\LaravelServiceProvider', $provider);
+        $this->assertInstanceOf('McCool\DatabaseBackup\Frameworks\Laravel\LaravelServiceProvider', $provider);
     }
 
     public function testCanBoot()
@@ -41,7 +41,7 @@ class LaravelServiceProviderTest extends \PHPUnit_Framework_TestCase
         $provider = new LaravelServiceProvider($app);
         $provider->register();
 
-        $this->assertInstanceOf('McCool\DatabaseBackup\Commands\LaravelBackupCommand', $app->make('databasebackup.backupcommand'));
+        $this->assertInstanceOf('McCool\DatabaseBackup\Frameworks\Laravel\LaravelBackupCommand', $app->make('databasebackup.backupcommand'));
     }
 
     public function testCanCreateS3Client()
@@ -61,7 +61,7 @@ class LaravelServiceProviderTest extends \PHPUnit_Framework_TestCase
         $provider = new LaravelServiceProvider($app);
         $provider->register();
 
-        $this->assertInstanceOf('McCool\DatabaseBackup\Archivers\GzipArchiver', $app->make('databasebackup.archivers.gziparchiver'));
+        $this->assertInstanceOf('McCool\DatabaseBackup\Gzip\GzipArchiver', $app->make('databasebackup.archivers.gziparchiver'));
     }
 
     public function testCanCreateShellProcessor()
@@ -71,7 +71,7 @@ class LaravelServiceProviderTest extends \PHPUnit_Framework_TestCase
         $provider = new LaravelServiceProvider($app);
         $provider->register();
 
-        $this->assertInstanceOf('McCool\DatabaseBackup\Processors\ShellProcessor', $app->make('databasebackup.processors.shellprocessor'));
+        $this->assertInstanceOf('McCool\DatabaseBackup\Shell\ShellProcessor', $app->make('databasebackup.processors.shellprocessor'));
     }
 
     public function testCanCreateS3Storer()
@@ -82,7 +82,7 @@ class LaravelServiceProviderTest extends \PHPUnit_Framework_TestCase
         $provider->register();
 
         $s3Config = ['s3-bucket' => 'bucket', 's3-path' => 'path'];
-        $this->assertInstanceOf('McCool\DatabaseBackup\Storers\S3Storer', $app->make('databasebackup.storers.s3storer', $s3Config));
+        $this->assertInstanceOf('McCool\DatabaseBackup\S3\S3Storer', $app->make('databasebackup.storers.s3storer', $s3Config));
     }
 
     public function testCanCreateMysqlDumper()
@@ -101,7 +101,7 @@ class LaravelServiceProviderTest extends \PHPUnit_Framework_TestCase
             'filePath' => 'filePath',
         ];
 
-        $this->assertInstanceOf('McCool\DatabaseBackup\Dumpers\MysqlDumper', $app->make('databasebackup.dumpers.mysqldumper', $dumperConfig));
+        $this->assertInstanceOf('McCool\DatabaseBackup\Mysql\MysqlDumper', $app->make('databasebackup.dumpers.mysqldumper', $dumperConfig));
     }
 
     private function getApp()
