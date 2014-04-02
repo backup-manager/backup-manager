@@ -3,7 +3,7 @@
 use BigName\DatabaseBackup\Commands\Command;
 use BigName\DatabaseBackup\ShellProcessor;
 
-class Gzip implements Command
+class GzipFile implements Command
 {
     /**
      * @var \BigName\DatabaseBackup\ShellProcessor
@@ -34,8 +34,6 @@ class Gzip implements Command
      */
     private function getCommand()
     {
-        return sprintf('gzip %s',
-            escapeshellarg($this->sourcePath)
-        );
+        return sprintf('gzip %s', escapeshellarg($this->sourcePath));
     }
 }

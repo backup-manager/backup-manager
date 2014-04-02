@@ -1,4 +1,5 @@
 <?php namespace BigName\DatabaseBackup\Procedures;
+
 use BigName\DatabaseBackup\Commands\Command;
 use BigName\DatabaseBackup\Factories\CommandFactory;
 
@@ -11,33 +12,23 @@ abstract class Procedure
     /**
      * @var \BigName\DatabaseBackup\Factories\CommandFactory
      */
-    protected $commandFactory;
-    /**
-     * @var array
-     */
-    private $commands = [];
+    protected $factory;
 
-    public function __construct(CommandFactory $commandFactory)
+    private $sequence;
+
+    public function __construct(CommandFactory $factory, Sequence $sequence)
     {
-        $this->commandFactory = $commandFactory;
+        $this->factory = $factory;
+        $this->sequence = $sequence;
     }
 
-    /**
-     * Run the procedure.
-     * @return mixed
-     */
-    protected function execute()
-    {
-        foreach ($this->commands as $command) {
-            $command->execute();
-        }
-    }
-
-    /**
-     * @param Command $command
-     */
     protected function add(Command $command)
     {
-        $this->commands[] = $command;
+        $this->sequence->add($command);
+    }
+
+    protected function runSequence()
+    {
+        $this->sequence->execute();
     }
 } 

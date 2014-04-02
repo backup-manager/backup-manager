@@ -27,6 +27,6 @@ class ProcedureFactory
      */
     public function makeBackupProcedure()
     {
-        return new BackupProcedure($this->commandFactory);
+        return new BackupProcedure($this->commandFactory, new Sequence);
     }
 } 

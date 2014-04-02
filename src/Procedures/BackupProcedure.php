@@ -4,14 +4,19 @@ class BackupProcedure extends Procedure
 {
     public function run($databaseName, $storageName, $destinationPath)
     {
-        $localFilename = __DIR__.'/../../working/test.sql';
-        $archivedFilename = $localFilename . '.gz';
+        $workingPath = $this->getWorkingPath();
+        $archivedFilename = "{$workingPath}.gz";
 
-        $this->add($this->commandFactory->makeDumpDatabaseCommand($databaseName, $localFilename));
-        $this->add($this->commandFactory->makeZipCommand($localFilename));
-        $this->add($this->commandFactory->makeSaveFileCommand($storageName, $archivedFilename, $destinationPath));
-        $this->add($this->commandFactory->makeDeleteFileCommand('local', $archivedFilename));
+        $this->add($this->factory->makeDumpDatabaseCommand($databaseName, $workingPath));
+        $this->add($this->factory->makeZipFileCommand($workingPath));
+        $this->add($this->factory->makeSaveFileCommand($storageName, $archivedFilename, $destinationPath));
+        $this->add($this->factory->makeDeleteFileCommand('local', $archivedFilename));
 
-        $this->execute();
+        $this->runSequence();
+    }
+
+    private function getWorkingPath()
+    {
+        return sprintf('%s/../../working/%s.sql', __DIR__, uniqid());
     }
 }

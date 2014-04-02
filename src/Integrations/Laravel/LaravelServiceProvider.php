@@ -2,14 +2,6 @@
 
 use Illuminate\Support\ServiceProvider;
 
-use BigName\DatabaseBackup\Mysql\Mysql;
-use BigName\DatabaseBackup\Gzip\Gzip;
-use BigName\DatabaseBackup\Mysql\MysqlConnectionDetails;
-use BigName\DatabaseBackup\S3\S3;
-use BigName\DatabaseBackup\CommandProcessor;
-use Symfony\Component\Process\Process;
-use Aws\Common\Aws;
-
 class LaravelServiceProvider extends ServiceProvider
 {
     /**

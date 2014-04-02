@@ -1,6 +1,6 @@
 <?php namespace BigName\DatabaseBackup\Factories;
 
-use BigName\DatabaseBackup\Commands\Archiving\Gzip;
+use BigName\DatabaseBackup\Commands\Archiving\GzipFile;
 use BigName\DatabaseBackup\Commands\Database\Mysql\DumpDatabase;
 use BigName\DatabaseBackup\Commands\Storage\DeleteFile;
 use BigName\DatabaseBackup\Commands\Storage\SaveFile;
@@ -55,9 +55,9 @@ class CommandFactory
         return new DumpDatabase($mysql, $this->getShellProcessor(), $destinationPath);
     }
 
-    public function makeZipCommand($sourcePath)
+    public function makeZipFileCommand($sourcePath)
     {
-        return new Gzip($this->getShellProcessor(), $sourcePath);
+        return new GzipFile($this->getShellProcessor(), $sourcePath);
     }
 
     private function getShellProcessor()
