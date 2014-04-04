@@ -2,7 +2,8 @@
 
 use BigName\DatabaseBackup\Commands\Command;
 use BigName\DatabaseBackup\Commands\CommandFactory;
-use BigName\DatabaseBackup\Procedures\Sequence;
+use BigName\DatabaseBackup\Config;
+use BigName\DatabaseBackup\Filesystems\FilesystemProvider;
 
 /**
  * Class Procedure
@@ -10,17 +11,21 @@ use BigName\DatabaseBackup\Procedures\Sequence;
  */
 abstract class Procedure
 {
-    /**
-     * @var \BigName\DatabaseBackup\Commands\CommandFactory
-     */
-    protected $factory;
-
     private $sequence;
+    /**
+     * @var \BigName\DatabaseBackup\Filesystems\FilesystemProvider
+     */
+    protected $filesystemProvider;
+    /**
+     * @var \BigName\DatabaseBackup\Config
+     */
+    protected $databaseConfig;
 
-    public function __construct(CommandFactory $factory, Sequence $sequence)
+    public function __construct(FilesystemProvider $filesystemProvider, Config $databaseConfig)
     {
-        $this->factory = $factory;
-        $this->sequence = $sequence;
+        $this->sequence = new Sequence;
+        $this->filesystemProvider = $filesystemProvider;
+        $this->databaseConfig = $databaseConfig;
     }
 
     protected function add(Command $command)

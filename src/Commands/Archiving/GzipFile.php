@@ -2,36 +2,22 @@
 
 use BigName\DatabaseBackup\Commands\Command;
 use BigName\DatabaseBackup\ShellProcessing\ShellProcessor;
+use Symfony\Component\Process\Process;
 
 class GzipFile implements Command
 {
-    /**
-     * @var \BigName\DatabaseBackup\ShellProcessing\ShellProcessor
-     */
-    private $shellProcessor;
-    /**
-     * @var
-     */
     private $sourcePath;
 
-    public function __construct(ShellProcessor $shellProcessor, $sourcePath)
+    public function __construct($sourcePath)
     {
-        $this->shellProcessor = $shellProcessor;
         $this->sourcePath = $sourcePath;
     }
 
-    /**
-     * Execute the command.
-     */
     public function execute()
     {
-        $this->shellProcessor->process($this->getCommand());
+        return (new ShellProcessor(new Process('')))->process($this->getCommand());
     }
 
-    /**
-     * Produce the command string.
-     * @return string
-     */
     private function getCommand()
     {
         return sprintf('gzip %s', escapeshellarg($this->sourcePath));

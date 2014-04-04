@@ -5,28 +5,16 @@ use BigName\DatabaseBackup\Config;
 class FilesystemProvider
 {
     private $config;
-    private $filesystems = [];
 
     public function __construct(Config $config)
     {
         $this->config = $config;
     }
 
-    public function AddFilesystem(Filesystem $filesystem)
+    public function getType($name)
     {
-        $this->filesystems[] = $filesystem;
-    }
-
-    public function getForConnection($name)
-    {
-        $filesystemType = $this->config->get($name, 'type');
-
-        foreach ($this->filesystems as $filesystem) {
-            if ($filesystem->handles($filesystemType)) {
-                return $filesystem->get($this->config->get($name));
-            }
-        }
-
-        throw new FilesystemNotSupported('The filesystem ' . $filesystemType . ' is not supported.');
+        $class = __NAMESPACE__ . "\\" . $this->config->get($name, 'type') . 'Filesystem';
+        $filesystem = new $class;
+        return $filesystem->get($this->config->get($name));
     }
 }

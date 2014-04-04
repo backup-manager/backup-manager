@@ -2,23 +2,8 @@
 
 use Aws\S3\S3Client;
 
-/**
- * Class LocalFilesystem
- * @package BigName\DatabaseBackup\Filesystems
- */
 class AwsS3Filesystem implements Filesystem
 {
-    /**
-     * Get the name identifier of the filesystem. The name
-     * is generally derived from the Flysystem driver name.
-     * @param string $type
-     * @return string
-     */
-    public function handles($type)
-    {
-        return $type == 'AwsS3';
-    }
-
     public function get(array $config)
     {
         $client = S3Client::factory([

@@ -3,7 +3,8 @@
 use BigName\DatabaseBackup\Commands\Archiving\GzipFile;
 use BigName\DatabaseBackup\Commands\Database\Mysql\DumpDatabase;
 use BigName\DatabaseBackup\Commands\Storage\DeleteFile;
-use BigName\DatabaseBackup\Commands\Storage\SaveFile;
+use BigName\DatabaseBackup\Commands\Storage\RetrieveFile;
+use BigName\DatabaseBackup\Commands\Storage\TransferFile;
 use BigName\DatabaseBackup\Config;
 use BigName\DatabaseBackup\Connections\MysqlConnection;
 use BigName\DatabaseBackup\Filesystems\FilesystemProvider;
@@ -27,16 +28,22 @@ class CommandFactory
         $this->databaseConfig = $databaseConfig;
     }
 
-    public function makeSaveFileCommand($connectionName, $sourcePath, $destinationPath)
+    public function makeStoreFileCommand($storageName, $sourcePath, $destinationPath)
     {
         /** @noinspection PhpParamsInspection */
-        return new SaveFile($this->filesystemProvider->getForConnection($connectionName), $sourcePath, $destinationPath);
+        return new TransferFile($this->filesystemProvider->getType($storageName), $sourcePath, $destinationPath);
     }
 
-    public function makeDeleteFileCommand($connectionName, $filePath)
+    public function makeRetrieveFileCommand($storageName, $sourcePath)
     {
         /** @noinspection PhpParamsInspection */
-        return new DeleteFile($this->filesystemProvider->getForConnection($connectionName), $filePath);
+        return new RetrieveFile($this->filesystemProvider->getType($storageName), $sourcePath, $this->storageConfig->get('local', 'working-path'));
+    }
+
+    public function makeDeleteFileCommand($storageName, $filePath)
+    {
+        /** @noinspection PhpParamsInspection */
+        return new DeleteFile($this->filesystemProvider->getType($storageName), $filePath);
     }
 
     public function makeDumpDatabaseCommand($databaseName, $destinationPath)
