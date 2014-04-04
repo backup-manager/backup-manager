@@ -20,7 +20,7 @@ class GunzipFileTest extends PHPUnit_Framework_TestCase
     public function test_generates_correct_command()
     {
         $shell = m::mock('BigName\DatabaseBackup\ShellProcessing\ShellProcessor');
-        $shell->shouldReceive('process')->with("gunzip 'foo'");
+        $shell->shouldReceive('process')->with("gunzip 'foo'")->once();
 
         $gunzip = new GunzipFile('foo', $shell);
         $gunzip->execute();
