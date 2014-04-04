@@ -6,13 +6,14 @@ use BigName\DatabaseBackup\Commands\Storage\DeleteFile;
 use BigName\DatabaseBackup\Commands\Storage\SaveFile;
 use BigName\DatabaseBackup\Config;
 use BigName\DatabaseBackup\Connections\MysqlConnection;
+use BigName\DatabaseBackup\Filesystems\FilesystemFactory;
 use BigName\DatabaseBackup\ShellProcessor;
 use Symfony\Component\Process\Process;
 
 class CommandFactory
 {
     /**
-     * @var \BigName\DatabaseBackup\Factories\FilesystemFactory
+     * @var \BigName\DatabaseBackup\Filesystems\FilesystemFactory
      */
     private $filesystemFactory;
     /**

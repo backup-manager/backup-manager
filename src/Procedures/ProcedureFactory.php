@@ -4,7 +4,7 @@ use BigName\DatabaseBackup\Config;
 use BigName\DatabaseBackup\Factories\ArchiverFactory;
 use BigName\DatabaseBackup\Factories\CommandFactory;
 use BigName\DatabaseBackup\Factories\ConnectionFactory;
-use BigName\DatabaseBackup\Factories\FilesystemFactory;
+use BigName\DatabaseBackup\Filesystems\FilesystemFactory;
 
 /**
  * Class ProcedureFactory
