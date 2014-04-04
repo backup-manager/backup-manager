@@ -28,7 +28,7 @@ abstract class Procedure
         $this->sequence->add($command);
     }
 
-    protected function runSequence()
+    protected function execute()
     {
         $this->sequence->execute();
     }
