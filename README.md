@@ -1,3 +1,9 @@
+# Database Backup Package
+
+- dump to or restore from MySQL, PostgreSQL
+- store on S3, Dropbox, FTP, SFTP, Rackspace Cloud, and WebDAV
+- framework-agnostic
+
 [![Latest Stable Version](https://poser.pugx.org/mccool/database-backup/version.png)](https://packagist.org/packages/mccool/database-backup)
 [![License](https://poser.pugx.org/mccool/database-backup/license.png)](https://packagist.org/packages/mccool/database-backup)
 
