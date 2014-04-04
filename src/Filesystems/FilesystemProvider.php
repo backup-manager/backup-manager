@@ -13,7 +13,7 @@ class FilesystemProvider
 
     public function getType($name)
     {
-        $class = new $this->getClassName($this->config->get($name, 'type'));
+        $class = $this->getClassName($this->config->get($name, 'type'));
         if ( ! class_exists($class)) {
             throw new FilesystemTypeNotSupported('The requested filesystem type "' . $class . '" is not currently supported.');
         }
