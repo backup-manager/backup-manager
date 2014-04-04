@@ -13,6 +13,10 @@
 - integrates with MVC framework [Laravel](http://laravel.com)
 - integrates with team communication software [Slack](http://slack.com)
 
+### Requirements
+
+- PHP 5.4
+
 ### License
 
 MIT
