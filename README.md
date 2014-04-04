@@ -13,4 +13,6 @@
 - integrates with [Laravel](http://laravel.com)
 - integrates with [Slack](http://slack.com)
 
-## MIT License
+### License
+
+MIT
