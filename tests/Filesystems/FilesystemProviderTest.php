@@ -12,8 +12,7 @@ class FilesystemProviderTest extends PHPUnit_Framework_TestCase
 
     public function test_can_create()
     {
-        $config = $_SERVER['TRAVIS_BUILD_DIR'] . '/tests/config/storage.php';
-        $provider = new \BigName\DatabaseBackup\Filesystems\FilesystemProvider(new Config($config));
+        $provider = new \BigName\DatabaseBackup\Filesystems\FilesystemProvider(new Config('tests/config/storage.php'));
         $this->assertInstanceOf('BigName\DatabaseBackup\Filesystems\FilesystemProvider', $provider);
     }
 }
