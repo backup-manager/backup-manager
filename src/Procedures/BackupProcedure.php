@@ -8,7 +8,7 @@ use BigName\DatabaseBackup\Connections\MysqlConnection;
 
 class BackupProcedure extends Procedure
 {
-    public function run($databaseName, $destinationConnectionName, $destinationPath)
+    public function run($databaseName, $destinationType, $destinationPath)
     {
         $tempFile = $this->getTempFilename();
         $compressedTempFile = "{$tempFile}.gz";
@@ -21,11 +21,11 @@ class BackupProcedure extends Procedure
             $this->databaseConfig->get($databaseName, 'database')
         );
 
-        $this->add(new DumpDatabase($mysql, $tempFile));
-        $this->add(new GzipFile($tempFile));
+        $this->add(new DumpDatabase($mysql, $tempFile, $this->shellProcessor));
+        $this->add(new GzipFile($tempFile, $this->shellProcessor));
         $this->add(new TransferFile(
             $this->filesystemProvider->getType('local'), $compressedTempFile,
-            $this->filesystemProvider->getType($destinationConnectionName), $destinationPath
+            $this->filesystemProvider->getType($destinationType), $destinationPath
         ));
         $this->add(new DeleteFile($this->filesystemProvider->getType('local'), $compressedTempFile));
 

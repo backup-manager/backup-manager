@@ -1,11 +1,14 @@
-<?php namespace BigName\DatabaseBackup\Commands\Archiving;
+<?php namespace BigName\DatabaseBackup\Commands\Archiving; 
 
 use BigName\DatabaseBackup\Commands\Command;
 use BigName\DatabaseBackup\ShellProcessing\ShellProcessor;
 
-class GzipFile implements Command
+class GunzipFile implements Command
 {
     private $sourcePath;
+    /**
+     * @var \BigName\DatabaseBackup\ShellProcessing\ShellProcessor
+     */
     private $shellProcessor;
 
     public function __construct($sourcePath, ShellProcessor $shellProcessor)
@@ -21,6 +24,6 @@ class GzipFile implements Command
 
     private function getCommand()
     {
-        return sprintf('gzip %s', escapeshellarg($this->sourcePath));
+        return sprintf('gunzip %s', escapeshellarg($this->sourcePath));
     }
 }

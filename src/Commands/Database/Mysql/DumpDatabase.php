@@ -19,16 +19,21 @@ class DumpDatabase implements Command
      * @var MysqlConnection
      */
     private $connection;
+    /**
+     * @var \BigName\DatabaseBackup\ShellProcessing\ShellProcessor
+     */
+    private $shellProcessor;
 
-    public function __construct(MysqlConnection $connection, $outputPath)
+    public function __construct(MysqlConnection $connection, $outputPath, ShellProcessor $shellProcessor)
     {
         $this->outputPath = $outputPath;
         $this->connection = $connection;
+        $this->shellProcessor = $shellProcessor;
     }
 
     public function execute()
     {
-        return (new ShellProcessor(new Process('')))->process($this->getCommand());
+        return $this->shellProcessor->process($this->getCommand());
     }
 
     private function getCommand()
