@@ -2,7 +2,7 @@
 
 use BigName\DatabaseBackup\Commands\Command;
 use BigName\DatabaseBackup\Connections\MysqlConnection;
-use BigName\DatabaseBackup\ShellProcessor;
+use BigName\DatabaseBackup\ShellProcessing\ShellProcessor;
 
 /**
  * Class DumpDatabase
@@ -19,7 +19,7 @@ class DumpDatabase implements Command
      */
     private $connection;
     /**
-     * @var \BigName\DatabaseBackup\ShellProcessor
+     * @var \BigName\DatabaseBackup\ShellProcessing\ShellProcessor
      */
     private $shellProcessor;
 

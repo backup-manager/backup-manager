@@ -1,6 +1,6 @@
-<?php namespace BigName\DatabaseBackup;
+<?php namespace BigName\DatabaseBackup\ShellProcessing;
 
-use BigName\DatabaseBackup\Commands\Command;
+use BigName\DatabaseBackup\ShellProcessing\ShellProcessFailed;
 use Symfony\Component\Process\Process;
 
 /**

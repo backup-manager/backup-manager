@@ -1,12 +1,12 @@
 <?php namespace BigName\DatabaseBackup\Commands\Archiving;
 
 use BigName\DatabaseBackup\Commands\Command;
-use BigName\DatabaseBackup\ShellProcessor;
+use BigName\DatabaseBackup\ShellProcessing\ShellProcessor;
 
 class GzipFile implements Command
 {
     /**
-     * @var \BigName\DatabaseBackup\ShellProcessor
+     * @var \BigName\DatabaseBackup\ShellProcessing\ShellProcessor
      */
     private $shellProcessor;
     /**

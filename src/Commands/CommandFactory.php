@@ -7,7 +7,7 @@ use BigName\DatabaseBackup\Commands\Storage\SaveFile;
 use BigName\DatabaseBackup\Config;
 use BigName\DatabaseBackup\Connections\MysqlConnection;
 use BigName\DatabaseBackup\Filesystems\FilesystemProvider;
-use BigName\DatabaseBackup\ShellProcessor;
+use BigName\DatabaseBackup\ShellProcessing\ShellProcessor;
 use Symfony\Component\Process\Process;
 
 class CommandFactory
