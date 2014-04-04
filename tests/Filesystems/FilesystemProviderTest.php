@@ -12,7 +12,8 @@ class FilesystemProviderTest extends PHPUnit_Framework_TestCase
 
     public function test_can_create()
     {
-        $provider = new \BigName\DatabaseBackup\Filesystems\FilesystemProvider(new Config(__DIR__ . '/../config/storage.php'));
+        dd($_SERVER);
+        $provider = new \BigName\DatabaseBackup\Filesystems\FilesystemProvider(new Config(dirname(__FILE__) . '/../config/storage.php'));
         $this->assertInstanceOf('BigName\DatabaseBackup\Filesystems\FilesystemProvider', $provider);
     }
 }
