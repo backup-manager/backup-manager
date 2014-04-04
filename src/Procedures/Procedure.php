@@ -1,7 +1,7 @@
 <?php namespace BigName\DatabaseBackup\Procedures;
 
 use BigName\DatabaseBackup\Commands\Command;
-use BigName\DatabaseBackup\Factories\CommandFactory;
+use BigName\DatabaseBackup\Commands\CommandFactory;
 use BigName\DatabaseBackup\Sequence;
 
 /**
@@ -11,7 +11,7 @@ use BigName\DatabaseBackup\Sequence;
 abstract class Procedure
 {
     /**
-     * @var \BigName\DatabaseBackup\Factories\CommandFactory
+     * @var \BigName\DatabaseBackup\Commands\CommandFactory
      */
     protected $factory;
 

@@ -1,4 +1,4 @@
-<?php namespace BigName\DatabaseBackup\Factories;
+<?php namespace BigName\DatabaseBackup\Commands;
 
 use BigName\DatabaseBackup\Commands\Archiving\GzipFile;
 use BigName\DatabaseBackup\Commands\Database\Mysql\DumpDatabase;
@@ -6,42 +6,37 @@ use BigName\DatabaseBackup\Commands\Storage\DeleteFile;
 use BigName\DatabaseBackup\Commands\Storage\SaveFile;
 use BigName\DatabaseBackup\Config;
 use BigName\DatabaseBackup\Connections\MysqlConnection;
-use BigName\DatabaseBackup\Filesystems\FilesystemFactory;
+use BigName\DatabaseBackup\Filesystems\FilesystemProvider;
 use BigName\DatabaseBackup\ShellProcessor;
 use Symfony\Component\Process\Process;
 
 class CommandFactory
 {
     /**
-     * @var \BigName\DatabaseBackup\Filesystems\FilesystemFactory
+     * @var \BigName\DatabaseBackup\Filesystems\FilesystemProvider
      */
-    private $filesystemFactory;
-    /**
-     * @var ArchiverFactory
-     */
-    private $archiverFactory;
+    private $filesystemProvider;
     /**
      * @var \BigName\DatabaseBackup\Config
      */
     private $config;
 
-    public function __construct(FilesystemFactory $filesystemFactory, ArchiverFactory $archiverFactory, Config $config)
+    public function __construct(FilesystemProvider $filesystemProvider, Config $config)
     {
-        $this->filesystemFactory = $filesystemFactory;
-        $this->archiverFactory = $archiverFactory;
+        $this->filesystemProvider = $filesystemProvider;
         $this->config = $config;
     }
 
     public function makeSaveFileCommand($connectionName, $sourcePath, $destinationPath)
     {
         /** @noinspection PhpParamsInspection */
-        return new SaveFile($this->filesystemFactory->makeFilesystemFor($connectionName), $sourcePath, $destinationPath);
+        return new SaveFile($this->filesystemProvider->getForConnection($connectionName), $sourcePath, $destinationPath);
     }
 
     public function makeDeleteFileCommand($connectionName, $filePath)
     {
         /** @noinspection PhpParamsInspection */
-        return new DeleteFile($this->filesystemFactory->makeFilesystemFor($connectionName), $filePath);
+        return new DeleteFile($this->filesystemProvider->getForConnection($connectionName), $filePath);
     }
 
     public function makeDumpDatabaseCommand($databaseName, $destinationPath)

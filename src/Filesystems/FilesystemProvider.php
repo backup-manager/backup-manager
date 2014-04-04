@@ -2,7 +2,7 @@
 
 use BigName\DatabaseBackup\Config;
 
-class FilesystemFactory
+class FilesystemProvider
 {
     private $config;
     private $filesystems = [];

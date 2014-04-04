@@ -2,9 +2,9 @@
 
 use BigName\DatabaseBackup\Config;
 use BigName\DatabaseBackup\Factories\ArchiverFactory;
-use BigName\DatabaseBackup\Factories\CommandFactory;
+use BigName\DatabaseBackup\Commands\CommandFactory;
 use BigName\DatabaseBackup\Factories\ConnectionFactory;
-use BigName\DatabaseBackup\Filesystems\FilesystemFactory;
+use BigName\DatabaseBackup\Filesystems\FilesystemProvider;
 
 /**
  * Class ProcedureFactory
@@ -19,7 +19,7 @@ class ProcedureFactory
 
     public function __construct(Config $config)
     {
-        $this->commandFactory = new CommandFactory(new FilesystemFactory($config), new ArchiverFactory(), $config);
+        $this->commandFactory = new CommandFactory(new FilesystemProvider($config), new ArchiverFactory(), $config);
     }
 
     /**
