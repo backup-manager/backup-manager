@@ -6,7 +6,7 @@ class Config
 
     public function __construct($path)
     {
-        $this->config = require $path;
+        $this->config = require realpath($path);
     }
 
     /**
