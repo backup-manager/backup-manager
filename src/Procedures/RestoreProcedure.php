@@ -1,9 +1,6 @@
-<?php namespace BigName\DatabaseBackup\Procedures; 
+<?php namespace BigName\DatabaseBackup\Procedures;
 
-use BigName\DatabaseBackup\Commands\Archiving\GunzipFile;
-use BigName\DatabaseBackup\Commands\Database\Mysql\RestoreDatabase;
-use BigName\DatabaseBackup\Commands\Storage\DeleteFile;
-use BigName\DatabaseBackup\Commands\Storage\TransferFile;
+use BigName\DatabaseBackup\Commands;
 use BigName\DatabaseBackup\Connections\MysqlConnection;
 
 class RestoreProcedure extends Procedure
@@ -21,13 +18,13 @@ class RestoreProcedure extends Procedure
             $this->databaseConfig->get($databaseName, 'database')
         );
 
-        $this->add(new TransferFile(
+        $this->add(new Commands\Storage\TransferFile(
             $this->filesystemProvider->getType($sourceType), $sourcePath,
             $this->filesystemProvider->getType('local'), $localPath
         ));
-        $this->add(new GunzipFile($localPath, $this->shellProcessor));
-        $this->add(new RestoreDatabase($mysql, $decompressedFile, $this->shellProcessor));
-        $this->add(new DeleteFile($this->filesystemProvider->getType('local'), $decompressedFile));
+        $this->add(new Commands\Archiving\GunzipFile($localPath, $this->shellProcessor));
+        $this->add(new Commands\Database\Mysql\RestoreDatabase($mysql, $decompressedFile, $this->shellProcessor));
+        $this->add(new Commands\Storage\DeleteFile($this->filesystemProvider->getType('local'), $decompressedFile));
 
         $this->execute();
     }

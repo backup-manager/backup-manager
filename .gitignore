@@ -1,11 +1,10 @@
-vendor
-working
-config
+/vendor
+/working
+/config
+/.vagrant
+/tests/report
 composer.phar
 composer.lock
 .DS_Store
 .idea
-phpunit.php
-.vagrant/
 vagrant_ansible_inventory_default
-tests/report

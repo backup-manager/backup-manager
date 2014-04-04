@@ -1,9 +1,6 @@
 <?php namespace BigName\DatabaseBackup\Procedures;
 
-use BigName\DatabaseBackup\Commands\Archiving\GzipFile;
-use BigName\DatabaseBackup\Commands\Database\Mysql\DumpDatabase;
-use BigName\DatabaseBackup\Commands\Storage\DeleteFile;
-use BigName\DatabaseBackup\Commands\Storage\TransferFile;
+use BigName\DatabaseBackup\Commands;
 use BigName\DatabaseBackup\Connections\MysqlConnection;
 
 class BackupProcedure extends Procedure
@@ -21,13 +18,13 @@ class BackupProcedure extends Procedure
             $this->databaseConfig->get($databaseName, 'database')
         );
 
-        $this->add(new DumpDatabase($mysql, $tempFile, $this->shellProcessor));
-        $this->add(new GzipFile($tempFile, $this->shellProcessor));
-        $this->add(new TransferFile(
+        $this->add(new Commands\Database\Mysql\DumpDatabase($mysql, $tempFile, $this->shellProcessor));
+        $this->add(new Commands\Archiving\GzipFile($tempFile, $this->shellProcessor));
+        $this->add(new Commands\Storage\TransferFile(
             $this->filesystemProvider->getType('local'), $compressedTempFile,
             $this->filesystemProvider->getType($destinationType), $destinationPath
         ));
-        $this->add(new DeleteFile($this->filesystemProvider->getType('local'), $compressedTempFile));
+        $this->add(new Commands\Storage\DeleteFile($this->filesystemProvider->getType('local'), $compressedTempFile));
 
         $this->execute();
     }
