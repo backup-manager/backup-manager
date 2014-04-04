@@ -13,8 +13,12 @@ class FilesystemProvider
 
     public function getType($name)
     {
-        $class = __NAMESPACE__ . "\\" . $this->config->get($name, 'type') . 'Filesystem';
-        $filesystem = new $class;
+        $filesystem = new $this->getClassName($this->config->get($name, 'type'));
         return $filesystem->get($this->config->get($name));
+    }
+
+    private function getClassName($type)
+    {
+        return "BigName\\DatabaseBackup\\Filesystems\\{$type}Filesystem";
     }
 }
