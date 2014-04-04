@@ -9,5 +9,6 @@
   roles:
     - init
     - mysql
+    - postgresql
     - phpcommon
     - composer
