@@ -10,15 +10,15 @@ class MysqlConnectionTest extends PHPUnit_Framework_TestCase
         m::close();
     }
 
-    public function test()
+    public function testConnection()
     {
-        $mysql = new MysqlConnection('host', 'port', 'username', 'password', 'database');
+        $connection = new MysqlConnection('host', 'port', 'username', 'password', 'database');
 
-        $this->assertInstanceOf('BigName\DatabaseBackup\Connections\MysqlConnection', $mysql);
-        $this->assertEquals('host', $mysql->host);
-        $this->assertEquals('port', $mysql->port);
-        $this->assertEquals('username', $mysql->username);
-        $this->assertEquals('password', $mysql->password);
-        $this->assertEquals('database', $mysql->database);
+        $this->assertInstanceOf('BigName\DatabaseBackup\Connections\MysqlConnection', $connection);
+        $this->assertEquals('host', $connection->host);
+        $this->assertEquals('port', $connection->port);
+        $this->assertEquals('username', $connection->username);
+        $this->assertEquals('password', $connection->password);
+        $this->assertEquals('database', $connection->database);
     }
 }
