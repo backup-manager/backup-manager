@@ -1,4 +1,4 @@
-<?php namespace BigName\DatabaseBackup;
+<?php namespace BigName\DatabaseBackup\Config;
 
 class Config
 {
@@ -6,38 +6,28 @@ class Config
 
     public function __construct($path)
     {
+        if ( ! file_exists($path)) {
+            throw new ConfigFileNotFound('The configuration file "' . $path . '" could not be found.');
+        }
         $this->config = require $path;
     }
 
-    /**
-     * @param $name
-     * @param $field
-     * @return \Exception
-     */
     public function get($name, $field = null)
     {
         if ( ! array_key_exists($name, $this->config)) {
-            return new \Exception("Could not find configuration for connection type {$name}");
+            throw new ConfigNotFoundForConnection("Could not find configuration for connection {$name}");
         }
-
         if ($field) {
             return $this->getConfigField($name, $field);
         }
-
         return $this->config[$name];
     }
 
-    /**
-     * @param $name
-     * @param $field
-     * @return \Exception
-     */
     private function getConfigField($name, $field)
     {
         if (!array_key_exists($field, $this->config[$name])) {
-            return new \Exception("Could not find field {$field} in configuration for connection type {$name}");
+            throw new ConfigFieldNotFound("Could not find field {$field} in configuration for connection type {$name}");
         }
-
         return $this->config[$name][$field];
     }
 } 

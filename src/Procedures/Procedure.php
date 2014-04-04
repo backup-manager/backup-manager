@@ -2,7 +2,7 @@
 
 use BigName\DatabaseBackup\Commands\Command;
 use BigName\DatabaseBackup\Commands\CommandFactory;
-use BigName\DatabaseBackup\Config;
+use BigName\DatabaseBackup\Config\Config;
 use BigName\DatabaseBackup\Filesystems\FilesystemProvider;
 use BigName\DatabaseBackup\ShellProcessing\ShellProcessor;
 
@@ -18,7 +18,7 @@ abstract class Procedure
      */
     protected $filesystemProvider;
     /**
-     * @var \BigName\DatabaseBackup\Config
+     * @var \BigName\DatabaseBackup\Config\Config
      */
     protected $databaseConfig;
     /**
