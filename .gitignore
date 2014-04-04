@@ -8,3 +8,4 @@ composer.lock
 phpunit.php
 .vagrant/
 vagrant_ansible_inventory_default
+tests/report
