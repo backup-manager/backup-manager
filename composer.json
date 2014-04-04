@@ -1,7 +1,7 @@
 {
     "name": "heybigname/database-backup",
     "version": "0.1",
-    "description": "Framework agnostic driver based database backup package supporting S3, Dropbox, .",
+    "description": "Driver-based database backup and restoration package supporting storage on S3, Dropbox, FTP, SFTP, Rackspace Cloud, and WebDav.",
     "authors": [{
         "name": "Shawn McCool",
         "email": "shawn@heybigname.com",
