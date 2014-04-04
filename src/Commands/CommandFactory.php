@@ -19,12 +19,12 @@ class CommandFactory
     /**
      * @var \BigName\DatabaseBackup\Config
      */
-    private $config;
+    private $databaseConfig;
 
-    public function __construct(FilesystemProvider $filesystemProvider, Config $config)
+    public function __construct(FilesystemProvider $filesystemProvider, Config $databaseConfig)
     {
         $this->filesystemProvider = $filesystemProvider;
-        $this->config = $config;
+        $this->databaseConfig = $databaseConfig;
     }
 
     public function makeSaveFileCommand($connectionName, $sourcePath, $destinationPath)
@@ -42,11 +42,11 @@ class CommandFactory
     public function makeDumpDatabaseCommand($databaseName, $destinationPath)
     {
         $mysql = new MysqlConnection(
-            $this->config->get($databaseName, 'host'),
-            $this->config->get($databaseName, 'port'),
-            $this->config->get($databaseName, 'user'),
-            $this->config->get($databaseName, 'pass'),
-            $this->config->get($databaseName, 'database')
+            $this->databaseConfig->get($databaseName, 'host'),
+            $this->databaseConfig->get($databaseName, 'port'),
+            $this->databaseConfig->get($databaseName, 'user'),
+            $this->databaseConfig->get($databaseName, 'pass'),
+            $this->databaseConfig->get($databaseName, 'database')
         );
         return new DumpDatabase($mysql, $this->getShellProcessor(), $destinationPath);
     }

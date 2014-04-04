@@ -19,10 +19,14 @@ class FilesystemProvider
 
     public function getForConnection($name)
     {
+        $filesystemType = $this->config->get($name, 'type');
+
         foreach ($this->filesystems as $filesystem) {
-            if ($filesystem->handles($this->config->get($name, 'type'))) {
+            if ($filesystem->handles($filesystemType)) {
                 return $filesystem->get($this->config->get($name));
             }
         }
+
+        throw new FilesystemNotSupported('The filesystem ' . $filesystemType . ' is not supported.');
     }
 }

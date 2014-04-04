@@ -1,10 +1,10 @@
 <?php namespace BigName\DatabaseBackup\Procedures;
 
 use BigName\DatabaseBackup\Config;
-use BigName\DatabaseBackup\Factories\ArchiverFactory;
 use BigName\DatabaseBackup\Commands\CommandFactory;
-use BigName\DatabaseBackup\Factories\ConnectionFactory;
+use BigName\DatabaseBackup\Filesystems;
 use BigName\DatabaseBackup\Filesystems\FilesystemProvider;
+use BigName\DatabaseBackup\Sequence;
 
 /**
  * Class ProcedureFactory
@@ -12,14 +12,16 @@ use BigName\DatabaseBackup\Filesystems\FilesystemProvider;
  */
 class ProcedureFactory
 {
-    /**
-     * @var
-     */
     private $commandFactory;
 
-    public function __construct(Config $config)
+    public function __construct(Config $databaseConfig, Config $storageConfig)
     {
-        $this->commandFactory = new CommandFactory(new FilesystemProvider($config), new ArchiverFactory(), $config);
+        $filesystemProvider = new FilesystemProvider($storageConfig);
+
+        $filesystemProvider->addFilesystem(new Filesystems\LocalFilesystem());
+        $filesystemProvider->addFilesystem(new Filesystems\AwsS3Filesystem());
+
+        $this->commandFactory = new CommandFactory($filesystemProvider, $databaseConfig);
     }
 
     /**

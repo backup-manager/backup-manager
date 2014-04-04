@@ -1,5 +1,4 @@
 <?php namespace BigName\DatabaseBackup\Filesystems;
-use BigName\DatabaseBackup\Config;
 
 /**
  * Interface Filesystem
@@ -10,9 +9,10 @@ interface Filesystem
     /**
      * Get the name identifier of the filesystem. The name
      * is generally derived from the Flysystem driver name.
+     * @param string $name
      * @return string
      */
-    public function handles();
+    public function handles($name);
 
     public function get(array $config);
 } 

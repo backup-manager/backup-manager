@@ -9,11 +9,12 @@ class LocalFilesystem implements Filesystem
     /**
      * Get the name identifier of the filesystem. The name
      * is generally derived from the Flysystem driver name.
+     * @param string $name
      * @return string
      */
-    public function handles()
+    public function handles($name)
     {
-        return 'Local';
+        return $name == 'Local';
     }
 
     public function get(array $config)

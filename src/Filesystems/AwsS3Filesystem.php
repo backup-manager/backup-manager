@@ -11,11 +11,12 @@ class AwsS3Filesystem implements Filesystem
     /**
      * Get the name identifier of the filesystem. The name
      * is generally derived from the Flysystem driver name.
+     * @param string $name
      * @return string
      */
-    public function handles()
+    public function handles($name)
     {
-        return 'AwsS3';
+        return $name == 'AwsS3';
     }
 
     public function get(array $config)
