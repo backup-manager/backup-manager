@@ -6,6 +6,6 @@
 [![Coverage Status](https://coveralls.io/repos/heybigname/database-backup/badge.png?branch=master)](https://coveralls.io/r/heybigname/database-backup?branch=master)
 [![Total Downloads](https://poser.pugx.org/mccool/database-backup/downloads.png)](https://packagist.org/packages/mccool/database-backup)
 
-- dump to or restore from MySQL, PostgreSQL
+- **dump to** or **restore from** MySQL, PostgreSQL
 - store on S3, Dropbox, FTP, SFTP, Rackspace Cloud, and WebDAV
 - framework-agnostic
