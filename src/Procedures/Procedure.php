@@ -26,9 +26,9 @@ abstract class Procedure
      */
     protected $shellProcessor;
 
-    public function __construct(FilesystemProvider $filesystemProvider, Config $databaseConfig, ShellProcessor $shellProcessor)
+    public function __construct(FilesystemProvider $filesystemProvider, Config $databaseConfig, ShellProcessor $shellProcessor, Sequence $sequence)
     {
-        $this->sequence = new Sequence;
+        $this->sequence = $sequence;
         $this->filesystemProvider = $filesystemProvider;
         $this->databaseConfig = $databaseConfig;
         $this->shellProcessor = $shellProcessor;

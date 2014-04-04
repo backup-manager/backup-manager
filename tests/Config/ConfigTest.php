@@ -43,8 +43,8 @@ class ConfigTest extends PHPUnit_Framework_TestCase
 
     public function test_config_field_not_found_exception()
     {
-        $this->setExpectedException('BigName\DatabaseBackup\Config\ConfigNotFoundForConnection');
+        $this->setExpectedException('BigName\DatabaseBackup\Config\ConfigFieldNotFound');
         $config = new Config('tests/config/storage.php');
-        $config->get('foo');
+        $config->get('local', 'foo');
     }
 }
