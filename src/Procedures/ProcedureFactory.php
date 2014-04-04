@@ -4,7 +4,6 @@ use BigName\DatabaseBackup\Config;
 use BigName\DatabaseBackup\Commands\CommandFactory;
 use BigName\DatabaseBackup\Filesystems;
 use BigName\DatabaseBackup\Filesystems\FilesystemProvider;
-use BigName\DatabaseBackup\Procedures\Sequence;
 
 /**
  * Class ProcedureFactory
