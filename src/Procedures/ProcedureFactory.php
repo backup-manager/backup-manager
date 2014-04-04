@@ -7,6 +7,11 @@ use BigName\DatabaseBackup\Filesystems\FilesystemProvider;
 
 /**
  * Class ProcedureFactory
+ * The purpose of this class is currently a bit unclear. Obviously, the filesystem
+ * provider should be injected.. However, this is sort of a "facade" interface for
+ * the user and we don't want the user to be injecting a bunch of shit to make it
+ * all work. So, for now we're going with this and as we build it out, it'll make
+ * itself clear what it "should" be.
  * @package BigName\DatabaseBackup
  */
 class ProcedureFactory
