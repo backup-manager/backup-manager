@@ -15,6 +15,7 @@
         "php": ">=5.3.0",
         "symfony/process": "2.*",
         "aws/aws-sdk-php": "2.4.*",
+        "rackspace/php-opencloud": "dev-master",
         "league/flysystem": "0.3.*"
     },
     "require-dev": {

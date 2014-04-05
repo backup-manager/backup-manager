@@ -1,5 +1,6 @@
 <?php namespace BigName\DatabaseBackup\Filesystems;
 
+use League\Flysystem\Adapter\AwsS3;
 use Aws\S3\S3Client;
 
 class AwsS3Filesystem implements Filesystem
@@ -12,6 +13,6 @@ class AwsS3Filesystem implements Filesystem
             'region' => $config['region'],
         ]);
 
-        return new \League\Flysystem\Filesystem(new \League\Flysystem\Adapter\AwsS3($client, $config['bucket']));
+        return new \League\Flysystem\Filesystem(new AwsS3($client, $config['bucket']));
     }
 }
