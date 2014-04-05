@@ -439,7 +439,7 @@ pg_cfg_srv_autovacuum_vacuum_cost_limit: '-1'  # default vacuum cost limit for
 
 # - Statement Behavior -
 
-pg_cfg_srv_search_path: '"$user",public'     # schema names
+pg_cfg_srv_search_path: '"{{ user }}",public'     # schema names
 pg_cfg_srv_default_tablespace: ''           # a tablespace name, '' uses the default
 pg_cfg_srv_temp_tablespaces: ''              # a list of tablespace names, '' uses
                                     # only default tablespace
