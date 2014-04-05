@@ -1,0 +1,10 @@
+---
+- name: debian | add pg keys
+  apt_key: url=https://www.postgresql.org/media/keys/ACCC4CF8.asc id=ACCC4CF8 state=present
+  sudo: true
+  when: pg_repo == 'postgresql.org'
+
+- name: debian | add postgres repositories
+  apt_repository: repo='deb http://apt.postgresql.org/pub/repos/apt/ {{ ansible_lsb.codename }}-pgdg main' state=present update_cache=yes
+  sudo: true
+  when: pg_repo == 'postgresql.org'

@@ -8,6 +8,7 @@
     php_ppa: php5-oldstable
   roles:
     - init
+    - postgresql
     - mysql
     - phpcommon
     - composer

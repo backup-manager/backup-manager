@@ -1,0 +1,9 @@
+---
+- name: Install postgis extensions
+  sudo: yes
+  apt: pkg={{ item }}
+  with_items:
+    - "postgresql-{{ pg_version }}-postgis-{{ pg_postgis_version }}"
+    - libgeos-c1
+  tags:
+    - postgresql

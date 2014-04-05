@@ -1,0 +1,5 @@
+---
+- name: ubuntu | add repository
+  apt_repository: repo='ppa:pitti/postgresql'
+  sudo: true
+  when: pg_repo == 'postgresql.org'
