@@ -10,8 +10,7 @@
 - backup to or restore databases from AWS S3, Dropbox, FTP, SFTP, Rackspace Cloud, and WebDAV
 - framework-agnostic
 - dead simple configuration
-- integrates with MVC framework [Laravel](http://laravel.com)
-- integrates with team communication software [Slack](http://slack.com)
+- optional integrations for MVC framework [Laravel](http://laravel.com) and team-communication software [Slack](http://slack.com)
 
 ### Requirements
 

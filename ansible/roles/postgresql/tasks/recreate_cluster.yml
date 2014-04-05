@@ -1,0 +1,18 @@
+---
+- name: Setup postgres cluster to default to utf8 | stop cluster
+  # if the dbs haven't been created yet, we want to destroy the whole db
+  # cluster and recreate it with proper utf8 support.
+  sudo: yes
+  sudo_user: postgres
+  shell: pg_dropcluster --stop {{ pg_version }} {{ pg_cluster }}
+  tags:
+    - postgres
+
+- name: Setup postgres cluster to default to utf8 | start cluster
+  # if the dbs haven't been created yet, we want to destroy the whole db
+  # cluster and recreate it with proper utf8 support. From http://ph.ly/pg
+  sudo: yes
+  sudo_user: postgres
+  shell: pg_createcluster --start -e {{ pg_encoding }} {{ pg_version }} {{ pg_cluster }}
+  tags:
+    - postgres

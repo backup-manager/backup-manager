@@ -1,0 +1,21 @@
+---
+galaxy_info:
+  author: "Andrew Kumanyaev"
+  description: Postgreql
+  company: Undev
+  license: MIT
+  min_ansible_version: 1.4
+
+  platforms:
+    - name: Debian
+      versions:
+        - all
+    - name: Ubuntu
+      versions:
+        - precise
+  categories:
+    - database
+    - database:sql
+    - development
+
+dependencies: []
