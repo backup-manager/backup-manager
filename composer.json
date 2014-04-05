@@ -16,6 +16,7 @@
         "symfony/process": "2.*",
         "aws/aws-sdk-php": "2.4.*",
         "rackspace/php-opencloud": "dev-master",
+        "dropbox/dropbox-sdk": "dev-master",
         "league/flysystem": "0.3.*"
     },
     "require-dev": {
