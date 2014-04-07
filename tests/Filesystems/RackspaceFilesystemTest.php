@@ -18,7 +18,7 @@ class RackspaceFilesystemTest extends PHPUnit_Framework_TestCase
 
     public function test_get_correct_filesystem()
     {
-        $this->markTestIncomplete('This test has not been finished yet.');
+        $this->setExpectedException('Guzzle\Http\Exception\ClientErrorResponseException');
         $rackspace = new RackspaceFilesystem();
         $filesystem = $rackspace->get([
             'username' => 'username',
