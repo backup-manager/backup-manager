@@ -15,7 +15,7 @@ class RestoreProcedureTest extends PHPUnit_Framework_TestCase
     {
         $procedure = new RestoreProcedure(
             $this->getFilesystemProvider(),
-            $this->getDatabaseConfig(),
+            $this->getDatabaseProvider(),
             $this->getShellProcessor(),
             $this->getSequence()
         );
@@ -27,19 +27,19 @@ class RestoreProcedureTest extends PHPUnit_Framework_TestCase
         $filesystemProvider = $this->getFilesystemProvider();
         $filesystemProvider->shouldReceive('getType')->andReturn(m::mock('League\Flysystem\Filesystem'));
 
-        $config = $this->getDatabaseConfig();
-        $config->shouldIgnoreMissing();
+        $databaseProvider = $this->getDatabaseProvider();
+        $databaseProvider->shouldReceive('getType')->andReturn(m::mock('BigName\DatabaseBackup\Databases\Database'));
 
         $sequence = $this->getSequence();
         $sequence->shouldReceive('add')->with(m::type('BigName\DatabaseBackup\Commands\Storage\TransferFile'))->once();
         $sequence->shouldReceive('add')->with(m::type('BigName\DatabaseBackup\Commands\Archiving\GunzipFile'))->once();
-        $sequence->shouldReceive('add')->with(m::type('BigName\DatabaseBackup\Commands\Database\Mysql\RestoreDatabase'))->once();
+        $sequence->shouldReceive('add')->with(m::type('BigName\DatabaseBackup\Commands\Database\RestoreDatabase'))->once();
         $sequence->shouldReceive('add')->with(m::type('BigName\DatabaseBackup\Commands\Storage\DeleteFile'))->once();
         $sequence->shouldReceive('execute')->once();
 
         $procedure = new RestoreProcedure(
             $filesystemProvider,
-            $config,
+            $databaseProvider,
             $this->getShellProcessor(),
             $sequence
         );
@@ -52,9 +52,9 @@ class RestoreProcedureTest extends PHPUnit_Framework_TestCase
         return m::mock('BigName\DatabaseBackup\Filesystems\FilesystemProvider');
     }
 
-    private function getDatabaseConfig()
+    private function getDatabaseProvider()
     {
-        return m::mock('BigName\DatabaseBackup\Config\Config');
+        return m::mock('BigName\DatabaseBackup\Databases\DatabaseProvider');
     }
 
     private function getShellProcessor()

@@ -3,7 +3,7 @@
 use League\Flysystem\Adapter\AwsS3;
 use Aws\S3\S3Client;
 
-class AwsS3Filesystem implements Filesystem
+class Awss3Filesystem implements Filesystem
 {
     public function get(array $config)
     {

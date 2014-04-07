@@ -1,9 +1,12 @@
-<?php namespace BigName\DatabaseBackup\Filesystems;
+<?php namespace BigName\DatabaseBackup\Databases;
 
 use BigName\DatabaseBackup\Config\Config;
 
-class FilesystemProvider
+class DatabaseProvider
 {
+    /**
+     * @var \BigName\DatabaseBackup\Config\Config
+     */
     private $config;
 
     public function __construct(Config $config)
@@ -15,14 +18,15 @@ class FilesystemProvider
     {
         $class = $this->getClassName($this->config->get($name, 'type'));
         if ( ! class_exists($class)) {
-            throw new FilesystemTypeNotSupported('The requested filesystem type "' . $class . '" is not currently supported.');
+            throw new DatabaseTypeNotSupported('The requested database type "' . $class . '" is not currently supported.');
         }
-        return (new $class)->get($this->config->get($name));
+        return new $class($this->config->get($name));
     }
 
     private function getClassName($type)
     {
         $type = ucfirst(strtolower($type));
-        return "BigName\\DatabaseBackup\\Filesystems\\{$type}Filesystem";
+        return "BigName\\DatabaseBackup\\Databases\\{$type}Database";
     }
-}
+
+} 
