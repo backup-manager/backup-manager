@@ -8,6 +8,7 @@
 
 - supports MySQL and PostgreSQL
 - backup to or restore databases from AWS S3, Dropbox, FTP, SFTP, Rackspace Cloud, and WebDAV
+- compress with Gzip
 - framework-agnostic
 - dead simple configuration
 - optional integrations for MVC framework [Laravel](http://laravel.com) and team-communication software [Slack](http://slack.com)
@@ -15,8 +16,9 @@
 ### Requirements
 
 - PHP 5.4
-- MySQL support requires `mysqldump` and `mysql` binaries
-- PostgreSQL support requires `pg_dump` and `psql` binaries
+- MySQL support requires `mysqldump` and `mysql` command-line binaries
+- PostgreSQL support requires `pg_dump` and `psql` command-line binaries
+- Gzip support requires `gzip` and `gunzip` command-line binaries
 
 ### License
 

@@ -32,7 +32,6 @@ class GzipCompressorTest extends PHPUnit_Framework_TestCase
         $this->assertEquals("gunzip '../bar.sql.gz'", $gzip->getDecompressCommandLine('../bar.sql.gz'));
     }
 
-
     public function test_can_get_compressed_path()
     {
         $gzip = new GzipCompressor;
