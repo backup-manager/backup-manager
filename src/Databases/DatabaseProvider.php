@@ -14,16 +14,16 @@ class DatabaseProvider
         $this->config = $config;
     }
 
-    public function getType($name)
+    public function get($name)
     {
-        $class = $this->getClassName($this->config->get($name, 'type'));
+        $class = $this->getClass($this->config->get($name, 'type'));
         if ( ! class_exists($class)) {
             throw new DatabaseTypeNotSupported('The requested database type "' . $class . '" is not currently supported.');
         }
         return new $class($this->config->get($name));
     }
 
-    private function getClassName($type)
+    private function getClass($type)
     {
         $type = ucfirst(strtolower($type));
         return "BigName\\DatabaseBackup\\Databases\\{$type}Database";

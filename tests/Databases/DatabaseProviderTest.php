@@ -20,7 +20,7 @@ class DatabaseProviderTest extends PHPUnit_Framework_TestCase
     public function test_can_create_database()
     {
         $provider = new DatabaseProvider(new Config('tests/config/database.php'));
-        $database = $provider->getType('development');
+        $database = $provider->get('development');
         $this->assertInstanceOf('BigName\DatabaseBackup\Databases\MysqlDatabase', $database);
     }
 
@@ -28,6 +28,6 @@ class DatabaseProviderTest extends PHPUnit_Framework_TestCase
     {
         $this->setExpectedException('BigName\DatabaseBackup\Databases\DatabaseTypeNotSupported');
         $provider = new DatabaseProvider(new Config('tests/config/database.php'));
-        $provider->getType('unsupported');
+        $provider->get('unsupported');
     }
 }

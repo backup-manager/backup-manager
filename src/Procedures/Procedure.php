@@ -2,7 +2,7 @@
 
 use BigName\DatabaseBackup\Commands\Command;
 use BigName\DatabaseBackup\Commands\CommandFactory;
-use BigName\DatabaseBackup\Config\Config;
+use BigName\DatabaseBackup\Compressors\CompressorProvider;
 use BigName\DatabaseBackup\Databases\DatabaseProvider;
 use BigName\DatabaseBackup\Filesystems\FilesystemProvider;
 use BigName\DatabaseBackup\ShellProcessing\ShellProcessor;
@@ -17,7 +17,7 @@ abstract class Procedure
     /**
      * @var \BigName\DatabaseBackup\Filesystems\FilesystemProvider
      */
-    protected $filesystemProvider;
+    protected $filesystem;
     /**
      * @var \BigName\DatabaseBackup\ShellProcessing\ShellProcessor
      */
@@ -25,12 +25,17 @@ abstract class Procedure
     /**
      * @var \BigName\DatabaseBackup\Databases\DatabaseProvider
      */
-    protected $databaseProvider;
+    protected $database;
+    /**
+     * @var \BigName\DatabaseBackup\Compressors\CompressorProvider
+     */
+    public $compressor;
 
-    public function __construct(FilesystemProvider $filesystemProvider, DatabaseProvider $databaseProvider, ShellProcessor $shellProcessor, Sequence $sequence)
+    public function __construct(FilesystemProvider $filesystemProvider, DatabaseProvider $databaseProvider, CompressorProvider $compressorProvider, ShellProcessor $shellProcessor, Sequence $sequence)
     {
-        $this->filesystemProvider = $filesystemProvider;
-        $this->databaseProvider = $databaseProvider;
+        $this->filesystem = $filesystemProvider;
+        $this->database = $databaseProvider;
+        $this->compressor = $compressorProvider;
         $this->shellProcessor = $shellProcessor;
         $this->sequence = $sequence;
     }

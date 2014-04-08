@@ -6,21 +6,42 @@ class RestoreProcedure extends Procedure
 {
     public function run($sourceType, $sourcePath, $databaseName)
     {
-        $localPath = $this->getFilename($sourcePath);
-        $decompressedFile = preg_replace('/\.gz$/', '', $localPath);
+        // begin the life of a new working file
+        $workingFile = $this->getWorkingFile($sourcePath);
 
+        // download or retrieve the archived backup file
         $this->add(new Commands\Storage\TransferFile(
-            $this->filesystemProvider->getType($sourceType), $sourcePath,
-            $this->filesystemProvider->getType('local'), $localPath
+            $this->filesystem->get($sourceType), $sourcePath,
+            $this->filesystem->get('local'), $workingFile
         ));
-        $this->add(new Commands\Archiving\GunzipFile($localPath, $this->shellProcessor));
-        $this->add(new Commands\Database\RestoreDatabase($this->databaseProvider->getType($databaseName), $decompressedFile, $this->shellProcessor));
-        $this->add(new Commands\Storage\DeleteFile($this->filesystemProvider->getType('local'), $decompressedFile));
+
+        // decompress the archived backup
+        $compressor = $this->compressor->get('gzip');
+
+        $this->add(new Commands\Compression\DecompressFile(
+            $compressor,
+            $workingFile,
+            $this->shellProcessor
+        ));
+        $workingFile = $compressor->getDecompressedPath($workingFile);
+
+        // restore the database
+        $this->add(new Commands\Database\RestoreDatabase(
+            $this->database->get($databaseName),
+            $workingFile,
+            $this->shellProcessor
+        ));
+
+        // cleanup the local copy
+        $this->add(new Commands\Storage\DeleteFile(
+            $this->filesystem->get('local'),
+            $workingFile
+        ));
 
         $this->execute();
     }
 
-    private function getFilename($path)
+    private function getWorkingFile($path)
     {
         return basename($path);
     }

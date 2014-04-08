@@ -11,7 +11,7 @@ class FilesystemProvider
         $this->config = $config;
     }
 
-    public function getType($name)
+    public function get($name)
     {
         $class = $this->getClassName($this->config->get($name, 'type'));
         if ( ! class_exists($class)) {

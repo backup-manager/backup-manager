@@ -19,7 +19,7 @@ class FilesystemProviderTest extends PHPUnit_Framework_TestCase
     public function test_can_create_filesystem()
     {
         $provider = new \BigName\DatabaseBackup\Filesystems\FilesystemProvider(new Config('tests/config/storage.php'));
-        $filesystem = $provider->getType('local');
+        $filesystem = $provider->get('local');
         $this->assertInstanceOf('League\Flysystem\Filesystem', $filesystem);
     }
 
@@ -28,6 +28,6 @@ class FilesystemProviderTest extends PHPUnit_Framework_TestCase
         $this->setExpectedException('BigName\DatabaseBackup\Filesystems\FilesystemTypeNotSupported');
 
         $provider = new \BigName\DatabaseBackup\Filesystems\FilesystemProvider(new Config('tests/config/storage.php'));
-        $provider->getType('unsupported');
+        $provider->get('unsupported');
     }
 }

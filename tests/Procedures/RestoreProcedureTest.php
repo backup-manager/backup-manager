@@ -16,6 +16,7 @@ class RestoreProcedureTest extends PHPUnit_Framework_TestCase
         $procedure = new RestoreProcedure(
             $this->getFilesystemProvider(),
             $this->getDatabaseProvider(),
+            $this->getCompressorProvider(),
             $this->getShellProcessor(),
             $this->getSequence()
         );
@@ -25,14 +26,17 @@ class RestoreProcedureTest extends PHPUnit_Framework_TestCase
     public function test_sequence_is_correct()
     {
         $filesystemProvider = $this->getFilesystemProvider();
-        $filesystemProvider->shouldReceive('getType')->andReturn(m::mock('League\Flysystem\Filesystem'));
+        $filesystemProvider->shouldReceive('get')->andReturn(m::mock('League\Flysystem\Filesystem'));
 
         $databaseProvider = $this->getDatabaseProvider();
-        $databaseProvider->shouldReceive('getType')->andReturn(m::mock('BigName\DatabaseBackup\Databases\Database'));
+        $databaseProvider->shouldReceive('get')->andReturn(m::mock('BigName\DatabaseBackup\Databases\Database'));
+
+        $compressorProvider = $this->getCompressorProvider();
+        $compressorProvider->shouldIgnoreMissing();
 
         $sequence = $this->getSequence();
         $sequence->shouldReceive('add')->with(m::type('BigName\DatabaseBackup\Commands\Storage\TransferFile'))->once();
-        $sequence->shouldReceive('add')->with(m::type('BigName\DatabaseBackup\Commands\Archiving\GunzipFile'))->once();
+        $sequence->shouldReceive('add')->with(m::type('BigName\DatabaseBackup\Commands\Compression\DecompressFile'))->once();
         $sequence->shouldReceive('add')->with(m::type('BigName\DatabaseBackup\Commands\Database\RestoreDatabase'))->once();
         $sequence->shouldReceive('add')->with(m::type('BigName\DatabaseBackup\Commands\Storage\DeleteFile'))->once();
         $sequence->shouldReceive('execute')->once();
@@ -40,6 +44,7 @@ class RestoreProcedureTest extends PHPUnit_Framework_TestCase
         $procedure = new RestoreProcedure(
             $filesystemProvider,
             $databaseProvider,
+            $compressorProvider,
             $this->getShellProcessor(),
             $sequence
         );
@@ -55,6 +60,13 @@ class RestoreProcedureTest extends PHPUnit_Framework_TestCase
     private function getDatabaseProvider()
     {
         return m::mock('BigName\DatabaseBackup\Databases\DatabaseProvider');
+    }
+
+    private function getCompressorProvider()
+    {
+        $provider = m::mock('BigName\DatabaseBackup\Compressors\CompressorProvider');
+        $provider->shouldReceive('get')->andReturn(new BigName\DatabaseBackup\Compressors\GzipCompressor([]));
+        return $provider;
     }
 
     private function getShellProcessor()
