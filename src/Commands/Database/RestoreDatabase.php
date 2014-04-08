@@ -22,6 +22,6 @@ class RestoreDatabase implements Command
 
     public function execute()
     {
-        return $this->shellProcessor->process($this->database->getRestoreCommandLine($this->outputPath));
+        return $this->shellProcessor->process($this->database->getRestoreCommandLine($this->inputPath));
     }
 }
