@@ -1,6 +1,5 @@
 /vendor
 /working
-/config
 /.vagrant
 /tests/report
 composer.phar

@@ -1,8 +1,14 @@
 <?php namespace BigName\DatabaseBackup\Databases;
 
-interface Database
+abstract class Database
 {
-    public function __construct(array $config);
-    public function getDumpCommandLine($inputPath);
-    public function getRestoreCommandLine($outputPath);
+    protected $config;
+
+    public function __construct(array $config)
+    {
+        $this->config = $config;
+    }
+
+    abstract public function getDumpCommandLine($inputPath);
+    abstract public function getRestoreCommandLine($outputPath);
 }
