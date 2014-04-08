@@ -1,7 +1,5 @@
 <?php namespace BigName\DatabaseBackup\Databases; 
 
-use BigName\DatabaseBackup\Filesystems\Database;
-
 class MysqlDatabase implements Database
 {
     private $config;
@@ -16,8 +14,8 @@ class MysqlDatabase implements Database
         return sprintf('mysqldump --host=%s --port=%s --user=%s --password=%s %s > %s',
             escapeshellarg($this->config['host']),
             escapeshellarg($this->config['port']),
-            escapeshellarg($this->config['username']),
-            escapeshellarg($this->config['password']),
+            escapeshellarg($this->config['user']),
+            escapeshellarg($this->config['pass']),
             escapeshellarg($this->config['database']),
             escapeshellarg($outputPath)
         );
@@ -28,8 +26,8 @@ class MysqlDatabase implements Database
         return sprintf('mysql --host=%s --port=%s --user=%s --password=%s %s -e "source %s;"',
             escapeshellarg($this->config['host']),
             escapeshellarg($this->config['port']),
-            escapeshellarg($this->config['username']),
-            escapeshellarg($this->config['password']),
+            escapeshellarg($this->config['user']),
+            escapeshellarg($this->config['pass']),
             escapeshellarg($this->config['database']),
             $inputPath
         );

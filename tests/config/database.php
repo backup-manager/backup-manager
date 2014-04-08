@@ -9,4 +9,7 @@ return [
         'pass' => '',
         'database' => 'test',
     ],
+    'unsupported' => [
+        'type' => 'doesnt exist',
+    ],
 ];
