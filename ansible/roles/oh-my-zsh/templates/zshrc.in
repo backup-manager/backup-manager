@@ -58,3 +58,5 @@ echo ""
 echo "# Aliases"
 echo ""
 echo "t = run unit tests"
+
+cd /vagrant
