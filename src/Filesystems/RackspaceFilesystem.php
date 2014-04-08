@@ -12,8 +12,6 @@ class RackspaceFilesystem implements Filesystem
             'username' => $config['username'],
             'password' => $config['password'],
         ]);
-        $store = $client->objectStoreService('cloudFiles', 'LON');
-        $container = $store->getContainer($config['container']);
-        return new \League\Flysystem\Filesystem(new RackspaceAdapter($container));
+        return new \League\Flysystem\Filesystem(new RackspaceAdapter($client->objectStoreService('cloudFiles', 'LON')->getContainer($config['container'])));
     }
 }
