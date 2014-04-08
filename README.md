@@ -15,6 +15,8 @@
 ### Requirements
 
 - PHP 5.4
+- MySQL support requires `mysqldump` and `mysql` binaries
+- PostgreSQL support requires `pg_dump` and `psql` binaries
 
 ### License
 
