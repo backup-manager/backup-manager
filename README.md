@@ -2,8 +2,8 @@
 
 [![Latest Stable Version](https://poser.pugx.org/mccool/database-backup/version.png)](https://packagist.org/packages/mccool/database-backup)
 [![License](https://poser.pugx.org/mccool/database-backup/license.png)](https://packagist.org/packages/mccool/database-backup)
-[![Build Status](https://travis-ci.org/heybigname/database-backup-manager.svg?branch=master)](https://travis-ci.org/heybigname/database-backup-manager)
-[![Coverage Status](https://coveralls.io/repos/heybigname/database-backup-manager/badge.png?branch=master)](https://coveralls.io/r/heybigname/database-backup-manager?branch=master)
+[![Build Status](https://travis-ci.org/heybigname/backup-manager.svg?branch=master)](https://travis-ci.org/heybigname/backup-manager)
+[![Coverage Status](https://coveralls.io/repos/heybigname/backup-manager/badge.png?branch=master)](https://coveralls.io/r/heybigname/backup-manager?branch=master)
 [![SensioLabsInsight](https://insight.sensiolabs.com/projects/5e507053-58d7-4cff-b757-4202b021f9b0/mini.png)](https://insight.sensiolabs.com/projects/5e507053-58d7-4cff-b757-4202b021f9b0)
 [![Total Downloads](https://poser.pugx.org/mccool/database-backup/downloads.png)](https://packagist.org/packages/mccool/database-backup)
 
