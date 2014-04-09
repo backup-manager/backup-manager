@@ -1,7 +1,6 @@
 <?php namespace BigName\DatabaseBackup\Procedures;
 
 use BigName\DatabaseBackup\Commands\Command;
-use BigName\DatabaseBackup\Commands\CommandFactory;
 use BigName\DatabaseBackup\Compressors\CompressorProvider;
 use BigName\DatabaseBackup\Databases\DatabaseProvider;
 use BigName\DatabaseBackup\Filesystems\FilesystemProvider;
