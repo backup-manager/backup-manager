@@ -19,6 +19,7 @@
 **Configure your databases.**
 
 ```php
+// config/database.php
 'development' => [
     'type' => 'mysql',
     'host' => 'localhost',
@@ -40,6 +41,7 @@
 **Configure your filesystems.**
 
 ```php
+// config/storage.php
 'local' => [
     'type' => 'Local',
     'working-path' => '/',
