@@ -17,6 +17,7 @@
 
 Configure your databases.
 
+    ```php
     'development' => [
         'type' => 'mysql',
         'host' => 'localhost',
@@ -33,9 +34,11 @@ Configure your databases.
         'pass' => 'password',
         'database' => 'test',
     ],
+    ```
 
 Configure your filesystems.
 
+    ```php
     'local' => [
         'type' => 'Local',
         'working-path' => '/',
@@ -59,19 +62,24 @@ Configure your filesystems.
         'secret' => '',
         'app' => '',
         'root' => '',
-    ]
+    ],
+    ```
 
 Want to back up a database?
 
+    ```php
     use BigName\DatabaseBackup\Manager;
     $manager = new Manager('storage.php', 'database.php');
     $manager->backup('development', 's3', 'test/backup.sql', 'gzip');
+    ```
 
 Want to restore a database?
 
+    ```php
     use BigName\DatabaseBackup\Manager;
     $manager = new Manager('storage.php', 'database.php');
     $manager->restore('s3', 'test/backup.sql.gz', 'production', 'gzip');
+    ```
 
 ### Requirements
 
