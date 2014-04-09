@@ -8,7 +8,7 @@ galaxy_info:
   license: MIT
   platforms:
   - name: Ubuntu
-  - versions:
+    versions:
     - all
   categories:
   - system
