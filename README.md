@@ -92,7 +92,7 @@ $manager->restore('s3', 'test/backup.sql.gz', 'development', 'gzip');
 
 ```JSON
 "require": {
-    "heybigname/backup-manager": "<=1.*"
+    "heybigname/backup-manager": "1.*"
 }
 ```
 
