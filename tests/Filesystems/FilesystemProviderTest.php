@@ -1,7 +1,7 @@
 <?php
 
-use BigName\DatabaseBackup\Config\Config;
-use BigName\DatabaseBackup\Filesystems\FilesystemProvider;
+use BigName\BackupManager\Config\Config;
+use BigName\BackupManager\Filesystems\FilesystemProvider;
 use Mockery as m;
 
 class FilesystemProviderTest extends PHPUnit_Framework_TestCase
@@ -14,7 +14,7 @@ class FilesystemProviderTest extends PHPUnit_Framework_TestCase
     public function test_can_create()
     {
         $provider = new FilesystemProvider(new Config('tests/config/storage.php'));
-        $this->assertInstanceOf('BigName\DatabaseBackup\Filesystems\FilesystemProvider', $provider);
+        $this->assertInstanceOf('BigName\BackupManager\Filesystems\FilesystemProvider', $provider);
     }
 
     public function test_can_create_filesystem()
@@ -26,7 +26,7 @@ class FilesystemProviderTest extends PHPUnit_Framework_TestCase
 
     public function test_unsupported_filesystem_exception()
     {
-        $this->setExpectedException('BigName\DatabaseBackup\Filesystems\FilesystemTypeNotSupported');
+        $this->setExpectedException('BigName\BackupManager\Filesystems\FilesystemTypeNotSupported');
         $provider = new FilesystemProvider(new Config('tests/config/storage.php'));
         $provider->get('unsupported');
     }

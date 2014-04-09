@@ -1,6 +1,6 @@
 <?php
 
-use BigName\DatabaseBackup\Filesystems\NullFilesystem;
+use BigName\BackupManager\Filesystems\NullFilesystem;
 use Mockery as m;
 
 class NullFilesystemTest extends PHPUnit_Framework_TestCase
@@ -12,7 +12,7 @@ class NullFilesystemTest extends PHPUnit_Framework_TestCase
 
     public function test_can_create()
     {
-        $this->assertInstanceOf('BigName\DatabaseBackup\Filesystems\NullFilesystem', new NullFilesystem);
+        $this->assertInstanceOf('BigName\BackupManager\Filesystems\NullFilesystem', new NullFilesystem);
     }
 
     public function test_get_correct_filesystem()

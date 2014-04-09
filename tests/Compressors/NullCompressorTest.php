@@ -1,6 +1,6 @@
 <?php
 
-use BigName\DatabaseBackup\Compressors\NullCompressor;
+use BigName\BackupManager\Compressors\NullCompressor;
 use Mockery as m;
 
 class NullCompressorTest extends PHPUnit_Framework_TestCase
@@ -12,7 +12,7 @@ class NullCompressorTest extends PHPUnit_Framework_TestCase
 
     public function test_can_create()
     {
-        $this->assertInstanceOf('BigName\DatabaseBackup\Compressors\NullCompressor', new NullCompressor);
+        $this->assertInstanceOf('BigName\BackupManager\Compressors\NullCompressor', new NullCompressor);
     }
 
     public function test_command_lines_are_empty()

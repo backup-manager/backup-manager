@@ -1,6 +1,6 @@
 <?php
 
-use BigName\DatabaseBackup\Filesystems\RackspaceFilesystem;
+use BigName\BackupManager\Filesystems\RackspaceFilesystem;
 use Mockery as m;
 
 class RackspaceFilesystemTest extends PHPUnit_Framework_TestCase
@@ -14,7 +14,7 @@ class RackspaceFilesystemTest extends PHPUnit_Framework_TestCase
     {
         $rackspace = new RackspaceFilesystem();
 
-        $this->assertInstanceOf('BigName\DatabaseBackup\Filesystems\RackspaceFilesystem', $rackspace);
+        $this->assertInstanceOf('BigName\BackupManager\Filesystems\RackspaceFilesystem', $rackspace);
     }
 
     public function test_get_correct_filesystem()

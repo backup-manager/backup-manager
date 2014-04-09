@@ -1,6 +1,6 @@
 <?php
 
-use BigName\DatabaseBackup\Compressors\GzipCompressor;
+use BigName\BackupManager\Compressors\GzipCompressor;
 use Mockery as m;
 
 class GzipCompressorTest extends PHPUnit_Framework_TestCase
@@ -13,7 +13,7 @@ class GzipCompressorTest extends PHPUnit_Framework_TestCase
     public function test_can_create()
     {
         $gzip = new GzipCompressor;
-        $this->assertInstanceOf('BigName\DatabaseBackup\Compressors\GzipCompressor', $gzip);
+        $this->assertInstanceOf('BigName\BackupManager\Compressors\GzipCompressor', $gzip);
     }
 
     public function test_can_generate_compress_command_line()

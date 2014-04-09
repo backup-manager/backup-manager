@@ -1,7 +1,7 @@
-<?php namespace BigName\DatabaseBackup\Commands\Storage;
+<?php namespace BigName\BackupManager\Commands\Storage;
 
 use League\Flysystem\Filesystem;
-use BigName\DatabaseBackup\Commands\Command;
+use BigName\BackupManager\Commands\Command;
 
 class DeleteFile implements Command
 {

@@ -1,6 +1,6 @@
 <?php
 
-use BigName\DatabaseBackup\Commands\Compression\DecompressFile;
+use BigName\BackupManager\Commands\Compression\DecompressFile;
 use Mockery as m;
 
 class DecompressFileTest extends PHPUnit_Framework_TestCase
@@ -12,18 +12,18 @@ class DecompressFileTest extends PHPUnit_Framework_TestCase
 
     public function test_can_create()
     {
-        $compressor = m::mock('BigName\DatabaseBackup\Compressors\Compressor');
-        $shell = m::mock('BigName\DatabaseBackup\ShellProcessing\ShellProcessor');
+        $compressor = m::mock('BigName\BackupManager\Compressors\Compressor');
+        $shell = m::mock('BigName\BackupManager\ShellProcessing\ShellProcessor');
         $command = new DecompressFile($compressor, 'foo', $shell);
-        $this->assertInstanceOf('BigName\DatabaseBackup\Commands\Compression\DecompressFile', $command);
+        $this->assertInstanceOf('BigName\BackupManager\Commands\Compression\DecompressFile', $command);
     }
 
     public function test_generates_correct_command()
     {
-        $compressor = m::mock('BigName\DatabaseBackup\Compressors\Compressor');
+        $compressor = m::mock('BigName\BackupManager\Compressors\Compressor');
         $compressor->shouldReceive('getDecompressCommandLine')->andReturn('foo');
 
-        $shell = m::mock('BigName\DatabaseBackup\ShellProcessing\ShellProcessor');
+        $shell = m::mock('BigName\BackupManager\ShellProcessing\ShellProcessor');
         $shell->shouldReceive('process')->with('foo')->once();
 
         $command = new DecompressFile($compressor, 'bar', $shell);

@@ -1,12 +1,12 @@
-<?php namespace BigName\DatabaseBackup\Commands\Database;
+<?php namespace BigName\BackupManager\Commands\Database;
 
-use BigName\DatabaseBackup\Commands\Command;
-use BigName\DatabaseBackup\Databases\Database;
-use BigName\DatabaseBackup\ShellProcessing\ShellProcessor;
+use BigName\BackupManager\Commands\Command;
+use BigName\BackupManager\Databases\Database;
+use BigName\BackupManager\ShellProcessing\ShellProcessor;
 
 /**
  * Class DumpDatabase
- * @package BigName\DatabaseBackup\Commands\Database\Mysql
+ * @package BigName\BackupManager\Commands\Database\Mysql
  */
 class DumpDatabase implements Command
 {
@@ -15,11 +15,11 @@ class DumpDatabase implements Command
      */
     private $outputPath;
     /**
-     * @var \BigName\DatabaseBackup\ShellProcessing\ShellProcessor
+     * @var \BigName\BackupManager\ShellProcessing\ShellProcessor
      */
     private $shellProcessor;
     /**
-     * @var \BigName\DatabaseBackup\Databases\Database
+     * @var \BigName\BackupManager\Databases\Database
      */
     private $database;
 

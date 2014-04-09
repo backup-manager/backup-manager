@@ -1,4 +1,4 @@
-<?php namespace BigName\DatabaseBackup\Filesystems;
+<?php namespace BigName\BackupManager\Filesystems;
 
 use League\Flysystem\Adapter\Dropbox;
 use Dropbox\Client;

@@ -4,6 +4,4 @@
 /tests/report
 composer.phar
 composer.lock
-.DS_Store
-.idea
 vagrant_ansible_inventory_default

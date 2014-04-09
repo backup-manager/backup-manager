@@ -1,4 +1,4 @@
-<?php namespace BigName\DatabaseBackup\Databases;
+<?php namespace BigName\BackupManager\Databases;
 
 abstract class Database
 {

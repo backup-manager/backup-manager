@@ -1,6 +1,6 @@
 <?php
 
-use BigName\DatabaseBackup\Procedures\Sequence;
+use BigName\BackupManager\Procedures\Sequence;
 use Mockery as m;
 
 class SequenceTest extends PHPUnit_Framework_TestCase
@@ -12,17 +12,17 @@ class SequenceTest extends PHPUnit_Framework_TestCase
 
     public function test_can_create()
     {
-        $this->assertInstanceOf('BigName\DatabaseBackup\Procedures\Sequence', new Sequence());
+        $this->assertInstanceOf('BigName\BackupManager\Procedures\Sequence', new Sequence());
     }
 
     public function test_can_execute_commands()
     {
         $sequence = new Sequence;
 
-        $command = m::mock('BigName\DatabaseBackup\Commands\Command');
+        $command = m::mock('BigName\BackupManager\Commands\Command');
         $command->shouldReceive('execute')->once();
 
-        $command2 = m::mock('BigName\DatabaseBackup\Commands\Command');
+        $command2 = m::mock('BigName\BackupManager\Commands\Command');
         $command2->shouldReceive('execute')->once();
 
         $sequence->add($command);

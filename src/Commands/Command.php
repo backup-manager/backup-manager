@@ -1,4 +1,4 @@
-<?php namespace BigName\DatabaseBackup\Commands;
+<?php namespace BigName\BackupManager\Commands;
 
 interface Command
 {

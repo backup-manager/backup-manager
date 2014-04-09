@@ -12,8 +12,8 @@ class ListDirectoryContentsTest extends PHPUnit_Framework_TestCase
     public function test_can_create()
     {
         $filesystem = m::mock('League\Flysystem\Filesystem');
-        $list = new \BigName\DatabaseBackup\Commands\Storage\ListDirectoryContents($filesystem, 'foo');
-        $this->assertInstanceOf('BigName\DatabaseBackup\Commands\Storage\ListDirectoryContents', $list);
+        $list = new \BigName\BackupManager\Commands\Storage\ListDirectoryContents($filesystem, 'foo');
+        $this->assertInstanceOf('BigName\BackupManager\Commands\Storage\ListDirectoryContents', $list);
     }
 
     public function test_file_listing_initiated()
@@ -21,7 +21,7 @@ class ListDirectoryContentsTest extends PHPUnit_Framework_TestCase
         $filesystem = m::mock('League\Flysystem\Filesystem');
         $filesystem->shouldReceive('listContents')->with('foo')->andReturn('baz')->once();
 
-        $list = new \BigName\DatabaseBackup\Commands\Storage\ListDirectoryContents($filesystem, 'foo');
+        $list = new \BigName\BackupManager\Commands\Storage\ListDirectoryContents($filesystem, 'foo');
         $contents = $list->execute();
 
         $this->assertEquals('baz', $contents);

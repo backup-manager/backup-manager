@@ -1,6 +1,6 @@
 <?php
 
-use BigName\DatabaseBackup\Filesystems\Awss3Filesystem;
+use BigName\BackupManager\Filesystems\Awss3Filesystem;
 use Mockery as m;
 
 class AwsS3FilesystemTest extends PHPUnit_Framework_TestCase
@@ -13,7 +13,7 @@ class AwsS3FilesystemTest extends PHPUnit_Framework_TestCase
     public function test_can_create()
     {
         $s3 = new Awss3Filesystem();
-        $this->assertInstanceOf('BigName\DatabaseBackup\Filesystems\AwsS3Filesystem', $s3);
+        $this->assertInstanceOf('BigName\BackupManager\Filesystems\AwsS3Filesystem', $s3);
     }
 
     public function test_get_correct_filesystem()

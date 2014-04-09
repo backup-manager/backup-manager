@@ -1,6 +1,6 @@
 <?php
 
-use BigName\DatabaseBackup\Commands\Database\RestoreDatabase;
+use BigName\BackupManager\Commands\Database\RestoreDatabase;
 use Mockery as m;
 
 class RestoreDatabaseTest extends PHPUnit_Framework_TestCase
@@ -12,18 +12,18 @@ class RestoreDatabaseTest extends PHPUnit_Framework_TestCase
 
     public function test_can_create()
     {
-        $database = m::mock('BigName\DatabaseBackup\Databases\Database');
-        $shell = m::mock('BigName\DatabaseBackup\ShellProcessing\ShellProcessor');
+        $database = m::mock('BigName\BackupManager\Databases\Database');
+        $shell = m::mock('BigName\BackupManager\ShellProcessing\ShellProcessor');
         $dumpDatabase = new RestoreDatabase($database, 'foo', $shell);
-        $this->assertInstanceOf('BigName\DatabaseBackup\Commands\Database\RestoreDatabase', $dumpDatabase);
+        $this->assertInstanceOf('BigName\BackupManager\Commands\Database\RestoreDatabase', $dumpDatabase);
     }
 
     public function test_command_is_processed()
     {
-        $database = m::mock('BigName\DatabaseBackup\Databases\Database');
+        $database = m::mock('BigName\BackupManager\Databases\Database');
         $database->shouldReceive('getRestoreCommandLine')->andReturn('foo');
 
-        $shell = m::mock('BigName\DatabaseBackup\ShellProcessing\ShellProcessor');
+        $shell = m::mock('BigName\BackupManager\ShellProcessing\ShellProcessor');
         $shell->shouldReceive('process')->with('foo')->once();
         
         $dumpDatabase = new RestoreDatabase($database, 'foo', $shell);

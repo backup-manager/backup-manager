@@ -1,14 +1,14 @@
-<?php namespace BigName\DatabaseBackup;
+<?php namespace BigName\BackupManager;
 
-use BigName\DatabaseBackup\Config\Config;
-use BigName\DatabaseBackup\Databases\DatabaseProvider;
-use BigName\DatabaseBackup\Filesystems\FilesystemProvider;
-use BigName\DatabaseBackup\Compressors\CompressorProvider;
-use BigName\DatabaseBackup\ShellProcessing\ShellProcessor;
+use BigName\BackupManager\Config\Config;
+use BigName\BackupManager\Databases\DatabaseProvider;
+use BigName\BackupManager\Filesystems\FilesystemProvider;
+use BigName\BackupManager\Compressors\CompressorProvider;
+use BigName\BackupManager\ShellProcessing\ShellProcessor;
 use Symfony\Component\Process\Process;
-use BigName\DatabaseBackup\Procedures\Sequence;
-use BigName\DatabaseBackup\Procedures\BackupProcedure;
-use BigName\DatabaseBackup\Procedures\RestoreProcedure;
+use BigName\BackupManager\Procedures\Sequence;
+use BigName\BackupManager\Procedures\BackupProcedure;
+use BigName\BackupManager\Procedures\RestoreProcedure;
 
 class Manager
 {

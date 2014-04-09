@@ -1,11 +1,11 @@
-<?php namespace BigName\DatabaseBackup\Databases;
+<?php namespace BigName\BackupManager\Databases;
 
-use BigName\DatabaseBackup\Config\Config;
+use BigName\BackupManager\Config\Config;
 
 class DatabaseProvider
 {
     /**
-     * @var \BigName\DatabaseBackup\Config\Config
+     * @var \BigName\BackupManager\Config\Config
      */
     private $config;
 
@@ -31,7 +31,7 @@ class DatabaseProvider
     private function getClass($type)
     {
         $type = ucfirst(strtolower($type));
-        return "BigName\\DatabaseBackup\\Databases\\{$type}Database";
+        return "BigName\\BackupManager\\Databases\\{$type}Database";
     }
 
 } 

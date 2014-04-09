@@ -1,11 +1,10 @@
-<?php namespace BigName\DatabaseBackup\Procedures;
+<?php namespace BigName\BackupManager\Procedures;
 
-use BigName\DatabaseBackup\Commands\Command;
-use BigName\DatabaseBackup\Commands\CommandFactory;
-use BigName\DatabaseBackup\Compressors\CompressorProvider;
-use BigName\DatabaseBackup\Databases\DatabaseProvider;
-use BigName\DatabaseBackup\Filesystems\FilesystemProvider;
-use BigName\DatabaseBackup\ShellProcessing\ShellProcessor;
+use BigName\BackupManager\Commands\Command;
+use BigName\BackupManager\Compressors\CompressorProvider;
+use BigName\BackupManager\Databases\DatabaseProvider;
+use BigName\BackupManager\Filesystems\FilesystemProvider;
+use BigName\BackupManager\ShellProcessing\ShellProcessor;
 
 /**
  * Class Procedure
@@ -15,19 +14,19 @@ abstract class Procedure
 {
     private $sequence;
     /**
-     * @var \BigName\DatabaseBackup\Filesystems\FilesystemProvider
+     * @var \BigName\BackupManager\Filesystems\FilesystemProvider
      */
     protected $filesystem;
     /**
-     * @var \BigName\DatabaseBackup\ShellProcessing\ShellProcessor
+     * @var \BigName\BackupManager\ShellProcessing\ShellProcessor
      */
     protected $shellProcessor;
     /**
-     * @var \BigName\DatabaseBackup\Databases\DatabaseProvider
+     * @var \BigName\BackupManager\Databases\DatabaseProvider
      */
     protected $database;
     /**
-     * @var \BigName\DatabaseBackup\Compressors\CompressorProvider
+     * @var \BigName\BackupManager\Compressors\CompressorProvider
      */
     public $compressor;
 

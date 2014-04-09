@@ -1,6 +1,6 @@
 <?php
 
-use BigName\DatabaseBackup\Filesystems\LocalFilesystem;
+use BigName\BackupManager\Filesystems\LocalFilesystem;
 use Mockery as m;
 
 class LocalFilesystemTest extends PHPUnit_Framework_TestCase
@@ -13,7 +13,7 @@ class LocalFilesystemTest extends PHPUnit_Framework_TestCase
     public function test_can_create()
     {
         $local = new LocalFilesystem();
-        $this->assertInstanceOf('BigName\DatabaseBackup\Filesystems\LocalFilesystem', $local);
+        $this->assertInstanceOf('BigName\BackupManager\Filesystems\LocalFilesystem', $local);
     }
 
     public function test_get_correct_filesystem()
