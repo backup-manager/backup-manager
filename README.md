@@ -16,7 +16,7 @@
 
 ### Quick and Dirty
 
-Configure your databases.
+**Configure your databases.**
 
 ```php
 'development' => [
@@ -37,7 +37,7 @@ Configure your databases.
 ],
 ```
 
-Configure your filesystems.
+**Configure your filesystems.**
 
 ```php
 'local' => [
@@ -66,7 +66,7 @@ Configure your filesystems.
 ],
 ```
 
-Want to back up a database?
+**Backup to / restore from any configured database.**
 
 ```php
 use BigName\DatabaseBackup\Manager;
@@ -74,12 +74,22 @@ $manager = new Manager('storage.php', 'database.php');
 $manager->backup('development', 's3', 'test/backup.sql', 'gzip');
 ```
 
-Want to restore a database?
+**Backup to / restore from any configured filesystem.**
 
 ```php
 use BigName\DatabaseBackup\Manager;
 $manager = new Manager('storage.php', 'database.php');
 $manager->restore('s3', 'test/backup.sql.gz', 'production', 'gzip');
+```
+
+### Installation
+
+**Composer**
+
+```JSON
+"require": {
+    "heybigname/backup-manager": "<=1.*"
+}
 ```
 
 ### Requirements
