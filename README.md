@@ -71,7 +71,7 @@
 **Backup to / restore from any configured database.**
 
 ```php
-use BigName\DatabaseBackup\Manager;
+use BigName\BackupManager\Manager;
 $manager = new Manager('storage.php', 'database.php');
 $manager->backup('development', 's3', 'test/backup.sql', 'gzip');
 ```
@@ -79,7 +79,7 @@ $manager->backup('development', 's3', 'test/backup.sql', 'gzip');
 **Backup to / restore from any configured filesystem.**
 
 ```php
-use BigName\DatabaseBackup\Manager;
+use BigName\BackupManager\Manager;
 $manager = new Manager('storage.php', 'database.php');
 $manager->restore('s3', 'test/backup.sql.gz', 'development', 'gzip');
 ```
