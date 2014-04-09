@@ -1,6 +1,6 @@
-<?php namespace BigName\DatabaseBackup\Procedures;
+<?php namespace BigName\BackupManager\Procedures;
 
-use BigName\DatabaseBackup\Commands\Command;
+use BigName\BackupManager\Commands\Command;
 
 class Sequence
 {

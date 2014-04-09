@@ -1,4 +1,4 @@
-<?php namespace BigName\DatabaseBackup\Filesystems;
+<?php namespace BigName\BackupManager\Filesystems;
 
 use League\Flysystem\Adapter\Rackspace as RackspaceAdapter;
 use OpenCloud\OpenStack;

@@ -1,3 +1,3 @@
-<?php namespace BigName\DatabaseBackup\Config; 
+<?php namespace BigName\BackupManager\Config;
 
 class ConfigFieldNotFound extends \Exception {}

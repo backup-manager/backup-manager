@@ -1,8 +1,8 @@
-<?php namespace BigName\DatabaseBackup\Commands\Compression;
+<?php namespace BigName\BackupManager\Commands\Compression;
 
-use BigName\DatabaseBackup\Commands\Command;
-use BigName\DatabaseBackup\Compressors\Compressor;
-use BigName\DatabaseBackup\ShellProcessing\ShellProcessor;
+use BigName\BackupManager\Commands\Command;
+use BigName\BackupManager\Compressors\Compressor;
+use BigName\BackupManager\ShellProcessing\ShellProcessor;
 
 class CompressFile implements Command
 {
@@ -11,11 +11,11 @@ class CompressFile implements Command
      */
     private $sourcePath;
     /**
-     * @var \BigName\DatabaseBackup\ShellProcessing\ShellProcessor
+     * @var \BigName\BackupManager\ShellProcessing\ShellProcessor
      */
     private $shellProcessor;
     /**
-     * @var \BigName\DatabaseBackup\Compressors\Compressor
+     * @var \BigName\BackupManager\Compressors\Compressor
      */
     private $compressor;
 

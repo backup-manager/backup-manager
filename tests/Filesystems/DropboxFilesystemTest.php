@@ -1,6 +1,6 @@
 <?php
 
-use BigName\DatabaseBackup\Filesystems\DropboxFilesystem;
+use BigName\BackupManager\Filesystems\DropboxFilesystem;
 use Mockery as m;
 
 class DropboxFilesystemTest extends PHPUnit_Framework_TestCase
@@ -13,7 +13,7 @@ class DropboxFilesystemTest extends PHPUnit_Framework_TestCase
     public function test_can_create()
     {
         $dropbox = new DropboxFilesystem();
-        $this->assertInstanceOf('BigName\DatabaseBackup\Filesystems\DropboxFilesystem', $dropbox);
+        $this->assertInstanceOf('BigName\BackupManager\Filesystems\DropboxFilesystem', $dropbox);
     }
 
     public function test_get_correct_filesystem()

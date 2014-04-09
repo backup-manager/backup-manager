@@ -1,4 +1,4 @@
-<?php namespace BigName\DatabaseBackup\Compressors;
+<?php namespace BigName\BackupManager\Compressors;
 
 class CompressorProvider
 {
@@ -18,7 +18,7 @@ class CompressorProvider
     private function getClassName($type)
     {
         $type = ucfirst(strtolower($type));
-        return "BigName\\DatabaseBackup\\Compressors\\{$type}Compressor";
+        return "BigName\\BackupManager\\Compressors\\{$type}Compressor";
     }
 
 } 

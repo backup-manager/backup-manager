@@ -1,4 +1,4 @@
-<?php namespace BigName\DatabaseBackup\Compressors; 
+<?php namespace BigName\BackupManager\Compressors;
 
 class GzipCompressor extends Compressor
 {

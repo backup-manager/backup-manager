@@ -1,6 +1,6 @@
-<?php namespace BigName\DatabaseBackup\Filesystems;
+<?php namespace BigName\BackupManager\Filesystems;
 
-use BigName\DatabaseBackup\Config\Config;
+use BigName\BackupManager\Config\Config;
 
 class FilesystemProvider
 {
@@ -28,6 +28,6 @@ class FilesystemProvider
     private function getClassName($type)
     {
         $type = ucfirst(strtolower($type));
-        return "BigName\\DatabaseBackup\\Filesystems\\{$type}Filesystem";
+        return "BigName\\BackupManager\\Filesystems\\{$type}Filesystem";
     }
 }

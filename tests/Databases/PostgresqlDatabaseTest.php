@@ -1,6 +1,6 @@
 <?php
 
-use BigName\DatabaseBackup\Databases\PostgresqlDatabase;
+use BigName\BackupManager\Databases\PostgresqlDatabase;
 use Mockery as m;
 
 class PostgresqlDatabaseTest extends PHPUnit_Framework_TestCase
@@ -13,7 +13,7 @@ class PostgresqlDatabaseTest extends PHPUnit_Framework_TestCase
     public function test_can_create()
     {
         $mysql = new PostgresqlDatabase([]);
-        $this->assertInstanceOf('BigName\DatabaseBackup\Databases\PostgresqlDatabase', $mysql);
+        $this->assertInstanceOf('BigName\BackupManager\Databases\PostgresqlDatabase', $mysql);
     }
 
     public function test_get_dump_command()

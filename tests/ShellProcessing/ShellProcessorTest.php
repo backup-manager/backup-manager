@@ -1,6 +1,6 @@
 <?php
 
-use BigName\DatabaseBackup\ShellProcessing\ShellProcessor;
+use BigName\BackupManager\ShellProcessing\ShellProcessor;
 use Mockery as m;
 use Symfony\Component\Process\Process;
 
@@ -13,7 +13,7 @@ class ShellProcessorTest extends PHPUnit_Framework_TestCase
 
     public function test_can_create()
     {
-        $this->assertInstanceOf('BigName\DatabaseBackup\ShellProcessing\ShellProcessor', new ShellProcessor(new Process('')));
+        $this->assertInstanceOf('BigName\BackupManager\ShellProcessing\ShellProcessor', new ShellProcessor(new Process('')));
     }
 
     public function test_can_process()
@@ -30,7 +30,7 @@ class ShellProcessorTest extends PHPUnit_Framework_TestCase
 
     public function test_shell_process_failed_exception()
     {
-        $this->setExpectedException('BigName\DatabaseBackup\ShellProcessing\ShellProcessFailed');
+        $this->setExpectedException('BigName\BackupManager\ShellProcessing\ShellProcessFailed');
 
         $process = m::mock('Symfony\Component\Process\Process');
         $process->shouldReceive('isSuccessful')->andReturn(false);

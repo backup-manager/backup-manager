@@ -1,6 +1,6 @@
-<?php namespace BigName\DatabaseBackup\Procedures;
+<?php namespace BigName\BackupManager\Procedures;
 
-use BigName\DatabaseBackup\Commands;
+use BigName\BackupManager\Commands;
 
 class BackupProcedure extends Procedure
 {

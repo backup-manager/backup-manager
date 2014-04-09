@@ -1,6 +1,6 @@
 <?php
 
-use BigName\DatabaseBackup\Databases\MysqlDatabase;
+use BigName\BackupManager\Databases\MysqlDatabase;
 use Mockery as m;
 
 class MysqlDatabaseTest extends PHPUnit_Framework_TestCase
@@ -13,7 +13,7 @@ class MysqlDatabaseTest extends PHPUnit_Framework_TestCase
     public function test_can_create()
     {
         $mysql = new MysqlDatabase([]);
-        $this->assertInstanceOf('BigName\DatabaseBackup\Databases\MysqlDatabase', $mysql);
+        $this->assertInstanceOf('BigName\BackupManager\Databases\MysqlDatabase', $mysql);
     }
 
     public function test_get_dump_command()

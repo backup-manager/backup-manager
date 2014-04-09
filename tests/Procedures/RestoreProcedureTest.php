@@ -1,6 +1,6 @@
 <?php
 
-use BigName\DatabaseBackup\Procedures\RestoreProcedure;
+use BigName\BackupManager\Procedures\RestoreProcedure;
 use Mockery as m;
 
 // This test could be expanded quite a bit more.
@@ -20,7 +20,7 @@ class RestoreProcedureTest extends PHPUnit_Framework_TestCase
             $this->getShellProcessor(),
             $this->getSequence()
         );
-        $this->assertInstanceOf('BigName\DatabaseBackup\Procedures\RestoreProcedure', $procedure);
+        $this->assertInstanceOf('BigName\BackupManager\Procedures\RestoreProcedure', $procedure);
     }
 
     public function test_sequence_is_correct()
@@ -29,16 +29,16 @@ class RestoreProcedureTest extends PHPUnit_Framework_TestCase
         $filesystemProvider->shouldReceive('get')->andReturn(m::mock('League\Flysystem\Filesystem'));
 
         $databaseProvider = $this->getDatabaseProvider();
-        $databaseProvider->shouldReceive('get')->andReturn(m::mock('BigName\DatabaseBackup\Databases\Database'));
+        $databaseProvider->shouldReceive('get')->andReturn(m::mock('BigName\BackupManager\Databases\Database'));
 
         $compressorProvider = $this->getCompressorProvider();
         $compressorProvider->shouldIgnoreMissing();
 
         $sequence = $this->getSequence();
-        $sequence->shouldReceive('add')->with(m::type('BigName\DatabaseBackup\Commands\Storage\TransferFile'))->once();
-        $sequence->shouldReceive('add')->with(m::type('BigName\DatabaseBackup\Commands\Compression\DecompressFile'))->once();
-        $sequence->shouldReceive('add')->with(m::type('BigName\DatabaseBackup\Commands\Database\RestoreDatabase'))->once();
-        $sequence->shouldReceive('add')->with(m::type('BigName\DatabaseBackup\Commands\Storage\DeleteFile'))->once();
+        $sequence->shouldReceive('add')->with(m::type('BigName\BackupManager\Commands\Storage\TransferFile'))->once();
+        $sequence->shouldReceive('add')->with(m::type('BigName\BackupManager\Commands\Compression\DecompressFile'))->once();
+        $sequence->shouldReceive('add')->with(m::type('BigName\BackupManager\Commands\Database\RestoreDatabase'))->once();
+        $sequence->shouldReceive('add')->with(m::type('BigName\BackupManager\Commands\Storage\DeleteFile'))->once();
         $sequence->shouldReceive('execute')->once();
 
         $procedure = new RestoreProcedure(
@@ -54,28 +54,28 @@ class RestoreProcedureTest extends PHPUnit_Framework_TestCase
 
     private function getFilesystemProvider()
     {
-        return m::mock('BigName\DatabaseBackup\Filesystems\FilesystemProvider');
+        return m::mock('BigName\BackupManager\Filesystems\FilesystemProvider');
     }
 
     private function getDatabaseProvider()
     {
-        return m::mock('BigName\DatabaseBackup\Databases\DatabaseProvider');
+        return m::mock('BigName\BackupManager\Databases\DatabaseProvider');
     }
 
     private function getCompressorProvider()
     {
-        $provider = m::mock('BigName\DatabaseBackup\Compressors\CompressorProvider');
-        $provider->shouldReceive('get')->andReturn(new BigName\DatabaseBackup\Compressors\GzipCompressor([]));
+        $provider = m::mock('BigName\BackupManager\Compressors\CompressorProvider');
+        $provider->shouldReceive('get')->andReturn(new BigName\BackupManager\Compressors\GzipCompressor([]));
         return $provider;
     }
 
     private function getShellProcessor()
     {
-        return m::mock('BigName\DatabaseBackup\ShellProcessing\ShellProcessor');
+        return m::mock('BigName\BackupManager\ShellProcessing\ShellProcessor');
     }
 
     private function getSequence()
     {
-        return m::mock('BigName\DatabaseBackup\Procedures\Sequence');
+        return m::mock('BigName\BackupManager\Procedures\Sequence');
     }
 }

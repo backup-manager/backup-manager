@@ -1,4 +1,4 @@
-<?php namespace BigName\DatabaseBackup\Filesystems;
+<?php namespace BigName\BackupManager\Filesystems;
 
 use League\Flysystem\Adapter\AwsS3;
 use Aws\S3\S3Client;

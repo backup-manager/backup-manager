@@ -1,6 +1,6 @@
 <?php
 
-use BigName\DatabaseBackup\Manager;
+use BigName\BackupManager\Manager;
 use Mockery as m;
 
 class ManagerTest extends PHPUnit_Framework_TestCase
@@ -13,7 +13,7 @@ class ManagerTest extends PHPUnit_Framework_TestCase
     public function test_can_create()
     {
         $manager = new Manager('tests/config/storage.php', 'tests/config/database.php');
-        $this->assertInstanceOf('BigName\DatabaseBackup\Manager', $manager);
+        $this->assertInstanceOf('BigName\BackupManager\Manager', $manager);
     }
 
     public function test_can_create_backup_procedure()

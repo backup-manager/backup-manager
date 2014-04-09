@@ -1,4 +1,4 @@
-<?php namespace BigName\DatabaseBackup\Databases; 
+<?php namespace BigName\BackupManager\Databases;
 
 class NullDatabase extends Database
 {

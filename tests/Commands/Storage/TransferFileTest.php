@@ -12,8 +12,8 @@ class TransferFileTest extends PHPUnit_Framework_TestCase
     public function test_can_create()
     {
         $filesystem = m::mock('League\Flysystem\Filesystem');
-        $transfer = new \BigName\DatabaseBackup\Commands\Storage\TransferFile($filesystem, 'foo', $filesystem, 'bar');
-        $this->assertInstanceOf('BigName\DatabaseBackup\Commands\Storage\TransferFile', $transfer);
+        $transfer = new \BigName\BackupManager\Commands\Storage\TransferFile($filesystem, 'foo', $filesystem, 'bar');
+        $this->assertInstanceOf('BigName\BackupManager\Commands\Storage\TransferFile', $transfer);
     }
 
     public function test_file_transfer_initiated()
@@ -24,7 +24,7 @@ class TransferFileTest extends PHPUnit_Framework_TestCase
         $destination = m::mock('League\Flysystem\Filesystem');
         $destination->shouldReceive('writeStream')->with('bar', 'baz')->once();
 
-        $delete = new \BigName\DatabaseBackup\Commands\Storage\TransferFile($source, 'foo', $destination, 'bar');
+        $delete = new \BigName\BackupManager\Commands\Storage\TransferFile($source, 'foo', $destination, 'bar');
         $delete->execute();
     }
 }

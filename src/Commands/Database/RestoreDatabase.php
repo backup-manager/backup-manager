@@ -1,15 +1,15 @@
-<?php namespace BigName\DatabaseBackup\Commands\Database;
+<?php namespace BigName\BackupManager\Commands\Database;
 
-use BigName\DatabaseBackup\Commands\Command;
-use BigName\DatabaseBackup\Databases\Database;
-use BigName\DatabaseBackup\ShellProcessing\ShellProcessor;
+use BigName\BackupManager\Commands\Command;
+use BigName\BackupManager\Databases\Database;
+use BigName\BackupManager\ShellProcessing\ShellProcessor;
 
 class RestoreDatabase implements Command
 {
     private $inputPath;
     private $shellProcessor;
     /**
-     * @var \BigName\DatabaseBackup\Databases\Database
+     * @var \BigName\BackupManager\Databases\Database
      */
     private $database;
 

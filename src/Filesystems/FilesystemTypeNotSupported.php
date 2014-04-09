@@ -1,3 +1,3 @@
-<?php namespace BigName\DatabaseBackup\Filesystems; 
+<?php namespace BigName\BackupManager\Filesystems;
 
 class FilesystemTypeNotSupported extends \Exception {}
