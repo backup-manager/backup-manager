@@ -84,7 +84,7 @@ $manager = new Manager('storage.php', 'database.php');
 $manager->restore('s3', 'test/backup.sql.gz', 'development', 'gzip');
 ```
 
-> Note: This package does not allow you to backup from one database type and restore to another. (eg: MySQL to PostgreSQL)
+> This package does not allow you to backup from one database type and restore to another.
 
 ### Installation
 
