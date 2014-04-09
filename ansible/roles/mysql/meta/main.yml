@@ -6,11 +6,5 @@ galaxy_info:
   description: "MySQL install and configuration (hardening, databases, users, ...)"
   min_ansible_version: 1.4
   license: MIT
-  platforms:
-  - name: Ubuntu
-    versions:
-    - all
-  categories:
-  - system
 
 dependencies: []
