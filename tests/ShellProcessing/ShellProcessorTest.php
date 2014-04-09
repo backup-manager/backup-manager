@@ -38,6 +38,17 @@ class ShellProcessorTest extends PHPUnit_Framework_TestCase
 
         /** @noinspection PhpParamsInspection */
         $shell = new ShellProcessor($process);
+        $shell->process('foo');
+    }
+
+    public function test_shell_processing_doesnt_occur_with_empty_string()
+    {
+        $process = m::mock('Symfony\Component\Process\Process');
+        $process->shouldReceive('setCommandLine')->never();
+        $process->shouldIgnoreMissing();
+
+        /** @noinspection PhpParamsInspection */
+        $shell = new ShellProcessor($process);
         $shell->process('');
     }
 }

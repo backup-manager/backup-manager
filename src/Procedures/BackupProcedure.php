@@ -36,7 +36,7 @@ class BackupProcedure extends Procedure
             // source fs and path
             $this->filesystem->get('local'), $workingFile,
             // destination fs and path
-            $this->filesystem->get($destination), $destinationPath
+            $this->filesystem->get($destination), $compressor->getCompressedPath($destinationPath)
         ));
 
         // cleanup the local archive

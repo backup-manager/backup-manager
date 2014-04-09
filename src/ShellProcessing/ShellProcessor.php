@@ -23,6 +23,10 @@ class ShellProcessor
 
     public function process($command)
     {
+        if (empty($command)) {
+            return;
+        }
+
         $this->process->setCommandLine($command);
         $this->process->run();
         if ( ! $this->process->isSuccessful()) {

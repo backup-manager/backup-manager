@@ -30,4 +30,10 @@ class CompressorProviderTest extends PHPUnit_Framework_TestCase
         $provider = new CompressorProvider;
         $provider->get('unsupported');
     }
+
+    public function test_receive_null_object()
+    {
+        $provider = new CompressorProvider;
+        $this->assertInstanceOf('BigName\DatabaseBackup\Compressors\NullCompressor', $provider->get(null));
+    }
 }

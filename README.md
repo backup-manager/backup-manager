@@ -13,6 +13,66 @@
 - dead simple configuration
 - optional integrations for MVC framework [Laravel](http://laravel.com) and team-communication software [Slack](http://slack.com)
 
+### Quick and Dirty
+
+Configure your databases.
+
+    'development' => [
+        'type' => 'mysql',
+        'host' => 'localhost',
+        'port' => '3306',
+        'user' => 'root',
+        'pass' => 'password',
+        'database' => 'test',
+    ],
+    'production' => [
+        'type' => 'postgresql',
+        'host' => 'localhost',
+        'port' => '5432',
+        'user' => 'postgres',
+        'pass' => 'password',
+        'database' => 'test',
+    ],
+
+Configure your filesystems.
+
+    'local' => [
+        'type' => 'Local',
+        'working-path' => '/',
+    ],
+    's3' => [
+        'type' => 'AwsS3',
+        'key'    => '',
+        'secret' => '',
+        'region' => Aws\Common\Enum\Region::US_EAST_1,
+        'bucket' => '',
+    ],
+    'rackspace' => [
+        'type' => 'Rackspace',
+        'username' => '',
+        'password' => '',
+        'container' => '',
+    ],
+    'dropbox' => [
+        'type' => 'Dropbox',
+        'key' => '',
+        'secret' => '',
+        'app' => '',
+        'root' => '',
+    ]
+
+Want to back up a database?
+
+    use BigName\DatabaseBackup\Manager;
+    $manager = new Manager('storage.php', 'database.php');
+    $manager->backup('development', 's3', 'test/backup.sql', 'gzip');
+
+Want to restore a database?
+
+    use BigName\DatabaseBackup\Manager;
+    $manager = new Manager('storage.php', 'database.php');
+    $manager->restore('s3', 'test/backup.sql.gz', 'production', 'gzip');
+
 ### Requirements
 
 - PHP 5.4

@@ -16,7 +16,12 @@ class DatabaseProvider
 
     public function get($name)
     {
-        $class = $this->getClass($this->config->get($name, 'type'));
+        $type = $this->config->get($name, 'type');
+        if (is_null($type)) {
+            return new NullDatabase([]);
+        }
+
+        $class = $this->getClass($type);
         if ( ! class_exists($class)) {
             throw new DatabaseTypeNotSupported('The requested database type "' . $class . '" is not currently supported.');
         }

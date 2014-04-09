@@ -12,4 +12,7 @@ return [
     'unsupported' => [
         'type' => 'doesnt exist',
     ],
+    'null' => [
+        'type' => null,
+    ],
 ];

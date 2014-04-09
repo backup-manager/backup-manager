@@ -4,7 +4,7 @@ use BigName\DatabaseBackup\Commands;
 
 class RestoreProcedure extends Procedure
 {
-    public function run($sourceType, $sourcePath, $databaseName)
+    public function run($sourceType, $sourcePath, $databaseName, $compression = null)
     {
         // begin the life of a new working file
         $workingFile = $this->getWorkingFile($sourcePath);
@@ -12,11 +12,11 @@ class RestoreProcedure extends Procedure
         // download or retrieve the archived backup file
         $this->add(new Commands\Storage\TransferFile(
             $this->filesystem->get($sourceType), $sourcePath,
-            $this->filesystem->get('local'), $workingFile
+            $this->filesystem->get('null'), $workingFile
         ));
 
         // decompress the archived backup
-        $compressor = $this->compressor->get('gzip');
+        $compressor = $this->compressor->get($compression);
 
         $this->add(new Commands\Compression\DecompressFile(
             $compressor,
