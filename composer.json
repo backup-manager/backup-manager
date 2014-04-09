@@ -12,7 +12,7 @@
         "homepage": "http://heybigname.com/"
     }],
     "require": {
-        "php": ">=5.3.0",
+        "php": ">=5.4.0",
         "symfony/process": "2.*",
         "aws/aws-sdk-php": "2.4.*",
         "league/flysystem": ">=0.3.1",
