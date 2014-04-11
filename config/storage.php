@@ -20,9 +20,21 @@ return [
     ],
     'dropbox' => [
         'type' => 'Dropbox',
+        'token' => '',
         'key' => '',
         'secret' => '',
         'app' => '',
         'root' => '',
-    ]
+    ],
+    'ftp' => [
+        'type' => 'Ftp',
+        'host' => '',
+        'username' => '',
+        'password' => '',
+        'root' => '',
+        'port' => 21,
+        'passive' => true,
+        'ssl' => true,
+        'timeout' => 30,
+    ],
 ];
