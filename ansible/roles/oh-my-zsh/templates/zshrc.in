@@ -45,7 +45,7 @@ export PATH=/usr/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bi
 
 PATH=$PATH:$HOME/.rvm/bin # Add RVM to PATH for scripting
 
-alias t="pushd /vagrant && vendor/bin/phpunit && popd"
+alias t="cd /vagrant && vendor/bin/phpunit"
 
 echo "\n"
 echo "Database Backup Manager from Big Name (http://heybigname.com)"
