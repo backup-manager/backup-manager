@@ -30,4 +30,9 @@ class FilesystemProvider
         $type = ucfirst(strtolower($type));
         return "BigName\\BackupManager\\Filesystems\\{$type}Filesystem";
     }
+
+    public function getAvailableProviders()
+    {
+        return array_keys($this->config->getItems());
+    }
 }

@@ -38,4 +38,10 @@ class FilesystemProviderTest extends PHPUnit_Framework_TestCase
         $this->assertInstanceOf('League\Flysystem\Filesystem', $null);
         $this->assertInstanceOf('League\Flysystem\Adapter\NullAdapter', $null->getAdapter());
     }
+
+    public function test_can_get_available_providers()
+    {
+        $provider = new FilesystemProvider(new Config('tests/config/storage.php'));
+        $this->assertEquals(['local', 's3', 'unsupported', 'null'], $provider->getAvailableProviders());
+    }
 }

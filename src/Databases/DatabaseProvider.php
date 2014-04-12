@@ -34,4 +34,8 @@ class DatabaseProvider
         return "BigName\\BackupManager\\Databases\\{$type}Database";
     }
 
+    public function getAvailableProviders()
+    {
+        return array_keys($this->config->getItems());
+    }
 } 

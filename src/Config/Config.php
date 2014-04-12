@@ -23,6 +23,11 @@ class Config
         return $this->config[$name];
     }
 
+    public function getItems()
+    {
+        return $this->config;
+    }
+
     private function getConfigField($name, $field)
     {
         if (!array_key_exists($field, $this->config[$name])) {

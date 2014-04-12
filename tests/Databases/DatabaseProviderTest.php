@@ -36,4 +36,10 @@ class DatabaseProviderTest extends PHPUnit_Framework_TestCase
         $provider = new DatabaseProvider(new Config('tests/config/database.php'));
         $this->assertInstanceOf('BigName\BackupManager\Databases\NullDatabase', $provider->get('null'));
     }
+
+    public function test_can_get_available_providers()
+    {
+        $provider = new DatabaseProvider(new Config('tests/config/database.php'));
+        $this->assertEquals(['development', 'unsupported', 'null'], $provider->getAvailableProviders());
+    }
 }
