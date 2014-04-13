@@ -94,7 +94,7 @@
 ```php
 use BigName\BackupManager\Manager;
 $manager = new Manager('storage.php', 'database.php');
-$manager->backup('development', 's3', 'test/backup.sql', 'gzip');
+$manager->makeBackup()->run('development', 's3', 'test/backup.sql', 'gzip');
 ```
 
 **Backup to / restore from any configured filesystem.**
@@ -102,7 +102,7 @@ $manager->backup('development', 's3', 'test/backup.sql', 'gzip');
 ```php
 use BigName\BackupManager\Manager;
 $manager = new Manager('storage.php', 'database.php');
-$manager->restore('s3', 'test/backup.sql.gz', 'development', 'gzip');
+$manager->makeRestore()->run('s3', 'test/backup.sql.gz', 'development', 'gzip');
 ```
 
 > This package does not allow you to backup from one database type and restore to another.

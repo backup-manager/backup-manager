@@ -4,45 +4,55 @@ use BigName\BackupManager\Config\Config;
 use BigName\BackupManager\Databases\DatabaseProvider;
 use BigName\BackupManager\Filesystems\FilesystemProvider;
 use BigName\BackupManager\Compressors\CompressorProvider;
+use BigName\BackupManager\Procedures\ProcedureFactory;
 use BigName\BackupManager\ShellProcessing\ShellProcessor;
-use Symfony\Component\Process\Process;
 use BigName\BackupManager\Procedures\Sequence;
 use BigName\BackupManager\Procedures\BackupProcedure;
 use BigName\BackupManager\Procedures\RestoreProcedure;
+use Symfony\Component\Process\Process;
 
 class Manager
 {
-    private $storageConfig;
-    private $databaseConfig;
+    /**
+     * @var Procedures\ProcedureFactory
+     */
+    private $factory;
+    /**
+     * @var Config\Config
+     */
+    private $storage;
+    /**
+     * @var Config\Config
+     */
+    private $database;
 
-    public function __construct($storageConfigPath, $databaseConfigPath)
+    public function __construct($storage, $database)
     {
-        $this->storageConfig = new Config($storageConfigPath);
-        $this->databaseConfig = new Config($databaseConfigPath);
+
+        $this->storage = new Config($storage);
+        $this->database = new Config($database);
     }
 
-    public function backup($database, $storage, $destinationPath, $compression = null)
+    public function makeBackup()
     {
-        $backup = new BackupProcedure(
-            new FilesystemProvider($this->storageConfig),
-            new DatabaseProvider($this->databaseConfig),
+        return new BackupProcedure(
+            new FilesystemProvider($this->storage),
+            new DatabaseProvider($this->database),
             new CompressorProvider,
             $this->getShellProcessor(),
             new Sequence
         );
-        return $backup->run($database, $storage, $destinationPath, $compression);
     }
 
-    public function restore($storage, $sourcePath, $database, $compression = null)
+    public function makeRestore()
     {
-        $restore = new RestoreProcedure(
-            new FilesystemProvider($this->storageConfig),
-            new DatabaseProvider($this->databaseConfig),
+        return new RestoreProcedure(
+            new FilesystemProvider($this->storage),
+            new DatabaseProvider($this->database),
             new CompressorProvider,
             $this->getShellProcessor(),
             new Sequence
         );
-        return $restore->run($storage, $sourcePath, $database, $compression);
     }
 
     private function getShellProcessor()

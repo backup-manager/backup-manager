@@ -7,6 +7,7 @@
     php_packages: ["php5-cli","php5-mcrypt","php5-curl","php5-xdebug"]
     php_ppa: php5-oldstable
     pg_db: test
+    zsh_theme: af-magic
   roles:
     - init
     - oh-my-zsh

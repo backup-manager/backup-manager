@@ -12,7 +12,7 @@ class RestoreProcedure extends Procedure
         // download or retrieve the archived backup file
         $this->add(new Commands\Storage\TransferFile(
             $this->filesystem->get($sourceType), $sourcePath,
-            $this->filesystem->get('null'), $workingFile
+            $this->filesystem->get('local'), $workingFile
         ));
 
         // decompress the archived backup
