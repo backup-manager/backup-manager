@@ -1,6 +1,7 @@
 <?php
 
 use BigName\BackupManager\Compressors\CompressorProvider;
+use BigName\BackupManager\Compressors\GzipCompressor;
 use BigName\BackupManager\Config\Config;
 use Mockery as m;
 
@@ -20,6 +21,8 @@ class CompressorProviderTest extends PHPUnit_Framework_TestCase
     public function test_can_create_compressor()
     {
         $provider = new CompressorProvider;
+        $provider->add(new GzipCompressor);
+
         $compressor = $provider->get('gzip');
         $this->assertInstanceOf('BigName\BackupManager\Compressors\GzipCompressor', $compressor);
     }
@@ -28,12 +31,7 @@ class CompressorProviderTest extends PHPUnit_Framework_TestCase
     {
         $this->setExpectedException('BigName\BackupManager\Compressors\CompressorTypeNotSupported');
         $provider = new CompressorProvider;
+        $provider->add(new GzipCompressor);
         $provider->get('unsupported');
-    }
-
-    public function test_receive_null_object()
-    {
-        $provider = new CompressorProvider;
-        $this->assertInstanceOf('BigName\BackupManager\Compressors\NullCompressor', $provider->get(null));
     }
 }

@@ -7,6 +7,12 @@
 abstract class Compressor
 {
     /**
+     * @param $type
+     * @return bool
+     */
+    abstract public function handles($type);
+
+    /**
      * @param $inputPath
      * @return string
      */

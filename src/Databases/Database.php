@@ -1,33 +1,33 @@
 <?php namespace BigName\BackupManager\Databases;
+use BigName\BackupManager\Config\Config;
 
 /**
  * Class Database
  * @package BigName\BackupManager\Databases
  */
-abstract class Database
+interface Database
 {
     /**
-     * @var array
+     * @param $type
+     * @return bool
      */
-    protected $config;
+    public function handles($type);
 
     /**
      * @param array $config
+     * @return null
      */
-    public function __construct(array $config)
-    {
-        $this->config = $config;
-    }
+    public function setConfig(array $config);
 
     /**
      * @param $inputPath
      * @return string
      */
-    abstract public function getDumpCommandLine($inputPath);
+    public function getDumpCommandLine($inputPath);
 
     /**
      * @param $outputPath
      * @return string
      */
-    abstract public function getRestoreCommandLine($outputPath);
+    public function getRestoreCommandLine($outputPath);
 }

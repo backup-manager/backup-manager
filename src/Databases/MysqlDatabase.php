@@ -1,11 +1,35 @@
 <?php namespace BigName\BackupManager\Databases;
+use BigName\BackupManager\Config\Config;
 
 /**
  * Class MysqlDatabase
  * @package BigName\BackupManager\Databases
  */
-class MysqlDatabase extends Database
+class MysqlDatabase implements Database
 {
+    /**
+     * @var array
+     */
+    private $config;
+
+    /**
+     * @param $type
+     * @return bool
+     */
+    public function handles($type)
+    {
+        return strtolower($type) == 'mysql';
+    }
+
+    /**
+     * @param array $config
+     * @return null
+     */
+    public function setConfig(array $config)
+    {
+        $this->config = $config;
+    }
+
     /**
      * @param $outputPath
      * @return string

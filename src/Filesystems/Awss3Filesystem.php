@@ -11,6 +11,15 @@ use League\Flysystem\Filesystem as Flysystem;
 class Awss3Filesystem implements Filesystem
 {
     /**
+     * @param $type
+     * @return bool
+     */
+    public function handles($type)
+    {
+        return strtolower($type) == 'awss3';
+    }
+
+    /**
      * @param array $config
      * @return \League\Flysystem\Filesystem
      */

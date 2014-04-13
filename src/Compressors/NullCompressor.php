@@ -41,4 +41,13 @@ class NullCompressor extends Compressor
     {
         return $inputPath;
     }
+
+    /**
+     * @param $type
+     * @return bool
+     */
+    public function handles($type)
+    {
+
+    }
 }

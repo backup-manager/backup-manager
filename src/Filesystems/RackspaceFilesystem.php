@@ -12,6 +12,16 @@ use OpenCloud\Rackspace;
 class RackspaceFilesystem implements Filesystem
 {
     /**
+     * Test fitness of visitor.
+     * @param $type
+     * @return bool
+     */
+    public function handles($type)
+    {
+        return strtolower($type) == 'rackspace';
+    }
+
+    /**
      * @param array $config
      * @return Flysystem
      */

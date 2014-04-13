@@ -10,6 +10,16 @@ use League\Flysystem\Filesystem as Flysystem;
 class FtpFilesystem implements Filesystem
 {
     /**
+     * Test fitness of visitor.
+     * @param $type
+     * @return bool
+     */
+    public function handles($type)
+    {
+        return strtolower($type) == 'ftp';
+    }
+
+    /**
      * @param array $config
      * @return Flysystem
      */
@@ -17,4 +27,4 @@ class FtpFilesystem implements Filesystem
     {
         return new Flysystem(new Ftp($config));
     }
-} 
+}
