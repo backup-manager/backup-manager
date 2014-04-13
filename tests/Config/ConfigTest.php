@@ -50,7 +50,7 @@ class ConfigTest extends PHPUnit_Framework_TestCase
 
     public function test_can_get_config_items()
     {
-        $config = new Config('tests/config/keys.php');
+        $config = new Config('tests/Config/keys.php');
         $this->assertEquals(['config', 'file', 'items'], $config->getItems());
     }
 }
