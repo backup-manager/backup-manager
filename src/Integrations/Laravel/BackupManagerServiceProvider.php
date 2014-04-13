@@ -9,6 +9,10 @@ use BigName\BackupManager\ShellProcessing\ShellProcessor;
 use Illuminate\Support\ServiceProvider;
 use Symfony\Component\Process\Process;
 
+/**
+ * Class BackupManagerServiceProvider
+ * @package BigName\BackupManager\Integrations\Laravel
+ */
 class BackupManagerServiceProvider extends ServiceProvider
 {
     /**
@@ -35,6 +39,9 @@ class BackupManagerServiceProvider extends ServiceProvider
         $this->registerArtisanCommands();
     }
 
+    /**
+     *
+     */
     private function registerManager()
     {
         $this->app->bind('BigName\BackupManager\Manager', function() {
@@ -45,6 +52,9 @@ class BackupManagerServiceProvider extends ServiceProvider
         });
     }
 
+    /**
+     *
+     */
     private function registerFilesystemProvider()
     {
         $this->app->bind('BigName\BackupManager\Filesystems\FilesystemProvider', function() {
@@ -52,6 +62,9 @@ class BackupManagerServiceProvider extends ServiceProvider
         });
     }
 
+    /**
+     *
+     */
     private function registerDatabaseProvider()
     {
         $this->app->bind('BigName\BackupManager\Databases\DatabaseProvider', function() {
@@ -59,6 +72,9 @@ class BackupManagerServiceProvider extends ServiceProvider
         });
     }
 
+    /**
+     *
+     */
     private function registerShellProcessor()
     {
         $this->app->bind('BigName\BackupManager\ShellProcessing\ShellProcessor', function() {
@@ -66,6 +82,9 @@ class BackupManagerServiceProvider extends ServiceProvider
         });
     }
 
+    /**
+     *
+     */
     private function registerArtisanCommands()
     {
         $this->commands([
@@ -73,6 +92,11 @@ class BackupManagerServiceProvider extends ServiceProvider
         ]);
     }
 
+    /**
+     * @param $name
+     * @return string
+     * @throws \BigName\BackupManager\Config\ConfigFileNotFound
+     */
     private function getConfigPath($name)
     {
         $path = app_path("config/packages/heybigname/backup-manager/config/$name.php");

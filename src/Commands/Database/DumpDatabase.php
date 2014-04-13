@@ -23,6 +23,11 @@ class DumpDatabase implements Command
      */
     private $database;
 
+    /**
+     * @param Database $database
+     * @param $outputPath
+     * @param ShellProcessor $shellProcessor
+     */
     public function __construct(Database $database, $outputPath, ShellProcessor $shellProcessor)
     {
         $this->outputPath = $outputPath;
@@ -30,6 +35,9 @@ class DumpDatabase implements Command
         $this->database = $database;
     }
 
+    /**
+     * @throws \BigName\BackupManager\ShellProcessing\ShellProcessFailed
+     */
     public function execute()
     {
         return $this->shellProcessor->process($this->database->getDumpCommandLine($this->outputPath));

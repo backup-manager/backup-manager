@@ -1,17 +1,36 @@
 <?php namespace BigName\BackupManager\Config;
 
+/**
+ * Class Config
+ * @package BigName\BackupManager\Config
+ */
 class Config
 {
+    /**
+     * @var mixed
+     */
     private $config;
 
+    /**
+     * @param $path
+     * @throws ConfigFileNotFound
+     */
     public function __construct($path)
     {
         if ( ! file_exists($path)) {
             throw new ConfigFileNotFound('The configuration file "' . $path . '" could not be found.');
         }
+        /** @noinspection PhpIncludeInspection */
         $this->config = require $path;
     }
 
+    /**
+     * @param $name
+     * @param null $field
+     * @return mixed
+     * @throws ConfigFieldNotFound
+     * @throws ConfigNotFoundForConnection
+     */
     public function get($name, $field = null)
     {
         if ( ! array_key_exists($name, $this->config)) {
@@ -23,11 +42,20 @@ class Config
         return $this->config[$name];
     }
 
+    /**
+     * @return array
+     */
     public function getItems()
     {
         return $this->config;
     }
 
+    /**
+     * @param $name
+     * @param $field
+     * @return mixed
+     * @throws ConfigFieldNotFound
+     */
     private function getConfigField($name, $field)
     {
         if (!array_key_exists($field, $this->config[$name])) {

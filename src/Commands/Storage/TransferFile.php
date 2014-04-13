@@ -3,6 +3,10 @@
 use League\Flysystem\Filesystem;
 use BigName\BackupManager\Commands\Command;
 
+/**
+ * Class TransferFile
+ * @package BigName\BackupManager\Commands\Storage
+ */
 class TransferFile implements Command
 {
     /**
@@ -10,7 +14,7 @@ class TransferFile implements Command
      */
     private $sourceFilesystem;
     /**
-     * @var
+     * @var string
      */
     private $sourcePath;
     /**
@@ -18,10 +22,16 @@ class TransferFile implements Command
      */
     private $destinationFilesystem;
     /**
-     * @var
+     * @var string
      */
     private $destinationPath;
 
+    /**
+     * @param Filesystem $sourceFilesystem
+     * @param $sourcePath
+     * @param Filesystem $destinationFilesystem
+     * @param $destinationPath
+     */
     public function __construct(Filesystem $sourceFilesystem, $sourcePath, Filesystem $destinationFilesystem, $destinationPath)
     {
         $this->sourceFilesystem = $sourceFilesystem;
@@ -30,6 +40,9 @@ class TransferFile implements Command
         $this->destinationPath = $destinationPath;
     }
 
+    /**
+     * @throws \InvalidArgumentException
+     */
     public function execute()
     {
         $this->destinationFilesystem->writeStream(

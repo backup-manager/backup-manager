@@ -4,6 +4,10 @@ use BigName\BackupManager\Commands\Command;
 use BigName\BackupManager\Compressors\Compressor;
 use BigName\BackupManager\ShellProcessing\ShellProcessor;
 
+/**
+ * Class CompressFile
+ * @package BigName\BackupManager\Commands\Compression
+ */
 class CompressFile implements Command
 {
     /**
@@ -19,6 +23,11 @@ class CompressFile implements Command
      */
     private $compressor;
 
+    /**
+     * @param Compressor $compressor
+     * @param $sourcePath
+     * @param ShellProcessor $shellProcessor
+     */
     public function __construct(Compressor $compressor, $sourcePath, ShellProcessor $shellProcessor)
     {
         $this->compressor = $compressor;
@@ -26,6 +35,9 @@ class CompressFile implements Command
         $this->shellProcessor = $shellProcessor;
     }
 
+    /**
+     * @throws \BigName\BackupManager\ShellProcessing\ShellProcessFailed
+     */
     public function execute()
     {
         return $this->shellProcessor->process($this->compressor->getCompressCommandLine($this->sourcePath));

@@ -1,7 +1,15 @@
 <?php namespace BigName\BackupManager\Databases;
 
+/**
+ * Class MysqlDatabase
+ * @package BigName\BackupManager\Databases
+ */
 class MysqlDatabase extends Database
 {
+    /**
+     * @param $outputPath
+     * @return string
+     */
     public function getDumpCommandLine($outputPath)
     {
         return sprintf('mysqldump --host=%s --port=%s --user=%s --password=%s %s > %s',
@@ -14,6 +22,10 @@ class MysqlDatabase extends Database
         );
     }
 
+    /**
+     * @param $inputPath
+     * @return string
+     */
     public function getRestoreCommandLine($inputPath)
     {
         return sprintf('mysql --host=%s --port=%s --user=%s --password=%s %s -e "source %s;"',

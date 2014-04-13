@@ -2,9 +2,18 @@
 
 use League\Flysystem\Adapter\AwsS3;
 use Aws\S3\S3Client;
+use League\Flysystem\Filesystem as Flysystem;
 
+/**
+ * Class Awss3Filesystem
+ * @package BigName\BackupManager\Filesystems
+ */
 class Awss3Filesystem implements Filesystem
 {
+    /**
+     * @param array $config
+     * @return \League\Flysystem\Filesystem
+     */
     public function get(array $config)
     {
         $client = S3Client::factory([
@@ -13,6 +22,6 @@ class Awss3Filesystem implements Filesystem
             'region' => $config['region'],
         ]);
 
-        return new \League\Flysystem\Filesystem(new AwsS3($client, $config['bucket']));
+        return new Flysystem(new AwsS3($client, $config['bucket']));
     }
 }

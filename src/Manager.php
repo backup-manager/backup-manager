@@ -4,19 +4,18 @@ use BigName\BackupManager\Config\Config;
 use BigName\BackupManager\Databases\DatabaseProvider;
 use BigName\BackupManager\Filesystems\FilesystemProvider;
 use BigName\BackupManager\Compressors\CompressorProvider;
-use BigName\BackupManager\Procedures\ProcedureFactory;
-use BigName\BackupManager\ShellProcessing\ShellProcessor;
 use BigName\BackupManager\Procedures\Sequence;
 use BigName\BackupManager\Procedures\BackupProcedure;
 use BigName\BackupManager\Procedures\RestoreProcedure;
+use BigName\BackupManager\ShellProcessing\ShellProcessor;
 use Symfony\Component\Process\Process;
 
+/**
+ * Class Manager
+ * @package BigName\BackupManager
+ */
 class Manager
 {
-    /**
-     * @var Procedures\ProcedureFactory
-     */
-    private $factory;
     /**
      * @var Config\Config
      */
@@ -26,6 +25,10 @@ class Manager
      */
     private $database;
 
+    /**
+     * @param $storage
+     * @param $database
+     */
     public function __construct($storage, $database)
     {
 
@@ -33,6 +36,9 @@ class Manager
         $this->database = new Config($database);
     }
 
+    /**
+     * @return BackupProcedure
+     */
     public function makeBackup()
     {
         return new BackupProcedure(
@@ -44,6 +50,9 @@ class Manager
         );
     }
 
+    /**
+     * @return RestoreProcedure
+     */
     public function makeRestore()
     {
         return new RestoreProcedure(
@@ -55,6 +64,9 @@ class Manager
         );
     }
 
+    /**
+     * @return ShellProcessor
+     */
     private function getShellProcessor()
     {
         return new ShellProcessor(new Process(''));

@@ -2,6 +2,10 @@
 
 use BigName\BackupManager\Commands\Command;
 
+/**
+ * Class Sequence
+ * @package BigName\BackupManager\Procedures
+ */
 class Sequence
 {
     /**

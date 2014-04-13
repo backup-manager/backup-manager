@@ -2,8 +2,21 @@
 
 use BigName\BackupManager\Commands;
 
+/**
+ * Class RestoreProcedure
+ * @package BigName\BackupManager\Procedures
+ */
 class RestoreProcedure extends Procedure
 {
+    /**
+     * @param $sourceType
+     * @param $sourcePath
+     * @param $databaseName
+     * @param null $compression
+     * @throws \BigName\BackupManager\Filesystems\FilesystemTypeNotSupported
+     * @throws \BigName\BackupManager\Compressors\CompressorTypeNotSupported
+     * @throws \BigName\BackupManager\Databases\DatabaseTypeNotSupported
+     */
     public function run($sourceType, $sourcePath, $databaseName, $compression = null)
     {
         // begin the life of a new working file
@@ -41,6 +54,10 @@ class RestoreProcedure extends Procedure
         $this->execute();
     }
 
+    /**
+     * @param $path
+     * @return string
+     */
     private function getWorkingFile($path)
     {
         return basename($path);

@@ -12,6 +12,9 @@ use BigName\BackupManager\ShellProcessing\ShellProcessor;
  */
 abstract class Procedure
 {
+    /**
+     * @var Sequence
+     */
     private $sequence;
     /**
      * @var \BigName\BackupManager\Filesystems\FilesystemProvider
@@ -30,6 +33,13 @@ abstract class Procedure
      */
     public $compressor;
 
+    /**
+     * @param FilesystemProvider $filesystemProvider
+     * @param DatabaseProvider $databaseProvider
+     * @param CompressorProvider $compressorProvider
+     * @param ShellProcessor $shellProcessor
+     * @param Sequence $sequence
+     */
     public function __construct(FilesystemProvider $filesystemProvider, DatabaseProvider $databaseProvider, CompressorProvider $compressorProvider, ShellProcessor $shellProcessor, Sequence $sequence)
     {
         $this->filesystem = $filesystemProvider;
@@ -39,11 +49,17 @@ abstract class Procedure
         $this->sequence = $sequence;
     }
 
+    /**
+     * @param Command $command
+     */
     protected function add(Command $command)
     {
         $this->sequence->add($command);
     }
 
+    /**
+     * Execute the sequence.
+     */
     protected function execute()
     {
         $this->sequence->execute();

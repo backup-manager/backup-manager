@@ -21,6 +21,11 @@ class ShellProcessor
         $this->process = $process;
     }
 
+    /**
+     * @param $command
+     * @throws ShellProcessFailed
+     * @throws \Symfony\Component\Process\Exception\LogicException
+     */
     public function process($command)
     {
         if (empty($command)) {

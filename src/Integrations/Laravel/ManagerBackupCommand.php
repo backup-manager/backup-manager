@@ -5,6 +5,10 @@ use BigName\BackupManager\Filesystems\FilesystemProvider;
 use BigName\BackupManager\Procedures\BackupProcedure;
 use Symfony\Component\Console\Input\InputOption;
 
+/**
+ * Class ManagerBackupCommand
+ * @package BigName\BackupManager\Integrations\Laravel
+ */
 class ManagerBackupCommand extends BaseCommand {
 
 	/**
@@ -36,20 +40,25 @@ class ManagerBackupCommand extends BaseCommand {
     private $forgotten;
 
     /**
-     * @var BigName\BackupManager\Procedures\BackupProcedure
+     * @var \BigName\BackupManager\Procedures\BackupProcedure
      */
     private $backupProcedure;
 
     /**
-     * @var BigName\BackupManager\Databases\DatabaseProvider
+     * @var \BigName\BackupManager\Databases\DatabaseProvider
      */
     private $databaseProvider;
 
     /**
-     * @var BigName\BackupManager\Filesystems\FilesystemProvider
+     * @var \BigName\BackupManager\Filesystems\FilesystemProvider
      */
     private $filesystemProvider;
 
+    /**
+     * @param BackupProcedure $backupProcedure
+     * @param DatabaseProvider $databaseProvider
+     * @param FilesystemProvider $filesystemProvider
+     */
     public function __construct(BackupProcedure $backupProcedure, DatabaseProvider $databaseProvider, FilesystemProvider $filesystemProvider)
     {
         $this->backupProcedure = $backupProcedure;
@@ -88,6 +97,9 @@ class ManagerBackupCommand extends BaseCommand {
         $this->info(PHP_EOL.$message);
 	}
 
+    /**
+     * @return bool
+     */
     private function hasForgottenArguments()
     {
         foreach ($this->required as $argument) {
@@ -98,6 +110,9 @@ class ManagerBackupCommand extends BaseCommand {
         return isset($this->forgotten);
     }
 
+    /**
+     *
+     */
     private function listForgottenArguments()
     {
         $this->info("These arguments haven't been filled yet:");
@@ -105,6 +120,9 @@ class ManagerBackupCommand extends BaseCommand {
         $this->info('The following questions will fill these in for you.'.PHP_EOL);
     }
 
+    /**
+     *
+     */
     private function askForForgottenArguments()
     {
         foreach ($this->forgotten as $argument) {
@@ -154,6 +172,9 @@ class ManagerBackupCommand extends BaseCommand {
         $this->input->setOption('compression', $compression);
     }
 
+    /**
+     *
+     */
     private function askForArgumentValidation()
     {
         $this->info("You've filled in the following answers:");
@@ -168,6 +189,9 @@ class ManagerBackupCommand extends BaseCommand {
         }
     }
 
+    /**
+     *
+     */
     private function reaskArguments()
     {
         $this->line('');

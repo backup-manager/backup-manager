@@ -2,8 +2,21 @@
 
 use BigName\BackupManager\Commands;
 
+/**
+ * Class BackupProcedure
+ * @package BigName\BackupManager\Procedures
+ */
 class BackupProcedure extends Procedure
 {
+    /**
+     * @param $database
+     * @param $destination
+     * @param $destinationPath
+     * @param $compression
+     * @throws \BigName\BackupManager\Filesystems\FilesystemTypeNotSupported
+     * @throws \BigName\BackupManager\Compressors\CompressorTypeNotSupported
+     * @throws \BigName\BackupManager\Databases\DatabaseTypeNotSupported
+     */
     public function run($database, $destination, $destinationPath, $compression)
     {
         // begin the life of a new working file
@@ -49,6 +62,9 @@ class BackupProcedure extends Procedure
         $this->execute();
     }
 
+    /**
+     * @return string
+     */
     private function getWorkingFile()
     {
         return sprintf('%s.sql', uniqid());
