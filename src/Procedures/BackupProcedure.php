@@ -14,8 +14,10 @@ class BackupProcedure extends Procedure
      * @param $destinationPath
      * @param $compression
      * @throws \BigName\BackupManager\Filesystems\FilesystemTypeNotSupported
+     * @throws \BigName\BackupManager\Config\ConfigFieldNotFound
      * @throws \BigName\BackupManager\Compressors\CompressorTypeNotSupported
      * @throws \BigName\BackupManager\Databases\DatabaseTypeNotSupported
+     * @throws \BigName\BackupManager\Config\ConfigNotFoundForConnection
      */
     public function run($database, $destination, $destinationPath, $compression)
     {

@@ -1,6 +1,7 @@
 <?php namespace BigName\BackupManager\Integrations\Laravel;
 
 use Illuminate\Console\Command;
+use Symfony\Component\Console\Question\Question;
 
 /**
  * Class BaseCommand
@@ -9,21 +10,19 @@ use Illuminate\Console\Command;
 class BaseCommand extends Command
 {
     /**
-     * @param $question
+     * @param $dialog
      * @param array $list
      * @param null $default
-     * @return mixed
+     * @throws \LogicException
      * @throws \InvalidArgumentException
+     * @internal param $question
+     * @return mixed
      */
-    protected function askAndValidate($question, array $list = [], $default = null)
+    protected function autocomplete($dialog, array $list = [], $default = null)
     {
-        $dialog = $this->getHelperSet()->get('dialog');
-        $validation = function($item) use ($list) {
-            if ( ! in_array($item, $list)) {
-                throw new InvalidArgumentException("Item named \"{$item}\" is does not exist.");
-            }
-            return $item;
-        };
-        return $dialog->askAndValidate($this->output, "<question>{$question}</question>", $validation, false, $default, $list);
+        $helper = $this->getHelperSet()->get('question');
+        $question = new Question("<question>{$dialog}</question>", $default);
+        $question->setAutocompleterValues($list);
+        return $helper->ask($this->input, $this->output, $question);
     }
 }

@@ -4,6 +4,7 @@ use BigName\BackupManager\Config\Config;
 use BigName\BackupManager\Config\ConfigFileNotFound;
 use BigName\BackupManager\Databases\DatabaseProvider;
 use BigName\BackupManager\Filesystems\FilesystemProvider;
+use BigName\BackupManager\Integrations\Laravel\Questions\QuestionProvider;
 use BigName\BackupManager\Manager;
 use BigName\BackupManager\ShellProcessing\ShellProcessor;
 use Illuminate\Support\ServiceProvider;
@@ -89,6 +90,7 @@ class BackupManagerServiceProvider extends ServiceProvider
     {
         $this->commands([
             'BigName\BackupManager\Integrations\Laravel\ManagerBackupCommand',
+            'BigName\BackupManager\Integrations\Laravel\ManagerRestoreCommand',
         ]);
     }
 

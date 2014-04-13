@@ -14,8 +14,10 @@ class RestoreProcedure extends Procedure
      * @param $databaseName
      * @param null $compression
      * @throws \BigName\BackupManager\Filesystems\FilesystemTypeNotSupported
+     * @throws \BigName\BackupManager\Config\ConfigFieldNotFound
      * @throws \BigName\BackupManager\Compressors\CompressorTypeNotSupported
      * @throws \BigName\BackupManager\Databases\DatabaseTypeNotSupported
+     * @throws \BigName\BackupManager\Config\ConfigNotFoundForConnection
      */
     public function run($sourceType, $sourcePath, $databaseName, $compression = null)
     {

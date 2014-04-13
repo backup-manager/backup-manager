@@ -29,6 +29,7 @@ class ListDirectoryContents implements Command
     }
 
     /**
+     * @throws \LogicException
      * @return array
      */
     public function execute()

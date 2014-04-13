@@ -9,21 +9,21 @@ use Symfony\Component\Console\Input\InputOption;
  * Class ManagerBackupCommand
  * @package BigName\BackupManager\Integrations\Laravel
  */
-class ManagerBackupCommand extends BaseCommand {
+class ManagerBackupCommand extends BaseCommand
+{
+    /**
+     * The console command name.
+     *
+     * @var string
+     */
+    protected $name = 'manager:backup';
 
-	/**
-	 * The console command name.
-	 *
-	 * @var string
-	 */
-	protected $name = 'manager:backup';
-
-	/**
-	 * The console command description.
-	 *
-	 * @var string
-	 */
-	protected $description = 'Backs up stuff';
+    /**
+     * The console command description.
+     *
+     * @var string
+     */
+    protected $description = 'Create database dump and save it on a service';
 
     /**
      * The required arguments.
@@ -68,19 +68,23 @@ class ManagerBackupCommand extends BaseCommand {
         parent::__construct();
     }
 
-	/**
-	 * Execute the console command.
-	 *
-	 * @return mixed
-	 */
+    /**
+     * Execute the console command.
+     *
+     * @throws \BigName\BackupManager\Filesystems\FilesystemTypeNotSupported
+     * @throws \BigName\BackupManager\Compressors\CompressorTypeNotSupported
+     * @throws \BigName\BackupManager\Databases\DatabaseTypeNotSupported
+     * @throws \BigName\BackupManager\Config\ConfigNotFoundForConnection
+     * @return mixed
+     */
 	public function fire()
 	{
         $this->info('Starting backup process...'.PHP_EOL);
-        if ($this->hasForgottenArguments()) {
-            $this->listForgottenArguments();
-            $this->askForForgottenArguments();
+        if ($this->hasForgotten()) {
+            $this->listForgotten();
+            $this->askRemainingArguments();
         }
-        $this->askForArgumentValidation();
+        $this->validateArguments();
 
         $this->backupProcedure->run(
             $this->option('database'),
@@ -100,7 +104,7 @@ class ManagerBackupCommand extends BaseCommand {
     /**
      * @return bool
      */
-    private function hasForgottenArguments()
+    private function hasForgotten()
     {
         foreach ($this->required as $argument) {
             if ( ! $this->option($argument)) {
@@ -111,9 +115,9 @@ class ManagerBackupCommand extends BaseCommand {
     }
 
     /**
-     *
+     * @return void
      */
-    private function listForgottenArguments()
+    private function listForgotten()
     {
         $this->info("These arguments haven't been filled yet:");
         $this->line(implode(', ', $this->forgotten));
@@ -121,9 +125,9 @@ class ManagerBackupCommand extends BaseCommand {
     }
 
     /**
-     *
+     * @return void
      */
-    private function askForForgottenArguments()
+    private function askRemainingArguments()
     {
         foreach ($this->forgotten as $argument) {
             $method = 'ask'.ucfirst($argument);
@@ -137,7 +141,7 @@ class ManagerBackupCommand extends BaseCommand {
         $this->info('Available database connections:');
         $providers = $this->databaseProvider->getAvailableProviders();
         $this->line(implode(', ', $providers));
-        $database = $this->askAndValidate('From which database connection you want to dump?', $providers);
+        $database = $this->autocomplete('From which database connection you want to dump?', $providers);
         $this->line('');
         $this->input->setOption('database', $database);
     }
@@ -148,7 +152,7 @@ class ManagerBackupCommand extends BaseCommand {
         $this->info('Available storage services:');
         $providers = $this->filesystemProvider->getAvailableProviders();
         $this->line(implode(', ', $providers));
-        $destination = $this->askAndValidate('To which storage service you want to save?', $providers);
+        $destination = $this->autocomplete('To which storage service you want to save?', $providers);
         $this->line('');
         $this->input->setOption('destination', $destination);
     }
@@ -167,15 +171,15 @@ class ManagerBackupCommand extends BaseCommand {
         $this->info('Available compression types:');
         $types = ['gzip', 'null'];
         $this->line(implode(', ', $types));
-        $compression = $this->askAndValidate('Which compression type you want to use?', $types, 'null');
+        $compression = $this->autocomplete('Which compression type you want to use?', $types, 'null');
         $this->line('');
         $this->input->setOption('compression', $compression);
     }
 
     /**
-     *
+     * @return void
      */
-    private function askForArgumentValidation()
+    private function validateArguments()
     {
         $this->info("You've filled in the following answers:");
         $this->line("Database: <comment>{$this->option('database')}</comment>");
@@ -200,15 +204,16 @@ class ManagerBackupCommand extends BaseCommand {
         $this->askForForgottenArguments();
     }
 
-	/**
-	 * Get the console command options.
-	 *
-	 * @return array
-	 */
-	protected function getOptions()
-	{
-		return [
-			['database', null, InputOption::VALUE_OPTIONAL, 'Database configuration name', null],
+
+    /**
+     * Get the console command options.
+     *
+     * @return array
+     */
+    protected function getOptions()
+    {
+        return [
+            ['database', null, InputOption::VALUE_OPTIONAL, 'Database configuration name', null],
             ['destination', null, InputOption::VALUE_OPTIONAL, 'Destination configuration name', null],
             ['destinationPath', null, InputOption::VALUE_OPTIONAL, 'File destination path', null],
             ['compression', null, InputOption::VALUE_OPTIONAL, 'Compression type', null],
