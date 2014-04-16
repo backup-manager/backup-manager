@@ -197,7 +197,9 @@ class ManagerBackupCommand extends BaseCommand
     }
 
     /**
+     * Get the console command options.
      *
+     * @return void
      */
     private function reaskArguments()
     {

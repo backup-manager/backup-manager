@@ -24,6 +24,7 @@ $databases->add(new Databases\PostgresqlDatabase);
 
 $compressors = new Compressors\CompressorProvider;
 $compressors->add(new Compressors\GzipCompressor);
+$compressors->add(new Compressors\NullCompressor);
 
 // build manager
 return new Manager($filesystems, $databases, $compressors);

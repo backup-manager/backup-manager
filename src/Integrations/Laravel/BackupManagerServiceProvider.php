@@ -1,14 +1,14 @@
 <?php namespace BigName\BackupManager\Integrations\Laravel;
 
+use BigName\BackupManager\Databases;
+use BigName\BackupManager\Filesystems;
+use BigName\BackupManager\Compressors;
+use Symfony\Component\Process\Process;
+use Illuminate\Support\ServiceProvider;
 use BigName\BackupManager\Config\Config;
 use BigName\BackupManager\Config\ConfigFileNotFound;
-use BigName\BackupManager\Databases\DatabaseProvider;
-use BigName\BackupManager\Filesystems\FilesystemProvider;
-use BigName\BackupManager\Integrations\Laravel\Questions\QuestionProvider;
-use BigName\BackupManager\Manager;
 use BigName\BackupManager\ShellProcessing\ShellProcessor;
-use Illuminate\Support\ServiceProvider;
-use Symfony\Component\Process\Process;
+use BigName\BackupManager\Integrations\Laravel\Questions\QuestionProvider;
 
 /**
  * Class BackupManagerServiceProvider
@@ -33,48 +33,66 @@ class BackupManagerServiceProvider extends ServiceProvider
      */
     public function register()
     {
-//        $this->registerManager();
         $this->registerFilesystemProvider();
         $this->registerDatabaseProvider();
+        $this->registerCompressorProvider();
         $this->registerShellProcessor();
         $this->registerArtisanCommands();
     }
 
     /**
+     * Register the filesystem provider.
      *
-     */
-    private function registerManager()
-    {
-        $this->app->bind('BigName\BackupManager\Manager', function() {
-            return new Manager(
-                $this->getConfigPath('storage'),
-                $this->getConfigPath('database')
-            );
-        });
-    }
-
-    /**
-     *
+     * @return void
      */
     private function registerFilesystemProvider()
     {
         $this->app->bind('BigName\BackupManager\Filesystems\FilesystemProvider', function() {
-            return new FilesystemProvider(new Config($this->getConfigPath('storage')));
+            $provider = new Filesystems\FilesystemProvider(new Config($this->getConfigPath('storage')));
+            $provider->add(new Filesystems\Awss3Filesystem);
+            $provider->add(new Filesystems\DropboxFilesystem);
+            $provider->add(new Filesystems\FtpFilesystem);
+            $provider->add(new Filesystems\LocalFilesystem);
+            $provider->add(new Filesystems\RackspaceFilesystem);
+            $provider->add(new Filesystems\SftpFilesystem);
+            return $provider;
         });
     }
 
     /**
+     * Register the database provider.
      *
+     * @return void
      */
     private function registerDatabaseProvider()
     {
         $this->app->bind('BigName\BackupManager\Databases\DatabaseProvider', function() {
-            return new DatabaseProvider(new Config($this->getConfigPath('database')));
+            $provider = new Databases\DatabaseProvider(new Config($this->getConfigPath('database')));
+            $provider->add(new Databases\MysqlDatabase);
+            $provider->add(new Databases\PostgresqlDatabase);
+            return $provider;
         });
     }
 
     /**
+     * Register the compressor provider.
      *
+     * @return void
+     */
+    private function registerCompressorProvider()
+    {
+        $this->app->bind('BigName\BackupManager\Compressors\CompressorProvider', function() {
+            $provider = new Compressors\CompressorProvider;
+            $provider->add(new Compressors\GzipCompressor);
+            $provider->add(new Compressors\NullCompressor);
+            return $provider;
+        });
+    }
+
+    /**
+     * Register the filesystem provider.
+     *
+     * @return void
      */
     private function registerShellProcessor()
     {
