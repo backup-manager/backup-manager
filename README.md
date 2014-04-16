@@ -12,7 +12,7 @@
 - compress with Gzip
 - framework-agnostic
 - dead simple configuration
-- optional integrations for MVC framework [Laravel](http://laravel.com) and team-communication software [Slack](http://slack.com)
+- optional integrations for MVC framework [Laravel](http://laravel.com)
 
 ### Full Disclosure
 

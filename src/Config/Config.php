@@ -13,15 +13,24 @@ class Config
 
     /**
      * @param $path
+     * @return static
      * @throws ConfigFileNotFound
      */
-    public function __construct($path)
+    public static function fromPhpFile($path)
     {
         if ( ! file_exists($path)) {
             throw new ConfigFileNotFound('The configuration file "' . $path . '" could not be found.');
         }
         /** @noinspection PhpIncludeInspection */
-        $this->config = require $path;
+        return new static(require $path);
+    }
+
+    /**
+     * @param array $config
+     */
+    public function __construct(array $config)
+    {
+        $this->config = $config;
     }
 
     /**
@@ -58,7 +67,7 @@ class Config
      */
     private function getConfigField($name, $field)
     {
-        if (!array_key_exists($field, $this->config[$name])) {
+        if ( ! array_key_exists($field, $this->config[$name])) {
             throw new ConfigFieldNotFound("Could not find field {$field} in configuration for connection type {$name}");
         }
         return $this->config[$name][$field];

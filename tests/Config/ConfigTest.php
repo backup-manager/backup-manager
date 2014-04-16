@@ -12,45 +12,51 @@ class ConfigTest extends PHPUnit_Framework_TestCase
 
     public function test_can_create()
     {
-        $this->assertInstanceOf('BigName\BackupManager\Config\Config', new Config('tests/config/storage.php'));
+        $this->assertInstanceOf('BigName\BackupManager\Config\Config', new Config([]));
+    }
+
+    public function test_can_create_from_php_file()
+    {
+        $config = Config::fromPhpFile('tests/config/storage.php');
+        $this->assertInstanceOf('BigName\BackupManager\Config\Config', $config);
     }
 
     public function test_config_file_not_found_exception()
     {
         $this->setExpectedException('BigName\BackupManager\Config\ConfigFileNotFound');
-        new Config('foo');
+        Config::fromPhpFile('foo');
     }
 
     public function test_can_get_field()
     {
-        $config = new Config('tests/config/storage.php');
+        $config = Config::fromPhpFile('tests/config/storage.php');
         $this->assertEquals('Local', $config->get('local', 'type'));
         $this->assertEquals('AwsS3', $config->get('s3', 'type'));
     }
 
     public function test_can_get_whole_connection_configuration()
     {
-        $config = new Config('tests/config/storage.php');
+        $config = Config::fromPhpFile('tests/config/storage.php');
         $this->assertEquals(['type' => 'Local', 'working-path' => '/'], $config->get('local'));
     }
 
     public function test_config_not_found_for_connection_exception()
     {
         $this->setExpectedException('BigName\BackupManager\Config\ConfigNotFoundForConnection');
-        $config = new Config('tests/config/storage.php');
+        $config = Config::fromPhpFile('tests/config/storage.php');
         $config->get('foo');
     }
 
     public function test_config_field_not_found_exception()
     {
         $this->setExpectedException('BigName\BackupManager\Config\ConfigFieldNotFound');
-        $config = new Config('tests/config/storage.php');
+        $config = Config::fromPhpFile('tests/config/storage.php');
         $config->get('local', 'foo');
     }
 
     public function test_can_get_config_items()
     {
-        $config = new Config('tests/Config/keys.php');
+        $config = Config::fromPhpFile('tests/Config/keys.php');
         $this->assertEquals(['config', 'file', 'items'], $config->getItems());
     }
 }

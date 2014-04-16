@@ -13,8 +13,8 @@ class ManagerTest extends PHPUnit_Framework_TestCase
 
     protected function setUp()
     {
-        $filesystems = new FilesystemProvider(new Config('tests/config/storage.php'));
-        $databases = new DatabaseProvider(new Config('tests/config/database.php'));
+        $filesystems = new FilesystemProvider(Config::fromPhpFile('tests/config/storage.php'));
+        $databases = new DatabaseProvider(Config::fromPhpFile('tests/config/database.php'));
         $this->manager = new Manager($filesystems, $databases, new CompressorProvider());
     }
 
