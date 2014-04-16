@@ -140,6 +140,10 @@ public function __construct(Manager $manager)
 $manager = App::make('BigName\BackupManager\Manager');
 ```
 
+**Artisan Commands**
+
+There are two commands available `manager:backup` and `manager:restore`.
+
 ### Requirements
 
 - PHP 5.4
