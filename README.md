@@ -144,9 +144,9 @@ $manager = App::make('BigName\BackupManager\Manager');
 
 **Artisan Commands**
 
-There are two commands available `manager:backup`, `manager:restore` and `manager:list`.
+There are three commands available `manager:backup`, `manager:restore` and `manager:list`.
 
-Both will prompt you with simple question to successfully execute the command.
+All will prompt you with simple question to successfully execute the command.
 
 ### Requirements
 
