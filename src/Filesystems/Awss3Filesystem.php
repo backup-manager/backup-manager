@@ -31,6 +31,6 @@ class Awss3Filesystem implements Filesystem
             'region' => $config['region'],
         ]);
 
-        return new Flysystem(new AwsS3($client, $config['bucket']));
+        return new Flysystem(new AwsS3($client, $config['bucket'], $config['root']));
     }
 }

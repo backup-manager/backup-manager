@@ -11,12 +11,14 @@ return [
         'secret' => '',
         'region' => Aws\Common\Enum\Region::US_EAST_1,
         'bucket' => '',
+        'root'   => '',
     ],
     'rackspace' => [
         'type' => 'Rackspace',
         'username' => '',
         'password' => '',
         'container' => '',
+        'root' => '',
     ],
     'dropbox' => [
         'type' => 'Dropbox',

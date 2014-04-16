@@ -37,6 +37,7 @@ class AwsS3FilesystemTest extends PHPUnit_Framework_TestCase
             'secret' => 'secret',
             'region' => Aws\Common\Enum\Region::US_EAST_1,
             'bucket' => 'bucket',
+            'root' => 'prefix'
         ]);
         $this->assertInstanceOf('League\Flysystem\Adapter\AwsS3', $filesystem->getAdapter());
     }
