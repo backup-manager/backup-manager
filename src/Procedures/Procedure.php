@@ -68,6 +68,7 @@ abstract class Procedure
     /**
      * @param $name
      * @param null $filename
+     * @throws \BigName\BackupManager\Config\ConfigNotFoundForConnection
      * @return string
      */
     protected function getWorkingFile($name, $filename = null)
@@ -80,6 +81,8 @@ abstract class Procedure
 
     /**
      * @param $name
+     * @throws \BigName\BackupManager\Config\ConfigFieldNotFound
+     * @throws \BigName\BackupManager\Config\ConfigNotFoundForConnection
      * @return string
      */
     protected function getRootPath($name)

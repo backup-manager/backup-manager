@@ -4,7 +4,6 @@ use Symfony\Component\Console\Input\InputOption;
 use BigName\BackupManager\Databases\DatabaseProvider;
 use BigName\BackupManager\Procedures\RestoreProcedure;
 use BigName\BackupManager\Filesystems\FilesystemProvider;
-use BigName\BackupManager\Commands\Storage\ListDirectoryContents;
 
 class ManagerRestoreCommand extends BaseCommand
 {
@@ -75,6 +74,7 @@ class ManagerRestoreCommand extends BaseCommand
             $this->listForgotten();
             $this->askRemainingArguments();
         }
+        $this->validateArguments();
 
         $this->restore->run(
             $this->option('source'),
@@ -83,9 +83,9 @@ class ManagerRestoreCommand extends BaseCommand
             $this->option('compression')
         );
 
-        $message = sprintf('Backup from service "%s" at "%s" has been successfully restored to "%s".',
+        $message = sprintf('Backup "%s" from service "%s" has been successfully restored to "%s".',
             $this->option('source'),
-            $this->option('sourcePath'),
+            basename($this->option('sourcePath')),
             $this->option('database')
         );
         $this->info(PHP_EOL.$message);
@@ -142,21 +142,36 @@ class ManagerRestoreCommand extends BaseCommand
     private function askSourcePath()
     {
         // ask path
-        $path = $this->ask('From which path do you want to select?');
+        $path = $this->ask("From which path do you want to select? [/]", '/');
         $this->line('');
 
         // ask file
+        $filesystem = $this->filesystems->get($this->option('source'));
+        $contents = $filesystem->listContents($path);
+
+        $files = [];
+        foreach ($contents as $file) {
+            if ($file['type'] == 'dir') continue;
+            $files[] = $file['basename'];
+        }
+        if (empty($files)) {
+            $this->info('No backups were found at this path.');
+            exit;
+        }
+        $rows = [];
+        foreach ($contents as $file) {
+            if ($file['type'] == 'dir') continue;
+            $rows[] = [
+                $file['basename'],
+                $file['extension'],
+                $this->formatBytes($file['size']),
+                date('D j Y  H:i:s', $file['timestamp'])
+            ];
+        }
         $this->info('Available database dumps:');
-        $command = new ListDirectoryContents(
-            $this->filesystems->get($this->option('source')),
-            $path
-        );
-        $files = array_map(function($file) {
-            return $file['basename'];
-        }, $command->execute());
-        $this->line(implode(PHP_EOL, $files));
-        $default = current($files);
-        $filename = $this->autocomplete("Which database dump do you want to restore? [{$default}]", $files, $default);
+        $this->table(['Name', 'Extension', 'Size', 'Created'], $rows);
+        $this->line('');
+        $filename = $this->autocomplete("Which database dump do you want to restore?", $files);
 
         $this->input->setOption('sourcePath', "{$path}/{$filename}");
     }
@@ -189,9 +204,10 @@ class ManagerRestoreCommand extends BaseCommand
      */
     private function validateArguments()
     {
+        $dump = basename($this->option('sourcePath'));
         $this->info("You've filled in the following answers:");
         $this->line("Source: <comment>{$this->option('source')}</comment>");
-        $this->line("Source Path: <comment>{$this->option('sourcePath')}</comment>");
+        $this->line("Databse Dump: <comment>{$dump}</comment>");
         $this->line("Compression: <comment>{$this->option('compression')}</comment>");
         $this->line("Source: <comment>{$this->option('source')}</comment>");
         $this->line('');
@@ -199,6 +215,19 @@ class ManagerRestoreCommand extends BaseCommand
         if ( ! $confirmation) {
             $this->reaskArguments();
         }
+    }
+
+    /**
+     * Get the console command options.
+     *
+     * @return void
+     */
+    private function reaskArguments()
+    {
+        $this->line('');
+        $this->info('Answers have been reset and re-asking questions.');
+        $this->line('');
+        $this->askForForgottenArguments();
     }
 
     /**
@@ -214,5 +243,14 @@ class ManagerRestoreCommand extends BaseCommand
             ['database', null, InputOption::VALUE_OPTIONAL, 'Database configuration name', null],
             ['compression', null, InputOption::VALUE_OPTIONAL, 'Compression type', null],
         ];
+    }
+
+    private function formatBytes($bytes, $precision = 2)
+    {
+        $units = ['B', 'KB', 'MB', 'GB', 'TB'];
+        $bytes = max($bytes, 0);
+        $pow = floor(($bytes ? log($bytes) : 0) / log(1024));
+        $pow = min($pow, count($units) - 1);
+        return round($bytes, $precision) . ' ' . $units[$pow];
     }
 }

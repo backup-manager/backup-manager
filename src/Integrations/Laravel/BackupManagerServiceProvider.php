@@ -110,6 +110,7 @@ class BackupManagerServiceProvider extends ServiceProvider
         $this->commands([
             'BigName\BackupManager\Integrations\Laravel\ManagerBackupCommand',
             'BigName\BackupManager\Integrations\Laravel\ManagerRestoreCommand',
+            'BigName\BackupManager\Integrations\Laravel\ManagerListCommand',
         ]);
     }
 

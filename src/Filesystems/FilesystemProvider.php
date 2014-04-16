@@ -53,8 +53,9 @@ class FilesystemProvider
     /**
      * @param $name
      * @param null $key
-     * @return mixed
+     * @throws \BigName\BackupManager\Config\ConfigFieldNotFound
      * @throws \BigName\BackupManager\Config\ConfigNotFoundForConnection
+     * @return mixed
      */
     public function getConfig($name, $key = null)
     {
