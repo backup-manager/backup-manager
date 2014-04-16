@@ -1,5 +1,4 @@
 <?php namespace BigName\BackupManager\Databases;
-use BigName\BackupManager\Config\Config;
 
 /**
  * Class PostgresqlDatabase
@@ -58,14 +57,5 @@ class PostgresqlDatabase implements Database
             escapeshellarg($this->config['database']),
             escapeshellarg($inputPath)
         );
-    }
-
-    /**
-     * @return PostgresqlDatabase
-     */
-    private function getDatabase()
-    {
-        $database = new PostgresqlDatabase;
-        return $database;
     }
 }

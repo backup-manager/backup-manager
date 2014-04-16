@@ -16,6 +16,19 @@ class GzipCompressorTest extends PHPUnit_Framework_TestCase
         $this->assertInstanceOf('BigName\BackupManager\Compressors\GzipCompressor', $gzip);
     }
 
+    public function test_handles_correct_types()
+    {
+        $comp = new GzipCompressor;
+
+        foreach (['gzip', 'GZIP', 'GZip'] as $type) {
+            $this->assertTrue($comp->handles($type));
+        }
+
+        foreach ([null, 'foo'] as $type) {
+            $this->assertFalse($comp->handles($type));
+        }
+    }
+
     public function test_can_generate_compress_command_line()
     {
         $gzip = new GzipCompressor;

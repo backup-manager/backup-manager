@@ -16,6 +16,19 @@ class LocalFilesystemTest extends PHPUnit_Framework_TestCase
         $this->assertInstanceOf('BigName\BackupManager\Filesystems\LocalFilesystem', $local);
     }
 
+    public function test_handles_correct_types()
+    {
+        $fs = new LocalFilesystem();
+
+        foreach (['local', 'LOCAL', 'Local'] as $type) {
+            $this->assertTrue($fs->handles($type));
+        }
+
+        foreach ([null, 'foo'] as $type) {
+            $this->assertFalse($fs->handles($type));
+        }
+    }
+
     public function test_get_correct_filesystem()
     {
         // use __DIR__ as the working-path because Flysystem will create

@@ -16,6 +16,19 @@ class SftpFilesystemTest extends PHPUnit_Framework_TestCase
         $this->assertInstanceOf('BigName\BackupManager\Filesystems\SftpFilesystem', $ftp);
     }
 
+    public function test_handles_correct_types()
+    {
+        $fs = new SftpFilesystem();
+
+        foreach (['sftp', 'SFTP', 'SFtp'] as $type) {
+            $this->assertTrue($fs->handles($type));
+        }
+
+        foreach ([null, 'foo'] as $type) {
+            $this->assertFalse($fs->handles($type));
+        }
+    }
+
     public function test_get_correct_filesystem()
     {
         $sftp = new SftpFilesystem();

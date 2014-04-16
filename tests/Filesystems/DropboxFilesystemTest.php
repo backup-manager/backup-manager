@@ -16,6 +16,19 @@ class DropboxFilesystemTest extends PHPUnit_Framework_TestCase
         $this->assertInstanceOf('BigName\BackupManager\Filesystems\DropboxFilesystem', $dropbox);
     }
 
+    public function test_handles_correct_types()
+    {
+        $fs = new DropboxFilesystem();
+
+        foreach (['dropbox', 'Dropbox', 'DropBOX'] as $type) {
+            $this->assertTrue($fs->handles($type));
+        }
+
+        foreach ([null, 'foo'] as $type) {
+            $this->assertFalse($fs->handles($type));
+        }
+    }
+
     public function test_get_correct_filesystem()
     {
         $dropbox = new DropboxFilesystem();
