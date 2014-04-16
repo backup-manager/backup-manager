@@ -8,7 +8,7 @@
 [![Total Downloads](https://poser.pugx.org/mccool/database-backup/downloads.png)](https://packagist.org/packages/mccool/database-backup)
 
 - supports MySQL and PostgreSQL
-- backup to or restore databases from AWS S3, Dropbox, FTP, SFTP, Rackspace Cloud, and WebDAV
+- backup to or restore databases from AWS S3, Dropbox, FTP, SFTP and Rackspace Cloud
 - compress with Gzip
 - framework-agnostic
 - dead simple configuration
@@ -48,7 +48,7 @@ This initial release is likely to change given feedback from users. [Please feel
 // config/storage.php
 'local' => [
     'type' => 'Local',
-    'working-path' => '/',
+    'root' => '/',
 ],
 's3' => [
     'type' => 'AwsS3',
@@ -96,8 +96,7 @@ This initial release is likely to change given feedback from users. [Please feel
 **Backup to / restore from any configured database.**
 
 ```php
-use BigName\BackupManager\Manager;
-$manager = new Manager('storage.php', 'database.php');
+$manager = require 'bootstrap.php';
 $manager->makeBackup()->run('development', 's3', 'test/backup.sql', 'gzip');
 ```
 
@@ -105,7 +104,7 @@ $manager->makeBackup()->run('development', 's3', 'test/backup.sql', 'gzip');
 
 ```php
 use BigName\BackupManager\Manager;
-$manager = new Manager('storage.php', 'database.php');
+$manager = require 'bootstrap.php';
 $manager->makeRestore()->run('s3', 'test/backup.sql.gz', 'development', 'gzip');
 ```
 
