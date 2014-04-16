@@ -41,13 +41,24 @@ class FilesystemProvider
      */
     public function get($name)
     {
-        $type = $this->config->get($name, 'type');
+        $type = $this->getConfig($name, 'type');
         foreach ($this->filesystems as $filesystem) {
             if ($filesystem->handles($type)) {
                 return $filesystem->get($this->config->get($name));
             }
         }
         throw new FilesystemTypeNotSupported("The requested filesystem type {$type} is not currently supported.");
+    }
+
+    /**
+     * @param $name
+     * @param null $key
+     * @return mixed
+     * @throws \BigName\BackupManager\Config\ConfigNotFoundForConnection
+     */
+    public function getConfig($name, $key = null)
+    {
+        return $this->config->get($name, $key);
     }
 
     /**

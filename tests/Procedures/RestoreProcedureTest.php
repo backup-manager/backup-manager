@@ -18,7 +18,8 @@ class RestoreProcedureTest extends PHPUnit_Framework_TestCase
             $this->getDatabaseProvider(),
             $this->getCompressorProvider(),
             $this->getShellProcessor(),
-            $this->getSequence()
+            $this->getSequence(),
+            ''
         );
         $this->assertInstanceOf('BigName\BackupManager\Procedures\RestoreProcedure', $procedure);
     }
@@ -27,6 +28,7 @@ class RestoreProcedureTest extends PHPUnit_Framework_TestCase
     {
         $filesystemProvider = $this->getFilesystemProvider();
         $filesystemProvider->shouldReceive('get')->andReturn(m::mock('League\Flysystem\Filesystem'));
+        $filesystemProvider->shouldReceive('getConfig');
 
         $databaseProvider = $this->getDatabaseProvider();
         $databaseProvider->shouldReceive('get')->andReturn(m::mock('BigName\BackupManager\Databases\Database'));
@@ -46,7 +48,8 @@ class RestoreProcedureTest extends PHPUnit_Framework_TestCase
             $databaseProvider,
             $compressorProvider,
             $this->getShellProcessor(),
-            $sequence
+            $sequence,
+            ''
         );
 
         $procedure->run('databaseName', 'destinationType', 'destinationPath');

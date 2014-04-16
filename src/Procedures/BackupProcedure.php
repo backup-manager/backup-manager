@@ -22,12 +22,13 @@ class BackupProcedure extends Procedure
     public function run($database, $destination, $destinationPath, $compression)
     {
         // begin the life of a new working file
-        $workingFile = $this->getWorkingFile();
+        $localFilesystem = $this->filesystems->get('local');
+        $workingFile = $this->getWorkingFile('local');
 
         // dump the database
         $this->add(new Commands\Database\DumpDatabase(
             // database connection
-            $this->database->get($database),
+            $this->databases->get($database),
             // output file path
             $workingFile,
             // shell command processor
@@ -35,7 +36,7 @@ class BackupProcedure extends Procedure
         ));
 
         // archive the dump
-        $compressor = $this->compressor->get($compression);
+        $compressor = $this->compressors->get($compression);
         $this->add(new Commands\Compression\CompressFile(
             // compression type
             $compressor,
@@ -49,26 +50,18 @@ class BackupProcedure extends Procedure
         // upload the archive
         $this->add(new Commands\Storage\TransferFile(
             // source fs and path
-            $this->filesystem->get('local'), $workingFile,
+            $localFilesystem, $workingFile,
             // destination fs and path
-            $this->filesystem->get($destination), $compressor->getCompressedPath($destinationPath)
+            $this->filesystems->get($destination), $compressor->getCompressedPath($destinationPath)
         ));
         // cleanup the local archive
         $this->add(new Commands\Storage\DeleteFile(
             // storage fs
-            $this->filesystem->get('local'),
+            $localFilesystem,
             // path
             $workingFile
         ));
 
         $this->execute();
-    }
-
-    /**
-     * @return string
-     */
-    private function getWorkingFile()
-    {
-        return sprintf('%s.sql', uniqid());
     }
 }

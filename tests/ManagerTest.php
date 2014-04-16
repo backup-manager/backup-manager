@@ -15,7 +15,7 @@ class ManagerTest extends PHPUnit_Framework_TestCase
     {
         $filesystems = new FilesystemProvider(Config::fromPhpFile('tests/config/storage.php'));
         $databases = new DatabaseProvider(Config::fromPhpFile('tests/config/database.php'));
-        $this->manager = new Manager($filesystems, $databases, new CompressorProvider());
+        $this->manager = new Manager($filesystems, $databases, new CompressorProvider(), '');
     }
 
     protected function tearDown()

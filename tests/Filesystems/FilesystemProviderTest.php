@@ -38,6 +38,15 @@ class FilesystemProviderTest extends PHPUnit_Framework_TestCase
         $this->assertEquals(['local', 's3', 'unsupported', 'null'], $provider->getAvailableProviders());
     }
 
+    public function test_can_get_config()
+    {
+        $config = m::mock('BigName\BackupManager\Config\Config');
+        $config->shouldReceive('get')->with('foo', 'bar');
+
+        $provider = new FilesystemProvider($config);
+        $provider->getConfig('foo', 'bar');
+    }
+
     /**
      * @return FilesystemProvider
      */

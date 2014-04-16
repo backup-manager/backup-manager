@@ -19,19 +19,19 @@ abstract class Procedure
     /**
      * @var \BigName\BackupManager\Filesystems\FilesystemProvider
      */
-    protected $filesystem;
+    protected $filesystems;
+    /**
+     * @var \BigName\BackupManager\Databases\DatabaseProvider
+     */
+    protected $databases;
+    /**
+     * @var \BigName\BackupManager\Compressors\CompressorProvider
+     */
+    protected $compressors;
     /**
      * @var \BigName\BackupManager\ShellProcessing\ShellProcessor
      */
     protected $shellProcessor;
-    /**
-     * @var \BigName\BackupManager\Databases\DatabaseProvider
-     */
-    protected $database;
-    /**
-     * @var \BigName\BackupManager\Compressors\CompressorProvider
-     */
-    public $compressor;
 
     /**
      * @param FilesystemProvider $filesystemProvider
@@ -42,9 +42,9 @@ abstract class Procedure
      */
     public function __construct(FilesystemProvider $filesystemProvider, DatabaseProvider $databaseProvider, CompressorProvider $compressorProvider, ShellProcessor $shellProcessor, Sequence $sequence)
     {
-        $this->filesystem = $filesystemProvider;
-        $this->database = $databaseProvider;
-        $this->compressor = $compressorProvider;
+        $this->filesystems = $filesystemProvider;
+        $this->databases = $databaseProvider;
+        $this->compressors = $compressorProvider;
         $this->shellProcessor = $shellProcessor;
         $this->sequence = $sequence;
     }
@@ -63,5 +63,28 @@ abstract class Procedure
     protected function execute()
     {
         $this->sequence->execute();
+    }
+
+    /**
+     * @param $name
+     * @param null $filename
+     * @return string
+     */
+    protected function getWorkingFile($name, $filename = null)
+    {
+        if (is_null($filename)) {
+            $filename = uniqid();
+        }
+        return sprintf('%s/%s.sql', $this->getRootPath($name), $filename);
+    }
+
+    /**
+     * @param $name
+     * @return string
+     */
+    protected function getRootPath($name)
+    {
+        $path = $this->filesystems->getConfig($name, 'root');
+        return preg_replace('/\/$/', '', $path);
     }
 } 
