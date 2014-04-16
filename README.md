@@ -121,18 +121,16 @@ $manager->makeRestore()->run('s3', 'test/backup.sql.gz', 'development', 'gzip');
 
 ### Integrations
 
-**Laravel**
+####Laravel
 
-#### Injection
+**Injection**
 
-The `Manager` and `Procedures` are included in Laravel's IoC.
+The `Manager` is included in Laravel's IoC.
 
 ```php
 use BigName\BackupManager\Manager;
-use BigName\BackupManager\Procedures\BackupProcedure;
-use BigName\BackupManager\Procedures\RestoreProcedure;
 
-public function __construct(Manager $manager, BackupProcedure $backup, RestoreProcedure $restore)
+public function __construct(Manager $manager)
 {
     $this->manager = $manager;
 }
@@ -140,8 +138,6 @@ public function __construct(Manager $manager, BackupProcedure $backup, RestorePr
 
 ```php
 $manager = App::make('BigName\BackupManager\Manager');
-$backup = App::make('BigName\BackupManager\Procedures\BackupProcedure');
-$restore = App::make('BigName\BackupManager\Procedures\RestoreProcedure');
 ```
 
 ### Requirements
