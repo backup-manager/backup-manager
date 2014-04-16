@@ -1,8 +1,8 @@
 <?php namespace BigName\BackupManager\Procedures;
 
 use BigName\BackupManager\Commands\Command;
-use BigName\BackupManager\Compressors\CompressorProvider;
 use BigName\BackupManager\Databases\DatabaseProvider;
+use BigName\BackupManager\Compressors\CompressorProvider;
 use BigName\BackupManager\Filesystems\FilesystemProvider;
 use BigName\BackupManager\ShellProcessing\ShellProcessor;
 

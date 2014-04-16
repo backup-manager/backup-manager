@@ -1,12 +1,12 @@
 <?php namespace BigName\BackupManager;
 
-use BigName\BackupManager\Databases;
-use BigName\BackupManager\Filesystems;
-use BigName\BackupManager\Compressors;
-use BigName\BackupManager\Procedures\Sequence;
 use BigName\BackupManager\Procedures;
-use BigName\BackupManager\ShellProcessing\ShellProcessor;
 use Symfony\Component\Process\Process;
+use BigName\BackupManager\Procedures\Sequence;
+use BigName\BackupManager\Databases\DatabaseProvider;
+use BigName\BackupManager\Filesystems\FilesystemProvider;
+use BigName\BackupManager\Compressors\CompressorProvider;
+use BigName\BackupManager\ShellProcessing\ShellProcessor;
 
 /**
  * Class Manager
@@ -28,11 +28,11 @@ class Manager
     private $compressors;
 
     /**
-     * @param Filesystems\FilesystemProvider $filesystems
-     * @param Databases\DatabaseProvider $databases
-     * @param Compressors\CompressorProvider $compressors
+     * @param \BigName\BackupManager\Filesystems\FilesystemProvider $filesystems
+     * @param \BigName\BackupManager\Databases\DatabaseProvider $databases
+     * @param \BigName\BackupManager\Compressors\CompressorProvider $compressors
      */
-    public function __construct(Filesystems\FilesystemProvider $filesystems, Databases\DatabaseProvider $databases, Compressors\CompressorProvider $compressors)
+    public function __construct(FilesystemProvider $filesystems, DatabaseProvider $databases, CompressorProvider $compressors)
     {
         $this->filesystems = $filesystems;
         $this->databases = $databases;

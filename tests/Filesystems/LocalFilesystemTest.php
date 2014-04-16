@@ -22,7 +22,7 @@ class LocalFilesystemTest extends PHPUnit_Framework_TestCase
         // anything fake for example.. 'foo' and you don't want that.
         $local = new LocalFilesystem();
         $filesystem = $local->get([
-            'working-path' => __DIR__,
+            'root' => __DIR__,
         ]);
         $this->assertInstanceOf('League\Flysystem\Adapter\Local', $filesystem->getAdapter());
     }
