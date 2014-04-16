@@ -3,10 +3,18 @@
 return [
     'development' => [
         'type' => 'mysql',
-        'host' => '',
+        'host' => 'foo',
         'port' => '3306',
-        'user' => '',
-        'pass' => '',
+        'user' => 'bar',
+        'pass' => 'baz',
+        'database' => 'test',
+    ],
+    'production' => [
+        'type' => 'postgresql',
+        'host' => 'foo',
+        'port' => '3306',
+        'user' => 'bar',
+        'pass' => 'baz',
         'database' => 'test',
     ],
     'unsupported' => [

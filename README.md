@@ -14,6 +14,10 @@
 - dead simple configuration
 - optional integrations for MVC framework [Laravel](http://laravel.com) and team-communication software [Slack](http://slack.com)
 
+### Full Disclosure
+
+This initial release is likely to change given feedback from users. [Please feel free to submit feedback.](https://github.com/heybigname/backup-manager/issues/new)
+
 ### Quick and Dirty
 
 **Configure your databases.**

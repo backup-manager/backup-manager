@@ -1,11 +1,35 @@
 <?php namespace BigName\BackupManager\Databases;
+use BigName\BackupManager\Config\Config;
 
 /**
  * Class PostgresqlDatabase
  * @package BigName\BackupManager\Databases
  */
-class PostgresqlDatabase extends Database
+class PostgresqlDatabase implements Database
 {
+    /**
+     * @var array
+     */
+    private $config;
+
+    /**
+     * @param $type
+     * @return bool
+     */
+    public function handles($type)
+    {
+        return strtolower($type) == 'postgresql';
+    }
+
+    /**
+     * @param array $config
+     * @return null
+     */
+    public function setConfig(array $config)
+    {
+        $this->config = $config;
+    }
+
     /**
      * @param $outputPath
      * @return string
@@ -34,5 +58,14 @@ class PostgresqlDatabase extends Database
             escapeshellarg($this->config['database']),
             escapeshellarg($inputPath)
         );
+    }
+
+    /**
+     * @return PostgresqlDatabase
+     */
+    private function getDatabase()
+    {
+        $database = new PostgresqlDatabase;
+        return $database;
     }
 }

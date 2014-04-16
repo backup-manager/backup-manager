@@ -1,11 +1,30 @@
 <?php namespace BigName\BackupManager\Databases;
+use BigName\BackupManager\Config\Config;
 
 /**
  * Class NullDatabase
  * @package BigName\BackupManager\Databases
  */
-class NullDatabase extends Database
+class NullDatabase implements Database
 {
+    /**
+     * @param $type
+     * @return bool
+     */
+    public function handles($type)
+    {
+
+    }
+
+    /**
+     * @param array $config
+     * @return null
+     */
+    public function setConfig(array $config)
+    {
+
+    }
+
     /**
      * @param $inputPath
      * @return string

@@ -12,6 +12,10 @@ class DatabaseProvider
      * @var \BigName\BackupManager\Config\Config
      */
     private $config;
+    /**
+     * @var \BigName\BackupManager\Databases\Database []
+     */
+    private $databases = [];
 
     /**
      * @param Config $config
@@ -19,6 +23,14 @@ class DatabaseProvider
     public function __construct(Config $config)
     {
         $this->config = $config;
+    }
+
+    /**
+     * @param Database $database
+     */
+    public function add(Database $database)
+    {
+        $this->databases[] = $database;
     }
 
     /**
@@ -30,25 +42,13 @@ class DatabaseProvider
     public function get($name)
     {
         $type = $this->config->get($name, 'type');
-        if (is_null($type)) {
-            return new NullDatabase([]);
+        foreach ($this->databases as $database) {
+            if ($database->handles($type)) {
+                $database->setConfig($this->config->get($name));
+                return $database;
+            }
         }
-
-        $class = $this->getClass($type);
-        if ( ! class_exists($class)) {
-            throw new DatabaseTypeNotSupported('The requested database type "' . $class . '" is not currently supported.');
-        }
-        return new $class($this->config->get($name));
-    }
-
-    /**
-     * @param $type
-     * @return string
-     */
-    private function getClass($type)
-    {
-        $type = ucfirst(strtolower($type));
-        return "BigName\\BackupManager\\Databases\\{$type}Database";
+        throw new DatabaseTypeNotSupported("The requested database type {$type} is not currently supported.");
     }
 
     /**

@@ -1,5 +1,6 @@
 <?php
 
+use BigName\BackupManager\Config\Config;
 use BigName\BackupManager\Databases\MysqlDatabase;
 use Mockery as m;
 
@@ -12,31 +13,32 @@ class MysqlDatabaseTest extends PHPUnit_Framework_TestCase
 
     public function test_can_create()
     {
-        $mysql = new MysqlDatabase([]);
+        $mysql = $this->getDatabase();
         $this->assertInstanceOf('BigName\BackupManager\Databases\MysqlDatabase', $mysql);
     }
 
     public function test_get_dump_command()
     {
-        $mysql = new MysqlDatabase([
-            'host' => 'host',
-            'port' => '3306',
-            'user' => 'user',
-            'pass' => 'password',
-            'database' => 'database',
-        ]);
-        $this->assertEquals("mysqldump --host='host' --port='3306' --user='user' --password='password' 'database' > 'outputPath'", $mysql->getDumpCommandLine('outputPath'));
+        $config = new Config('tests/config/database.php');
+        $mysql = $this->getDatabase();
+        $mysql->setConfig($config->get('development'));
+        $this->assertEquals("mysqldump --host='foo' --port='3306' --user='bar' --password='baz' 'test' > 'outputPath'", $mysql->getDumpCommandLine('outputPath'));
     }
 
     public function test_get_restore_command()
     {
-        $mysql = new MysqlDatabase([
-            'host' => 'host',
-            'port' => '3306',
-            'user' => 'user',
-            'pass' => 'password',
-            'database' => 'database',
-        ]);
-        $this->assertEquals("mysql --host='host' --port='3306' --user='user' --password='password' 'database' -e \"source outputPath;\"", $mysql->getRestoreCommandLine('outputPath'));
+        $config = new Config('tests/config/database.php');
+        $mysql = $this->getDatabase();
+        $mysql->setConfig($config->get('development'));
+        $this->assertEquals("mysql --host='foo' --port='3306' --user='bar' --password='baz' 'test' -e \"source outputPath;\"", $mysql->getRestoreCommandLine('outputPath'));
+    }
+
+    /**
+     * @return MysqlDatabase
+     */
+    private function getDatabase()
+    {
+        $database = new MysqlDatabase;
+        return $database;
     }
 }

@@ -7,6 +7,15 @@
 class GzipCompressor extends Compressor
 {
     /**
+     * @param $type
+     * @return bool
+     */
+    public function handles($type)
+    {
+        return strtolower($type) == 'gzip';
+    }
+
+    /**
      * @param $inputPath
      * @return string
      */

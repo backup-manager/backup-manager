@@ -7,30 +7,30 @@
 class CompressorProvider
 {
     /**
+     * @var array Compressor
+     */
+    private $compressors = [];
+
+    /**
+     * @param Compressor $compressor
+     */
+    public function add(Compressor $compressor)
+    {
+        $this->compressors[] = $compressor;
+    }
+
+    /**
      * @param $name
      * @return Compressor
      * @throws CompressorTypeNotSupported
      */
     public function get($name)
     {
-        if (is_null($name)) {
-            return new NullCompressor;
+        foreach ($this->compressors as $compressor) {
+            if ($compressor->handles($name)) {
+                return $compressor;
+            }
         }
-
-        $class = $this->getClassName($name);
-        if ( ! class_exists($class)) {
-            throw new CompressorTypeNotSupported('The requested compressor type "' . $class . '" is not currently supported.');
-        }
-        return new $class;
+        throw new CompressorTypeNotSupported("The requested compressor type {$name} is not currently supported.");
     }
-
-    /**
-     * @param $type
-     * @return string
-     */
-    private function getClassName($type)
-    {
-        $type = ucfirst(strtolower($type));
-        return "BigName\\BackupManager\\Compressors\\{$type}Compressor";
-    }
-} 
+}

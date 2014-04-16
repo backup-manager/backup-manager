@@ -10,6 +10,16 @@ use League\Flysystem\Filesystem as Flysystem;
 class LocalFilesystem implements Filesystem
 {
     /**
+     * Test fitness of visitor.
+     * @param $type
+     * @return bool
+     */
+    public function handles($type)
+    {
+        return strtolower($type) == 'local';
+    }
+
+    /**
      * @param array $config
      * @return Flysystem
      */

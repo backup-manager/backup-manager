@@ -12,6 +12,10 @@ class FilesystemProvider
      * @var \BigName\BackupManager\Config\Config
      */
     private $config;
+    /**
+     * @var \BigName\BackupManager\Filesystems\Filesystem []
+     */
+    private $filesystems = [];
 
     /**
      * @param Config $config
@@ -19,6 +23,14 @@ class FilesystemProvider
     public function __construct(Config $config)
     {
         $this->config = $config;
+    }
+
+    /**
+     * @param Filesystem $filesystem
+     */
+    public function add(Filesystem $filesystem)
+    {
+        $this->filesystems[] = $filesystem;
     }
 
     /**
@@ -30,24 +42,12 @@ class FilesystemProvider
     public function get($name)
     {
         $type = $this->config->get($name, 'type');
-        if (is_null($type)) {
-            return (new NullFilesystem())->get([]);
+        foreach ($this->filesystems as $filesystem) {
+            if ($filesystem->handles($type)) {
+                return $filesystem->get($this->config->get($name));
+            }
         }
-        $class = $this->getClassName($type);
-        if ( ! class_exists($class)) {
-            throw new FilesystemTypeNotSupported('The requested filesystem type "' . $class . '" is not currently supported.');
-        }
-        return (new $class)->get($this->config->get($name));
-    }
-
-    /**
-     * @param $type
-     * @return string
-     */
-    private function getClassName($type)
-    {
-        $type = ucfirst(strtolower($type));
-        return "BigName\\BackupManager\\Filesystems\\{$type}Filesystem";
+        throw new FilesystemTypeNotSupported("The requested filesystem type {$type} is not currently supported.");
     }
 
     /**

@@ -1,5 +1,9 @@
 <?php
 
+use BigName\BackupManager\Compressors\CompressorProvider;
+use BigName\BackupManager\Config\Config;
+use BigName\BackupManager\Databases\DatabaseProvider;
+use BigName\BackupManager\Filesystems\FilesystemProvider;
 use BigName\BackupManager\Manager;
 use Mockery as m;
 
@@ -9,7 +13,9 @@ class ManagerTest extends PHPUnit_Framework_TestCase
 
     protected function setUp()
     {
-        $this->manager = new Manager('tests/config/storage.php', 'tests/config/database.php');
+        $filesystems = new FilesystemProvider(new Config('tests/config/storage.php'));
+        $databases = new DatabaseProvider(new Config('tests/config/database.php'));
+        $this->manager = new Manager($filesystems, $databases, new CompressorProvider());
     }
 
     protected function tearDown()
