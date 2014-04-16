@@ -41,7 +41,7 @@ class DatabaseProviderTest extends PHPUnit_Framework_TestCase
 
     private function getProvider()
     {
-        $provider = new DatabaseProvider(new Config('tests/config/database.php'));
+        $provider = new DatabaseProvider(Config::fromPhpFile('tests/config/database.php'));
         $provider->add(new MysqlDatabase);
         $provider->add(new PostgresqlDatabase);
         return $provider;

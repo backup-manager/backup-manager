@@ -43,7 +43,7 @@ class FilesystemProviderTest extends PHPUnit_Framework_TestCase
      */
     private function getProvider()
     {
-        $provider = new FilesystemProvider(new Config('tests/config/storage.php'));
+        $provider = new FilesystemProvider(Config::fromPhpFile('tests/config/storage.php'));
         $provider->add(new LocalFilesystem);
         return $provider;
     }
