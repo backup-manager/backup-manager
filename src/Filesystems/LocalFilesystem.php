@@ -25,6 +25,6 @@ class LocalFilesystem implements Filesystem
      */
     public function get(array $config)
     {
-        return new Flysystem(new Local($config['working-path']));
+        return new Flysystem(new Local($config['root']));
     }
 }

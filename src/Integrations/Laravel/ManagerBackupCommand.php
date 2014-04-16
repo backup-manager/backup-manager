@@ -1,9 +1,9 @@
 <?php namespace BigName\BackupManager\Integrations\Laravel;
 
-use BigName\BackupManager\Databases\DatabaseProvider;
-use BigName\BackupManager\Filesystems\FilesystemProvider;
-use BigName\BackupManager\Procedures\BackupProcedure;
 use Symfony\Component\Console\Input\InputOption;
+use BigName\BackupManager\Databases\DatabaseProvider;
+use BigName\BackupManager\Procedures\BackupProcedure;
+use BigName\BackupManager\Filesystems\FilesystemProvider;
 
 /**
  * Class ManagerBackupCommand

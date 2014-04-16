@@ -37,7 +37,7 @@ class ConfigTest extends PHPUnit_Framework_TestCase
     public function test_can_get_whole_connection_configuration()
     {
         $config = Config::fromPhpFile('tests/config/storage.php');
-        $this->assertEquals(['type' => 'Local', 'working-path' => '/'], $config->get('local'));
+        $this->assertEquals(['type' => 'Local', 'root' => '/'], $config->get('local'));
     }
 
     public function test_config_not_found_for_connection_exception()

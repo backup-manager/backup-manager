@@ -1,10 +1,10 @@
 <?php namespace BigName\BackupManager\Integrations\Laravel; 
 
-use BigName\BackupManager\Commands\Storage\ListDirectoryContents;
-use BigName\BackupManager\Databases\DatabaseProvider;
-use BigName\BackupManager\Filesystems\FilesystemProvider;
-use BigName\BackupManager\Procedures\RestoreProcedure;
 use Symfony\Component\Console\Input\InputOption;
+use BigName\BackupManager\Databases\DatabaseProvider;
+use BigName\BackupManager\Procedures\RestoreProcedure;
+use BigName\BackupManager\Filesystems\FilesystemProvider;
+use BigName\BackupManager\Commands\Storage\ListDirectoryContents;
 
 class ManagerRestoreCommand extends BaseCommand
 {
