@@ -17,6 +17,19 @@ class PostgresqlDatabaseTest extends PHPUnit_Framework_TestCase
         $this->assertInstanceOf('BigName\BackupManager\Databases\PostgresqlDatabase', $postgres);
     }
 
+    public function test_handles_correct_types()
+    {
+        $db = $this->getDatabase();
+
+        foreach (['postgresql', 'POSTGRESQL', 'PostgreSQL'] as $type) {
+            $this->assertTrue($db->handles($type));
+        }
+
+        foreach ([null, 'foo'] as $type) {
+            $this->assertFalse($db->handles($type));
+        }
+    }
+
     public function test_get_dump_command()
     {
         $config = Config::fromPhpFile('tests/config/database.php');

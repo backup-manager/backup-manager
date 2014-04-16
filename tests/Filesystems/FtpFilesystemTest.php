@@ -16,6 +16,19 @@ class FtpFilesystemTest extends PHPUnit_Framework_TestCase
         $this->assertInstanceOf('BigName\BackupManager\Filesystems\FtpFilesystem', $ftp);
     }
 
+    public function test_handles_correct_types()
+    {
+        $fs = new FtpFilesystem();
+
+        foreach (['ftp', 'FTP', 'Ftp'] as $type) {
+            $this->assertTrue($fs->handles($type));
+        }
+
+        foreach ([null, 'foo'] as $type) {
+            $this->assertFalse($fs->handles($type));
+        }
+    }
+
     public function test_get_correct_filesystem()
     {
         $ftp = new FtpFilesystem();

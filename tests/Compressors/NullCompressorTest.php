@@ -15,6 +15,19 @@ class NullCompressorTest extends PHPUnit_Framework_TestCase
         $this->assertInstanceOf('BigName\BackupManager\Compressors\NullCompressor', new NullCompressor);
     }
 
+    public function test_handles_correct_types()
+    {
+        $comp = new NullCompressor;
+
+        foreach (['null', 'NULL', 'NUll'] as $type) {
+            $this->assertTrue($comp->handles($type));
+        }
+
+        foreach ([null, 'foo'] as $type) {
+            $this->assertFalse($comp->handles($type));
+        }
+    }
+
     public function test_command_lines_are_empty()
     {
         $null = new NullCompressor;

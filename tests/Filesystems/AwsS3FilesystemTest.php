@@ -16,6 +16,19 @@ class AwsS3FilesystemTest extends PHPUnit_Framework_TestCase
         $this->assertInstanceOf('BigName\BackupManager\Filesystems\AwsS3Filesystem', $s3);
     }
 
+    public function test_handles_correct_types()
+    {
+        $fs = new Awss3Filesystem();
+
+        foreach (['awss3', 'AWSS3', 'AwsS3'] as $type) {
+            $this->assertTrue($fs->handles($type));
+        }
+
+        foreach ([null, 'foo'] as $type) {
+            $this->assertFalse($fs->handles($type));
+        }
+    }
+
     public function test_get_correct_filesystem()
     {
         $s3 = new Awss3Filesystem();

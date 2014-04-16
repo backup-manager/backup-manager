@@ -1,8 +1,8 @@
 <?php
 
+use Mockery as m;
 use BigName\BackupManager\Config\Config;
 use BigName\BackupManager\Databases\MysqlDatabase;
-use Mockery as m;
 
 class MysqlDatabaseTest extends PHPUnit_Framework_TestCase
 {
@@ -15,6 +15,19 @@ class MysqlDatabaseTest extends PHPUnit_Framework_TestCase
     {
         $mysql = $this->getDatabase();
         $this->assertInstanceOf('BigName\BackupManager\Databases\MysqlDatabase', $mysql);
+    }
+
+    public function test_handles_correct_types()
+    {
+        $db = $this->getDatabase();
+
+        foreach (['mysql', 'MYSQL', 'MySQL'] as $type) {
+            $this->assertTrue($db->handles($type));
+        }
+
+        foreach ([null, 'foo'] as $type) {
+            $this->assertFalse($db->handles($type));
+        }
     }
 
     public function test_get_dump_command()
