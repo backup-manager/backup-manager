@@ -172,7 +172,7 @@ class ManagerBackupCommand extends BaseCommand
     private function askCompression()
     {
         $this->info('Available compression types:');
-        $types = ['gzip', 'null'];
+        $types = ['null', 'gzip'];
         $this->line(implode(', ', $types));
         $compression = $this->autocomplete('Which compression type you want to use? [null]', $types, 'null');
         $this->line('');

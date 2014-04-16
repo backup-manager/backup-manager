@@ -132,7 +132,8 @@ class ManagerRestoreCommand extends BaseCommand
         $this->info('Available storage services:');
         $providers = $this->filesystems->getAvailableProviders();
         $this->line(implode(', ', $providers));
-        $source = $this->autocomplete('From which storage service do you want to choose?', $providers);
+        $default = current($providers);
+        $source = $this->autocomplete("From which storage service do you want to choose? [{$default}]", $providers, $default);
         $this->line('');
         $this->input->setOption('source', $source);
     }
@@ -154,7 +155,8 @@ class ManagerRestoreCommand extends BaseCommand
             return $file['basename'];
         }, $command->execute());
         $this->line(implode(PHP_EOL, $files));
-        $filename = $this->autocomplete('Which database dump do you want to restore?', $files);
+        $default = current($files);
+        $filename = $this->autocomplete("Which database dump do you want to restore? [{$default}]", $files, $default);
 
         $this->input->setOption('sourcePath', "{$path}/{$filename}");
     }
@@ -165,7 +167,8 @@ class ManagerRestoreCommand extends BaseCommand
         $this->info('Available database connections:');
         $providers = $this->databases->getAvailableProviders();
         $this->line(implode(', ', $providers));
-        $database = $this->autocomplete('From which database connection you want to dump?', $providers);
+        $default = current($providers);
+        $database = $this->autocomplete("From which database connection you want to dump? [{$default}]", $providers, $default);
         $this->line('');
         $this->input->setOption('database', $database);
     }
@@ -174,9 +177,9 @@ class ManagerRestoreCommand extends BaseCommand
     private function askCompression()
     {
         $this->info('Available compression types:');
-        $types = ['gzip', 'null'];
+        $types = ['null', 'gzip'];
         $this->line(implode(', ', $types));
-        $compression = $this->autocomplete('Which compression type you want to use?', $types, 'null');
+        $compression = $this->autocomplete('Which compression type you want to use? [null]', $types, 'null');
         $this->line('');
         $this->input->setOption('compression', $compression);
     }
