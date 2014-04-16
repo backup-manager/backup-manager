@@ -17,8 +17,8 @@ class ConfigTest extends PHPUnit_Framework_TestCase
 
     public function test_can_create_from_php_file()
     {
-        $config = Config::fromPhpFile('tests/config/storage.php');
-        $this->assertInstanceOf('BigName\BackupManager\Config\Config', $config);
+        $config = Config::fromPhpFile('tests/Config/keys.php');
+        $this->assertEquals(['config', 'file', 'items'], $config->getItems());
     }
 
     public function test_config_file_not_found_exception()
@@ -52,11 +52,5 @@ class ConfigTest extends PHPUnit_Framework_TestCase
         $this->setExpectedException('BigName\BackupManager\Config\ConfigFieldNotFound');
         $config = Config::fromPhpFile('tests/config/storage.php');
         $config->get('local', 'foo');
-    }
-
-    public function test_can_get_config_items()
-    {
-        $config = Config::fromPhpFile('tests/Config/keys.php');
-        $this->assertEquals(['config', 'file', 'items'], $config->getItems());
     }
 }

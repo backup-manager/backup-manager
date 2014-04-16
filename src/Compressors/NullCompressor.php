@@ -7,6 +7,15 @@
 class NullCompressor extends Compressor
 {
     /**
+     * @param $type
+     * @return bool
+     */
+    public function handles($type)
+    {
+        return strtolower($type) == 'null';
+    }
+
+    /**
      * @param $inputPath
      * @return string
      */
@@ -40,14 +49,5 @@ class NullCompressor extends Compressor
     public function getDecompressedPath($inputPath)
     {
         return $inputPath;
-    }
-
-    /**
-     * @param $type
-     * @return bool
-     */
-    public function handles($type)
-    {
-
     }
 }
