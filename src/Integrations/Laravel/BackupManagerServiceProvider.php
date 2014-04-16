@@ -8,7 +8,6 @@ use Illuminate\Support\ServiceProvider;
 use BigName\BackupManager\Config\Config;
 use BigName\BackupManager\Config\ConfigFileNotFound;
 use BigName\BackupManager\ShellProcessing\ShellProcessor;
-use BigName\BackupManager\Integrations\Laravel\Questions\QuestionProvider;
 
 /**
  * Class BackupManagerServiceProvider
@@ -48,7 +47,7 @@ class BackupManagerServiceProvider extends ServiceProvider
     private function registerFilesystemProvider()
     {
         $this->app->bind('BigName\BackupManager\Filesystems\FilesystemProvider', function() {
-            $provider = new Filesystems\FilesystemProvider(new Config($this->getConfigPath('storage')));
+            $provider = new Filesystems\FilesystemProvider(new Config($this->getConfig('storage')));
             $provider->add(new Filesystems\Awss3Filesystem);
             $provider->add(new Filesystems\DropboxFilesystem);
             $provider->add(new Filesystems\FtpFilesystem);
@@ -67,7 +66,7 @@ class BackupManagerServiceProvider extends ServiceProvider
     private function registerDatabaseProvider()
     {
         $this->app->bind('BigName\BackupManager\Databases\DatabaseProvider', function() {
-            $provider = new Databases\DatabaseProvider(new Config($this->getConfigPath('database')));
+            $provider = new Databases\DatabaseProvider(new Config($this->getConfig('database')));
             $provider->add(new Databases\MysqlDatabase);
             $provider->add(new Databases\PostgresqlDatabase);
             return $provider;
@@ -102,7 +101,9 @@ class BackupManagerServiceProvider extends ServiceProvider
     }
 
     /**
+     * Register the artisan commands.
      *
+     * @return void
      */
     private function registerArtisanCommands()
     {
@@ -113,17 +114,19 @@ class BackupManagerServiceProvider extends ServiceProvider
     }
 
     /**
+     * Get a config file
+     *
      * @param $name
-     * @return string
      * @throws \BigName\BackupManager\Config\ConfigFileNotFound
+     * @return string
      */
-    private function getConfigPath($name)
+    private function getConfig($name)
     {
         $path = app_path("config/packages/heybigname/backup-manager/config/$name.php");
         if ( ! file_exists($path)) {
-            throw new ConfigFileNotFound('The configuration file "' . $path . '" could not be found.');
+            throw new ConfigFileNotFound("The configuration file {$path} could not be found.");
         }
-        return $path;
+        return require $path;
     }
 
     /**
