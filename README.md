@@ -103,7 +103,6 @@ $manager->makeBackup()->run('development', 's3', 'test/backup.sql', 'gzip');
 **Backup to / restore from any configured filesystem.**
 
 ```php
-use BigName\BackupManager\Manager;
 $manager = require 'bootstrap.php';
 $manager->makeRestore()->run('s3', 'test/backup.sql.gz', 'development', 'gzip');
 ```
@@ -118,6 +117,31 @@ $manager->makeRestore()->run('s3', 'test/backup.sql.gz', 'development', 'gzip');
 "require": {
     "heybigname/backup-manager": "1.*"
 }
+```
+
+### Integrations
+
+**Laravel**
+
+#### Injection
+
+The `Manager` and `Procedures` are included in Laravel's IoC.
+
+```php
+use BigName\BackupManager\Manager;
+use BigName\BackupManager\Procedures\BackupProcedure;
+use BigName\BackupManager\Procedures\RestoreProcedure;
+
+public function __construct(Manager $manager, BackupProcedure $backup, RestoreProcedure $restore)
+{
+    $this->manager = $manager;
+}
+```
+
+```php
+$manager = App::make('BigName\BackupManager\Manager');
+$backup = App::make('BigName\BackupManager\Procedures\BackupProcedure');
+$restore = App::make('BigName\BackupManager\Procedures\RestoreProcedure');
 ```
 
 ### Requirements
