@@ -141,7 +141,8 @@ class ManagerBackupCommand extends BaseCommand
         $this->info('Available database connections:');
         $providers = $this->databaseProvider->getAvailableProviders();
         $this->line(implode(', ', $providers));
-        $database = $this->autocomplete('From which database connection you want to dump?', $providers);
+        $default = current($providers);
+        $database = $this->autocomplete("From which database connection you want to dump? [{$default}]", $providers, $default);
         $this->line('');
         $this->input->setOption('database', $database);
     }
@@ -152,7 +153,8 @@ class ManagerBackupCommand extends BaseCommand
         $this->info('Available storage services:');
         $providers = $this->filesystemProvider->getAvailableProviders();
         $this->line(implode(', ', $providers));
-        $destination = $this->autocomplete('To which storage service you want to save?', $providers);
+        $default = current($providers);
+        $destination = $this->autocomplete("To which storage service you want to save? [{$default}]", $providers, $default);
         $this->line('');
         $this->input->setOption('destination', $destination);
     }
@@ -160,7 +162,8 @@ class ManagerBackupCommand extends BaseCommand
     /** @noinspection PhpUnusedPrivateMethodInspection */
     private function askDestinationPath()
     {
-        $path = $this->ask('On which path you want to save?');
+        $filename = sprintf('%s.sql', date('Y-m-d_H:i:s'));
+        $path = $this->ask("On which path you want to save? [{$filename}]", $filename);
         $this->line('');
         $this->input->setOption('destinationPath', $path);
     }
@@ -171,7 +174,7 @@ class ManagerBackupCommand extends BaseCommand
         $this->info('Available compression types:');
         $types = ['gzip', 'null'];
         $this->line(implode(', ', $types));
-        $compression = $this->autocomplete('Which compression type you want to use?', $types, 'null');
+        $compression = $this->autocomplete('Which compression type you want to use? [null]', $types, 'null');
         $this->line('');
         $this->input->setOption('compression', $compression);
     }
