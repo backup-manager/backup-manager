@@ -1,6 +1,6 @@
 {
     "name": "heybigname/backup-manager",
-    "version": "0.2.3",
+    "version": "0.2.4",
     "description": "Database backup manager for dumping to and restoring databases from S3, Dropbox, FTP, and SFTP.",
     "authors": [{
         "name": "Shawn McCool",
@@ -15,9 +15,7 @@
         "php": ">=5.4.0",
         "symfony/process": "2.*",
         "aws/aws-sdk-php": "2.4.*",
-        "league/flysystem": ">=0.3.1",
-        "rackspace/php-opencloud": "1.9.*",
-        "dropbox/dropbox-sdk": "1.1.*"
+        "league/flysystem": ">=0.3.1"
     },
     "require-dev": {
       "phpunit/phpunit": "3.7.*",
