@@ -46,8 +46,8 @@ class BackupManagerServiceProvider extends ServiceProvider
      */
     private function registerFilesystemProvider()
     {
-        $this->app->bind('BigName\BackupManager\Filesystems\FilesystemProvider', function() {
-            $provider = new Filesystems\FilesystemProvider(new Config($this->getConfig('storage')));
+        $this->app->bind('BigName\BackupManager\Filesystems\FilesystemProvider', function($app) {
+            $provider = new Filesystems\FilesystemProvider(new Config($app['config']['backup-manager::storage']));
             $provider->add(new Filesystems\Awss3Filesystem);
             $provider->add(new Filesystems\DropboxFilesystem);
             $provider->add(new Filesystems\FtpFilesystem);
@@ -65,8 +65,8 @@ class BackupManagerServiceProvider extends ServiceProvider
      */
     private function registerDatabaseProvider()
     {
-        $this->app->bind('BigName\BackupManager\Databases\DatabaseProvider', function() {
-            $provider = new Databases\DatabaseProvider(new Config($this->getConfig('database')));
+        $this->app->bind('BigName\BackupManager\Databases\DatabaseProvider', function($app) {
+            $provider = new Databases\DatabaseProvider(new Config($app['config']['backup-manager::database']));
             $provider->add(new Databases\MysqlDatabase);
             $provider->add(new Databases\PostgresqlDatabase);
             return $provider;
