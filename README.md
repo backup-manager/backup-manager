@@ -214,7 +214,7 @@ When contributing please consider the following guidelines:
     2. Interfaces should NOT be suffixed with `Interface`, Traits should NOT be suffixed with `Trait`.
 - All methods and classes must contain docblocks.
 - Ensure that you submit tests that have minimal 100% coverage.
-- When adding new functionality, please [submit a proposal](https://github.com/heybigname/backup-manager/issues/new) to ensure compatibility with the project's goals.
+- When planning a pull-request to add new functionality, it may be wise to [submit a proposal](https://github.com/heybigname/backup-manager/issues/new) to ensure compatibility with the project's goals.
 
 ### Maintainers
 
