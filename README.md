@@ -14,7 +14,17 @@
 - dead simple configuration
 - optional integrations for MVC framework [Laravel](http://laravel.com)
 
-### Full Disclosure
+### Table of Contents
+
+- [Stability Notice](#stability-notice)
+- [Quick and Dirty](#quick-and-dirty)
+- [Requirements](#requirements)
+- [Installation](#installation)
+- [Integrations](#integrations)
+    - [Laravel](#laravel)
+- [License](#license)
+
+### Stability Notice
 
 This isn't a `1.0` release.
 
@@ -113,9 +123,18 @@ $manager->makeRestore()->run('s3', 'test/backup.sql.gz', 'development', 'gzip');
 
 > This package does not allow you to backup from one database type and restore to another.
 
+### Requirements
+
+- PHP 5.4
+- MySQL support requires `mysqldump` and `mysql` command-line binaries
+- PostgreSQL support requires `pg_dump` and `psql` command-line binaries
+- Gzip support requires `gzip` and `gunzip` command-line binaries
+
 ### Installation
 
 **Composer**
+
+1. Add the package to "require" in composer.json
 
 ```JSON
 "require": {
@@ -123,11 +142,13 @@ $manager->makeRestore()->run('s3', 'test/backup.sql.gz', 'development', 'gzip');
 }
 ```
 
+2. Update your composer packages.
+
 `composer update`
 
 ### Integrations
 
-The backup manager is easy to integrate into your favorite frameworks. We've included Laravel integration. But, feel free to add integration for
+The backup manager is easy to integrate into your favorite frameworks. We've included Laravel integration. We're definitely accepting pull-requests.
 
 #### Laravel
 
@@ -161,13 +182,6 @@ $manager = App::make('BigName\BackupManager\Manager');
 There are three commands available `manager:backup`, `manager:restore` and `manager:list`.
 
 All will prompt you with simple questions to successfully execute the command.
-
-### Requirements
-
-- PHP 5.4
-- MySQL support requires `mysqldump` and `mysql` command-line binaries
-- PostgreSQL support requires `pg_dump` and `psql` command-line binaries
-- Gzip support requires `gzip` and `gunzip` command-line binaries
 
 ### License
 
