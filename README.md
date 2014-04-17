@@ -22,6 +22,7 @@
 - [Usage](#usage)
 - [Integrations](#integrations)
     - [Laravel](#laravel)
+- [Contribution Guidelines](#contribution-guidelines)
 - [Maintainers](#maintainers)
 - [License](#license)
 
@@ -199,6 +200,20 @@ $manager = App::make('BigName\BackupManager\Manager');
 There are three commands available `manager:backup`, `manager:restore` and `manager:list`.
 
 All will prompt you with simple questions to successfully execute the command.
+
+### Contribution Guidelines
+
+We recommend using the vagrant configuration supplied with this package for development and contribution. Simply install VirtualBox, Vagrant, and Ansible then run `vagrant up` in the root folder. A virtualmachine specifically designed for development of the package will be built and launched for you.
+
+When contributing please consider the following guidelines:
+
+- please conform to the code style of the project, it's essentially PSR-2 with a few differences.
+    1. The NOT operator should be surrounded by a single space. `if ( ! is_null(...)) {`.
+    2. Interfaces should NOT be suffixed with `Interface`, Traits should NOT be suffixed with `Trait`.
+- A minimal code coverage of 100% must be maintained.
+- All methods and classes must contain docblocks.
+- Ensure that you submit tests that have 100% coverage.
+- When adding new functionality, please [submit a proposal](https://github.com/heybigname/backup-manager/issues/new) to ensure compatibility with the project's goals.
 
 ### Maintainers
 
