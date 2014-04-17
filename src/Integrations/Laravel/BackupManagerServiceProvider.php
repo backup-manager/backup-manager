@@ -15,6 +15,8 @@ use BigName\BackupManager\ShellProcessing\ShellProcessor;
  */
 class BackupManagerServiceProvider extends ServiceProvider
 {
+    protected $defer = true;
+    
     /**
      * Bootstrap the application events.
      *
