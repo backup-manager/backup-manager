@@ -8,7 +8,6 @@
 [![Total Downloads](https://poser.pugx.org/heybigname/backup-manager/downloads.png)](https://packagist.org/packages/heybigname/backup-manager)
 
 - supports `MySQL` and `PostgreSQL`
-- backup to or restore databases from `AWS S3`, `Dropbox`, `FTP`, `SFTP` and `Rackspace Cloud`
 - compress with `Gzip`
 - framework-agnostic
 - dead simple configuration
@@ -154,11 +153,11 @@ $manager->makeRestore()->run('s3', 'test/backup.sql.gz', 'development', 'gzip');
 
 ### Usage
 
-An example usage can [be found here](https://github.com/heybigname/backup-manager/tree/master/examples).
+Once installed, the package must be bootstrapped (initial configuration) before it can be used. If you're using Laravel then skip directly to the Laravel integration section.
+
+We've provided a native PHP example [here](https://github.com/heybigname/backup-manager/tree/master/examples).
 
 The required bootstrapping can [be found in the example here](https://github.com/heybigname/backup-manager/blob/master/examples/standalone/bootstrap.php).
-
-The bootstrapping is managed automatically if you use the framework integrations.
 
 ### Integrations
 
