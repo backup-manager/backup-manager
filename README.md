@@ -159,6 +159,10 @@ To install into a Laravel project, first do the composer install then add the fo
 'BigName\BackupManager\Integrations\Laravel\BackupManagerServiceProvider',
 ```
 
+Then, publish and modify the configuration file to suit your needs.
+
+`php artisan config:publish heybigname/backup-manager`
+
 **IoC Resolution**
 
 `Manager` can be automatically resolved through constructor injection thanks to Laravel's IoC container.
