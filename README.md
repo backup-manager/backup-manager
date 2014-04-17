@@ -1,22 +1,36 @@
 # Database Backup Manager
 
-[![Latest Stable Version](https://poser.pugx.org/mccool/database-backup/version.png)](https://packagist.org/packages/mccool/database-backup)
-[![License](https://poser.pugx.org/mccool/database-backup/license.png)](https://packagist.org/packages/mccool/database-backup)
+[![Latest Stable Version](https://poser.pugx.org/heybigname/backup-manager/version.png)](https://packagist.org/packages/heybigname/backup-manager)
+[![License](https://poser.pugx.org/heybigname/backup-manager/license.png)](https://packagist.org/packages/heybigname/backup-manager)
 [![Build Status](https://travis-ci.org/heybigname/backup-manager.svg?branch=master)](https://travis-ci.org/heybigname/backup-manager)
 [![Coverage Status](https://coveralls.io/repos/heybigname/backup-manager/badge.png?branch=master)](https://coveralls.io/r/heybigname/backup-manager?branch=master)
 [![SensioLabsInsight](https://insight.sensiolabs.com/projects/5e507053-58d7-4cff-b757-4202b021f9b0/mini.png)](https://insight.sensiolabs.com/projects/5e507053-58d7-4cff-b757-4202b021f9b0)
-[![Total Downloads](https://poser.pugx.org/mccool/database-backup/downloads.png)](https://packagist.org/packages/mccool/database-backup)
+[![Total Downloads](https://poser.pugx.org/heybigname/backup-manager/downloads.png)](https://packagist.org/packages/heybigname/backup-manager)
 
-- supports MySQL and PostgreSQL
-- backup to or restore databases from AWS S3, Dropbox, FTP, SFTP and Rackspace Cloud
-- compress with Gzip
+- supports `MySQL` and `PostgreSQL`
+- compress with `Gzip`
 - framework-agnostic
 - dead simple configuration
 - optional integrations for MVC framework [Laravel](http://laravel.com)
 
-### Full Disclosure
+### Table of Contents
 
-This initial release is likely to change given feedback from users. [Please feel free to submit feedback.](https://github.com/heybigname/backup-manager/issues/new)
+- [Stability Notice](#stability-notice)
+- [Quick and Dirty](#quick-and-dirty)
+- [Requirements](#requirements)
+- [Installation](#installation)
+- [Usage](#usage)
+- [Integrations](#integrations)
+    - [Laravel](#laravel)
+- [Contribution Guidelines](#contribution-guidelines)
+- [Maintainers](#maintainers)
+- [License](#license)
+
+### Stability Notice
+
+This isn't a `1.0` release.
+
+This initial release is _VERY_ likely to change given feedback from users. [Please feel free to submit feedback.](https://github.com/heybigname/backup-manager/issues/new)
 
 ### Quick and Dirty
 
@@ -97,6 +111,8 @@ This initial release is likely to change given feedback from users. [Please feel
 
 **Backup to / restore from any configured database.**
 
+Backup the development database to `Amazon S3`. The S3 backup path will be `test/backup.sql.gz` in the end, when `gzip` is done with it.
+
 ```php
 $manager = require 'bootstrap.php';
 $manager->makeBackup()->run('development', 's3', 'test/backup.sql', 'gzip');
@@ -104,30 +120,67 @@ $manager->makeBackup()->run('development', 's3', 'test/backup.sql', 'gzip');
 
 **Backup to / restore from any configured filesystem.**
 
+Restore the database file `test/backup.sql.gz` from `Amazon S3` to the `development` database.
+
 ```php
 $manager = require 'bootstrap.php';
 $manager->makeRestore()->run('s3', 'test/backup.sql.gz', 'development', 'gzip');
 ```
 
-> This package does not allow you to backup from one database type and restore to another.
+> This package does not allow you to backup from one database type and restore to another. A MySQL dump is not compatible with Postgresql.
+
+### Requirements
+
+- PHP 5.4
+- MySQL support requires `mysqldump` and `mysql` command-line binaries
+- PostgreSQL support requires `pg_dump` and `psql` command-line binaries
+- Gzip support requires `gzip` and `gunzip` command-line binaries
 
 ### Installation
 
 **Composer**
 
+1. Add the package to "require" in composer.json
+
+For now, `dev-master` is fine since we're pre-1.0. 
+
 ```JSON
 "require": {
-    "heybigname/backup-manager": "1.*"
+    "heybigname/backup-manager": "dev-master"
 }
 ```
 
+2. Update your composer packages.
+
+`composer update`
+
+### Usage
+
+Once installed, the package must be bootstrapped (initial configuration) before it can be used. If you're using Laravel then skip directly to the [Laravel integration section](#laravel).
+
+We've provided a native PHP example [here](https://github.com/heybigname/backup-manager/tree/master/examples).
+
+The required bootstrapping can [be found in the example here](https://github.com/heybigname/backup-manager/blob/master/examples/standalone/bootstrap.php).
+
 ### Integrations
 
-####Laravel
+The backup manager is easy to integrate into your favorite frameworks. We've included Laravel integration. We're definitely accepting pull-requests.
 
-**Injection**
+#### Laravel
 
-The `Manager` is included in Laravel's IoC.
+To install into a Laravel project, first do the composer install then add the following class to your config/app.php service providers list.
+
+```php
+'BigName\BackupManager\Integrations\Laravel\BackupManagerServiceProvider',
+```
+
+Then, publish and modify the configuration file to suit your needs.
+
+`php artisan config:publish heybigname/backup-manager`
+
+**IoC Resolution**
+
+`Manager` can be automatically resolved through constructor injection thanks to Laravel's IoC container.
 
 ```php
 use BigName\BackupManager\Manager;
@@ -138,6 +191,8 @@ public function __construct(Manager $manager)
 }
 ```
 
+It can also be resolved manually from the container.
+
 ```php
 $manager = App::make('BigName\BackupManager\Manager');
 ```
@@ -146,15 +201,45 @@ $manager = App::make('BigName\BackupManager\Manager');
 
 There are three commands available `manager:backup`, `manager:restore` and `manager:list`.
 
-All will prompt you with simple question to successfully execute the command.
+All will prompt you with simple questions to successfully execute the command.
 
-### Requirements
+### Contribution Guidelines
 
-- PHP 5.4
-- MySQL support requires `mysqldump` and `mysql` command-line binaries
-- PostgreSQL support requires `pg_dump` and `psql` command-line binaries
-- Gzip support requires `gzip` and `gunzip` command-line binaries
+We recommend using the vagrant configuration supplied with this package for development and contribution. Simply install VirtualBox, Vagrant, and Ansible then run `vagrant up` in the root folder. A virtualmachine specifically designed for development of the package will be built and launched for you.
+
+When contributing please consider the following guidelines:
+
+- please conform to the code style of the project, it's essentially PSR-2 with a few differences.
+    1. The NOT operator when next to parenthesis should be surrounded by a single space. `if ( ! is_null(...)) {`.
+    2. Interfaces should NOT be suffixed with `Interface`, Traits should NOT be suffixed with `Trait`.
+- All methods and classes must contain docblocks.
+- Ensure that you submit tests that have minimal 100% coverage.
+- When planning a pull-request to add new functionality, it may be wise to [submit a proposal](https://github.com/heybigname/backup-manager/issues/new) to ensure compatibility with the project's goals.
+
+### Maintainers
+
+This package is maintained by Mitchell van Wijngaarden and Shawn McCool of [Big Name](http://heybigname.com)
 
 ### License
 
-MIT
+The MIT License (MIT)
+
+Copyright (c) 2014 Big Name
+
+Permission is hereby granted, free of charge, to any person obtaining a copy
+of this software and associated documentation files (the "Software"), to deal
+in the Software without restriction, including without limitation the rights
+to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+copies of the Software, and to permit persons to whom the Software is
+furnished to do so, subject to the following conditions:
+
+The above copyright notice and this permission notice shall be included in
+all copies or substantial portions of the Software.
+
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
+THE SOFTWARE.

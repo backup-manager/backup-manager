@@ -32,7 +32,7 @@ class PostgresqlDatabaseTest extends PHPUnit_Framework_TestCase
 
     public function test_get_dump_command()
     {
-        $config = Config::fromPhpFile('tests/config/database.php');
+        $config = Config::fromPhpFile('tests/unit/config/database.php');
         $postgres = $this->getDatabase();
         $postgres->setConfig($config->get('production'));
         $this->assertEquals("pg_dump --host='foo' --port='3306' --username='bar' 'test' -f 'outputPath'", $postgres->getDumpCommandLine('outputPath'));
@@ -40,7 +40,7 @@ class PostgresqlDatabaseTest extends PHPUnit_Framework_TestCase
 
     public function test_get_restore_command()
     {
-        $config = Config::fromPhpFile('tests/config/database.php');
+        $config = Config::fromPhpFile('tests/unit/config/database.php');
         $postgres = $this->getDatabase();
         $postgres->setConfig($config->get('production'));
         $this->assertEquals("psql --host='foo' --port='3306' --user='bar' 'test' -f 'outputPath'", $postgres->getRestoreCommandLine('outputPath'));

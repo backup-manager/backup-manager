@@ -32,7 +32,7 @@ class MysqlDatabaseTest extends PHPUnit_Framework_TestCase
 
     public function test_get_dump_command()
     {
-        $config = Config::fromPhpFile('tests/config/database.php');
+        $config = Config::fromPhpFile('tests/unit/config/database.php');
         $mysql = $this->getDatabase();
         $mysql->setConfig($config->get('development'));
         $this->assertEquals("mysqldump --host='foo' --port='3306' --user='bar' --password='baz' 'test' > 'outputPath'", $mysql->getDumpCommandLine('outputPath'));
@@ -40,7 +40,7 @@ class MysqlDatabaseTest extends PHPUnit_Framework_TestCase
 
     public function test_get_restore_command()
     {
-        $config = Config::fromPhpFile('tests/config/database.php');
+        $config = Config::fromPhpFile('tests/unit/config/database.php');
         $mysql = $this->getDatabase();
         $mysql->setConfig($config->get('development'));
         $this->assertEquals("mysql --host='foo' --port='3306' --user='bar' --password='baz' 'test' -e \"source outputPath;\"", $mysql->getRestoreCommandLine('outputPath'));
