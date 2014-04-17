@@ -212,9 +212,8 @@ When contributing please consider the following guidelines:
 - please conform to the code style of the project, it's essentially PSR-2 with a few differences.
     1. The NOT operator when next to parenthesis should be surrounded by a single space. `if ( ! is_null(...)) {`.
     2. Interfaces should NOT be suffixed with `Interface`, Traits should NOT be suffixed with `Trait`.
-- A minimal code coverage of 100% must be maintained.
 - All methods and classes must contain docblocks.
-- Ensure that you submit tests that have 100% coverage.
+- Ensure that you submit tests that have minimal 100% coverage.
 - When adding new functionality, please [submit a proposal](https://github.com/heybigname/backup-manager/issues/new) to ensure compatibility with the project's goals.
 
 ### Maintainers
