@@ -153,7 +153,7 @@ $manager->makeRestore()->run('s3', 'test/backup.sql.gz', 'development', 'gzip');
 
 ### Usage
 
-Once installed, the package must be bootstrapped (initial configuration) before it can be used. If you're using Laravel then skip directly to the Laravel integration section.
+Once installed, the package must be bootstrapped (initial configuration) before it can be used. If you're using Laravel then skip directly to the [Laravel integration section](#laravel).
 
 We've provided a native PHP example [here](https://github.com/heybigname/backup-manager/tree/master/examples).
 
