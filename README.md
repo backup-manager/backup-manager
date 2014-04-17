@@ -186,7 +186,7 @@ All will prompt you with simple questions to successfully execute the command.
 
 ### Maintainers
 
-This package maintained by Mitchell van Wijngaarden and Shawn McCool of [Big Name](http://heybigname.com)
+This package is maintained by Mitchell van Wijngaarden and Shawn McCool of [Big Name](http://heybigname.com)
 
 ### License
 
