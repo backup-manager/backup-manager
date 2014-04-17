@@ -7,9 +7,9 @@
 [![SensioLabsInsight](https://insight.sensiolabs.com/projects/5e507053-58d7-4cff-b757-4202b021f9b0/mini.png)](https://insight.sensiolabs.com/projects/5e507053-58d7-4cff-b757-4202b021f9b0)
 [![Total Downloads](https://poser.pugx.org/heybigname/backup-manager/downloads.png)](https://packagist.org/packages/heybigname/backup-manager)
 
-- supports MySQL and PostgreSQL
-- backup to or restore databases from AWS S3, Dropbox, FTP, SFTP and Rackspace Cloud
-- compress with Gzip
+- supports `MySQL` and `PostgreSQL`
+- backup to or restore databases from `AWS S3`, `Dropbox`, `FTP`, `SFTP` and `Rackspace Cloud`
+- compress with `Gzip`
 - framework-agnostic
 - dead simple configuration
 - optional integrations for MVC framework [Laravel](http://laravel.com)
