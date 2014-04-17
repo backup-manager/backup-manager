@@ -176,7 +176,7 @@ To install into a Laravel project, first do the composer install then add the fo
 
 Then, publish and modify the configuration file to suit your needs.
 
-`php artisan config:publish heybigname/backup-manager`
+`php artisan config:publish heybigname/backup-manager --path=vendor/heybigname/backup-manager/config`
 
 **IoC Resolution**
 
