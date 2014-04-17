@@ -20,6 +20,7 @@
 - [Quick and Dirty](#quick-and-dirty)
 - [Requirements](#requirements)
 - [Installation](#installation)
+- [Usage](#usage)
 - [Integrations](#integrations)
     - [Laravel](#laravel)
 - [Maintainers](#maintainers)
@@ -150,6 +151,14 @@ $manager->makeRestore()->run('s3', 'test/backup.sql.gz', 'development', 'gzip');
 2. Update your composer packages.
 
 `composer update`
+
+### Usage
+
+An example usage can [be found here](https://github.com/heybigname/backup-manager/tree/master/examples).
+
+The required bootstrapping can [be found in the example here](https://github.com/heybigname/backup-manager/blob/master/examples/standalone/bootstrap.php).
+
+The bootstrapping is managed automatically if you use the framework integrations.
 
 ### Integrations
 
