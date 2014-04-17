@@ -50,7 +50,7 @@ class BackupProcedure extends Procedure
         // upload the archive
         $this->add(new Commands\Storage\TransferFile(
             // source fs and path
-            $localFilesystem, $workingFile,
+            $localFilesystem, basename($workingFile),
             // destination fs and path
             $this->filesystems->get($destination), $compressor->getCompressedPath($destinationPath)
         ));
@@ -59,7 +59,7 @@ class BackupProcedure extends Procedure
             // storage fs
             $localFilesystem,
             // path
-            $workingFile
+            basename($workingFile)
         ));
 
         $this->execute();

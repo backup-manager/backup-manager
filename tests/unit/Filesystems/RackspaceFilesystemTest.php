@@ -12,13 +12,12 @@ class RackspaceFilesystemTest extends PHPUnit_Framework_TestCase
 
     public function test_can_create()
     {
-        $rackspace = new RackspaceFilesystem();
-        $this->assertInstanceOf('BigName\BackupManager\Filesystems\RackspaceFilesystem', $rackspace);
+        $this->assertInstanceOf('BigName\BackupManager\Filesystems\RackspaceFilesystem', new RackspaceFilesystem);
     }
 
     public function test_handles_correct_types()
     {
-        $fs = new RackspaceFilesystem();
+        $fs = new RackspaceFilesystem;
 
         foreach (['rackspace', 'RACKSPACE', 'Rackspace'] as $type) {
             $this->assertTrue($fs->handles($type));
@@ -33,10 +32,11 @@ class RackspaceFilesystemTest extends PHPUnit_Framework_TestCase
     {
         $this->setExpectedException('Guzzle\Http\Exception\ClientErrorResponseException');
 
-        $rackspace = new RackspaceFilesystem();
+        $rackspace = new RackspaceFilesystem;
         $filesystem = $rackspace->get([
             'username' => 'username',
             'password' => 'password',
+            'root' => 'root',
         ]);
 
         $this->assertInstanceOf('League\Flysystem\Adapter\Rackspace', $filesystem->getAdapter());

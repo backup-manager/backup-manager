@@ -93,9 +93,10 @@ class ManagerBackupCommand extends BaseCommand
             $this->option('compression')
         );
 
-        $message = sprintf('Backup from connection "%s" has been successfully saved to "%s" on "%s"',
+        $message = sprintf('Backup from connection "%s" has been successfully saved to "%s" on "%s/%s"',
             $this->option('database'),
             $this->option('destination'),
+            $this->filesystemProvider->getConfig($this->option('destination'), 'root'),
             $this->option('destinationPath')
         );
         $this->info(PHP_EOL.$message);
@@ -163,7 +164,7 @@ class ManagerBackupCommand extends BaseCommand
     private function askDestinationPath()
     {
         $filename = sprintf('%s.sql', date('Y-m-d_H:i:s'));
-        $path = $this->ask("On which path you want to save? [{$filename}]", $filename);
+        $path = $this->ask("How do you want to name the backup? [{$filename}]", $filename);
         $this->line('');
         $this->input->setOption('destinationPath', $path);
     }
@@ -184,10 +185,11 @@ class ManagerBackupCommand extends BaseCommand
      */
     private function validateArguments()
     {
+        $root = $this->filesystemProvider->getConfig($this->option('destination'), 'root');
         $this->info("You've filled in the following answers:");
         $this->line("Database: <comment>{$this->option('database')}</comment>");
         $this->line("Destination: <comment>{$this->option('destination')}</comment>");
-        $this->line("Destination Path: <comment>{$this->option('destinationPath')}</comment>");
+        $this->line("Destination Path: <comment>{$root}/{$this->option('destinationPath')}</comment>");
         $this->line("Compression: <comment>{$this->option('compression')}</comment>");
         $this->line('');
         $confirmation = $this->confirm('Are these correct? [y/n]');
@@ -209,7 +211,6 @@ class ManagerBackupCommand extends BaseCommand
         $this->askForForgottenArguments();
     }
 
-
     /**
      * Get the console command options.
      *
@@ -224,5 +225,4 @@ class ManagerBackupCommand extends BaseCommand
             ['compression', null, InputOption::VALUE_OPTIONAL, 'Compression type', null],
 		];
 	}
-
 }

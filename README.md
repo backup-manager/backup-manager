@@ -56,12 +56,14 @@ This initial release is likely to change given feedback from users. [Please feel
     'secret' => '',
     'region' => Aws\Common\Enum\Region::US_EAST_1,
     'bucket' => '',
+    'root'   => '',
 ],
 'rackspace' => [
     'type' => 'Rackspace',
     'username' => '',
     'password' => '',
     'container' => '',
+    'root' => '',
 ],
 'dropbox' => [
     'type' => 'Dropbox',
@@ -142,7 +144,9 @@ $manager = App::make('BigName\BackupManager\Manager');
 
 **Artisan Commands**
 
-There are two commands available `manager:backup` and `manager:restore`.
+There are three commands available `manager:backup`, `manager:restore` and `manager:list`.
+
+All will prompt you with simple question to successfully execute the command.
 
 ### Requirements
 
