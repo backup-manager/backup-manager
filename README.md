@@ -110,7 +110,7 @@ This initial release is _VERY_ likely to change given feedback from users. [Plea
 
 **Backup to / restore from any configured database.**
 
-Backup the development database to Amazon S3. The S3 backup path will be test/backup.sql.gz in the end, when gzip is done with it.
+Backup the development database to `Amazon S3`. The S3 backup path will be `test/backup.sql.gz` in the end, when `gzip` is done with it.
 
 ```php
 $manager = require 'bootstrap.php';
@@ -119,14 +119,14 @@ $manager->makeBackup()->run('development', 's3', 'test/backup.sql', 'gzip');
 
 **Backup to / restore from any configured filesystem.**
 
-Restore the database file test/backup.sql.gz from Amazon S3 to the development database.
+Restore the database file `test/backup.sql.gz` from `Amazon S3` to the `development` database.
 
 ```php
 $manager = require 'bootstrap.php';
 $manager->makeRestore()->run('s3', 'test/backup.sql.gz', 'development', 'gzip');
 ```
 
-> This package does not allow you to backup from one database type and restore to another.
+> This package does not allow you to backup from one database type and restore to another. A MySQL dump is not compatible with Postgresql.
 
 ### Requirements
 
