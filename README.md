@@ -16,7 +16,9 @@
 
 ### Full Disclosure
 
-This initial release is likely to change given feedback from users. [Please feel free to submit feedback.](https://github.com/heybigname/backup-manager/issues/new)
+This isn't a `1.0` release.
+
+This initial release is _VERY_ likely to change given feedback from users. [Please feel free to submit feedback.](https://github.com/heybigname/backup-manager/issues/new)
 
 ### Quick and Dirty
 
@@ -121,13 +123,23 @@ $manager->makeRestore()->run('s3', 'test/backup.sql.gz', 'development', 'gzip');
 }
 ```
 
+`composer update`
+
 ### Integrations
 
-####Laravel
+The backup manager is easy to integrate into your favorite frameworks. We've included Laravel integration. But, feel free to add integration for
 
-**Injection**
+#### Laravel
 
-The `Manager` is included in Laravel's IoC.
+To install into a Laravel project, first do the composer install then add the following class to your config/app.php service providers list.
+
+```php
+'BigName\BackupManager\Integrations\Laravel\BackupManagerServiceProvider',
+```
+
+**IoC Resolution**
+
+`Manager` can be automatically resolved through constructor injection thanks to Laravel's IoC container.
 
 ```php
 use BigName\BackupManager\Manager;
@@ -138,6 +150,8 @@ public function __construct(Manager $manager)
 }
 ```
 
+It can also be resolved manually from the container.
+
 ```php
 $manager = App::make('BigName\BackupManager\Manager');
 ```
@@ -146,7 +160,7 @@ $manager = App::make('BigName\BackupManager\Manager');
 
 There are three commands available `manager:backup`, `manager:restore` and `manager:list`.
 
-All will prompt you with simple question to successfully execute the command.
+All will prompt you with simple questions to successfully execute the command.
 
 ### Requirements
 
