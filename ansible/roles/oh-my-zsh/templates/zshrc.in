@@ -46,7 +46,7 @@ PATH=$PATH:$HOME/.rvm/bin # Add RVM to PATH for scripting
 
 alias t="cd /vagrant && vendor/bin/phpunit --testsuite unit"
 alias tf="cd /vagrant && vendor/bin/phpunit --testsuite functional"
-alias git="echo Git is disabled in the virtual machine. Please use Git in your host OS. Attempting to ->"
+alias git="echo Git is disabled in the virtual machine. Please use Git in your host OS. Attempting to: "
 
 echo "\n"
 echo "Database Backup Manager from Big Name (http://heybigname.com)"
