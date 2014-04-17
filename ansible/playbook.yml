@@ -15,3 +15,4 @@
     - composer
     - mysql
     - postgresql
+    - vsftpd

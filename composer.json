@@ -1,7 +1,7 @@
 {
     "name": "heybigname/backup-manager",
     "version": "0.1",
-    "description": "Database backup manager for dumping to and restoring databases from S3, Dropbox, FTP, SFTP, Rackspace Cloud, and WebDav.",
+    "description": "Database backup manager for dumping to and restoring databases from S3, Dropbox, FTP, and SFTP.",
     "authors": [{
         "name": "Shawn McCool",
         "email": "shawn@heybigname.com",
