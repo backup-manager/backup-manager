@@ -142,9 +142,11 @@ $manager->makeRestore()->run('s3', 'test/backup.sql.gz', 'development', 'gzip');
 
 1. Add the package to "require" in composer.json
 
+For now, `dev-master` is fine since we're pre-1.0. 
+
 ```JSON
 "require": {
-    "heybigname/backup-manager": "1.*"
+    "heybigname/backup-manager": "dev-master"
 }
 ```
 
