@@ -1,8 +1,7 @@
 <?php namespace BigName\BackupManager\Integrations\Laravel;
 
 use Illuminate\Console\Command;
-use Symfony\Component\Console\Helper\Table;
-use Symfony\Component\Console\Question\Question;
+use InvalidArgumentException;
 
 /**
  * Class BaseCommand
@@ -15,30 +14,33 @@ class BaseCommand extends Command
      * @param array $list
      * @param null $default
      * @throws \LogicException
-     * @throws \InvalidArgumentException
+     * @throws InvalidArgumentException
      * @internal param $question
      * @return mixed
      */
     protected function autocomplete($dialog, array $list, $default = null)
     {
-        $helper = $this->getHelperSet()->get('question');
-        $question = new Question("<question>{$dialog}</question>", $default);
-        $question->setAutocompleterValues($list);
-        return $helper->ask($this->input, $this->output, $question);
+        $validation = function ($item) use ($list) {
+            if (!in_array($item, array_values($list))) {
+                throw new InvalidArgumentException("{$item} does not exist.");
+            }
+            return $item;
+        };
+        $helper = $this->getHelperSet()->get('dialog');
+        return $helper->askAndValidate($this->output, "<question>{$dialog}</question>", $validation, false, $default, $list);
     }
 
     /**
      * @param array $headers
      * @param array $rows
-     * @param string $style
+     * @internal param string $style
      * @return void
      */
-    protected function table(array $headers, array $rows, $style = 'default')
+    protected function table(array $headers, array $rows)
     {
-        $table = new Table($this->output);
+        $table = $this->getHelperSet()->get('table');
         $table->setHeaders($headers);
         $table->setRows($rows);
-        $table->setStyle($style);
-        $table->render();
+        $table->render($this->output);
     }
 }

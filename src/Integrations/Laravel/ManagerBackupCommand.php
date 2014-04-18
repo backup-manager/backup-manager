@@ -181,6 +181,8 @@ class ManagerBackupCommand extends BaseCommand
     }
 
     /**
+     * @throws \BigName\BackupManager\Config\ConfigFieldNotFound
+     * @throws \BigName\BackupManager\Config\ConfigNotFoundForConnection
      * @return void
      */
     private function validateArguments()
