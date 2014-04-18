@@ -35,7 +35,7 @@
         "dropbox/dropbox-sdk": "Enables Dropbox storage",
         "phpseclib/phpseclib": "Enables SFTP storage",
         "sabre/dav": "Enables WebDav storage",
-        "rackspace/php-opencloud": "Enables Rackspace Cloud Storage"
+        "rackspace/php-opencloud": "Enables Rackspace Cloud storage"
     },
     "autoload": {
         "psr-4": {
