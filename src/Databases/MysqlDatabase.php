@@ -1,5 +1,4 @@
 <?php namespace BigName\BackupManager\Databases;
-use BigName\BackupManager\Config\Config;
 
 /**
  * Class MysqlDatabase
