@@ -30,7 +30,7 @@
 
 This isn't a `1.0` release.
 
-This initial release is _VERY_ likely to change given feedback from users. [Please feel free to submit feedback.](https://github.com/heybigname/backup-manager/issues/new)
+This initial release is _VERY_ likely to have bugs and is also very like to change given feedback from users. [Please feel free to submit feedback.](https://github.com/heybigname/backup-manager/issues/new)
 
 ### Quick and Dirty
 
