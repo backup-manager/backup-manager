@@ -74,4 +74,4 @@ class Manager
     {
         return new ShellProcessor(new Process(''));
     }
-} 
+}

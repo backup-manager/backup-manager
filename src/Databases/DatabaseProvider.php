@@ -58,4 +58,4 @@ class DatabaseProvider
     {
         return array_keys($this->config->getItems());
     }
-} 
+}

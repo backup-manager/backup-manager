@@ -1,4 +1,4 @@
-<?php namespace BigName\BackupManager\Filesystems; 
+<?php namespace BigName\BackupManager\Filesystems;
 
 use League\Flysystem\Adapter\Ftp;
 use League\Flysystem\Filesystem as Flysystem;

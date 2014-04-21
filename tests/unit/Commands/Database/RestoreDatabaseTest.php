@@ -25,7 +25,7 @@ class RestoreDatabaseTest extends PHPUnit_Framework_TestCase
 
         $shell = m::mock('BigName\BackupManager\ShellProcessing\ShellProcessor');
         $shell->shouldReceive('process')->with('foo')->once();
-        
+
         $dumpDatabase = new RestoreDatabase($database, 'foo', $shell);
         $dumpDatabase->execute();
     }
