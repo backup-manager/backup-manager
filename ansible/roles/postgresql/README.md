@@ -8,7 +8,7 @@ _This role under active development_.
 **Attention**: default auth method: `trust` (managed via config)
 
 #### Supported PostgreSQL versions:
-  
+
   - PostgreSQL 9.1 (experimental * )
   - PostgreSQL 9.2
   - PostgreSQL 9.3 (experimental * )

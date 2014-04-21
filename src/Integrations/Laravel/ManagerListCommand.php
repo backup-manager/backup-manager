@@ -182,4 +182,4 @@ class ManagerListCommand extends BaseCommand
         $pow = min($pow, count($units) - 1);
         return round($bytes, $precision) . ' ' . $units[$pow];
     }
-} 
+}

@@ -1,4 +1,4 @@
-<?php namespace BigName\BackupManager\Integrations\Laravel; 
+<?php namespace BigName\BackupManager\Integrations\Laravel;
 
 use Symfony\Component\Console\Input\InputOption;
 use BigName\BackupManager\Databases\DatabaseProvider;
