@@ -207,7 +207,7 @@ class ManagerRestoreCommand extends BaseCommand
         $dump = basename($this->option('sourcePath'));
         $this->info("You've filled in the following answers:");
         $this->line("Source: <comment>{$this->option('source')}</comment>");
-        $this->line("Databse Dump: <comment>{$dump}</comment>");
+        $this->line("Database Dump: <comment>{$dump}</comment>");
         $this->line("Compression: <comment>{$this->option('compression')}</comment>");
         $this->line("Source: <comment>{$this->option('source')}</comment>");
         $this->line('');
