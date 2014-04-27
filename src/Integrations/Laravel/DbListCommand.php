@@ -32,17 +32,16 @@ class DbListCommand extends BaseCommand
     private $required = ['source', 'path'];
 
     /**
-     * The forgotten arguments.
+     * The missing arguments.
      *
      * @var array
      */
-    private $forgotten;
+    private $missingArguments;
 
     public function __construct(FilesystemProvider $filesystems)
     {
-        $this->filesystems = $filesystems;
-
         parent::__construct();
+        $this->filesystems = $filesystems;
     }
 
     /**
@@ -57,9 +56,9 @@ class DbListCommand extends BaseCommand
     public function fire()
     {
         $this->info('Starting list process...'.PHP_EOL);
-        if ($this->hasForgotten()) {
-            $this->listForgotten();
-            $this->askRemainingArguments();
+        if ($this->isMissingArguments()) {
+            $this->displayMissingArguments();
+            $this->promptForMissingArgumentValues();
         }
         $this->validateArguments();
 
@@ -81,38 +80,40 @@ class DbListCommand extends BaseCommand
     /**
      * @return bool
      */
-    private function hasForgotten()
+    private function isMissingArguments()
     {
         foreach ($this->required as $argument) {
             if ( ! $this->option($argument)) {
-                $this->forgotten[] = $argument;
+                $this->missingArguments[] = $argument;
             }
         }
-        return isset($this->forgotten);
+        return isset($this->missingArguments);
     }
 
     /**
      * @return void
      */
-    private function listForgotten()
+    private function displayMissingArguments()
     {
         $this->info("These arguments haven't been filled yet:");
-        $this->line(implode(', ', $this->forgotten));
+        $this->line(implode(', ', $this->missingArguments));
         $this->info('The following questions will fill these in for you.'.PHP_EOL);
     }
 
     /**
      * @return void
      */
-    private function askRemainingArguments()
+    private function promptForMissingArgumentValues()
     {
-        foreach ($this->forgotten as $argument) {
-            $method = 'ask'.ucfirst($argument);
-            $this->{$method}();
+        foreach ($this->missingArguments as $argument) {
+            if ($argument == 'source') {
+                $this->askSource();
+            } else if ($argument = 'path') {
+                $this->askPath();
+            }
         }
     }
 
-    /** @noinspection PhpUnusedPrivateMethodInspection */
     private function askSource()
     {
         $this->info('Available sources:');
@@ -124,7 +125,6 @@ class DbListCommand extends BaseCommand
         $this->input->setOption('source', $source);
     }
 
-    /** @noinspection PhpUnusedPrivateMethodInspection */
     private function askPath()
     {
         $path = $this->ask('From which path? [/]', '/');

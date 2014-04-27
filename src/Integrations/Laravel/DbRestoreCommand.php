@@ -154,14 +154,17 @@ class DbRestoreCommand extends BaseCommand
         $contents = $filesystem->listContents($path);
 
         $files = [];
+
         foreach ($contents as $file) {
             if ($file['type'] == 'dir') continue;
             $files[] = $file['basename'];
         }
+
         if (empty($files)) {
             $this->info('No backups were found at this path.');
-            exit;
+            return;
         }
+
         $rows = [];
         foreach ($contents as $file) {
             if ($file['type'] == 'dir') continue;
