@@ -5,21 +5,21 @@ use BigName\BackupManager\Databases\DatabaseProvider;
 use BigName\BackupManager\Procedures\RestoreProcedure;
 use BigName\BackupManager\Filesystems\FilesystemProvider;
 
-class ManagerRestoreCommand extends BaseCommand
+class DbRestoreCommand extends BaseCommand
 {
     /**
      * The console command name.
      *
      * @var string
      */
-    protected $name = 'manager:restore';
+    protected $name = 'db:restore';
 
     /**
      * The console command description.
      *
      * @var string
      */
-    protected $description = 'Restore a database dump from a service';
+    protected $description = 'Restore a database backup.';
 
     /**
      * The required arguments.

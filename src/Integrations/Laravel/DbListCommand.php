@@ -3,21 +3,21 @@
 use Symfony\Component\Console\Input\InputOption;
 use BigName\BackupManager\Filesystems\FilesystemProvider;
 
-class ManagerListCommand extends BaseCommand
+class DbListCommand extends BaseCommand
 {
     /**
      * The console command name.
      *
      * @var string
      */
-    protected $name = 'manager:list';
+    protected $name = 'db:list';
 
     /**
      * The console command description.
      *
      * @var string
      */
-    protected $description = 'List directory from a path';
+    protected $description = 'List contents of a backup storage destination.';
 
     /**
      * @var \BigName\BackupManager\Filesystems\FilesystemProvider

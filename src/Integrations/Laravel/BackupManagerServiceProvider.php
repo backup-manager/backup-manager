@@ -110,26 +110,10 @@ class BackupManagerServiceProvider extends ServiceProvider
     private function registerArtisanCommands()
     {
         $this->commands([
-            'BigName\BackupManager\Integrations\Laravel\ManagerBackupCommand',
-            'BigName\BackupManager\Integrations\Laravel\ManagerRestoreCommand',
-            'BigName\BackupManager\Integrations\Laravel\ManagerListCommand',
+            'BigName\BackupManager\Integrations\Laravel\DbBackupCommand',
+            'BigName\BackupManager\Integrations\Laravel\DbRestoreCommand',
+            'BigName\BackupManager\Integrations\Laravel\DbListCommand',
         ]);
-    }
-
-    /**
-     * Get a config file
-     *
-     * @param $name
-     * @throws \BigName\BackupManager\Config\ConfigFileNotFound
-     * @return string
-     */
-    private function getConfig($name)
-    {
-        $path = app_path("config/packages/heybigname/backup-manager/config/$name.php");
-        if ( ! file_exists($path)) {
-            throw new ConfigFileNotFound("The configuration file {$path} could not be found.");
-        }
-        return require $path;
     }
 
     /**

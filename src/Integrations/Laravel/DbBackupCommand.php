@@ -9,14 +9,14 @@ use BigName\BackupManager\Filesystems\FilesystemProvider;
  * Class ManagerBackupCommand
  * @package BigName\BackupManager\Integrations\Laravel
  */
-class ManagerBackupCommand extends BaseCommand
+class DbBackupCommand extends BaseCommand
 {
     /**
      * The console command name.
      *
      * @var string
      */
-    protected $name = 'manager:backup';
+    protected $name = 'db:backup';
 
     /**
      * The console command description.
