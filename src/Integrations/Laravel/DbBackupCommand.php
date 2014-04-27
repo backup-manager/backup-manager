@@ -33,11 +33,11 @@ class DbBackupCommand extends BaseCommand
     private $required = ['database', 'destination', 'destinationPath', 'compression'];
 
     /**
-     * The forgotten arguments.
+     * The missing arguments.
      *
      * @var array
      */
-    private $forgotten;
+    private $missingArguments;
 
     /**
      * @var \BigName\BackupManager\Procedures\BackupProcedure
@@ -80,9 +80,9 @@ class DbBackupCommand extends BaseCommand
 	public function fire()
 	{
         $this->info('Starting backup process...'.PHP_EOL);
-        if ($this->hasForgotten()) {
-            $this->listForgotten();
-            $this->askRemainingArguments();
+        if ($this->isMissingArguments()) {
+            $this->displayMissingArguments();
+            $this->promptForMissingArgumentValues();
         }
         $this->validateArguments();
 
@@ -105,38 +105,44 @@ class DbBackupCommand extends BaseCommand
     /**
      * @return bool
      */
-    private function hasForgotten()
+    private function isMissingArguments()
     {
         foreach ($this->required as $argument) {
             if ( ! $this->option($argument)) {
-                $this->forgotten[] = $argument;
+                $this->missingArguments[] = $argument;
             }
         }
-        return isset($this->forgotten);
+        return isset($this->missingArguments);
     }
 
     /**
      * @return void
      */
-    private function listForgotten()
+    private function displayMissingArguments()
     {
         $this->info("These arguments haven't been filled yet:");
-        $this->line(implode(', ', $this->forgotten));
+        $this->line(implode(', ', $this->missingArguments));
         $this->info('The following questions will fill these in for you.'.PHP_EOL);
     }
 
     /**
      * @return void
      */
-    private function askRemainingArguments()
+    private function promptForMissingArgumentValues()
     {
-        foreach ($this->forgotten as $argument) {
-            $method = 'ask'.ucfirst($argument);
-            $this->{$method}();
+        foreach ($this->missingArguments as $argument) {
+            if ($argument == 'database') {
+                $this->askDatabase();
+            } else if ($argument == 'destination') {
+                $this->askDestination();
+            } else if ($argument == 'destinationPath') {
+                $this->askDestinationPath();
+            } else if ($argument == 'compression') {
+                $this->askCompression();
+            }
         }
     }
 
-    /** @noinspection PhpUnusedPrivateMethodInspection */
     private function askDatabase()
     {
         $this->info('Available database connections:');
@@ -148,7 +154,6 @@ class DbBackupCommand extends BaseCommand
         $this->input->setOption('database', $database);
     }
 
-    /** @noinspection PhpUnusedPrivateMethodInspection */
     private function askDestination()
     {
         $this->info('Available storage services:');
@@ -160,7 +165,6 @@ class DbBackupCommand extends BaseCommand
         $this->input->setOption('destination', $destination);
     }
 
-    /** @noinspection PhpUnusedPrivateMethodInspection */
     private function askDestinationPath()
     {
         $filename = sprintf('%s.sql', date('Y-m-d_H:i:s'));
@@ -169,7 +173,6 @@ class DbBackupCommand extends BaseCommand
         $this->input->setOption('destinationPath', $path);
     }
 
-    /** @noinspection PhpUnusedPrivateMethodInspection */
     private function askCompression()
     {
         $this->info('Available compression types:');

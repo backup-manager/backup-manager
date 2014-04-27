@@ -29,11 +29,11 @@ class DbRestoreCommand extends BaseCommand
     private $required = ['source', 'sourcePath', 'database', 'compression'];
 
     /**
-     * The forgotten arguments.
+     * The missing arguments.
      *
      * @var array
      */
-    private $forgotten;
+    private $missingArguments;
 
     /**
      * @var \BigName\BackupManager\Procedures\RestoreProcedure
@@ -57,11 +57,10 @@ class DbRestoreCommand extends BaseCommand
      */
     public function __construct(RestoreProcedure $restore, FilesystemProvider $filesystems, DatabaseProvider $databases)
     {
+        parent::__construct();
         $this->restore = $restore;
         $this->filesystems = $filesystems;
         $this->databases = $databases;
-
-        parent::__construct();
     }
 
     /**
@@ -70,9 +69,9 @@ class DbRestoreCommand extends BaseCommand
     public function fire()
     {
         $this->info('Starting backup process...'.PHP_EOL);
-        if ($this->hasForgotten()) {
-            $this->listForgotten();
-            $this->askRemainingArguments();
+        if ($this->isMissingArguments()) {
+            $this->displayMissingArguments();
+            $this->promptForMissingArgumentValues();
         }
         $this->validateArguments();
 
@@ -94,23 +93,23 @@ class DbRestoreCommand extends BaseCommand
     /**
      * @return bool
      */
-    private function hasForgotten()
+    private function isMissingArguments()
     {
         foreach ($this->required as $argument) {
             if ( ! $this->option($argument)) {
-                $this->forgotten[] = $argument;
+                $this->missingArguments[] = $argument;
             }
         }
-        return isset($this->forgotten);
+        return (bool) $this->missingArguments;
     }
 
     /**
      * @return void
      */
-    private function listForgotten()
+    private function displayMissingArguments()
     {
         $this->info("These arguments haven't been filled yet:");
-        $this->line(implode(', ', $this->forgotten));
+        $this->line(implode(', ', $this->missingArguments));
         $this->info('The following questions will fill these in for you.');
         $this->line('');
     }
@@ -118,15 +117,21 @@ class DbRestoreCommand extends BaseCommand
     /**
      * @return void
      */
-    private function askRemainingArguments()
+    private function promptForMissingArgumentValues()
     {
-        foreach ($this->forgotten as $argument) {
-            $method = 'ask'.ucfirst($argument);
-            $this->{$method}();
+        foreach ($this->missingArguments as $argument) {
+            if ($argument == 'source') {
+                $this->askSource();
+            } else if ($argument = 'sourcePath') {
+                $this->askSourcePath();
+            } else if ($argument = 'database') {
+                $this->askDatabase();
+            } else if ($argument = 'compression') {
+                $this->askCompression();
+            }
         }
     }
 
-    /** @noinspection PhpUnusedPrivateMethodInspection */
     private function askSource()
     {
         $this->info('Available storage services:');
@@ -138,7 +143,6 @@ class DbRestoreCommand extends BaseCommand
         $this->input->setOption('source', $source);
     }
 
-    /** @noinspection PhpUnusedPrivateMethodInspection */
     private function askSourcePath()
     {
         // ask path
@@ -176,7 +180,6 @@ class DbRestoreCommand extends BaseCommand
         $this->input->setOption('sourcePath', "{$path}/{$filename}");
     }
 
-    /** @noinspection PhpUnusedPrivateMethodInspection */
     private function askDatabase()
     {
         $this->info('Available database connections:');
@@ -188,7 +191,6 @@ class DbRestoreCommand extends BaseCommand
         $this->input->setOption('database', $database);
     }
 
-    /** @noinspection PhpUnusedPrivateMethodInspection */
     private function askCompression()
     {
         $this->info('Available compression types:');

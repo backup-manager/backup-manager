@@ -6,7 +6,6 @@ use BigName\BackupManager\Compressors;
 use Symfony\Component\Process\Process;
 use Illuminate\Support\ServiceProvider;
 use BigName\BackupManager\Config\Config;
-use BigName\BackupManager\Config\ConfigFileNotFound;
 use BigName\BackupManager\ShellProcessing\ShellProcessor;
 
 /**
