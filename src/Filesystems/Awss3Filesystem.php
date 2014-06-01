@@ -29,6 +29,7 @@ class Awss3Filesystem implements Filesystem
             'key' => $config['key'],
             'secret' => $config['secret'],
             'region' => $config['region'],
+			'base_url' => $config['base_url'],
         ]);
 
         return new Flysystem(new AwsS3($client, $config['bucket'], $config['root']));
