@@ -132,6 +132,10 @@ class BackupManagerServiceProvider extends ServiceProvider
     private function getDatabaseConfig($connections)
     {
         $mapped = array_map(function($connection) {
+            if ( ! in_array($connection['driver'], ['mysql', 'pgsql'])) {
+                return;
+            }
+
             if (isset($connection['port'])) {
                 $port = $connection['port'];
             } else {
@@ -141,6 +145,7 @@ class BackupManagerServiceProvider extends ServiceProvider
                     $port = '5432';
                 }
             }
+
             return [
                 'type' => $connection['driver'],
                 'host' => $connection['host'],
