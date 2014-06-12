@@ -92,14 +92,14 @@ class DbBackupCommand extends BaseCommand
             $this->option('compression')
         );
 
-        $message = sprintf('Backup from connection "%s" has been successfully saved to "%s" on "%s%s"',
-            $this->option('database'),
-            $this->option('destination'),
-            $this->filesystemProvider->getConfig($this->option('destination'), 'root'),
-            $this->option('destinationPath')
-        );
         $this->line('');
-        $this->info($message);
+        $root = $this->filesystems->getConfig($this->option('destination'), 'root');
+        $this->info(sprintf('Successfully dumped <comment>%s</comment>, compressed with <comment>%s</comment> and store it to <comment>%s</comment> at <comment>%s</comment>',
+            $this->option('database'),
+            $this->option('compression'),
+            $this->option('destination'),
+            $root.$this->option('destinationPath')
+        ));
 	}
 
     /**
@@ -165,7 +165,7 @@ class DbBackupCommand extends BaseCommand
 
     private function askDestinationPath()
     {
-        $root = $this->filesystems->getConfig($this->option('source'), 'root');
+        $root = $this->filesystems->getConfig($this->option('destination'), 'root');
         $path = $this->ask("How do you want to name the backup?<comment> {$root}</comment>");
         $this->input->setOption('destinationPath', $path);
     }

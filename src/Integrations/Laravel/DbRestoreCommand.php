@@ -81,14 +81,13 @@ class DbRestoreCommand extends BaseCommand
             $this->option('compression')
         );
 
+        $this->line('');
         $root = $this->filesystems->getConfig($this->option('source'), 'root');
-        $message = sprintf('Backup "%s" from service "%s" has been successfully restored to "%s".',
+        $this->info(sprintf('Successfully restored <comment>%s</comment> from <comment>%s</comment> to database <comment>%s</comment>.',
             $root.$this->option('sourcePath'),
             $this->option('source'),
             $this->option('database')
-        );
-        $this->line('');
-        $this->info($message);
+        ));
     }
 
     /**
