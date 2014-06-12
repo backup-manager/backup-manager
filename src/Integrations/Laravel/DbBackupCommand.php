@@ -187,11 +187,13 @@ class DbBackupCommand extends BaseCommand
     private function validateArguments()
     {
         $root = $this->filesystems->getConfig($this->option('destination'), 'root');
-        $this->info("You've filled in the following answers:");
-        $this->line("Database: <comment>{$this->option('database')}</comment>");
-        $this->line("Destination: <comment>{$this->option('destination')}</comment>");
-        $this->line("Destination Path: <comment>{$root}{$this->option('destinationPath')}</comment>");
-        $this->line("Compression: <comment>{$this->option('compression')}</comment>");
+        $this->info('Just to be sure...');
+        $this->info(sprintf('Do you want to create a backup of <comment>%s</comment>, store it on <comment>%s</comment> at <comment>%s</comment> and compress it to <comment>%s</comment>?',
+            $this->option('database'),
+            $this->option('destination'),
+            $root.$this->option('destinationPath'),
+            $this->option('compression')
+        ));
         $this->line('');
         $confirmation = $this->confirm('Are these correct? [Y/n]');
         if ( ! $confirmation) {

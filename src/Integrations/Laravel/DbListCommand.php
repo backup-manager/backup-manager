@@ -138,9 +138,11 @@ class DbListCommand extends BaseCommand
     private function validateArguments()
     {
         $root = $this->filesystems->getConfig($this->option('source'), 'root');
-        $this->info("You've filled in the following answers:");
-        $this->line("Source: <comment>{$this->option('source')}</comment>");
-        $this->line("Path: <comment>{$root}{$this->option('path')}</comment>");
+        $this->info('Just to be sure...');
+        $this->info(sprintf('Do you want to list files from <comment>%s</comment> on <comment>%s</comment>',
+            $this->option('path'),
+            $this->option('source')
+        ));
         $this->line('');
         $confirmation = $this->confirm('Are these correct? [Y/n]');
         if ( ! $confirmation) {

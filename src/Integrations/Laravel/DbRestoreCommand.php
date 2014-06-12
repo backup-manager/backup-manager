@@ -206,11 +206,13 @@ class DbRestoreCommand extends BaseCommand
     private function validateArguments()
     {
         $root = $this->filesystems->getConfig($this->option('source'), 'root');
-        $this->info("You've filled in the following answers:");
-        $this->line("Source: <comment>{$this->option('source')}</comment>");
-        $this->line("Backup: <comment>{$root}{$this->option('sourcePath')}</comment>");
-        $this->line("Database: <comment>{$this->option('database')}</comment>");
-        $this->line("Compression: <comment>{$this->option('compression')}</comment>");
+        $this->info('Just to be sure...');
+        $this->info(sprintf('Do you want to restore the backup <comment>%s</comment> from <comment>%s</comment> to database <comment>%s</comment> and decompress it from <comment>%s</comment>?',
+            $root.$this->option('sourcePath'),
+            $this->option('source'),
+            $this->option('database'),
+            $this->option('compression'),
+        ));
         $this->line('');
         $confirmation = $this->confirm('Are these correct? [Y/n]');
         if ( ! $confirmation) {
