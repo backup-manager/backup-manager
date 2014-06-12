@@ -67,7 +67,7 @@ class BackupManagerServiceProvider extends ServiceProvider
     private function registerDatabaseProvider()
     {
         $this->app->bind('BigName\BackupManager\Databases\DatabaseProvider', function($app) {
-            $provider = new Databases\DatabaseProvider(new Config($app['config']['backup-manager::database']));
+            $provider = new Databases\DatabaseProvider($this->getDatabaseConfig($app['config']['database.connections']));
             $provider->add(new Databases\MysqlDatabase);
             $provider->add(new Databases\PostgresqlDatabase);
             return $provider;
@@ -127,5 +127,29 @@ class BackupManagerServiceProvider extends ServiceProvider
             'BigName\BackupManager\Databases\DatabaseProvider',
             'BigName\BackupManager\ShellProcessing\ShellProcessor',
         ];
+    }
+
+    private function getDatabaseConfig($connections)
+    {
+        $mapped = array_map(function($connection) {
+            if (isset($connection['port'])) {
+                $port = $connection['port'];
+            } else {
+                if ($connection['driver'] == 'mysql') {
+                    $port = '3306';
+                } elseif ($connection['driver'] == 'pgsql') {
+                    $port = '5432';
+                }
+            }
+            return [
+                'type' => $connection['driver'],
+                'host' => $connection['host'],
+                'port' => $port,
+                'user' => $connection['username'],
+                'pass' => $connection['password'],
+                'database' => $connection['database'],
+            ];
+        }, $connections);
+        return new Config($mapped);
     }
 }

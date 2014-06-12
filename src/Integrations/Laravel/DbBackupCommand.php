@@ -79,7 +79,6 @@ class DbBackupCommand extends BaseCommand
      */
 	public function fire()
 	{
-        $this->info('Starting backup process...'.PHP_EOL);
         if ($this->isMissingArguments()) {
             $this->displayMissingArguments();
             $this->promptForMissingArgumentValues();
@@ -93,13 +92,14 @@ class DbBackupCommand extends BaseCommand
             $this->option('compression')
         );
 
-        $message = sprintf('Backup from connection "%s" has been successfully saved to "%s" on "%s/%s"',
+        $message = sprintf('Backup from connection "%s" has been successfully saved to "%s" on "%s%s"',
             $this->option('database'),
             $this->option('destination'),
             $this->filesystemProvider->getConfig($this->option('destination'), 'root'),
             $this->option('destinationPath')
         );
-        $this->info(PHP_EOL.$message);
+        $this->line('');
+        $this->info($message);
 	}
 
     /**
@@ -120,9 +120,10 @@ class DbBackupCommand extends BaseCommand
      */
     private function displayMissingArguments()
     {
-        $this->info("These arguments haven't been filled yet:");
-        $this->line(implode(', ', $this->missingArguments));
-        $this->info('The following questions will fill these in for you.'.PHP_EOL);
+        $formatted = implode(', ', $this->missingArguments);
+        $this->info("These arguments haven't been filled yet: <comment>{$formatted}</comment>");
+        $this->info('The following questions will fill these in for you.');
+        $this->line('');
     }
 
     /**
@@ -133,53 +134,48 @@ class DbBackupCommand extends BaseCommand
         foreach ($this->missingArguments as $argument) {
             if ($argument == 'database') {
                 $this->askDatabase();
-            } else if ($argument == 'destination') {
+            } elseif ($argument == 'destination') {
                 $this->askDestination();
-            } else if ($argument == 'destinationPath') {
+            } elseif ($argument == 'destinationPath') {
                 $this->askDestinationPath();
-            } else if ($argument == 'compression') {
+            } elseif ($argument == 'compression') {
                 $this->askCompression();
             }
+            $this->line('');
         }
     }
 
     private function askDatabase()
     {
-        $this->info('Available database connections:');
         $providers = $this->databaseProvider->getAvailableProviders();
-        $this->line(implode(', ', $providers));
-        $default = current($providers);
-        $database = $this->autocomplete("From which database connection you want to dump? [{$default}]", $providers, $default);
-        $this->line('');
+        $formatted = implode(', ', $providers);
+        $this->info("Available database connections: <comment>{$formatted}</comment>");
+        $database = $this->autocomplete("From which database connection you want to dump?", $providers);
         $this->input->setOption('database', $database);
     }
 
     private function askDestination()
     {
-        $this->info('Available storage services:');
         $providers = $this->filesystemProvider->getAvailableProviders();
-        $this->line(implode(', ', $providers));
-        $default = current($providers);
-        $destination = $this->autocomplete("To which storage service you want to save? [{$default}]", $providers, $default);
-        $this->line('');
+        $formatted = implode(', ', $providers);
+        $this->info("Available storage services: <comment>{$formatted}</comment>");
+        $destination = $this->autocomplete("To which storage service you want to save?", $providers);
         $this->input->setOption('destination', $destination);
     }
 
     private function askDestinationPath()
     {
-        $filename = sprintf('%s.sql', date('Y-m-d_H:i:s'));
-        $path = $this->ask("How do you want to name the backup? [{$filename}]", $filename);
-        $this->line('');
+        $root = $this->filesystems->getConfig($this->option('source'), 'root');
+        $path = $this->ask("How do you want to name the backup?<comment> {$root}</comment>");
         $this->input->setOption('destinationPath', $path);
     }
 
     private function askCompression()
     {
-        $this->info('Available compression types:');
         $types = ['null', 'gzip'];
-        $this->line(implode(', ', $types));
-        $compression = $this->autocomplete('Which compression type you want to use? [null]', $types, 'null');
-        $this->line('');
+        $formatted = implode(', ', $types);
+        $this->info("Available compression types: <comment>{$formatted}</comment>");
+        $compression = $this->autocomplete('Which compression type you want to use?', $types);
         $this->input->setOption('compression', $compression);
     }
 
@@ -197,9 +193,9 @@ class DbBackupCommand extends BaseCommand
         $this->line("Destination Path: <comment>{$root}/{$this->option('destinationPath')}</comment>");
         $this->line("Compression: <comment>{$this->option('compression')}</comment>");
         $this->line('');
-        $confirmation = $this->confirm('Are these correct? [y/n]');
+        $confirmation = $this->confirm('Are these correct? [Y/n]');
         if ( ! $confirmation) {
-            $this->reaskArguments();
+            $this->promptForMissingArgumentValues();
         }
     }
 
