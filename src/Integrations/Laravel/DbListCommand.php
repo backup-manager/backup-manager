@@ -142,7 +142,7 @@ class DbListCommand extends BaseCommand
         $this->line("Source: <comment>{$this->option('source')}</comment>");
         $this->line("Path: <comment>{$root}{$this->option('path')}</comment>");
         $this->line('');
-        $confirmation = $this->confirm('Are these correct? [y/n]');
+        $confirmation = $this->confirm('Are these correct? [Y/n]');
         if ( ! $confirmation) {
             $this->reaskArguments();
         }

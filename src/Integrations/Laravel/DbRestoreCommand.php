@@ -197,7 +197,6 @@ class DbRestoreCommand extends BaseCommand
         $formatted = implode(', ', $types);
         $this->info("Available compression types: <comment>{$formatted}</comment>");
         $compression = $this->autocomplete('Which compression type you want to use?', $types);
-        $this->line('');
         $this->input->setOption('compression', $compression);
     }
 
@@ -213,7 +212,7 @@ class DbRestoreCommand extends BaseCommand
         $this->line("Database: <comment>{$this->option('database')}</comment>");
         $this->line("Compression: <comment>{$this->option('compression')}</comment>");
         $this->line('');
-        $confirmation = $this->confirm('Are these correct? [y/n]');
+        $confirmation = $this->confirm('Are these correct? [Y/n]');
         if ( ! $confirmation) {
             $this->reaskArguments();
         }
