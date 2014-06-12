@@ -178,6 +178,8 @@ Then, publish and modify the configuration file to suit your needs.
 
 `php artisan config:publish heybigname/backup-manager --path=vendor/heybigname/backup-manager/config`
 
+The Backup Manager will make use of Laravel's database configuration.
+
 **IoC Resolution**
 
 `Manager` can be automatically resolved through constructor injection thanks to Laravel's IoC container.
