@@ -47,23 +47,23 @@ class DbBackupCommand extends BaseCommand
     /**
      * @var \BigName\BackupManager\Databases\DatabaseProvider
      */
-    private $databaseProvider;
+    private $databases;
 
     /**
      * @var \BigName\BackupManager\Filesystems\FilesystemProvider
      */
-    private $filesystemProvider;
+    private $filesystems;
 
     /**
      * @param BackupProcedure $backupProcedure
      * @param DatabaseProvider $databaseProvider
      * @param FilesystemProvider $filesystemProvider
      */
-    public function __construct(BackupProcedure $backupProcedure, DatabaseProvider $databaseProvider, FilesystemProvider $filesystemProvider)
+    public function __construct(BackupProcedure $backupProcedure, DatabaseProvider $databases, FilesystemProvider $filesystems)
     {
         $this->backupProcedure = $backupProcedure;
-        $this->databaseProvider = $databaseProvider;
-        $this->filesystemProvider = $filesystemProvider;
+        $this->databases = $databases;
+        $this->filesystems = $filesystems;
 
         parent::__construct();
     }
@@ -82,8 +82,8 @@ class DbBackupCommand extends BaseCommand
         if ($this->isMissingArguments()) {
             $this->displayMissingArguments();
             $this->promptForMissingArgumentValues();
+            $this->validateArguments();
         }
-        $this->validateArguments();
 
         $this->backupProcedure->run(
             $this->option('database'),
@@ -147,7 +147,7 @@ class DbBackupCommand extends BaseCommand
 
     private function askDatabase()
     {
-        $providers = $this->databaseProvider->getAvailableProviders();
+        $providers = $this->databases->getAvailableProviders();
         $formatted = implode(', ', $providers);
         $this->info("Available database connections: <comment>{$formatted}</comment>");
         $database = $this->autocomplete("From which database connection you want to dump?", $providers);
@@ -156,7 +156,7 @@ class DbBackupCommand extends BaseCommand
 
     private function askDestination()
     {
-        $providers = $this->filesystemProvider->getAvailableProviders();
+        $providers = $this->filesystems->getAvailableProviders();
         $formatted = implode(', ', $providers);
         $this->info("Available storage services: <comment>{$formatted}</comment>");
         $destination = $this->autocomplete("To which storage service you want to save?", $providers);
@@ -186,16 +186,16 @@ class DbBackupCommand extends BaseCommand
      */
     private function validateArguments()
     {
-        $root = $this->filesystemProvider->getConfig($this->option('destination'), 'root');
+        $root = $this->filesystems->getConfig($this->option('destination'), 'root');
         $this->info("You've filled in the following answers:");
         $this->line("Database: <comment>{$this->option('database')}</comment>");
         $this->line("Destination: <comment>{$this->option('destination')}</comment>");
-        $this->line("Destination Path: <comment>{$root}/{$this->option('destinationPath')}</comment>");
+        $this->line("Destination Path: <comment>{$root}{$this->option('destinationPath')}</comment>");
         $this->line("Compression: <comment>{$this->option('compression')}</comment>");
         $this->line('');
         $confirmation = $this->confirm('Are these correct? [Y/n]');
         if ( ! $confirmation) {
-            $this->promptForMissingArgumentValues();
+            $this->reaskArguments();
         }
     }
 
@@ -209,7 +209,7 @@ class DbBackupCommand extends BaseCommand
         $this->line('');
         $this->info('Answers have been reset and re-asking questions.');
         $this->line('');
-        $this->askForForgottenArguments();
+        $this->promptForMissingArgumentValues();
     }
 
     /**
