@@ -74,6 +74,7 @@ class DbRestoreCommand extends BaseCommand
             $this->validateArguments();
         }
 
+        $this->info('Downloading and importing backup...');
         $this->restore->run(
             $this->option('source'),
             $this->option('sourcePath'),

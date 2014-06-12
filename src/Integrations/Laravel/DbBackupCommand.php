@@ -85,6 +85,7 @@ class DbBackupCommand extends BaseCommand
             $this->validateArguments();
         }
 
+        $this->info('Dumping database and uploading...');
         $this->backupProcedure->run(
             $this->option('database'),
             $this->option('destination'),
