@@ -63,7 +63,7 @@ class DbListCommand extends BaseCommand
         }
 
         $filesystem = $this->filesystems->get($this->option('source'));
-        $contents = $filesystem->listContents("{$this->option('path')}");
+        $contents = $filesystem->listContents($this->option('path'));
         $rows = [];
         foreach ($contents as $file) {
             if ($file['type'] == 'dir') continue;
