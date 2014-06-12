@@ -36,7 +36,7 @@ class DbListCommand extends BaseCommand
      *
      * @var array
      */
-    private $missing;
+    private $missingArguments;
 
 
     public function __construct(FilesystemProvider $filesystems)
@@ -84,10 +84,10 @@ class DbListCommand extends BaseCommand
     {
         foreach ($this->required as $argument) {
             if ( ! $this->option($argument)) {
-                $this->missing[] = $argument;
+                $this->missingArguments[] = $argument;
             }
         }
-        return isset($this->missing);
+        return isset($this->missingArguments);
     }
 
     /**
@@ -95,7 +95,7 @@ class DbListCommand extends BaseCommand
      */
     private function displayMissingArguments()
     {
-        $formatted = implode(', ', $this->missing);
+        $formatted = implode(', ', $this->missingArguments);
         $this->info("These arguments haven't been filled yet: <comment>{$formatted}</comment>.");
         $this->info('The following questions will fill these in for you.');
         $this->line('');
@@ -138,12 +138,12 @@ class DbListCommand extends BaseCommand
      */
     private function validateArguments()
     {
+        $root = $this->filesystems->getConfig($this->option('source'), 'root');
         $this->info("You've filled in the following answers:");
         $this->line("Source: <comment>{$this->option('source')}</comment>");
         $this->line("Path: <comment>{$root}/{$this->option('path')}</comment>");
         $this->line('');
         $confirmation = $this->confirm('Are these correct? [y/n]');
-        $this->line('');
         if ( ! $confirmation) {
             $this->reaskArguments();
         }
