@@ -211,7 +211,7 @@ class DbRestoreCommand extends BaseCommand
             $root.$this->option('sourcePath'),
             $this->option('source'),
             $this->option('database'),
-            $this->option('compression'),
+            $this->option('compression')
         ));
         $this->line('');
         $confirmation = $this->confirm('Are these correct? [Y/n]');
