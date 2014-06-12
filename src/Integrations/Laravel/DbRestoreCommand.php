@@ -123,11 +123,11 @@ class DbRestoreCommand extends BaseCommand
         foreach ($this->missingArguments as $argument) {
             if ($argument == 'source') {
                 $this->askSource();
-            } else if ($argument = 'sourcePath') {
+            } elseif ($argument == 'sourcePath') {
                 $this->askSourcePath();
-            } else if ($argument = 'database') {
+            } elseif ($argument == 'database') {
                 $this->askDatabase();
-            } else if ($argument = 'compression') {
+            } elseif ($argument == 'compression') {
                 $this->askCompression();
             }
             $this->line('');
@@ -206,11 +206,12 @@ class DbRestoreCommand extends BaseCommand
      */
     private function validateArguments()
     {
+        $root = $this->filesystems->getConfig($this->option('source'), 'root');
         $this->info("You've filled in the following answers:");
         $this->line("Source: <comment>{$this->option('source')}</comment>");
-        $this->line("Database Dump: <comment>{$this->option('sourcePath')}</comment>");
+        $this->line("Backup: <comment>{$root}{$this->option('sourcePath')}</comment>");
+        $this->line("Database: <comment>{$this->option('database')}</comment>");
         $this->line("Compression: <comment>{$this->option('compression')}</comment>");
-        $this->line("Source: <comment>{$this->option('source')}</comment>");
         $this->line('');
         $confirmation = $this->confirm('Are these correct? [y/n]');
         if ( ! $confirmation) {

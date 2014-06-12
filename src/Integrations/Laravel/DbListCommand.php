@@ -109,7 +109,7 @@ class DbListCommand extends BaseCommand
         foreach ($this->missingArguments as $argument) {
             if ($argument == 'source') {
                 $this->askSource();
-            } else if ($argument = 'path') {
+            } elseif ($argument == 'path') {
                 $this->askPath();
             }
             $this->line('');
