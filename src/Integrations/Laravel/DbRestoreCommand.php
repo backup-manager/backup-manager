@@ -109,8 +109,8 @@ class DbRestoreCommand extends BaseCommand
      */
     private function displayMissingArguments()
     {
-        $this->info("These arguments haven't been filled yet:");
-        $this->line(implode(', ', $this->missingArguments));
+        $formatted = implode(', ', $this->missingArguments);
+        $this->info("These arguments haven't been filled yet: <comment>{$formatted}</comment>");
         $this->info('The following questions will fill these in for you.');
         $this->line('');
     }
