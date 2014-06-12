@@ -63,7 +63,7 @@ class DbListCommand extends BaseCommand
         }
 
         $filesystem = $this->filesystems->get($this->option('source'));
-        $contents = $filesystem->listContents($this->option('path'));
+        $contents = $filesystem->listContents("{$this->option('path')}");
         $rows = [];
         foreach ($contents as $file) {
             if ($file['type'] == 'dir') continue;
@@ -112,6 +112,7 @@ class DbListCommand extends BaseCommand
             } else if ($argument = 'path') {
                 $this->askPath();
             }
+            $this->line('');
         }
     }
 
@@ -121,15 +122,13 @@ class DbListCommand extends BaseCommand
         $formatted = implode(', ', $providers);
         $this->info("Available sources: <comment>{$formatted}</comment>");
         $source = $this->autocomplete("From which source do you want to list?", $providers);
-        $this->line('');
         $this->input->setOption('source', $source);
     }
 
     private function askPath()
     {
         $root = $this->filesystems->getConfig($this->option('source'), 'root');
-        $path = $this->ask("From which path?<comment> {$root}/</comment>");
-        $this->line('');
+        $path = $this->ask("From which path?<comment> {$root}</comment>");
         $this->input->setOption('path', $path);
     }
 
@@ -141,7 +140,7 @@ class DbListCommand extends BaseCommand
         $root = $this->filesystems->getConfig($this->option('source'), 'root');
         $this->info("You've filled in the following answers:");
         $this->line("Source: <comment>{$this->option('source')}</comment>");
-        $this->line("Path: <comment>{$root}/{$this->option('path')}</comment>");
+        $this->line("Path: <comment>{$root}{$this->option('path')}</comment>");
         $this->line('');
         $confirmation = $this->confirm('Are these correct? [y/n]');
         if ( ! $confirmation) {
