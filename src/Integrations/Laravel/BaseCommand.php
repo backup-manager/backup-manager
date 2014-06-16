@@ -18,7 +18,7 @@ class BaseCommand extends Command
      * @internal param $question
      * @return mixed
      */
-    protected function autocomplete($dialog, array $list, $default = null)
+    public function autocomplete($dialog, array $list, $default = null)
     {
         $validation = function ($item) use ($list) {
             if (!in_array($item, array_values($list))) {
@@ -36,7 +36,7 @@ class BaseCommand extends Command
      * @internal param string $style
      * @return void
      */
-    protected function table(array $headers, array $rows)
+    public function table(array $headers, array $rows)
     {
         $table = $this->getHelperSet()->get('table');
         $table->setHeaders($headers);
