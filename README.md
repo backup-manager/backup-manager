@@ -136,6 +136,11 @@ $manager->makeRestore()->run('s3', 'test/backup.sql.gz', 'development', 'gzip');
 - PostgreSQL support requires `pg_dump` and `psql` command-line binaries
 - Gzip support requires `gzip` and `gunzip` command-line binaries
 
+
+### In Use
+
+This [video will show you](https://www.youtube.com/watch?v=vWXy0R8OavM) how to install and use this package with Laravel.
+
 ### Installation
 
 **Composer**
