@@ -12,6 +12,7 @@ return [
         'region' => Aws\Common\Enum\Region::US_EAST_1,
         'bucket' => '',
         'root'   => '',
+	'base_url' => '', # Leave blank to default to Amazon 
     ],
     'rackspace' => [
         'type' => 'Rackspace',

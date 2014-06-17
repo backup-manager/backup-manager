@@ -1,3 +1,0 @@
-- name: Install VSFPTD
-  sudo: yes
-  apt: pkg=vsftpd state=latest

@@ -1,5 +1,0 @@
----
-# handlers file for postgresql
-- name: restart postgresql
-  sudo: true
-  service: name=postgresql state=restarted
