@@ -30,7 +30,7 @@
 
 This isn't a `1.0` release.
 
-This initial release is _VERY_ likely to have bugs and is also very like to change given feedback from users. [Please feel free to submit feedback.](https://github.com/heybigname/backup-manager/issues/new)
+This package is actively being developed and we would like to get feedback to improve it. [Please feel free to submit feedback.](https://github.com/heybigname/backup-manager/issues/new)
 
 ### Quick and Dirty
 
@@ -147,11 +147,9 @@ This [video will show you](https://www.youtube.com/watch?v=vWXy0R8OavM) how to i
 
 1. Add the package to "require" in composer.json
 
-For now, `dev-master` is fine since we're pre-1.0. 
-
 ```JSON
 "require": {
-    "heybigname/backup-manager": "dev-master"
+    "heybigname/backup-manager": "0.3.*"
 }
 ```
 
