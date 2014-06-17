@@ -145,7 +145,7 @@ This [video will show you](https://www.youtube.com/watch?v=vWXy0R8OavM) how to i
 
 **Composer**
 
-1. Add the package to "require" in composer.json
+**1)** Add the package to "require" in composer.json
 
 ```JSON
 "require": {
@@ -153,7 +153,7 @@ This [video will show you](https://www.youtube.com/watch?v=vWXy0R8OavM) how to i
 }
 ```
 
-2. Update your composer packages.
+**2)** Update your composer packages.
 
 `composer update`
 
