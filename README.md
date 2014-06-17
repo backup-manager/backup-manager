@@ -127,7 +127,7 @@ $manager = require 'bootstrap.php';
 $manager->makeRestore()->run('s3', 'test/backup.sql.gz', 'development', 'gzip');
 ```
 
-> This package does not allow you to backup from one database type and restore to another. A MySQL dump is not compatible with Postgresql.
+> This package does not allow you to backup from one database type and restore to another. A MySQL dump is not compatible with PostgreSQL.
 
 ### Requirements
 
