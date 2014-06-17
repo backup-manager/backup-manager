@@ -38,6 +38,7 @@ class DbListCommand extends BaseCommand
      */
     private $missingArguments;
 
+
     public function __construct(FilesystemProvider $filesystems)
     {
         parent::__construct();
@@ -55,12 +56,11 @@ class DbListCommand extends BaseCommand
      */
     public function fire()
     {
-        $this->info('Starting list process...'.PHP_EOL);
         if ($this->isMissingArguments()) {
             $this->displayMissingArguments();
             $this->promptForMissingArgumentValues();
+            $this->validateArguments();
         }
-        $this->validateArguments();
 
         $filesystem = $this->filesystems->get($this->option('source'));
         $contents = $filesystem->listContents($this->option('path'));
@@ -95,9 +95,10 @@ class DbListCommand extends BaseCommand
      */
     private function displayMissingArguments()
     {
-        $this->info("These arguments haven't been filled yet:");
-        $this->line(implode(', ', $this->missingArguments));
-        $this->info('The following questions will fill these in for you.'.PHP_EOL);
+        $formatted = implode(', ', $this->missingArguments);
+        $this->info("These arguments haven't been filled yet: <comment>{$formatted}</comment>.");
+        $this->info('The following questions will fill these in for you.');
+        $this->line('');
     }
 
     /**
@@ -108,27 +109,26 @@ class DbListCommand extends BaseCommand
         foreach ($this->missingArguments as $argument) {
             if ($argument == 'source') {
                 $this->askSource();
-            } else if ($argument = 'path') {
+            } elseif ($argument == 'path') {
                 $this->askPath();
             }
+            $this->line('');
         }
     }
 
     private function askSource()
     {
-        $this->info('Available sources:');
         $providers = $this->filesystems->getAvailableProviders();
-        $this->line(implode(', ', $providers));
-        $default = current($providers);
-        $source = $this->autocomplete("From which source do you want to list? [{$default}]", $providers, $default);
-        $this->line('');
+        $formatted = implode(', ', $providers);
+        $this->info("Available sources: <comment>{$formatted}</comment>");
+        $source = $this->autocomplete("From which source do you want to list?", $providers);
         $this->input->setOption('source', $source);
     }
 
     private function askPath()
     {
-        $path = $this->ask('From which path? [/]', '/');
-        $this->line('');
+        $root = $this->filesystems->getConfig($this->option('source'), 'root');
+        $path = $this->ask("From which path?<comment> {$root}</comment>");
         $this->input->setOption('path', $path);
     }
 
@@ -137,12 +137,14 @@ class DbListCommand extends BaseCommand
      */
     private function validateArguments()
     {
-        $this->info("You've filled in the following answers:");
-        $this->line("Source: <comment>{$this->option('source')}</comment>");
-        $this->line("Path: <comment>{$this->option('path')}</comment>");
+        $root = $this->filesystems->getConfig($this->option('source'), 'root');
+        $this->info('Just to be sure...');
+        $this->info(sprintf('Do you want to list files from <comment>%s</comment> on <comment>%s</comment>?',
+            $root.$this->option('path'),
+            $this->option('source')
+        ));
         $this->line('');
-        $confirmation = $this->confirm('Are these correct? [y/n]');
-        $this->line('');
+        $confirmation = $this->confirm('Are these correct? [Y/n]');
         if ( ! $confirmation) {
             $this->reaskArguments();
         }
@@ -158,7 +160,7 @@ class DbListCommand extends BaseCommand
         $this->line('');
         $this->info('Answers have been reset and re-asking questions.');
         $this->line('');
-        $this->askForForgottenArguments();
+        $this->promptForMissingArgumentValues();
     }
 
     /**

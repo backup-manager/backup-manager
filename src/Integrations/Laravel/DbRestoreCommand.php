@@ -68,13 +68,13 @@ class DbRestoreCommand extends BaseCommand
      */
     public function fire()
     {
-        $this->info('Starting backup process...'.PHP_EOL);
         if ($this->isMissingArguments()) {
             $this->displayMissingArguments();
             $this->promptForMissingArgumentValues();
+            $this->validateArguments();
         }
-        $this->validateArguments();
 
+        $this->info('Downloading and importing backup...');
         $this->restore->run(
             $this->option('source'),
             $this->option('sourcePath'),
@@ -82,12 +82,13 @@ class DbRestoreCommand extends BaseCommand
             $this->option('compression')
         );
 
-        $message = sprintf('Backup "%s" from service "%s" has been successfully restored to "%s".',
+        $this->line('');
+        $root = $this->filesystems->getConfig($this->option('source'), 'root');
+        $this->info(sprintf('Successfully restored <comment>%s</comment> from <comment>%s</comment> to database <comment>%s</comment>.',
+            $root.$this->option('sourcePath'),
             $this->option('source'),
-            basename($this->option('sourcePath')),
             $this->option('database')
-        );
-        $this->info(PHP_EOL.$message);
+        ));
     }
 
     /**
@@ -108,8 +109,8 @@ class DbRestoreCommand extends BaseCommand
      */
     private function displayMissingArguments()
     {
-        $this->info("These arguments haven't been filled yet:");
-        $this->line(implode(', ', $this->missingArguments));
+        $formatted = implode(', ', $this->missingArguments);
+        $this->info("These arguments haven't been filled yet: <comment>{$formatted}</comment>");
         $this->info('The following questions will fill these in for you.');
         $this->line('');
     }
@@ -122,31 +123,31 @@ class DbRestoreCommand extends BaseCommand
         foreach ($this->missingArguments as $argument) {
             if ($argument == 'source') {
                 $this->askSource();
-            } else if ($argument = 'sourcePath') {
+            } elseif ($argument == 'sourcePath') {
                 $this->askSourcePath();
-            } else if ($argument = 'database') {
+            } elseif ($argument == 'database') {
                 $this->askDatabase();
-            } else if ($argument = 'compression') {
+            } elseif ($argument == 'compression') {
                 $this->askCompression();
             }
+            $this->line('');
         }
     }
 
     private function askSource()
     {
-        $this->info('Available storage services:');
         $providers = $this->filesystems->getAvailableProviders();
-        $this->line(implode(', ', $providers));
-        $default = current($providers);
-        $source = $this->autocomplete("From which storage service do you want to choose? [{$default}]", $providers, $default);
-        $this->line('');
+        $formatted = implode(', ', $providers);
+        $this->info("Available storage services: <comment>{$formatted}</comment>");
+        $source = $this->autocomplete("From which storage service do you want to choose?", $providers);
         $this->input->setOption('source', $source);
     }
 
     private function askSourcePath()
     {
         // ask path
-        $path = $this->ask("From which path do you want to select? [/]", '/');
+        $root = $this->filesystems->getConfig($this->option('source'), 'root');
+        $path = $this->ask("From which path do you want to select?<comment> {$root}</comment>");
         $this->line('');
 
         // ask file
@@ -177,30 +178,25 @@ class DbRestoreCommand extends BaseCommand
         }
         $this->info('Available database dumps:');
         $this->table(['Name', 'Extension', 'Size', 'Created'], $rows);
-        $this->line('');
         $filename = $this->autocomplete("Which database dump do you want to restore?", $files);
-
         $this->input->setOption('sourcePath', "{$path}/{$filename}");
     }
 
     private function askDatabase()
     {
-        $this->info('Available database connections:');
         $providers = $this->databases->getAvailableProviders();
-        $this->line(implode(', ', $providers));
-        $default = current($providers);
-        $database = $this->autocomplete("From which database connection you want to dump? [{$default}]", $providers, $default);
-        $this->line('');
+        $formatted = implode(', ', $providers);
+        $this->info("Available database connections: <comment>{$formatted}</comment>");
+        $database = $this->autocomplete("From which database connection you want to dump?", $providers);
         $this->input->setOption('database', $database);
     }
 
     private function askCompression()
     {
-        $this->info('Available compression types:');
         $types = ['null', 'gzip'];
-        $this->line(implode(', ', $types));
-        $compression = $this->autocomplete('Which compression type you want to use? [null]', $types, 'null');
-        $this->line('');
+        $formatted = implode(', ', $types);
+        $this->info("Available compression types: <comment>{$formatted}</comment>");
+        $compression = $this->autocomplete('Which compression type you want to use?', $types);
         $this->input->setOption('compression', $compression);
     }
 
@@ -209,14 +205,16 @@ class DbRestoreCommand extends BaseCommand
      */
     private function validateArguments()
     {
-        $dump = basename($this->option('sourcePath'));
-        $this->info("You've filled in the following answers:");
-        $this->line("Source: <comment>{$this->option('source')}</comment>");
-        $this->line("Database Dump: <comment>{$dump}</comment>");
-        $this->line("Compression: <comment>{$this->option('compression')}</comment>");
-        $this->line("Source: <comment>{$this->option('source')}</comment>");
+        $root = $this->filesystems->getConfig($this->option('source'), 'root');
+        $this->info('Just to be sure...');
+        $this->info(sprintf('Do you want to restore the backup <comment>%s</comment> from <comment>%s</comment> to database <comment>%s</comment> and decompress it from <comment>%s</comment>?',
+            $root.$this->option('sourcePath'),
+            $this->option('source'),
+            $this->option('database'),
+            $this->option('compression')
+        ));
         $this->line('');
-        $confirmation = $this->confirm('Are these correct? [y/n]');
+        $confirmation = $this->confirm('Are these correct? [Y/n]');
         if ( ! $confirmation) {
             $this->reaskArguments();
         }
@@ -232,7 +230,7 @@ class DbRestoreCommand extends BaseCommand
         $this->line('');
         $this->info('Answers have been reset and re-asking questions.');
         $this->line('');
-        $this->askForForgottenArguments();
+        $this->promptForMissingArgumentValues();
     }
 
     /**

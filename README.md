@@ -30,7 +30,7 @@
 
 This isn't a `1.0` release.
 
-This initial release is _VERY_ likely to have bugs and is also very like to change given feedback from users. [Please feel free to submit feedback.](https://github.com/heybigname/backup-manager/issues/new)
+This package is actively being developed and we would like to get feedback to improve it. [Please feel free to submit feedback.](https://github.com/heybigname/backup-manager/issues/new)
 
 ### Quick and Dirty
 
@@ -62,7 +62,7 @@ This initial release is _VERY_ likely to have bugs and is also very like to chan
 // config/storage.php
 'local' => [
     'type' => 'Local',
-    'root' => '/',
+    'root' => '/path/to/working/directory',
 ],
 's3' => [
     'type' => 'AwsS3',
@@ -127,7 +127,7 @@ $manager = require 'bootstrap.php';
 $manager->makeRestore()->run('s3', 'test/backup.sql.gz', 'development', 'gzip');
 ```
 
-> This package does not allow you to backup from one database type and restore to another. A MySQL dump is not compatible with Postgresql.
+> This package does not allow you to backup from one database type and restore to another. A MySQL dump is not compatible with PostgreSQL.
 
 ### Requirements
 
@@ -136,21 +136,24 @@ $manager->makeRestore()->run('s3', 'test/backup.sql.gz', 'development', 'gzip');
 - PostgreSQL support requires `pg_dump` and `psql` command-line binaries
 - Gzip support requires `gzip` and `gunzip` command-line binaries
 
+
+### In Use
+
+This [video will show you](https://www.youtube.com/watch?v=vWXy0R8OavM) how to install and use this package with Laravel.
+
 ### Installation
 
 **Composer**
 
-1. Add the package to "require" in composer.json
-
-For now, `dev-master` is fine since we're pre-1.0. 
+**1)** Add the package to "require" in composer.json
 
 ```JSON
 "require": {
-    "heybigname/backup-manager": "dev-master"
+    "heybigname/backup-manager": "0.3.*"
 }
 ```
 
-2. Update your composer packages.
+**2)** Update your composer packages.
 
 `composer update`
 
@@ -177,6 +180,8 @@ To install into a Laravel project, first do the composer install then add the fo
 Then, publish and modify the configuration file to suit your needs.
 
 `php artisan config:publish heybigname/backup-manager --path=vendor/heybigname/backup-manager/config`
+
+The Backup Manager will make use of Laravel's database configuration.
 
 **IoC Resolution**
 
@@ -222,24 +227,4 @@ This package is maintained by Mitchell van Wijngaarden and Shawn McCool of [Big 
 
 ### License
 
-The MIT License (MIT)
-
-Copyright (c) 2014 Big Name
-
-Permission is hereby granted, free of charge, to any person obtaining a copy
-of this software and associated documentation files (the "Software"), to deal
-in the Software without restriction, including without limitation the rights
-to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
-copies of the Software, and to permit persons to whom the Software is
-furnished to do so, subject to the following conditions:
-
-The above copyright notice and this permission notice shall be included in
-all copies or substantial portions of the Software.
-
-THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
-IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
-FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
-AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
-LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
-OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
-THE SOFTWARE.
+This package is licensed under the [MIT license](https://github.com/heybigname/backup-manager/blob/master/LICENSE).

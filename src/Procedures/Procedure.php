@@ -76,7 +76,7 @@ abstract class Procedure
         if (is_null($filename)) {
             $filename = uniqid();
         }
-        return sprintf('%s/%s.sql', $this->getRootPath($name), $filename);
+        return sprintf('%s/%s', $this->getRootPath($name), $filename);
     }
 
     /**
