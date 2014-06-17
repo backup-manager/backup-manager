@@ -62,7 +62,7 @@ This package is actively being developed and we would like to get feedback to im
 // config/storage.php
 'local' => [
     'type' => 'Local',
-    'root' => '/',
+    'root' => '/path/to/working/directory',
 ],
 's3' => [
     'type' => 'AwsS3',
