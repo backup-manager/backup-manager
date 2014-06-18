@@ -77,6 +77,7 @@ This package is actively being developed and we would like to get feedback to im
     'username' => '',
     'password' => '',
     'container' => '',
+    'zone' => '',
     'root' => '',
 ],
 'dropbox' => [
