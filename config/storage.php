@@ -18,6 +18,7 @@ return [
         'username' => '',
         'password' => '',
         'container' => '',
+        'zone' => '',
         'root' => '',
     ],
     'dropbox' => [
