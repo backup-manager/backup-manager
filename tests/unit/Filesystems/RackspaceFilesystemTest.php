@@ -37,6 +37,7 @@ class RackspaceFilesystemTest extends PHPUnit_Framework_TestCase
             'username' => 'username',
             'password' => 'password',
             'root' => 'root',
+            'zone' => 'zone'
         ]);
 
         $this->assertInstanceOf('League\Flysystem\Adapter\Rackspace', $filesystem->getAdapter());
