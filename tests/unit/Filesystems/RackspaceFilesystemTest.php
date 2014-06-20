@@ -35,7 +35,7 @@ class RackspaceFilesystemTest extends PHPUnit_Framework_TestCase
         $rackspace = new RackspaceFilesystem;
         $filesystem = $rackspace->get([
             'username' => 'username',
-            'password' => 'password',
+            'key' => 'key',
             'root' => 'root',
             'zone' => 'zone'
         ]);

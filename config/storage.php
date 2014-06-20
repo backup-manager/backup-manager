@@ -16,7 +16,7 @@ return [
     'rackspace' => [
         'type' => 'Rackspace',
         'username' => '',
-        'password' => '',
+        'key' => '',
         'container' => '',
         'zone' => '',
         'root' => '',

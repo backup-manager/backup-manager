@@ -29,7 +29,7 @@ class RackspaceFilesystem implements Filesystem
     {
         $client = new OpenStack(Rackspace::UK_IDENTITY_ENDPOINT, [
             'username' => $config['username'],
-            'password' => $config['password'],
+            'password' => $config['key'],
         ]);
         $container = $client->objectStoreService('cloudFiles', $config['zone'])->getContainer($config['container']);
         return new Flysystem(new RackspaceAdapter($container, $config['root']));

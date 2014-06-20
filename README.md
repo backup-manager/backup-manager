@@ -75,7 +75,7 @@ This package is actively being developed and we would like to get feedback to im
 'rackspace' => [
     'type' => 'Rackspace',
     'username' => '',
-    'password' => '',
+    'key' => '',
     'container' => '',
     'zone' => '',
     'root' => '',
