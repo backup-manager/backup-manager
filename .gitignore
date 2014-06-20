@@ -1,6 +1,8 @@
 /vendor
 /working
 /.vagrant
+/.phpspec
+/bin
 /tests/report
 composer.phar
 composer.lock
