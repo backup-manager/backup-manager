@@ -2,6 +2,7 @@
 
 use BigName\BackupManager\Filesystems\RackspaceFilesystem;
 use Mockery as m;
+use OpenCloud\Rackspace;
 
 class RackspaceFilesystemTest extends PHPUnit_Framework_TestCase
 {
@@ -37,9 +38,23 @@ class RackspaceFilesystemTest extends PHPUnit_Framework_TestCase
             'username' => 'username',
             'key' => 'key',
             'root' => 'root',
-            'zone' => 'zone'
+            'zone' => 'zone',
+            'endpoint' => Rackspace::UK_IDENTITY_ENDPOINT
         ]);
 
         $this->assertInstanceOf('League\Flysystem\Adapter\Rackspace', $filesystem->getAdapter());
+    }
+
+    public function test_throws_when_endpoint_is_incorrect()
+    {
+        $this->setExpectedException('Guzzle\Http\Exception\CurlException');
+        $rackspace = new RackspaceFilesystem;
+        $rackspace->get([
+            'username' => 'username',
+            'key' => 'key',
+            'root' => 'root',
+            'zone' => 'zone',
+            'endpoint' => 'incorrect_endpoint'
+        ]);
     }
 }

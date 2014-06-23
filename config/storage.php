@@ -19,6 +19,7 @@ return [
         'key' => '',
         'container' => '',
         'zone' => '',
+        'endpoint' => 'https://identity.api.rackspacecloud.com/v2.0/',
         'root' => '',
     ],
     'dropbox' => [

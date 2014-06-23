@@ -27,7 +27,7 @@ class RackspaceFilesystem implements Filesystem
      */
     public function get(array $config)
     {
-        $client = new OpenStack(Rackspace::UK_IDENTITY_ENDPOINT, [
+        $client = new OpenStack($config['endpoint'], [
             'username' => $config['username'],
             'password' => $config['key'],
         ]);
