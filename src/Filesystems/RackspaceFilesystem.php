@@ -3,7 +3,6 @@
 use League\Flysystem\Adapter\Rackspace as RackspaceAdapter;
 use League\Flysystem\Filesystem as Flysystem;
 use OpenCloud\OpenStack;
-use OpenCloud\Rackspace;
 
 /**
  * Class RackspaceFilesystem
