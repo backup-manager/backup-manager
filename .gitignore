@@ -8,5 +8,4 @@
 composer.phar
 composer.lock
 vagrant_ansible_inventory_default
-.idea
 Vagrantfile
