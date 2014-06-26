@@ -10,7 +10,7 @@ use BigName\BackupManager\Compressors;
 use BigName\BackupManager\Manager;
 
 // build providers
-$filesystems = new Filesystems\FilesystemProvider(new Config('config/storage.php'));
+$filesystems = new Filesystems\FilesystemProvider(Config::fromPhpFile('config/storage.php'));
 $filesystems->add(new Filesystems\Awss3Filesystem);
 $filesystems->add(new Filesystems\DropboxFilesystem);
 $filesystems->add(new Filesystems\FtpFilesystem);
@@ -18,7 +18,7 @@ $filesystems->add(new Filesystems\LocalFilesystem);
 $filesystems->add(new Filesystems\RackspaceFilesystem);
 $filesystems->add(new Filesystems\SftpFilesystem);
 
-$databases = new Databases\DatabaseProvider(new Config('config/database.php'));
+$databases = new Databases\DatabaseProvider(Config::fromPhpFile('config/database.php'));
 $databases->add(new Databases\MysqlDatabase);
 $databases->add(new Databases\PostgresqlDatabase);
 
