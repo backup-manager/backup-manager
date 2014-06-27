@@ -26,7 +26,7 @@ class BackupProcedure extends Procedure
         $workingFile = $this->getWorkingFile('local');
 
         // dump the database
-        $this->add(new \BigName\BackupManager\Tasks\Database\DumpDatabase(
+        $this->add(new Tasks\Database\DumpDatabase(
             // database connection
             $this->databases->get($database),
             // output file path
@@ -37,7 +37,7 @@ class BackupProcedure extends Procedure
 
         // archive the dump
         $compressor = $this->compressors->get($compression);
-        $this->add(new \BigName\BackupManager\Tasks\Compression\CompressFile(
+        $this->add(new Tasks\Compression\CompressFile(
             // compression type
             $compressor,
             // source file path
@@ -48,14 +48,14 @@ class BackupProcedure extends Procedure
         $workingFile = $compressor->getCompressedPath($workingFile);
 
         // upload the archive
-        $this->add(new \BigName\BackupManager\Tasks\Storage\TransferFile(
+        $this->add(new Tasks\Storage\TransferFile(
             // source fs and path
             $localFilesystem, basename($workingFile),
             // destination fs and path
             $this->filesystems->get($destination), $compressor->getCompressedPath($destinationPath)
         ));
         // cleanup the local archive
-        $this->add(new \BigName\BackupManager\Tasks\Storage\DeleteFile(
+        $this->add(new Tasks\Storage\DeleteFile(
             // storage fs
             $localFilesystem,
             // path
