@@ -37,10 +37,10 @@ class RestoreProcedureTest extends PHPUnit_Framework_TestCase
         $compressorProvider->shouldIgnoreMissing();
 
         $sequence = $this->getSequence();
-        $sequence->shouldReceive('add')->with(m::type('BigName\BackupManager\Commands\Storage\TransferFile'))->once();
-        $sequence->shouldReceive('add')->with(m::type('BigName\BackupManager\Commands\Compression\DecompressFile'))->once();
-        $sequence->shouldReceive('add')->with(m::type('BigName\BackupManager\Commands\Database\RestoreDatabase'))->once();
-        $sequence->shouldReceive('add')->with(m::type('BigName\BackupManager\Commands\Storage\DeleteFile'))->once();
+        $sequence->shouldReceive('add')->with(m::type('BigName\BackupManager\Tasks\Storage\TransferFile'))->once();
+        $sequence->shouldReceive('add')->with(m::type('BigName\BackupManager\Tasks\Compression\DecompressFile'))->once();
+        $sequence->shouldReceive('add')->with(m::type('BigName\BackupManager\Tasks\Database\RestoreDatabase'))->once();
+        $sequence->shouldReceive('add')->with(m::type('BigName\BackupManager\Tasks\Storage\DeleteFile'))->once();
         $sequence->shouldReceive('execute')->once();
 
         $procedure = new RestoreProcedure(

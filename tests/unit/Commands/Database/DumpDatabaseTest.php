@@ -1,6 +1,6 @@
 <?php
 
-use BigName\BackupManager\Commands\Database\DumpDatabase;
+use BigName\BackupManager\Tasks\Database\DumpDatabase;
 use Mockery as m;
 
 class DumpDatabaseTest extends PHPUnit_Framework_TestCase
@@ -15,7 +15,7 @@ class DumpDatabaseTest extends PHPUnit_Framework_TestCase
         $database = m::mock('BigName\BackupManager\Databases\Database');
         $shell = m::mock('BigName\BackupManager\ShellProcessing\ShellProcessor');
         $dumpDatabase = new DumpDatabase($database, 'foo', $shell);
-        $this->assertInstanceOf('BigName\BackupManager\Commands\Database\DumpDatabase', $dumpDatabase);
+        $this->assertInstanceOf('BigName\BackupManager\Tasks\Database\DumpDatabase', $dumpDatabase);
     }
 
     public function test_command_is_processed()

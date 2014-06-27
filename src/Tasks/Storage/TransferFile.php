@@ -1,13 +1,13 @@
-<?php namespace BigName\BackupManager\Commands\Storage;
+<?php namespace BigName\BackupManager\Tasks\Storage;
 
 use League\Flysystem\Filesystem;
-use BigName\BackupManager\Commands\Command;
+use BigName\BackupManager\Tasks\Task;
 
 /**
  * Class TransferFile
- * @package BigName\BackupManager\Commands\Storage
+ * @package BigName\BackupManager\Tasks\Storage
  */
-class TransferFile implements Command
+class TransferFile implements Task
 {
     /**
      * @var \League\Flysystem\Filesystem

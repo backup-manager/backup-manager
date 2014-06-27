@@ -19,10 +19,10 @@ class SequenceTest extends PHPUnit_Framework_TestCase
     {
         $sequence = new Sequence;
 
-        $command = m::mock('BigName\BackupManager\Commands\Command');
+        $command = m::mock('BigName\BackupManager\Tasks\Task');
         $command->shouldReceive('execute')->once();
 
-        $command2 = m::mock('BigName\BackupManager\Commands\Command');
+        $command2 = m::mock('BigName\BackupManager\Tasks\Task');
         $command2->shouldReceive('execute')->once();
 
         $sequence->add($command);

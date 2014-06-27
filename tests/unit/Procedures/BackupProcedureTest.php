@@ -40,10 +40,10 @@ class BackupProcedureTest extends PHPUnit_Framework_TestCase
 
         $sequence = $this->getSequence();
 
-        $sequence->shouldReceive('add')->with(m::type('BigName\BackupManager\Commands\Database\DumpDatabase'))->once();
-        $sequence->shouldReceive('add')->with(m::type('BigName\BackupManager\Commands\Compression\CompressFile'))->once();
-        $sequence->shouldReceive('add')->with(m::type('BigName\BackupManager\Commands\Storage\TransferFile'))->once();
-        $sequence->shouldReceive('add')->with(m::type('BigName\BackupManager\Commands\Storage\DeleteFile'))->once();
+        $sequence->shouldReceive('add')->with(m::type('BigName\BackupManager\Tasks\Database\DumpDatabase'))->once();
+        $sequence->shouldReceive('add')->with(m::type('BigName\BackupManager\Tasks\Compression\CompressFile'))->once();
+        $sequence->shouldReceive('add')->with(m::type('BigName\BackupManager\Tasks\Storage\TransferFile'))->once();
+        $sequence->shouldReceive('add')->with(m::type('BigName\BackupManager\Tasks\Storage\DeleteFile'))->once();
         $sequence->shouldReceive('execute')->once();
 
 

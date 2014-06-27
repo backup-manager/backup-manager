@@ -1,6 +1,6 @@
 <?php
 
-use BigName\BackupManager\Commands\Compression\DecompressFile;
+use BigName\BackupManager\Tasks\Compression\DecompressFile;
 use Mockery as m;
 
 class DecompressFileTest extends PHPUnit_Framework_TestCase
@@ -15,7 +15,7 @@ class DecompressFileTest extends PHPUnit_Framework_TestCase
         $compressor = m::mock('BigName\BackupManager\Compressors\Compressor');
         $shell = m::mock('BigName\BackupManager\ShellProcessing\ShellProcessor');
         $command = new DecompressFile($compressor, 'foo', $shell);
-        $this->assertInstanceOf('BigName\BackupManager\Commands\Compression\DecompressFile', $command);
+        $this->assertInstanceOf('BigName\BackupManager\Tasks\Compression\DecompressFile', $command);
     }
 
     public function test_generates_correct_command()
