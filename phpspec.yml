@@ -1,0 +1,7 @@
+---
+suites:
+  backup_manager_suite:
+    namespace: BigName\BackupManager
+    psr4_prefix: BigName\BackupManager
+
+formatter.name: pretty

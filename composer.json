@@ -1,6 +1,6 @@
 {
     "name": "heybigname/backup-manager",
-    "version": "0.3.5",
+    "version": "0.3.6",
     "description": "Database backup manager for dumping to and restoring databases from S3, Dropbox, FTP, and SFTP.",
     "authors": [
         {
@@ -28,7 +28,11 @@
         "illuminate/container": "4.x",
         "illuminate/console": "4.x",
         "rackspace/php-opencloud": "1.9.*",
-        "dropbox/dropbox-sdk": "1.1.*"
+        "dropbox/dropbox-sdk": "1.1.*",
+        "phpspec/phpspec": "~2.0"
+    },
+    "config": {
+        "bin-dir": "bin"
     },
     "suggest": {
         "aws/aws-sdk-php": "Enables AWS S3 storage",
