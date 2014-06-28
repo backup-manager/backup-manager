@@ -1,6 +1,6 @@
 <?php namespace BigName\BackupManager\Procedures;
 
-use BigName\BackupManager\Commands\Command;
+use BigName\BackupManager\Tasks\Task;
 use BigName\BackupManager\Databases\DatabaseProvider;
 use BigName\BackupManager\Compressors\CompressorProvider;
 use BigName\BackupManager\Filesystems\FilesystemProvider;
@@ -50,11 +50,11 @@ abstract class Procedure
     }
 
     /**
-     * @param Command $command
+     * @param Task $task
      */
-    protected function add(Command $command)
+    protected function add(Task $task)
     {
-        $this->sequence->add($command);
+        $this->sequence->add($task);
     }
 
     /**

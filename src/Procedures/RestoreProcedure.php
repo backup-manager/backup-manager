@@ -1,6 +1,6 @@
 <?php namespace BigName\BackupManager\Procedures;
 
-use BigName\BackupManager\Commands;
+use BigName\BackupManager\Tasks;
 
 /**
  * Class RestoreProcedure
@@ -26,7 +26,7 @@ class RestoreProcedure extends Procedure
         $workingFile = $this->getWorkingFile('local', basename($sourcePath));
 
         // download or retrieve the archived backup file
-        $this->add(new Commands\Storage\TransferFile(
+        $this->add(new Tasks\Storage\TransferFile(
             $this->filesystems->get($sourceType), $sourcePath,
             $localFilesystem, basename($workingFile)
         ));
@@ -34,7 +34,7 @@ class RestoreProcedure extends Procedure
         // decompress the archived backup
         $compressor = $this->compressors->get($compression);
 
-        $this->add(new Commands\Compression\DecompressFile(
+        $this->add(new Tasks\Compression\DecompressFile(
             $compressor,
             $workingFile,
             $this->shellProcessor
@@ -42,14 +42,14 @@ class RestoreProcedure extends Procedure
         $workingFile = $compressor->getDecompressedPath($workingFile);
 
         // restore the database
-        $this->add(new Commands\Database\RestoreDatabase(
+        $this->add(new Tasks\Database\RestoreDatabase(
             $this->databases->get($databaseName),
             $workingFile,
             $this->shellProcessor
         ));
 
         // cleanup the local copy
-        $this->add(new Commands\Storage\DeleteFile(
+        $this->add(new Tasks\Storage\DeleteFile(
             $localFilesystem,
             basename($workingFile)
         ));
