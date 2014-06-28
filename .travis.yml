@@ -4,5 +4,4 @@ php:
 install:
   - composer self-update
   - composer install --dev --no-scripts --prefer-source --no-interaction
-script: php vendor/bin/phpunit --testsuite unit --coverage-text --coverage-clover ./build/logs/clover.xml
-after_script: sh -c " if [ -f ./build/logs/clover.xml ]; then php vendor/bin/coveralls; fi"
+script: bin/phpspec run 
