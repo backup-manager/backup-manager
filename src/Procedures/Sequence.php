@@ -1,6 +1,6 @@
 <?php namespace BigName\BackupManager\Procedures;
 
-use BigName\BackupManager\Commands\Command;
+use BigName\BackupManager\Tasks\Task;
 
 /**
  * Class Sequence
@@ -11,14 +11,14 @@ class Sequence
     /**
      * @var array
      */
-    private $commands = [];
+    private $tasks = [];
 
     /**
-     * @param Command $command
+     * @param \BigName\BackupManager\Tasks\Task $task
      */
-    public function add(Command $command)
+    public function add(Task $task)
     {
-        $this->commands[] = $command;
+        $this->tasks[] = $task;
     }
 
     /**
@@ -27,8 +27,8 @@ class Sequence
      */
     public function execute()
     {
-        foreach ($this->commands as $command) {
-            $command->execute();
+        foreach ($this->tasks as $task) {
+            $task->execute();
         }
     }
 } 

@@ -1,14 +1,14 @@
-<?php namespace BigName\BackupManager\Commands\Database;
+<?php namespace BigName\BackupManager\Tasks\Database;
 
-use BigName\BackupManager\Commands\Command;
+use BigName\BackupManager\Tasks\Task;
 use BigName\BackupManager\Databases\Database;
 use BigName\BackupManager\ShellProcessing\ShellProcessor;
 
 /**
  * Class RestoreDatabase
- * @package BigName\BackupManager\Commands\Database
+ * @package BigName\BackupManager\Tasks\Database
  */
-class RestoreDatabase implements Command
+class RestoreDatabase implements Task
 {
     /**
      * @var string

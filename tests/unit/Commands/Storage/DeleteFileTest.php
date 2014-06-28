@@ -12,8 +12,8 @@ class DeleteFileTest extends PHPUnit_Framework_TestCase
     public function test_can_create()
     {
         $filesystem = m::mock('League\Flysystem\Filesystem');
-        $delete = new \BigName\BackupManager\Commands\Storage\DeleteFile($filesystem, 'foo');
-        $this->assertInstanceOf('BigName\BackupManager\Commands\Storage\DeleteFile', $delete);
+        $delete = new \BigName\BackupManager\Tasks\Storage\DeleteFile($filesystem, 'foo');
+        $this->assertInstanceOf('BigName\BackupManager\Tasks\Storage\DeleteFile', $delete);
     }
 
     public function test_file_delete_initiated()
@@ -21,7 +21,7 @@ class DeleteFileTest extends PHPUnit_Framework_TestCase
         $filesystem = m::mock('League\Flysystem\Filesystem');
         $filesystem->shouldReceive('delete')->with('foo')->once();
 
-        $delete = new \BigName\BackupManager\Commands\Storage\DeleteFile($filesystem, 'foo');
+        $delete = new \BigName\BackupManager\Tasks\Storage\DeleteFile($filesystem, 'foo');
         $delete->execute();
     }
 }

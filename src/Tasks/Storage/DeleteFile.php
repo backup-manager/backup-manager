@@ -1,13 +1,13 @@
-<?php namespace BigName\BackupManager\Commands\Storage;
+<?php namespace BigName\BackupManager\Tasks\Storage;
 
 use League\Flysystem\Filesystem;
-use BigName\BackupManager\Commands\Command;
+use BigName\BackupManager\Tasks\Task;
 
 /**
  * Class DeleteFile
- * @package BigName\BackupManager\Commands\Storage
+ * @package BigName\BackupManager\Tasks\Storage
  */
-class DeleteFile implements Command
+class DeleteFile implements Task
 {
     /**
      * @var \League\Flysystem\Filesystem

@@ -1,17 +1,17 @@
-<?php namespace BigName\BackupManager\Commands\Compression;
+<?php namespace BigName\BackupManager\Tasks\Compression;
 
-use BigName\BackupManager\Commands\Command;
+use BigName\BackupManager\Tasks\Task;
 use BigName\BackupManager\Compressors\Compressor;
 use BigName\BackupManager\ShellProcessing\ShellProcessor;
 
 /**
- * Class CompressFile
- * @package BigName\BackupManager\Commands\Compression
+ * Class DecompressFile
+ * @package BigName\BackupManager\Tasks\Compression
  */
-class CompressFile implements Command
+class DecompressFile implements Task
 {
     /**
-     * @var
+     * @var string
      */
     private $sourcePath;
     /**
@@ -30,9 +30,9 @@ class CompressFile implements Command
      */
     public function __construct(Compressor $compressor, $sourcePath, ShellProcessor $shellProcessor)
     {
-        $this->compressor = $compressor;
         $this->sourcePath = $sourcePath;
         $this->shellProcessor = $shellProcessor;
+        $this->compressor = $compressor;
     }
 
     /**
@@ -40,6 +40,6 @@ class CompressFile implements Command
      */
     public function execute()
     {
-        return $this->shellProcessor->process($this->compressor->getCompressCommandLine($this->sourcePath));
+        return $this->shellProcessor->process($this->compressor->getDecompressCommandLine($this->sourcePath));
     }
 }
