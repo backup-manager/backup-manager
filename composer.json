@@ -28,7 +28,11 @@
         "illuminate/container": "4.x",
         "illuminate/console": "4.x",
         "rackspace/php-opencloud": "1.9.*",
-        "dropbox/dropbox-sdk": "1.1.*"
+        "dropbox/dropbox-sdk": "1.1.*",
+        "phpspec/phpspec": "~2.0"
+    },
+    "config": {
+        "bin-dir": "bin"
     },
     "suggest": {
         "aws/aws-sdk-php": "Enables AWS S3 storage",
