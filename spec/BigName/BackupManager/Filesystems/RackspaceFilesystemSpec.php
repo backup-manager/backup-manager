@@ -30,17 +30,6 @@ class RackspaceFilesystemSpec extends ObjectBehavior
         // tries to connect on instantiation...
     }
 
-    function it_should_throw_an_exception_when_the_endpoint_is_incorrect()
-    {
-        $this->shouldThrow('Guzzle\Http\Exception\CurlException')->during('get', [[
-            'username' => 'username',
-            'key' => 'key',
-            'root' => 'root',
-            'zone' => 'zone',
-            'endpoint' => 'incorrect_endpoint'
-        ]]);
-    }
-
     function getConfig()
     {
         return [
