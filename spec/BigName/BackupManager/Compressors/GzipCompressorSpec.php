@@ -12,7 +12,7 @@ class GzipCompressorSpec extends ObjectBehavior
         $this->shouldHaveType('BigName\BackupManager\Compressors\GzipCompressor');
     }
 
-    function it_should_handle_filetype_strings_case_insensitively()
+    function it_should_handle_types_with_case_insensitivity()
     {
         foreach (['gzip', 'GZIP', 'GZip'] as $type) {
             $this->handles($type)->shouldBe(true);
