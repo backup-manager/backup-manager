@@ -4,4 +4,4 @@ php:
 install:
   - composer self-update
   - composer install --dev --no-scripts --prefer-source --no-interaction
-script: bin/phpspec run 
+script: bin/phpspec run
