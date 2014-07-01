@@ -27,7 +27,7 @@ class RackspaceFilesystemSpec extends ObjectBehavior
     {
         // can't really test this effectively because rackspace's sdk
         // tries to connect on instantiation...
-        $this->shouldThrow('Guzzle\Http\Exception\ClientErrorResponseException')->during('get', [$this->getConfig()]);
+        $this->shouldThrow('Guzzle\Http\Exception\CurlException')->during('get', [$this->getConfig()]);
     }
 
     function getConfig()
