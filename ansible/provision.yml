@@ -1,0 +1,17 @@
+---
+- hosts: all
+  sudo: true
+  vars:
+    root_folder: /var/www/app
+    document_root: "{{ root_folder }}/public"
+    dbuser: root
+    dbpasswd: password
+    timezone: America/New_York
+    writeable_dirs:
+      - app/storage/cache
+  tasks:
+    - include: tasks/common.yml
+    - include: tasks/development.yml
+  handlers:
+    - name: restart mysql
+      service: name=mysql state=restarted

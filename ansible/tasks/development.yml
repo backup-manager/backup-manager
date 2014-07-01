@@ -1,0 +1,63 @@
+---
+# Development related tasks
+
+# Storage
+- name: MySQL
+  apt: pkg=mysql-server state=installed
+
+# 'localhost' needs to be the last item for idempotency, see
+# http://ansible.cc/docs/modules.html#mysql-user
+- name: MySQL | Set Root Password
+  mysql_user: name={{ dbuser }} host={{ item }} password={{ dbpasswd }} priv=*.*:ALL,GRANT
+  with_items:
+    - "%"
+    - 127.0.0.1
+    - ::1
+    - localhost
+
+- name: MySQL | Copy Main Config File
+  template: src=../files/my.cnf dest=/etc/mysql/my.cnf owner={{ dbuser }} mode=0600
+  notify: restart mysql
+
+- name: MySQL | Copy Config File
+  template: src=../files/.my.cnf dest=/{{ dbuser }}/.my.cnf owner={{ dbuser }} mode=0600
+  notify: restart mysql
+
+- name: MySQL | Create App DB
+  mysql_db: name={{ item }} state=present login_password={{ dbpasswd }} login_user={{ dbuser }}
+  with_items: databases
+
+# PHP
+- name: PHP 5.5 Custom Repo
+  apt_repository: repo='ppa:ondrej/php5' update_cache=yes
+
+- name: PHP and Modules
+  apt: pkg={{ item }} state=latest
+  notify: restart apache
+  tags: common
+  with_items:
+    - php5
+    - php5-mysql
+    - php5-gd
+    - php5-mcrypt
+    - php5-curl
+    - php5-intl
+
+# Configurations
+
+- name: PHP | Config timezone
+  ini_file: dest=/etc/php5/mods-available/timezone.ini section=Date option=date.timezone value={{ timezone }}
+  notify:
+    - restart apache
+
+- name: PHP | Enable Custom Config
+  shell: php5enmod -s ALL timezone
+
+# PHP Tools
+
+- stat: path=/usr/local/bin/composer
+  register: composer_folder
+
+- name: Composer
+  shell: curl -sS https://getcomposer.org/installer | php && mv composer.phar /usr/local/bin/composer creates=/usr/local/bin/composer
+  when: composer_folder.stat.isdir is not defined

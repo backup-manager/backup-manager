@@ -11,11 +11,8 @@
          syntaxCheck="false"
 >
     <testsuites>
-        <testsuite name="unit">
-            <directory suffix=".php">./tests/unit/</directory>
-        </testsuite>
         <testsuite name="functional">
-            <directory suffix=".php">./tests/functional/</directory>
+            <directory suffix=".php">./tests/</directory>
         </testsuite>
     </testsuites>
 </phpunit>

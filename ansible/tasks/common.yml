@@ -1,0 +1,25 @@
+---
+# Update the repo, because most boxes are heavily outdated
+- name: Commmon | Update repository
+  apt: update_cache=yes
+
+# Install ACL, but you'll have to do the mount config yourself in most cases
+- name: Common | ACL
+  apt: pkg=acl state=installed
+
+- name: Common | cURL
+  apt: pkg=curl state=installed
+
+- name: Common | Install Git
+  apt: pkg=git-core state=installed
+
+- name: Common | Set the hostname /etc/hostname
+  shell: echo {{ hostname }} > /etc/hostname
+  when: hostname is defined
+
+- name: Set the hostname
+  shell: hostname {{ hostname }}
+  when: hostname is defined
+
+- name: Copy the hosts file into place
+  template: src=../files/hosts dest=/etc/hosts mode=0600
