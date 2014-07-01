@@ -12,7 +12,7 @@ class DatabaseProviderSpec extends ObjectBehavior
     function let()
     {
         /** @noinspection PhpParamsInspection */
-        $this->beConstructedWith(Config::fromPhpFile('tests/unit/config/database.php'));
+        $this->beConstructedWith(Config::fromPhpFile('spec/configs/database.php'));
     }
 
     function it_is_initializable()

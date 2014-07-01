@@ -38,7 +38,7 @@ class PostgresqlDatabaseSpec extends ObjectBehavior
 
     private function configure()
     {
-        $config = Config::fromPhpFile('tests/unit/config/database.php');
+        $config = Config::fromPhpFile('spec/configs/database.php');
         $this->setConfig($config->get('development'));
     }
 }
