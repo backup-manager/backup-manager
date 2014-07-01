@@ -12,7 +12,7 @@ class FtpFilesystemSpec extends ObjectBehavior
         $this->shouldHaveType('BigName\BackupManager\Filesystems\FtpFilesystem');
     }
 
-    function it_should_handle_types_with_case_insensitivity()
+    function it_should_recognize_its_type_with_case_insensitivity()
     {
         foreach (['ftp', 'Ftp', 'FTP'] as $type) {
             $this->handles($type)->shouldBe(true);
@@ -23,7 +23,7 @@ class FtpFilesystemSpec extends ObjectBehavior
         }
     }
 
-    function it_should_deliver_the_correct_filesystem_type()
+    function it_should_provide_an_instance_of_an_ftp_filesystem()
     {
         $this->get($this->getConfig())->getAdapter()
             ->shouldHaveType('League\Flysystem\Adapter\Ftp');

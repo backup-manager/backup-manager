@@ -19,37 +19,37 @@ class ConfigSpec extends ObjectBehavior
         $this->shouldHaveType('BigName\BackupManager\Config\Config');
     }
 
-    function it_should_initialize_from_a_php_file()
+    function it_should_initialize_from_a_php_configuration()
     {
         $this->beConstructedThrough('BigName\BackupManager\Config\Config::fromPhpFile', ['spec/configs/keys.php']);
         $this->getItems()->shouldBe(['config', 'file', 'items']);
     }
 
-    function it_should_throw_an_exception_if_php_file_isnt_found()
+    function it_should_throw_an_exception_if_the_php_configuration_isnt_found()
     {
         $this->shouldThrow('BigName\BackupManager\Config\ConfigFileNotFound')->during('fromPhpFile', ['nonexistent-file']);
     }
 
-    function it_should_return_configuration_fields()
+    function it_should_return_requested_configuration_fields()
     {
         $this->constructFromStorageFile();
         $this->get('local', 'type')->shouldBe('Local');
         $this->get('s3', 'type')->shouldBe('AwsS3');
     }
 
-    function it_should_return_an_entire_connection_config()
+    function it_should_return_an_entire_requested_connection_configuration()
     {
         $this->constructFromStorageFile();
         $this->get('local')->shouldBe(['type' => 'Local', 'root' => '/']);
     }
 
-    function it_should_throw_an_exception_when_connection_config_not_found()
+    function it_should_throw_an_exception_when_a_connection_configuration_is_not_found()
     {
         $this->constructFromStorageFile();
         $this->shouldThrow('BigName\BackupManager\Config\ConfigNotFoundForConnection')->during('get', ['baz']);
     }
 
-    function it_should_throw_an_exception_when_config_not_found()
+    function it_should_throw_an_exception_when_a_configuration_field_is_not_found()
     {
         $this->constructFromStorageFile();
         $this->shouldThrow('BigName\BackupManager\Config\ConfigFieldNotFound')->during('get', ['local', 'foo']);

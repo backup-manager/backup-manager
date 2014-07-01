@@ -21,12 +21,12 @@ class ManagerSpec extends ObjectBehavior
         $this->shouldHaveType('BigName\BackupManager\Manager');
     }
 
-    function it_can_create_backup_procedure()
+    function it_should_create_a_backup_procedure()
     {
         $this->makeBackup()->shouldHaveType('BigName\BackupManager\Procedures\BackupProcedure');
     }
 
-    function it_can_create_restore_procedure()
+    function it_should_create_a_restore_procedure()
     {
         $this->makeRestore()->shouldHaveType('BigName\BackupManager\Procedures\RestoreProcedure');
     }

@@ -13,7 +13,7 @@ class MysqlDatabaseSpec extends ObjectBehavior
         $this->shouldHaveType('BigName\BackupManager\Databases\MysqlDatabase');
     }
 
-    function it_should_handle_types_with_case_insensitivity()
+    function it_should_recognize_its_type_with_case_insensitivity()
     {
         foreach (['mysql', 'MYsql', 'MYSQL'] as $type) {
             $this->handles($type)->shouldBe(true);
@@ -24,13 +24,13 @@ class MysqlDatabaseSpec extends ObjectBehavior
         }
     }
 
-    function it_should_generate_a_database_dump_command()
+    function it_should_generate_a_valid_database_dump_command()
     {
         $this->configure();
         $this->getDumpCommandLine('outputPath')->shouldBe("mysqldump --host='foo' --port='3306' --user='bar' --password='baz' 'test' > 'outputPath'");
     }
 
-    function it_should_generate_a_database_restore_command()
+    function it_should_generate_a_valid_database_restore_command()
     {
         $this->configure();
         $this->getRestoreCommandLine('outputPath')->shouldBe("mysql --host='foo' --port='3306' --user='bar' --password='baz' 'test' -e \"source outputPath;\"");

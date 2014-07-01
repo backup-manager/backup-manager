@@ -15,7 +15,7 @@ class RestoreDatabaseSpec extends ObjectBehavior
         $this->shouldHaveType('BigName\BackupManager\Tasks\Database\RestoreDatabase');
     }
 
-    function it_should_execute_the_dump_database_command(Database $database, ShellProcessor $shellProcessor)
+    function it_should_execute_the_database_restore_command(Database $database, ShellProcessor $shellProcessor)
     {
         $database->getRestoreCommandLine('path')->willReturn('restore path');
         $shellProcessor->process('restore path')->shouldBeCalled();

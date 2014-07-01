@@ -13,13 +13,13 @@ class CompressorProviderSpec extends ObjectBehavior
         $this->shouldHaveType('BigName\BackupManager\Compressors\CompressorProvider');
     }
 
-    function it_can_deliver_compressors_by_name()
+    function it_should_provide_compressors_by_name()
     {
         $this->add(new GzipCompressor);
         $this->get('gzip')->shouldHaveType('BigName\BackupManager\Compressors\GzipCompressor');
     }
 
-    function it_throws_an_exception_if_it_cant_find_a_compressor()
+    function it_should_throw_an_exception_if_it_cant_find_a_compressor()
     {
         $this->shouldThrow('BigName\BackupManager\Compressors\CompressorTypeNotSupported')->during('get', ['unsupported']);
     }

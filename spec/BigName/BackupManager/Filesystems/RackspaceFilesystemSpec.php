@@ -12,7 +12,7 @@ class RackspaceFilesystemSpec extends ObjectBehavior
         $this->shouldHaveType('BigName\BackupManager\Filesystems\RackspaceFilesystem');
     }
 
-    function it_should_handle_types_with_case_insensitivity()
+    function it_should_recognize_its_type_with_case_insensitivity()
     {
         foreach (['rackspace', 'RackSpace', 'RACKSPACE'] as $type) {
             $this->handles($type)->shouldBe(true);
@@ -23,11 +23,11 @@ class RackspaceFilesystemSpec extends ObjectBehavior
         }
     }
 
-    function it_should_deliver_the_correct_filesystem_type()
+    function it_should_be_basically_untestable_because_the_library_is_bad()
     {
-        $this->shouldThrow('Guzzle\Http\Exception\ClientErrorResponseException')->during('get', [$this->getConfig()]);
         // can't really test this effectively because rackspace's sdk
         // tries to connect on instantiation...
+        $this->shouldThrow('Guzzle\Http\Exception\ClientErrorResponseException')->during('get', [$this->getConfig()]);
     }
 
     function getConfig()

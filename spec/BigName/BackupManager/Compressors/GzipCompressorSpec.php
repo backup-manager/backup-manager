@@ -12,7 +12,7 @@ class GzipCompressorSpec extends ObjectBehavior
         $this->shouldHaveType('BigName\BackupManager\Compressors\GzipCompressor');
     }
 
-    function it_should_handle_types_with_case_insensitivity()
+    function it_should_recognize_its_type_with_case_insensitivity()
     {
         foreach (['gzip', 'GZIP', 'GZip'] as $type) {
             $this->handles($type)->shouldBe(true);
@@ -37,14 +37,14 @@ class GzipCompressorSpec extends ObjectBehavior
         $this->getDecompressCommandLine('../foo.sql.gz')->shouldBe("gunzip '../foo.sql.gz'");
     }
 
-    function it_can_generate_compressed_paths_from_filename()
+    function it_should_generate_compressed_paths_from_filenames()
     {
         $this->getCompressedPath('a')->shouldBe('a.gz');
         $this->getCompressedPath('/a')->shouldBe('/a.gz');
         $this->getCompressedPath('/a.sql')->shouldBe('/a.sql.gz');
     }
 
-    function it_can_generate_decompressed_paths_from_filename()
+    function it_should_generate_decompressed_paths_from_filenames()
     {
         $this->getDecompressedPath('a.gz')->shouldBe('a');
         $this->getDecompressedPath('/a.gz')->shouldBe('/a');

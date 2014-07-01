@@ -20,23 +20,23 @@ class FilesystemProviderSpec extends ObjectBehavior
         $this->shouldHaveType('BigName\BackupManager\Filesystems\FilesystemProvider');
     }
 
-    function it_should_deliver_filesystem_by_name()
+    function it_should_provide_requested_filesystems_by_their_names()
     {
         $this->add(new LocalFilesystem);
         $this->get('local')->shouldHaveType('League\Flysystem\Filesystem');
     }
 
-    function it_should_throw_an_exception_if_it_cant_find_the_filesystem()
+    function it_should_throw_an_exception_if_a_filesystem_is_unsupported()
     {
         $this->shouldThrow('BigName\BackupManager\Filesystems\FilesystemTypeNotSupported')->during('get', ['unsupported']);
     }
 
-    function it_should_return_all_available_providers()
+    function it_should_provide_a_list_of_all_available_providers()
     {
         $this->getAvailableProviders()->shouldBe(['local', 's3', 'unsupported', 'null']);
     }
 
-    function it_should_deliver_filesystem_configuration_data()
+    function it_should_provide_requested_filesystem_configuration_data()
     {
         $this->getConfig('local', 'type')->shouldBe('Local');
     }

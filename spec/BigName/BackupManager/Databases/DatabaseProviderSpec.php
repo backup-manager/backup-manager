@@ -20,18 +20,18 @@ class DatabaseProviderSpec extends ObjectBehavior
         $this->shouldHaveType('BigName\BackupManager\Databases\DatabaseProvider');
     }
 
-    function it_should_deliver_database_by_name()
+    function it_should_provide_requested_databases_by_name()
     {
         $this->add(new MysqlDatabase);
         $this->get('development')->shouldHaveType('BigName\BackupManager\Databases\MysqlDatabase');
     }
 
-    function it_throws_an_exception_if_it_cant_find_the_database()
+    function it_should_throw_an_exception_if_a_database_is_unsupported()
     {
         $this->shouldThrow('BigName\BackupManager\Databases\DatabaseTypeNotSupported')->during('get', ['unsupported']);
     }
 
-    function it_should_give_a_list_of_available_databases()
+    function it_should_provide_a_list_of_available_databases()
     {
         $this->getAvailableProviders()->shouldBe(['development', 'production', 'unsupported', 'null']);
     }

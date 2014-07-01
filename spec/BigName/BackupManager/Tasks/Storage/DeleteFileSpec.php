@@ -14,7 +14,7 @@ class DeleteFileSpec extends ObjectBehavior
         $this->shouldHaveType('BigName\BackupManager\Tasks\Storage\DeleteFile');
     }
 
-    function it_should_execute_the_delete_command(Filesystem $filesystem)
+    function it_should_execute_the_delete_file_command(Filesystem $filesystem)
     {
         $filesystem->delete('path')->shouldBeCalled();
 

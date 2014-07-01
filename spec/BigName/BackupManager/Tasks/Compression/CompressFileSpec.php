@@ -15,7 +15,7 @@ class CompressFileSpec extends ObjectBehavior
         $this->shouldHaveType('BigName\BackupManager\Tasks\Compression\CompressFile');
     }
 
-    function it_should_execute_the_compressor_command(Compressor $compressor, ShellProcessor $shellProcessor)
+    function it_should_execute_the_compression_command(Compressor $compressor, ShellProcessor $shellProcessor)
     {
         $compressor->getCompressCommandLine('path')->willReturn('compress path');
         $shellProcessor->process('compress path')->shouldBeCalled();

@@ -15,7 +15,7 @@ class DumpDatabaseSpec extends ObjectBehavior
         $this->shouldHaveType('BigName\BackupManager\Tasks\Database\DumpDatabase');
     }
 
-    function it_should_execute_the_dump_database_command(Database $database, ShellProcessor $shellProcessor)
+    function it_should_execute_the_database_dump_command(Database $database, ShellProcessor $shellProcessor)
     {
         $database->getDumpCommandLine('path')->willReturn('dump path');
         $shellProcessor->process('dump path')->shouldBeCalled();
