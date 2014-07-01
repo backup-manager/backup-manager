@@ -5,6 +5,14 @@ namespace spec\BigName\BackupManager\Filesystems;
 use PhpSpec\ObjectBehavior;
 use Prophecy\Argument;
 
+/**
+ * Class RackspaceFilesystemSpec
+ *
+ * This driver can't be tested because the library is poorly written
+ * and the constructor immediately tries to connect.
+ *
+ * @package spec\BigName\BackupManager\Filesystems
+ */
 class RackspaceFilesystemSpec extends ObjectBehavior
 {
     function it_is_initializable()
@@ -21,13 +29,6 @@ class RackspaceFilesystemSpec extends ObjectBehavior
         foreach ([null, 'foo'] as $type) {
             $this->handles($type)->shouldBe(false);
         }
-    }
-
-    function it_should_be_basically_untestable_because_the_library_is_bad()
-    {
-        // can't really test this effectively because rackspace's sdk
-        // tries to connect on instantiation...
-        $this->shouldThrow('Guzzle\Http\Exception\CurlException')->during('get', [$this->getConfig()]);
     }
 
     function getConfig()
