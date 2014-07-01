@@ -17,10 +17,10 @@ class CompressFileSpec extends ObjectBehavior
 
     function it_should_execute_the_compressor_command(Compressor $compressor, ShellProcessor $shellProcessor)
     {
-        $compressor->getCompressCommandLine('foo')->willReturn('compress foo');
-        $shellProcessor->process('compress foo')->shouldBeCalled();
+        $compressor->getCompressCommandLine('path')->willReturn('compress path');
+        $shellProcessor->process('compress path')->shouldBeCalled();
 
-        $this->beConstructedWith($compressor, 'foo', $shellProcessor);
+        $this->beConstructedWith($compressor, 'path', $shellProcessor);
         $this->execute();
     }
 }
