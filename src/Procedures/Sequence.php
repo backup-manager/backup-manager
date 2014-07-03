@@ -31,4 +31,4 @@ class Sequence
             $task->execute();
         }
     }
-} 
+}
