@@ -47,7 +47,6 @@ class BackupProcedure extends Procedure
         ));
         $workingFile = $compressor->getCompressedPath($workingFile);
 
-
         // upload the archive
         $this->add(new Tasks\Storage\TransferFile(
             // source fs and path
