@@ -4,6 +4,7 @@ return [
     'local' => [
         'type' => 'Local',
         'root' => '/',
+        'prefix' => '',
     ],
     's3' => [
         'type' => 'AwsS3',
