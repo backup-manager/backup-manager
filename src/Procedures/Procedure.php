@@ -99,8 +99,10 @@ abstract class Procedure
 	protected function getDestinationPath($name, $destinationPath)
 	{
 		$dir = dirname($destinationPath);
+		$dir = $dir == '.' ? '' : $dir;
+		$dir = $dir ? "$dir/" : '';
 		return sprintf('%s%s%s',
-		               $dir ? "$dir/" : '',
+		               $dir,
 		               $this->getPrefix($name),
 		               basename($destinationPath)
 		);

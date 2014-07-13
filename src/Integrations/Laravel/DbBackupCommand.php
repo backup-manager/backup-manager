@@ -97,7 +97,8 @@ class DbBackupCommand extends BaseCommand
         $root = $this->filesystems->getConfig($this->option('destination'), 'root');
 		$prefix = $this->filesystems->getConfig($this->option('destination'), 'prefix');
 		$dir = dirname($this->option('destinationPath'));
-		$dir = $dir ? "$dir/" : '';
+		$dir = $dir == '.' ? '' : $dir;
+		$dir = $dir ? "$dir/" : '/';
 		$file = basename($this->option('destinationPath'));
         $this->info(sprintf('Successfully dumped <comment>%s</comment>, compressed with <comment>%s</comment> and store it to <comment>%s</comment> at <comment>%s</comment>',
             $this->option('database'),
