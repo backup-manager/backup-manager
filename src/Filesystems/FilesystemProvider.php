@@ -57,9 +57,9 @@ class FilesystemProvider
      * @throws \BigName\BackupManager\Config\ConfigNotFoundForConnection
      * @return mixed
      */
-    public function getConfig($name, $key = null)
+    public function getConfig($name, $key = null, $default = null)
     {
-        return $this->config->get($name, $key);
+        return $this->config->get($name, $key, $default);
     }
 
     /**

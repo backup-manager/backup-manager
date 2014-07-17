@@ -40,15 +40,17 @@ class Config
      * @throws ConfigFieldNotFound
      * @throws ConfigNotFoundForConnection
      */
-    public function get($name, $field = null)
+    public function get($name, $field = null, $default = null)
     {
-        if ( ! array_key_exists($name, $this->config)) {
+        if ( ! array_key_exists($name, $this->config) && is_null($default)) {
             throw new ConfigNotFoundForConnection("Could not find configuration for connection {$name}");
         }
         if ($field) {
-            return $this->getConfigField($name, $field);
+            return $this->getConfigField($name, $field, $default);
         }
-        return $this->config[$name];
+        return array_key_exists($name, $this->config)
+	            ? $this->config[$name]
+	            : $default;
     }
 
     /**
@@ -65,10 +67,13 @@ class Config
      * @return mixed
      * @throws ConfigFieldNotFound
      */
-    private function getConfigField($name, $field)
+    private function getConfigField($name, $field, $default = null)
     {
         if ( ! array_key_exists($field, $this->config[$name])) {
-            throw new ConfigFieldNotFound("Could not find field {$field} in configuration for connection type {$name}");
+	        if (is_null($default)) {
+	            throw new ConfigFieldNotFound("Could not find field {$field} in configuration for connection type {$name}");
+	        }
+	        return $default;
         }
         return $this->config[$name][$field];
     }
