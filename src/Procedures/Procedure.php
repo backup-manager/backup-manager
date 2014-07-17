@@ -90,4 +90,21 @@ abstract class Procedure
         $path = $this->filesystems->getConfig($name, 'root');
         return preg_replace('/\/$/', '', $path);
     }
-} 
+
+	private function getPrefix($name)
+	{
+		return $this->filesystems->getConfig($name, 'prefix', '');
+	}
+
+	protected function getDestinationPath($name, $destinationPath)
+	{
+		$dir = dirname($destinationPath);
+		$dir = $dir == '.' ? '' : $dir;
+		$dir = $dir ? "$dir/" : '';
+		return sprintf('%s%s%s',
+		               $dir,
+		               $this->getPrefix($name),
+		               basename($destinationPath)
+		);
+	}
+}

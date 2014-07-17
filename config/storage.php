@@ -4,6 +4,7 @@ return [
     'local' => [
         'type' => 'Local',
         'root' => '/',
+        'prefix' => '',
     ],
     's3' => [
         'type' => 'AwsS3',
@@ -12,6 +13,7 @@ return [
         'region' => Aws\Common\Enum\Region::US_EAST_1,
         'bucket' => '',
         'root'   => '',
+        'prefix' => '',
     ],
     'rackspace' => [
         'type' => 'Rackspace',
@@ -21,6 +23,7 @@ return [
         'zone' => '',
         'endpoint' => 'https://identity.api.rackspacecloud.com/v2.0/',
         'root' => '',
+        'prefix' => '',
     ],
     'dropbox' => [
         'type' => 'Dropbox',
@@ -29,6 +32,7 @@ return [
         'secret' => '',
         'app' => '',
         'root' => '',
+        'prefix' => '',
     ],
     'ftp' => [
         'type' => 'Ftp',
@@ -40,6 +44,7 @@ return [
         'ssl' => true,
         'timeout' => 30,
         'root' => '',
+        'prefix' => '',
     ],
     'sftp' => [
         'type' => 'Sftp',
@@ -50,5 +55,6 @@ return [
         'timeout' => 10,
         'privateKey' => '',
         'root' => '',
+        'prefix' => '',
     ],
 ];
