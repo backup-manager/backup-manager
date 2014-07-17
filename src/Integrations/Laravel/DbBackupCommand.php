@@ -95,7 +95,7 @@ class DbBackupCommand extends BaseCommand
 
         $this->line('');
         $root = $this->filesystems->getConfig($this->option('destination'), 'root');
-		$prefix = $this->filesystems->getConfig($this->option('destination'), 'prefix');
+		$prefix = $this->filesystems->getConfig($this->option('destination'), 'prefix', '');
 		$dir = dirname($this->option('destinationPath'));
 		$dir = $dir == '.' ? '' : $dir;
 		$dir = $dir ? "$dir/" : '/';

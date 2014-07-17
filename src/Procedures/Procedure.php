@@ -93,7 +93,7 @@ abstract class Procedure
 
 	private function getPrefix($name)
 	{
-		return $this->filesystems->getConfig($name, 'prefix') ?: '';
+		return $this->filesystems->getConfig($name, 'prefix', '');
 	}
 
 	protected function getDestinationPath($name, $destinationPath)
