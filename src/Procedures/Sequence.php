@@ -9,7 +9,7 @@ use BigName\BackupManager\Tasks\Task;
 class Sequence
 {
     /**
-     * @var array
+     * @var array|Task[]
      */
     private $tasks = [];
 
