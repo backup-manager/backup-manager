@@ -7,7 +7,7 @@
 class CompressorProvider
 {
     /**
-     * @var array|Compressor[]
+     * @var Compressor[]
      */
     private $compressors = [];
 
