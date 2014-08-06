@@ -40,7 +40,7 @@ class Manager
     }
 
     /**
-     * @return BackupProcedure
+     * @return Procedures\BackupProcedure
      */
     public function makeBackup()
     {
@@ -54,7 +54,7 @@ class Manager
     }
 
     /**
-     * @return RestoreProcedure
+     * @return Procedures\RestoreProcedure
      */
     public function makeRestore()
     {
@@ -68,7 +68,7 @@ class Manager
     }
 
     /**
-     * @return ShellProcessor
+     * @return ShellProcessing\ShellProcessor
      */
     protected function getShellProcessor()
     {

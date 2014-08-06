@@ -56,8 +56,8 @@ class DbBackupCommand extends BaseCommand
 
     /**
      * @param BackupProcedure $backupProcedure
-     * @param DatabaseProvider $databaseProvider
-     * @param FilesystemProvider $filesystemProvider
+     * @param DatabaseProvider $databases
+     * @param FilesystemProvider $filesystems
      */
     public function __construct(BackupProcedure $backupProcedure, DatabaseProvider $databases, FilesystemProvider $filesystems)
     {
