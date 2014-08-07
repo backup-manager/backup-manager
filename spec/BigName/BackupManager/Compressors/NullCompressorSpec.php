@@ -12,14 +12,17 @@ class NullCompressorSpec extends ObjectBehavior
         $this->shouldHaveType('BigName\BackupManager\Compressors\Compressor');
     }
 
-    function it_should_recognize_its_type_with_case_insensitivity()
+    function it_recognizes_the_correct_type()
     {
         foreach (['null', 'NULL', 'NUll'] as $type) {
-            $this->handles($type)->shouldBe(true);
+            $this->handles($type)->shouldBeTrue();
         }
+    }
 
+    function it_recognizes_the_incorrect_type()
+    {
         foreach ([null, 'foo'] as $type) {
-            $this->handles($type)->shouldBe(false);
+            $this->handles($type)->shouldBeFalse();
         }
     }
 
