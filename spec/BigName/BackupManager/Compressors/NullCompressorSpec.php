@@ -7,7 +7,7 @@ use Prophecy\Argument;
 
 class NullCompressorSpec extends ObjectBehavior
 {
-    function it_is_initializable()
+    function it_is_an_implementation_of_compressor()
     {
         $this->shouldHaveType('BigName\BackupManager\Compressors\Compressor');
     }
