@@ -2,7 +2,8 @@
 
 use BigName\BackupManager\Tasks\Task;
 use BigName\BackupManager\Databases\Database;
-use BigName\BackupManager\ShellProcessing\ShellProcessor;
+use BigName\BackupManager\Shell\ShellProcessor;
+use BigName\BackupManager\Shell\ShellProcessFailed;
 
 /**
  * Class RestoreDatabase
@@ -15,11 +16,11 @@ class RestoreDatabase implements Task
      */
     private $inputPath;
     /**
-     * @var \BigName\BackupManager\ShellProcessing\ShellProcessor
+     * @var ShellProcessor
      */
     private $shellProcessor;
     /**
-     * @var \BigName\BackupManager\Databases\Database
+     * @var Database
      */
     private $database;
 
@@ -36,7 +37,7 @@ class RestoreDatabase implements Task
     }
 
     /**
-     * @throws \BigName\BackupManager\ShellProcessing\ShellProcessFailed
+     * @throws ShellProcessFailed
      */
     public function execute()
     {

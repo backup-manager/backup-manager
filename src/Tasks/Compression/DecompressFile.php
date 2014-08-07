@@ -2,7 +2,8 @@
 
 use BigName\BackupManager\Tasks\Task;
 use BigName\BackupManager\Compressors\Compressor;
-use BigName\BackupManager\ShellProcessing\ShellProcessor;
+use BigName\BackupManager\Shell\ShellProcessor;
+use BigName\BackupManager\Shell\ShellProcessFailed;
 
 /**
  * Class DecompressFile
@@ -15,11 +16,11 @@ class DecompressFile implements Task
      */
     private $sourcePath;
     /**
-     * @var \BigName\BackupManager\ShellProcessing\ShellProcessor
+     * @var ShellProcessor
      */
     private $shellProcessor;
     /**
-     * @var \BigName\BackupManager\Compressors\Compressor
+     * @var Compressor
      */
     private $compressor;
 
@@ -36,7 +37,7 @@ class DecompressFile implements Task
     }
 
     /**
-     * @throws \BigName\BackupManager\ShellProcessing\ShellProcessFailed
+     * @throws ShellProcessFailed
      */
     public function execute()
     {

@@ -6,7 +6,7 @@ use BigName\BackupManager\Compressors\CompressorProvider;
 use BigName\BackupManager\Databases\DatabaseProvider;
 use BigName\BackupManager\Filesystems\FilesystemProvider;
 use BigName\BackupManager\Procedures\Sequence;
-use BigName\BackupManager\ShellProcessing\ShellProcessor;
+use BigName\BackupManager\Shell\ShellProcessor;
 use PhpSpec\ObjectBehavior;
 use Prophecy\Argument;
 

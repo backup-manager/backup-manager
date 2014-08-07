@@ -1,6 +1,6 @@
 <?php
 
-namespace spec\BigName\BackupManager\ShellProcessing;
+namespace spec\BigName\BackupManager\Shell;
 
 use PhpSpec\ObjectBehavior;
 use Prophecy\Argument;

@@ -2,11 +2,12 @@
 
 use BigName\BackupManager\Tasks\Task;
 use BigName\BackupManager\Databases\Database;
-use BigName\BackupManager\ShellProcessing\ShellProcessor;
+use BigName\BackupManager\Shell\ShellProcessor;
+use BigName\BackupManager\Shell\ShellProcessFailed;
 
 /**
  * Class DumpDatabase
- * @package BigName\BackupManager\Tasks\Database\Mysql
+ * @package BigName\BackupManager\Tasks\Database
  */
 class DumpDatabase implements Task
 {
@@ -15,11 +16,11 @@ class DumpDatabase implements Task
      */
     private $outputPath;
     /**
-     * @var \BigName\BackupManager\ShellProcessing\ShellProcessor
+     * @var ShellProcessor
      */
     private $shellProcessor;
     /**
-     * @var \BigName\BackupManager\Databases\Database
+     * @var Database
      */
     private $database;
 
@@ -36,7 +37,7 @@ class DumpDatabase implements Task
     }
 
     /**
-     * @throws \BigName\BackupManager\ShellProcessing\ShellProcessFailed
+     * @throws ShellProcessFailed
      */
     public function execute()
     {

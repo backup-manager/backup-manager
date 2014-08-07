@@ -1,14 +1,16 @@
 <?php namespace BigName\BackupManager\Procedures;
 
+use BigName\BackupManager\Config\ConfigFieldNotFound;
+use BigName\BackupManager\Config\ConfigNotFoundForConnection;
 use BigName\BackupManager\Tasks\Task;
 use BigName\BackupManager\Databases\DatabaseProvider;
 use BigName\BackupManager\Compressors\CompressorProvider;
 use BigName\BackupManager\Filesystems\FilesystemProvider;
-use BigName\BackupManager\ShellProcessing\ShellProcessor;
+use BigName\BackupManager\Shell\ShellProcessor;
 
 /**
  * Class Procedure
- * @package Procedures
+ * @package BigName\BackupManager\Procedures
  */
 abstract class Procedure
 {
@@ -17,19 +19,19 @@ abstract class Procedure
      */
     private $sequence;
     /**
-     * @var \BigName\BackupManager\Filesystems\FilesystemProvider
+     * @var FilesystemProvider
      */
     protected $filesystems;
     /**
-     * @var \BigName\BackupManager\Databases\DatabaseProvider
+     * @var DatabaseProvider
      */
     protected $databases;
     /**
-     * @var \BigName\BackupManager\Compressors\CompressorProvider
+     * @var CompressorProvider
      */
     protected $compressors;
     /**
-     * @var \BigName\BackupManager\ShellProcessing\ShellProcessor
+     * @var ShellProcessor
      */
     protected $shellProcessor;
 
@@ -67,8 +69,8 @@ abstract class Procedure
 
     /**
      * @param $name
-     * @param null $filename
-     * @throws \BigName\BackupManager\Config\ConfigNotFoundForConnection
+     * @param  null $filename
+     * @throws ConfigNotFoundForConnection
      * @return string
      */
     protected function getWorkingFile($name, $filename = null)
@@ -81,8 +83,8 @@ abstract class Procedure
 
     /**
      * @param $name
-     * @throws \BigName\BackupManager\Config\ConfigFieldNotFound
-     * @throws \BigName\BackupManager\Config\ConfigNotFoundForConnection
+     * @throws ConfigFieldNotFound
+     * @throws ConfigNotFoundForConnection
      * @return string
      */
     protected function getRootPath($name)

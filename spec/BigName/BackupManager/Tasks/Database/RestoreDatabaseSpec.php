@@ -3,7 +3,7 @@
 namespace spec\BigName\BackupManager\Tasks\Database;
 
 use BigName\BackupManager\Databases\Database;
-use BigName\BackupManager\ShellProcessing\ShellProcessor;
+use BigName\BackupManager\Shell\ShellProcessor;
 use PhpSpec\ObjectBehavior;
 use Prophecy\Argument;
 

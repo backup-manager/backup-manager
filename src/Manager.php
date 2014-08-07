@@ -3,10 +3,10 @@
 use BigName\BackupManager\Procedures;
 use Symfony\Component\Process\Process;
 use BigName\BackupManager\Procedures\Sequence;
+use BigName\BackupManager\Shell\ShellProcessor;
 use BigName\BackupManager\Databases\DatabaseProvider;
 use BigName\BackupManager\Filesystems\FilesystemProvider;
 use BigName\BackupManager\Compressors\CompressorProvider;
-use BigName\BackupManager\ShellProcessing\ShellProcessor;
 
 /**
  * Class Manager
@@ -15,22 +15,22 @@ use BigName\BackupManager\ShellProcessing\ShellProcessor;
 class Manager
 {
     /**
-     * @var Filesystems\FilesystemProvider
+     * @var FilesystemProvider
      */
     private $filesystems;
     /**
-     * @var Databases\DatabaseProvider
+     * @var DatabaseProvider
      */
     private $databases;
     /**
-     * @var Compressors\CompressorProvider
+     * @var CompressorProvider
      */
     private $compressors;
 
     /**
-     * @param \BigName\BackupManager\Filesystems\FilesystemProvider $filesystems
-     * @param \BigName\BackupManager\Databases\DatabaseProvider $databases
-     * @param \BigName\BackupManager\Compressors\CompressorProvider $compressors
+     * @param FilesystemProvider $filesystems
+     * @param DatabaseProvider $databases
+     * @param CompressorProvider $compressors
      */
     public function __construct(FilesystemProvider $filesystems, DatabaseProvider $databases, CompressorProvider $compressors)
     {
@@ -68,7 +68,7 @@ class Manager
     }
 
     /**
-     * @return ShellProcessing\ShellProcessor
+     * @return ShellProcessor
      */
     protected function getShellProcessor()
     {
