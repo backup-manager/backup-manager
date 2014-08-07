@@ -2,37 +2,37 @@
 
 /**
  * Class Compressor
- * @package BigName\BackupManager\Compressors
+ * @package BigName\BackupManager
  */
-abstract class Compressor
+interface Compressor
 {
     /**
      * @param $type
      * @return bool
      */
-    abstract public function handles($type);
+    public function handles($type);
 
     /**
      * @param $inputPath
      * @return string
      */
-    abstract public function getCompressCommandLine($inputPath);
+    public function getCompressCommandLine($inputPath);
 
     /**
      * @param $outputPath
      * @return string
      */
-    abstract public function getDecompressCommandLine($outputPath);
+    public function getDecompressCommandLine($outputPath);
 
     /**
      * @param $inputPath
      * @return string
      */
-    abstract public function getCompressedPath($inputPath);
+    public function getCompressedPath($inputPath);
 
     /**
      * @param $inputPath
      * @return string
      */
-    abstract public function getDecompressedPath($inputPath);
+    public function getDecompressedPath($inputPath);
 }

@@ -9,7 +9,7 @@ class NullCompressorSpec extends ObjectBehavior
 {
     function it_is_initializable()
     {
-        $this->shouldHaveType('BigName\BackupManager\Compressors\NullCompressor');
+        $this->shouldHaveType('BigName\BackupManager\Compressors\Compressor');
     }
 
     function it_should_recognize_its_type_with_case_insensitivity()

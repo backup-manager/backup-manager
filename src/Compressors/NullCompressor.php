@@ -2,9 +2,9 @@
 
 /**
  * Class NullCompressor
- * @package BigName\BackupManager\Compressors
+ * @package BigName\BackupManager
  */
-class NullCompressor extends Compressor
+class NullCompressor implements  Compressor
 {
     /**
      * @param $type

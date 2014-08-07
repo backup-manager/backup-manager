@@ -32,7 +32,8 @@ class ShellProcessor
         if (empty($command))
             return;
 
-        $this->process->setCommandLine($command)->run();
+        $this->process->setCommandLine($command);
+        $this->process->run();
         if ( ! $this->process->isSuccessful())
             throw new ShellProcessFailed($this->process->getErrorOutput());
     }

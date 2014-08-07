@@ -10,9 +10,8 @@ class ShellProcessorSpec extends ObjectBehavior
 {
     function it_is_initializable(Process $process)
     {
-        /** @noinspection PhpParamsInspection */
         $this->beConstructedWith($process);
-        $this->shouldHaveType('BigName\BackupManager\ShellProcessing\ShellProcessor');
+        $this->shouldHaveType('BigName\BackupManager\Shell\ShellProcessor');
     }
 
     function it_should_execute_a_command_line_process(Process $process)
@@ -21,7 +20,6 @@ class ShellProcessorSpec extends ObjectBehavior
         $process->run()->shouldBeCalled();
         $process->isSuccessful()->willReturn(true);
 
-        /** @noinspection PhpParamsInspection */
         $this->beConstructedWith($process);
         $this->process('foo');
     }
@@ -33,9 +31,8 @@ class ShellProcessorSpec extends ObjectBehavior
         $process->isSuccessful()->willReturn(false);
         $process->getErrorOutput()->shouldBeCalled();
 
-        /** @noinspection PhpParamsInspection */
         $this->beConstructedWith($process);
-        $this->shouldThrow('BigName\BackupManager\ShellProcessing\ShellProcessFailed')->during('process', ['foo']);
+        $this->shouldThrow('BigName\BackupManager\Shell\ShellProcessFailed')->during('process', ['foo']);
     }
 
     function it_should_not_process_empty_commands(Process $process)
@@ -44,7 +41,6 @@ class ShellProcessorSpec extends ObjectBehavior
         $process->run()->shouldNotBeCalled();
         $process->isSuccessful()->willReturn(true);
 
-        /** @noinspection PhpParamsInspection */
         $this->beConstructedWith($process);
         $this->process('');
     }

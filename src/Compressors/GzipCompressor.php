@@ -2,9 +2,9 @@
 
 /**
  * Class GzipCompressor
- * @package BigName\BackupManager\Compressors
+ * @package BigName\BackupManager
  */
-class GzipCompressor extends Compressor
+class GzipCompressor implements Compressor
 {
     /**
      * @param $type
