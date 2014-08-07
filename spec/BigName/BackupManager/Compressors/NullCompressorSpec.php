@@ -23,15 +23,23 @@ class NullCompressorSpec extends ObjectBehavior
         }
     }
 
-    function it_should_return_empty_commands()
+    function it_returns_null_as_the_shell_compress_command()
     {
-        $this->getCompressCommandLine('foo')->shouldBe('');
-        $this->getDecompressCommandLine('foo')->shouldBe('');
+        $this->getCompressCommandLine('foo')->shouldBeNull();
     }
 
-    function it_should_not_modify_paths()
+    function it_returns_null_as_the_shell_decompress_command()
     {
-        $this->getCompressedPath('foo')->shouldBe('foo');
-        $this->getCompressedPath('bar')->shouldBe('bar');
+        $this->getDecompressCommandLine('foo')->shouldBeNull();
+    }
+
+    function it_returns_null_as_the_compressed_path()
+    {
+        $this->getCompressedPath('compressed/path')->shouldBeNull();
+    }
+
+    function it_returns_null_as_the_decompressed_path()
+    {
+        $this->getCompressedPath('decompressed/path')->shouldBeNull();
     }
 }

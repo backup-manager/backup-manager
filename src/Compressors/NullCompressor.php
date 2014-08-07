@@ -21,7 +21,7 @@ class NullCompressor implements  Compressor
      */
     public function getCompressCommandLine($inputPath)
     {
-        return '';
+        return null;
     }
 
     /**
@@ -30,7 +30,7 @@ class NullCompressor implements  Compressor
      */
     public function getDecompressCommandLine($outputPath)
     {
-        return '';
+        return null;
     }
 
     /**
@@ -39,7 +39,7 @@ class NullCompressor implements  Compressor
      */
     public function getCompressedPath($inputPath)
     {
-        return $inputPath;
+        return null;
     }
 
     /**
@@ -48,6 +48,6 @@ class NullCompressor implements  Compressor
      */
     public function getDecompressedPath($inputPath)
     {
-        return $inputPath;
+        return null;
     }
 }
