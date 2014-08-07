@@ -66,30 +66,4 @@ abstract class Procedure
     {
         $this->sequence->execute();
     }
-
-    /**
-     * @param $name
-     * @param  null $filename
-     * @throws ConfigNotFoundForConnection
-     * @return string
-     */
-    protected function getWorkingFile($name, $filename = null)
-    {
-        if (is_null($filename)) {
-            $filename = uniqid();
-        }
-        return sprintf('%s/%s', $this->getRootPath($name), $filename);
-    }
-
-    /**
-     * @param $name
-     * @throws ConfigFieldNotFound
-     * @throws ConfigNotFoundForConnection
-     * @return string
-     */
-    protected function getRootPath($name)
-    {
-        $path = $this->filesystems->getConfig($name, 'root');
-        return preg_replace('/\/$/', '', $path);
-    }
 } 

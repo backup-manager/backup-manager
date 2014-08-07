@@ -39,7 +39,7 @@ class GzipCompressor implements Compressor
      */
     public function getCompressedPath($inputPath)
     {
-        return $inputPath . '.gz';
+        return "{$inputPath}.gz";
     }
 
     /**

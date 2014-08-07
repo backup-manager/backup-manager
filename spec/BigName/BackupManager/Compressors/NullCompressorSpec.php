@@ -15,14 +15,14 @@ class NullCompressorSpec extends ObjectBehavior
     function it_recognizes_the_correct_type()
     {
         foreach (['null', 'NULL', 'NUll'] as $type) {
-            $this->handles($type)->shouldBeTrue();
+            $this->handles($type)->shouldBe(true);
         }
     }
 
     function it_recognizes_the_incorrect_type()
     {
         foreach ([null, 'foo'] as $type) {
-            $this->handles($type)->shouldBeFalse();
+            $this->handles($type)->shouldBe(false);
         }
     }
 

@@ -64,4 +64,30 @@ class BackupProcedure extends Procedure
 
         $this->execute();
     }
+
+    /**
+     * @param $name
+     * @param  null $filename
+     * @throws ConfigNotFoundForConnection
+     * @return string
+     */
+    private function getWorkingFile($name, $filename = null)
+    {
+        if ( ! $filename)
+            $filename = uniqid();
+
+        return sprintf('%s/%s', $this->getRootPath($name), $filename);
+    }
+
+    /**
+     * @param $name
+     * @throws ConfigFieldNotFound
+     * @throws ConfigNotFoundForConnection
+     * @return string
+     */
+    private function getRootPath($name)
+    {
+        $path = $this->filesystems->getConfig($name, 'root');
+        return preg_replace('/\/$/', '', $path);
+    }
 }
