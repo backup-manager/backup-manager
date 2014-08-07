@@ -9,15 +9,10 @@ use BigName\BackupManager\Tasks;
 class BackupProcedure extends Procedure
 {
     /**
-     * @param $database
-     * @param $destination
-     * @param $destinationPath
-     * @param $compression
-     * @throws \BigName\BackupManager\Filesystems\FilesystemTypeNotSupported
-     * @throws \BigName\BackupManager\Config\ConfigFieldNotFound
-     * @throws \BigName\BackupManager\Compressors\CompressorTypeNotSupported
-     * @throws \BigName\BackupManager\Databases\DatabaseTypeNotSupported
-     * @throws \BigName\BackupManager\Config\ConfigNotFoundForConnection
+     * @param string $database
+     * @param string $destination
+     * @param string $destinationPath
+     * @param string $compression
      */
     public function run($database, $destination, $destinationPath, $compression)
     {
