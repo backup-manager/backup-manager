@@ -48,8 +48,7 @@ class Manager
             $this->filesystems,
             $this->databases,
             $this->compressors,
-            $this->getShellProcessor(),
-            new Sequence
+            $this->getShellProcessor()
         );
     }
 
@@ -62,8 +61,7 @@ class Manager
             $this->filesystems,
             $this->databases,
             $this->compressors,
-            $this->getShellProcessor(),
-            new Sequence
+            $this->getShellProcessor()
         );
     }
 

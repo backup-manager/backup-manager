@@ -21,12 +21,14 @@ class BackupProcedure extends Procedure
      */
     public function run($database, $destination, $destinationPath, $compression)
     {
+        $sequence = new Sequence;
+
         // begin the life of a new working file
         $localFilesystem = $this->filesystems->get('local');
         $workingFile = $this->getWorkingFile('local');
 
         // dump the database
-        $this->add(new Tasks\Database\DumpDatabase(
+        $sequence->add(new Tasks\Database\DumpDatabase(
             // database connection
             $this->databases->get($database),
             // output file path
@@ -37,7 +39,7 @@ class BackupProcedure extends Procedure
 
         // archive the dump
         $compressor = $this->compressors->get($compression);
-        $this->add(new Tasks\Compression\CompressFile(
+        $sequence->add(new Tasks\Compression\CompressFile(
             // compression type
             $compressor,
             // source file path
@@ -48,20 +50,20 @@ class BackupProcedure extends Procedure
         $workingFile = $compressor->getCompressedPath($workingFile);
 
         // upload the archive
-        $this->add(new Tasks\Storage\TransferFile(
+        $sequence->add(new Tasks\Storage\TransferFile(
             // source fs and path
             $localFilesystem, basename($workingFile),
             // destination fs and path
             $this->filesystems->get($destination), $compressor->getCompressedPath($destinationPath)
         ));
         // cleanup the local archive
-        $this->add(new Tasks\Storage\DeleteFile(
+        $sequence->add(new Tasks\Storage\DeleteFile(
             // storage fs
             $localFilesystem,
             // path
             basename($workingFile)
         ));
 
-        $this->execute();
+        $sequence->execute();
     }
 }

@@ -1,6 +1,5 @@
 <?php namespace BigName\BackupManager\Procedures;
 
-use BigName\BackupManager\Tasks\Task;
 use BigName\BackupManager\Databases\DatabaseProvider;
 use BigName\BackupManager\Compressors\CompressorProvider;
 use BigName\BackupManager\Filesystems\FilesystemProvider;
@@ -12,10 +11,6 @@ use BigName\BackupManager\ShellProcessing\ShellProcessor;
  */
 abstract class Procedure
 {
-    /**
-     * @var Sequence
-     */
-    private $sequence;
     /**
      * @var \BigName\BackupManager\Filesystems\FilesystemProvider
      */
@@ -38,31 +33,14 @@ abstract class Procedure
      * @param DatabaseProvider $databaseProvider
      * @param CompressorProvider $compressorProvider
      * @param ShellProcessor $shellProcessor
-     * @param Sequence $sequence
+     * @internal param Sequence $sequence
      */
-    public function __construct(FilesystemProvider $filesystemProvider, DatabaseProvider $databaseProvider, CompressorProvider $compressorProvider, ShellProcessor $shellProcessor, Sequence $sequence)
+    public function __construct(FilesystemProvider $filesystemProvider, DatabaseProvider $databaseProvider, CompressorProvider $compressorProvider, ShellProcessor $shellProcessor)
     {
         $this->filesystems = $filesystemProvider;
         $this->databases = $databaseProvider;
         $this->compressors = $compressorProvider;
         $this->shellProcessor = $shellProcessor;
-        $this->sequence = $sequence;
-    }
-
-    /**
-     * @param Task $task
-     */
-    protected function add(Task $task)
-    {
-        $this->sequence->add($task);
-    }
-
-    /**
-     * Execute the sequence.
-     */
-    protected function execute()
-    {
-        $this->sequence->execute();
     }
 
     /**

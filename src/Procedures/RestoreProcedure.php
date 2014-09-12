@@ -21,12 +21,14 @@ class RestoreProcedure extends Procedure
      */
     public function run($sourceType, $sourcePath, $databaseName, $compression = null)
     {
+        $sequence = new Sequence;
+
         // begin the life of a new working file
         $localFilesystem = $this->filesystems->get('local');
         $workingFile = $this->getWorkingFile('local', basename($sourcePath));
 
         // download or retrieve the archived backup file
-        $this->add(new Tasks\Storage\TransferFile(
+        $sequence->add(new Tasks\Storage\TransferFile(
             $this->filesystems->get($sourceType), $sourcePath,
             $localFilesystem, basename($workingFile)
         ));
@@ -34,7 +36,7 @@ class RestoreProcedure extends Procedure
         // decompress the archived backup
         $compressor = $this->compressors->get($compression);
 
-        $this->add(new Tasks\Compression\DecompressFile(
+        $sequence->add(new Tasks\Compression\DecompressFile(
             $compressor,
             $workingFile,
             $this->shellProcessor
@@ -42,18 +44,18 @@ class RestoreProcedure extends Procedure
         $workingFile = $compressor->getDecompressedPath($workingFile);
 
         // restore the database
-        $this->add(new Tasks\Database\RestoreDatabase(
+        $sequence->add(new Tasks\Database\RestoreDatabase(
             $this->databases->get($databaseName),
             $workingFile,
             $this->shellProcessor
         ));
 
         // cleanup the local copy
-        $this->add(new Tasks\Storage\DeleteFile(
+        $sequence->add(new Tasks\Storage\DeleteFile(
             $localFilesystem,
             basename($workingFile)
         ));
 
-        $this->execute();
+        $sequence->execute();
     }
 } 
