@@ -54,6 +54,10 @@ abstract class Procedure
         if (is_null($filename)) {
             $filename = uniqid();
         }
+
+        // Make sure the filename is definitely unique.
+        $filename = rand(1, 100) . $filename;
+
         return sprintf('%s/%s', $this->getRootPath($name), $filename);
     }
 
