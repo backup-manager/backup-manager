@@ -1,6 +1,6 @@
 {
     "name": "heybigname/backup-manager",
-    "version": "0.3.7",
+    "version": "0.3.9",
     "description": "Database backup manager for dumping to and restoring databases from S3, Dropbox, FTP, and SFTP.",
     "authors": [
         {
