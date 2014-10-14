@@ -21,7 +21,7 @@ class ConfigSpec extends ObjectBehavior
 
     function it_should_initialize_from_a_php_configuration()
     {
-        $this->beConstructedThrough('BigName\BackupManager\Config\Config::fromPhpFile', ['spec/configs/keys.php']);
+        $this->beConstructedThrough('fromPhpFile', ['spec/configs/keys.php']);
         $this->getItems()->shouldBe(['config', 'file', 'items']);
     }
 
@@ -57,6 +57,6 @@ class ConfigSpec extends ObjectBehavior
 
     private function constructFromStorageFile()
     {
-        $this->beConstructedThrough('BigName\BackupManager\Config\Config::fromPhpFile', ['spec/configs/storage.php']);
+        $this->beConstructedThrough('fromPhpFile', ['spec/configs/storage.php']);
     }
 }
