@@ -143,17 +143,11 @@ $manager->makeRestore()->run('s3', 'test/backup.sql.gz', 'development', 'gzip');
 
 **Composer**
 
-**1)** Add the package to "require" in composer.json
+Run the following to include this via Composer
 
-```JSON
-"require": {
-    "heybigname/backup-manager": "0.3.*"
-}
+```shell
+composer require heybigname/backup-manager
 ```
-
-**2)** Update your composer packages.
-
-`composer update`
 
 ### Usage
 
