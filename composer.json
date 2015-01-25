@@ -24,6 +24,10 @@
         "illuminate/support": "4.2.*",
         "illuminate/container": "4.2.*",
         "illuminate/console": "4.2.*",
+        "league/flysystem-aws-s3-v2": "~1.0",
+        "league/flysystem-dropbox": "~1.0",
+        "league/flysystem-rackspace": "~1.0",
+        "league/flysystem-sftp": "~1.0",
         "phpspec/phpspec": "2.0.*",
         "satooshi/php-coveralls": "0.6.*"
     },
