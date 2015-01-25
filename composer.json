@@ -34,11 +34,10 @@
         "bin-dir": "bin"
     },
     "suggest": {
-        "aws/aws-sdk-php": "Enables AWS S3 storage",
-        "dropbox/dropbox-sdk": "Enables Dropbox storage",
-        "phpseclib/phpseclib": "Enables SFTP storage",
-        "sabre/dav": "Enables WebDav storage",
-        "rackspace/php-opencloud": "Enables Rackspace Cloud storage"
+        "league/flysystem-aws-s3-v2": "AwsS3 adapter support.",
+        "league/flysystem-dropbox": "Dropbox adapter support.",
+        "league/flysystem-rackspace": "Rackspace adapter support.",
+        "league/flysystem-sftp": "Sftp adapter support."
     },
     "autoload": {
         "psr-4": {

@@ -1,6 +1,6 @@
 <?php namespace BigName\BackupManager\Filesystems;
 
-use League\Flysystem\Adapter\Rackspace as RackspaceAdapter;
+use League\Flysystem\Rackspace\RackspaceAdapter;
 use League\Flysystem\Filesystem as Flysystem;
 use OpenCloud\OpenStack;
 
