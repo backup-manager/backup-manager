@@ -9,6 +9,6 @@ sudo: false
 
 install: travis_retry composer install --no-interaction --prefer-source
 
-script: bin/phpspec run -fpretty -v
+script: bin/phpspec run -v -n
 
 after_script: bin/coveralls -v
