@@ -25,7 +25,7 @@ class RestoreProcedure extends Procedure
 
         // begin the life of a new working file
         $localFilesystem = $this->filesystems->get('local');
-        $workingFile = $this->getWorkingFile('local', basename($sourcePath));
+        $workingFile = $this->getWorkingFile('local');
 
         // download or retrieve the archived backup file
         $sequence->add(new Tasks\Storage\TransferFile(
