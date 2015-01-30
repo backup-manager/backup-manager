@@ -29,7 +29,7 @@ This package is completely framework agnostic. Mitchell has put together a [vide
 
 ### Stability Notice
 
-This isn't a `1.0` release.
+It's stable enough, you'll need to understand permissions.
 
 This package is actively being developed and we would like to get feedback to improve it. [Please feel free to submit feedback.](https://github.com/heybigname/backup-manager/issues/new)
 
@@ -149,6 +149,22 @@ Run the following to include this via Composer
 composer require heybigname/backup-manager
 ```
 
+Then, you'll need to select the appropriate packages for the adapters that you want to use.
+
+```shell
+# to support s3
+composer require league/flysystem-aws-s3-v2
+
+# to support dropbox
+composer require league/flysystem-dropbox
+
+# to support rackspace
+composer require league/flysystem-rackspace
+
+# to support sftp
+composer require league/flysystem-sftp
+```
+
 ### Usage
 
 Once installed, the package must be bootstrapped (initial configuration) before it can be used. If you're using Laravel then skip directly to the [Laravel integration section](#laravel).
@@ -182,8 +198,7 @@ The Backup Manager will make use of Laravel's database configuration.
 ```php
 use BigName\BackupManager\Manager;
 
-public function __construct(Manager $manager)
-{
+public function __construct(Manager $manager) {
     $this->manager = $manager;
 }
 ```

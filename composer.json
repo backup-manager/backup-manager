@@ -1,56 +1,56 @@
 {
-    "name": "heybigname/backup-manager",
-    "description": "Database backup manager for dumping to and restoring databases from S3, Dropbox, FTP, and SFTP.",
-    "authors": [
-        {
-            "name": "Shawn McCool",
-            "email": "shawn@heybigname.com",
-            "homepage": "http://heybigname.com/"
-        },
-        {
-            "name": "Mitchell van Wijngaarden",
-            "email": "mitchell@kooding.nl",
-            "homepage": "http://heybigname.com/"
-        }
-    ],
-    "require": {
-        "php": ">=5.4.0",
-        "symfony/process": "2.*",
-        "aws/aws-sdk-php": "~2.4",
-        "league/flysystem": "~1.0"
+  "name": "heybigname/backup-manager",
+  "description": "Database backup manager for dumping to and restoring databases from S3, Dropbox, FTP, and SFTP.",
+  "authors": [
+    {
+      "name": "Shawn McCool",
+      "email": "shawn@heybigname.com",
+      "homepage": "http://heybigname.com/"
     },
-    "require-dev": {
-        "mockery/mockery": "dev-master",
-        "satooshi/php-coveralls": "~0.6",
-        "illuminate/support": "4.x",
-        "illuminate/container": "4.x",
-        "illuminate/console": "4.x",
-	"league/flysystem-aws-s3-v2" : "~1.0",
-	"league/flysystem-dropbox": "~1.0",
-	"league/flysystem-rackspace": "~1.0",
-	"league/flysystem-sftp": "~1.0",
-        "dropbox/dropbox-sdk": "1.1.*",
-        "phpspec/phpspec": "~2.1"
-    },
-    "config": {
-        "bin-dir": "bin"
-    },
-    "suggest": {
-        "league/flysystem-aws-s3-v2": "AwsS3 adapter support.",
-        "league/flysystem-dropbox": "Dropbox adapter support.",
-        "league/flysystem-rackspace": "Rackspace adapter support.",
-        "league/flysystem-sftp": "Sftp adapter support."
-    },
-    "autoload": {
-        "psr-4": {
-            "BigName\\BackupManager\\": "src/"
-        }
-    },
-    "license": "MIT",
-    "minimum-stability": "dev",
-    "extra": {
-        "branch-alias": {
-            "dev-master": "0.3-dev"
-        }
+    {
+      "name": "Mitchell van Wijngaarden",
+      "email": "mitchell@kooding.nl",
+      "homepage": "http://heybigname.com/"
     }
+  ],
+  "require": {
+    "php": ">=5.4.0",
+    "symfony/process": "2.*",
+    "aws/aws-sdk-php": "~2.4",
+    "league/flysystem": "~1.0"
+  },
+  "require-dev": {
+    "mockery/mockery": "dev-master",
+    "satooshi/php-coveralls": "~0.6",
+    "illuminate/support": "4.x",
+    "illuminate/container": "4.x",
+    "illuminate/console": "4.x",
+    "league/flysystem-aws-s3-v2": "~1.0",
+    "league/flysystem-dropbox": "~1.0",
+    "league/flysystem-rackspace": "~1.0",
+    "league/flysystem-sftp": "~1.0",
+    "dropbox/dropbox-sdk": "1.1.*",
+    "phpspec/phpspec": "~2.1"
+  },
+  "config": {
+    "bin-dir": "bin"
+  },
+  "suggest": {
+    "league/flysystem-aws-s3-v2": "AwsS3 adapter support.",
+    "league/flysystem-dropbox": "Dropbox adapter support.",
+    "league/flysystem-rackspace": "Rackspace adapter support.",
+    "league/flysystem-sftp": "Sftp adapter support."
+  },
+  "autoload": {
+    "psr-4": {
+      "BigName\\BackupManager\\": "src/"
+    }
+  },
+  "license": "MIT",
+  "minimum-stability": "dev",
+  "extra": {
+    "branch-alias": {
+      "dev-master": "0.3-dev"
+    }
+  }
 }
