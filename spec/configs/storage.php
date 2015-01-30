@@ -3,7 +3,7 @@
 return [
     'local' => [
         'type' => 'Local',
-        'root' => '/',
+        'root' => '/tmp',
     ],
     's3' => [
         'type' => 'AwsS3',

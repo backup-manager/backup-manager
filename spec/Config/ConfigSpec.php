@@ -40,7 +40,7 @@ class ConfigSpec extends ObjectBehavior
     function it_should_return_an_entire_requested_connection_configuration()
     {
         $this->constructFromStorageFile();
-        $this->get('local')->shouldBe(['type' => 'Local', 'root' => '/']);
+        $this->get('local')->shouldBe(['type' => 'Local', 'root' => '/tmp']);
     }
 
     function it_should_throw_an_exception_when_a_connection_configuration_is_not_found()
