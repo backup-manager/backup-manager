@@ -12,7 +12,7 @@ use BigName\BackupManager\ShellProcessing\ShellProcessor;
  * Class BackupManagerServiceProvider
  * @package BigName\BackupManager\Integrations\Laravel
  */
-class BackupManagerServiceProviderL5 extends ServiceProvider
+class BackupManagerServiceProviderLaravel5 extends ServiceProvider
 {
     protected $defer = true;
 
