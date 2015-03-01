@@ -7,10 +7,10 @@ return [
     ],
     's3' => [
         'type' => 'AwsS3',
-        'key'    => 'AKIAIUEU5LHWIDZNOBCA',
-        'secret' => '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',
+        'key'    => '',
+        'secret' => '//',
         'region' => 'us-east-1',
-        'bucket' => 'cmosguy-test',
+        'bucket' => '',
         'root'   => '',
     ],
     'rackspace' => [
