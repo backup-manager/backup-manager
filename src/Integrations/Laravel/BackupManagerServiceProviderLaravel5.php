@@ -23,10 +23,8 @@ class BackupManagerServiceProviderLaravel5 extends ServiceProvider
      */
     public function boot()
     {
-        //$this->package('heybigname/backup-manager', 'backup-manager', __DIR__.'/../../..');
-
         $configPath = __DIR__ . '/../../../config/';
-        $this->publishes( [
+        $this->publishes([
             $configPath => config_path('backup-manager/'),
         ], 'backup-manager');
     }
@@ -39,11 +37,8 @@ class BackupManagerServiceProviderLaravel5 extends ServiceProvider
     public function register()
     {
 
-        //$configPath = __DIR__ . '/../../../config';
-        //$this->mergeConfigFrom( $configPath.'/storage.php', 'backup-manager::storage' );
-        //$this->mergeConfigFrom( $configPath.'/database.php', 'backup-manager::database' );
-        $this->mergeConfigFrom( config_path('backup-manager/storage.php'), 'backup-manager::storage' );
-        $this->mergeConfigFrom( config_path('backup-manager/database.php'), 'backup-manager::database' );
+        $this->mergeConfigFrom(config_path('backup-manager/storage.php'), 'backup-manager::storage');
+        $this->mergeConfigFrom(config_path('backup-manager/database.php'), 'backup-manager::database');
         $this->registerFilesystemProvider();
         $this->registerDatabaseProvider();
         $this->registerCompressorProvider();
@@ -58,7 +53,7 @@ class BackupManagerServiceProviderLaravel5 extends ServiceProvider
      */
     private function registerFilesystemProvider()
     {
-        $this->app->bind('BigName\BackupManager\Filesystems\FilesystemProvider', function($app) {
+        $this->app->bind('BigName\BackupManager\Filesystems\FilesystemProvider', function ($app) {
             $provider = new Filesystems\FilesystemProvider(new Config($app['config']['backup-manager::storage']));
             $provider->add(new Filesystems\Awss3Filesystem);
             $provider->add(new Filesystems\DropboxFilesystem);
@@ -77,7 +72,7 @@ class BackupManagerServiceProviderLaravel5 extends ServiceProvider
      */
     private function registerDatabaseProvider()
     {
-        $this->app->bind('BigName\BackupManager\Databases\DatabaseProvider', function($app) {
+        $this->app->bind('BigName\BackupManager\Databases\DatabaseProvider', function ($app) {
             $provider = new Databases\DatabaseProvider($this->getDatabaseConfig($app['config']['database.connections']));
             $provider->add(new Databases\MysqlDatabase);
             $provider->add(new Databases\PostgresqlDatabase);
@@ -92,7 +87,7 @@ class BackupManagerServiceProviderLaravel5 extends ServiceProvider
      */
     private function registerCompressorProvider()
     {
-        $this->app->bind('BigName\BackupManager\Compressors\CompressorProvider', function() {
+        $this->app->bind('BigName\BackupManager\Compressors\CompressorProvider', function () {
             $provider = new Compressors\CompressorProvider;
             $provider->add(new Compressors\GzipCompressor);
             $provider->add(new Compressors\NullCompressor);
@@ -107,7 +102,7 @@ class BackupManagerServiceProviderLaravel5 extends ServiceProvider
      */
     private function registerShellProcessor()
     {
-        $this->app->bind('BigName\BackupManager\ShellProcessing\ShellProcessor', function() {
+        $this->app->bind('BigName\BackupManager\ShellProcessing\ShellProcessor', function () {
             return new ShellProcessor(new Process(''));
         });
     }
@@ -142,8 +137,8 @@ class BackupManagerServiceProviderLaravel5 extends ServiceProvider
 
     private function getDatabaseConfig($connections)
     {
-        $mapped = array_map(function($connection) {
-            if ( ! in_array($connection['driver'], ['mysql', 'pgsql'])) {
+        $mapped = array_map(function ($connection) {
+            if (!in_array($connection['driver'], ['mysql', 'pgsql'])) {
                 return;
             }
 
@@ -158,11 +153,11 @@ class BackupManagerServiceProviderLaravel5 extends ServiceProvider
             }
 
             return [
-                'type' => $connection['driver'],
-                'host' => $connection['host'],
-                'port' => $port,
-                'user' => $connection['username'],
-                'pass' => $connection['password'],
+                'type'     => $connection['driver'],
+                'host'     => $connection['host'],
+                'port'     => $port,
+                'user'     => $connection['username'],
+                'pass'     => $connection['password'],
                 'database' => $connection['database'],
             ];
         }, $connections);
