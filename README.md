@@ -22,7 +22,8 @@ This package is completely framework agnostic. Mitchell has put together a [vide
 - [Installation](#installation)
 - [Usage](#usage)
 - [Integrations](#integrations)
-    - [Laravel](#laravel)
+    - [Laravel 5](#laravel5)
+    - [Laravel 4](#laravel4)
 - [Contribution Guidelines](#contribution-guidelines)
 - [Maintainers](#maintainers)
 - [License](#license)
@@ -178,8 +179,27 @@ The required bootstrapping can [be found in the example here](https://github.com
 The backup manager is easy to integrate into your favorite frameworks. We've included Laravel integration. We're definitely accepting pull-requests.
 
 #### Laravel
+The Backup Manager will make use of Laravel's database configuration.
 
-To install into a Laravel project, first do the composer install then add the following class to your config/app.php service providers list.
+
+##### <a name="laravel5"></a>Laravel 5
+
+To install into a Laravel 5.x project, first do the composer install then add the following class to your config/app.php service providers list.
+
+```php
+'BigName\BackupManager\Integrations\Laravel\BackupManagerServiceProviderLaravel5',
+```
+
+Then, publish and modify the configuration file to suit your needs.
+
+`php artisan vendor:publish`
+
+Finally, you can edit the `config/backup-manager/storage.php`
+
+
+##### <a name="laravel4"></a>Laravel 4
+
+To install into a Laravel 4.x project, first do the composer install then add the following class to your config/app.php service providers list.
 
 ```php
 'BigName\BackupManager\Integrations\Laravel\BackupManagerServiceProvider',
@@ -189,7 +209,8 @@ Then, publish and modify the configuration file to suit your needs.
 
 `php artisan config:publish heybigname/backup-manager --path=vendor/heybigname/backup-manager/config`
 
-The Backup Manager will make use of Laravel's database configuration.
+
+
 
 **IoC Resolution**
 
