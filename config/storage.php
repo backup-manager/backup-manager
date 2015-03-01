@@ -3,14 +3,14 @@
 return [
     'local' => [
         'type' => 'Local',
-        'root' => '/',
+        'root' => base_path('/storage/app/backups'),
     ],
     's3' => [
         'type' => 'AwsS3',
-        'key'    => '',
-        'secret' => '',
-        'region' => Aws\Common\Enum\Region::US_EAST_1,
-        'bucket' => '',
+        'key'    => 'AKIAIUEU5LHWIDZNOBCA',
+        'secret' => '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',
+        'region' => 'us-east-1',
+        'bucket' => 'cmosguy-test',
         'root'   => '',
     ],
     'rackspace' => [

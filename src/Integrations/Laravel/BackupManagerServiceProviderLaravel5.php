@@ -25,11 +25,10 @@ class BackupManagerServiceProviderLaravel5 extends ServiceProvider
     {
         //$this->package('heybigname/backup-manager', 'backup-manager', __DIR__.'/../../..');
 
-        $configPath = __DIR__ . '/../.../config/storage.php';
+        $configPath = __DIR__ . '/../../../config/';
         $this->publishes( [
-            $configPath => config_path('storage.php'),
-            $configPath => config_path('database.php'),
-        ], 'storage');
+            $configPath => config_path('backup-manager/'),
+        ], 'backup-manager');
     }
 
     /**
@@ -39,6 +38,10 @@ class BackupManagerServiceProviderLaravel5 extends ServiceProvider
      */
     public function register()
     {
+
+        $configPath = __DIR__ . '/../../../config';
+        $this->mergeConfigFrom( $configPath.'/storage.php', 'backup-manager::storage' );
+        $this->mergeConfigFrom( $configPath.'/database.php', 'backup-manager::database' );
         $this->registerFilesystemProvider();
         $this->registerDatabaseProvider();
         $this->registerCompressorProvider();
