@@ -26,8 +26,7 @@ class BackupManagerServiceProviderLaravel5 extends ServiceProvider
         //$this->package('heybigname/backup-manager', 'backup-manager', __DIR__.'/../../..');
 
         $configPath = __DIR__ . '/../../../config/';
-        $this->publishes( [ $configPath."storage.php" => config_path('backup-manager/storage.php'), ], 'storage');
-        $this->publishes( [ $configPath."database.php" => config_path('backup-manager/database.php'), ], 'database');
+        $this->publishes( [ $configPath."storage.php" => config_path('backup-manager/storage.php')], 'backup-manager.storage');
     }
 
     /**
@@ -39,8 +38,7 @@ class BackupManagerServiceProviderLaravel5 extends ServiceProvider
     {
 
         $configPath = __DIR__ . '/../../../config';
-        $this->mergeConfigFrom( $configPath.'/storage.php', 'backup-manager::storage' );
-        $this->mergeConfigFrom( $configPath.'/database.php', 'backup-manager::database' );
+        $this->mergeConfigFrom( $configPath.'/storage.php', 'backup-manager.storage' );
         $this->registerFilesystemProvider();
         $this->registerDatabaseProvider();
         $this->registerCompressorProvider();
@@ -56,7 +54,7 @@ class BackupManagerServiceProviderLaravel5 extends ServiceProvider
     private function registerFilesystemProvider()
     {
         $this->app->bind('BigName\BackupManager\Filesystems\FilesystemProvider', function($app) {
-            $provider = new Filesystems\FilesystemProvider(new Config($app['config']['backup-manager::storage']));
+            $provider = new Filesystems\FilesystemProvider(new Config($app['config']['backup-manager']['storage']));
             $provider->add(new Filesystems\Awss3Filesystem);
             $provider->add(new Filesystems\DropboxFilesystem);
             $provider->add(new Filesystems\FtpFilesystem);
