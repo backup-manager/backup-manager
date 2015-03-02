@@ -26,7 +26,7 @@ class BackupManagerServiceProviderLaravel5 extends ServiceProvider
         //$this->package('heybigname/backup-manager', 'backup-manager', __DIR__.'/../../..');
 
         $configPath = __DIR__ . '/../../../config/';
-        $this->publishes( [ $configPath."storage.php" => config_path('backup-manager/storage.php')], 'backup-manager.storage');
+        $this->publishes( [ $configPath."storage.php" => config_path('backup-manager/storage.php')], 'config');
     }
 
     /**
