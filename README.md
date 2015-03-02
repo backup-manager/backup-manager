@@ -58,7 +58,7 @@ This package is actively being developed and we would like to get feedback to im
 ],
 ```
 
-**Configure your filesystems.**
+<a name="storage-php">**Configure your filesystems.**
 
 ```php
 // config/storage.php
@@ -194,7 +194,7 @@ Then, publish and modify the configuration file to suit your needs.
 
 `php artisan vendor:publish`
 
-Finally, you can edit the `config/backup-manager/storage.php`
+Finally, you can edit the `config/backup-manager.php` with the proper storage settings.  An example is shown above in the [storage.php](#storage-php) example contents, but remember makes ure the file is called `backup-manager.php`.
 
 
 ##### <a name="laravel4"></a>Laravel 4
