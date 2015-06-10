@@ -1,4 +1,4 @@
-<?php namespace BigName\BackupManager\Filesystems;
+<?php namespace BackupManager\Filesystems;
 
 use League\Flysystem\AwsS3v2\AwsS3Adapter;
 use Aws\S3\S3Client;
@@ -6,16 +6,15 @@ use League\Flysystem\Filesystem as Flysystem;
 
 /**
  * Class Awss3Filesystem
- * @package BigName\BackupManager\Filesystems
+ * @package BackupManager\Filesystems
  */
-class Awss3Filesystem implements Filesystem
-{
+class Awss3Filesystem implements Filesystem {
+
     /**
      * @param $type
      * @return bool
      */
-    public function handles($type)
-    {
+    public function handles($type) {
         return strtolower($type) == 'awss3';
     }
 
@@ -23,10 +22,9 @@ class Awss3Filesystem implements Filesystem
      * @param array $config
      * @return \League\Flysystem\Filesystem
      */
-    public function get(array $config)
-    {
+    public function get(array $config) {
         $client = S3Client::factory([
-            'key' => $config['key'],
+            'key'    => $config['key'],
             'secret' => $config['secret'],
             'region' => $config['region'],
         ]);

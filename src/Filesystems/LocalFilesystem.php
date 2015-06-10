@@ -1,21 +1,20 @@
-<?php namespace BigName\BackupManager\Filesystems;
+<?php namespace BackupManager\Filesystems;
 
 use League\Flysystem\Adapter\Local;
 use League\Flysystem\Filesystem as Flysystem;
 
 /**
  * Class LocalFilesystem
- * @package BigName\BackupManager\Filesystems
+ * @package BackupManager\Filesystems
  */
-class LocalFilesystem implements Filesystem
-{
+class LocalFilesystem implements Filesystem {
+
     /**
      * Test fitness of visitor.
      * @param $type
      * @return bool
      */
-    public function handles($type)
-    {
+    public function handles($type) {
         return strtolower($type) == 'local';
     }
 
@@ -23,8 +22,7 @@ class LocalFilesystem implements Filesystem
      * @param array $config
      * @return Flysystem
      */
-    public function get(array $config)
-    {
+    public function get(array $config) {
         return new Flysystem(new Local($config['root']));
     }
 }

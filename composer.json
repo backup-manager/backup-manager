@@ -43,14 +43,14 @@
   },
   "autoload": {
     "psr-4": {
-      "BigName\\BackupManager\\": "src/"
+      "BackupManager\\": "src/"
     }
   },
   "license": "MIT",
   "minimum-stability": "dev",
   "extra": {
     "branch-alias": {
-      "dev-master": "0.3-dev"
+      "dev-master": "1.0-dev"
     }
   }
 }

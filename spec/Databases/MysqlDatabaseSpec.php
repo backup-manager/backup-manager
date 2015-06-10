@@ -1,8 +1,8 @@
 <?php
 
-namespace spec\BigName\BackupManager\Databases;
+namespace spec\BackupManager\Databases;
 
-use BigName\BackupManager\Config\Config;
+use BackupManager\Config\Config;
 use PhpSpec\ObjectBehavior;
 use Prophecy\Argument;
 
@@ -10,7 +10,7 @@ class MysqlDatabaseSpec extends ObjectBehavior
 {
     function it_is_initializable()
     {
-        $this->shouldHaveType('BigName\BackupManager\Databases\MysqlDatabase');
+        $this->shouldHaveType('BackupManager\Databases\MysqlDatabase');
     }
 
     function it_should_recognize_its_type_with_case_insensitivity()

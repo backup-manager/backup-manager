@@ -1,6 +1,6 @@
 <?php
 
-namespace spec\BigName\BackupManager\Compressors;
+namespace spec\BackupManager\Compressors;
 
 use PhpSpec\ObjectBehavior;
 use Prophecy\Argument;
@@ -9,7 +9,7 @@ class NullCompressorSpec extends ObjectBehavior
 {
     function it_is_initializable()
     {
-        $this->shouldHaveType('BigName\BackupManager\Compressors\NullCompressor');
+        $this->shouldHaveType('BackupManager\Compressors\NullCompressor');
     }
 
     function it_should_recognize_its_type_with_case_insensitivity()

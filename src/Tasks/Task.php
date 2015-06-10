@@ -1,11 +1,11 @@
-<?php namespace BigName\BackupManager\Tasks;
+<?php namespace BackupManager\Tasks;
 
 /**
  * Interface Task
- * @package BigName\BackupManager\Tasks
+ * @package BackupManager\Tasks
  */
-interface Task
-{
+interface Task {
+
     /**
      * @return mixed
      */

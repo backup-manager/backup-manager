@@ -3,11 +3,11 @@
 // path to composer autoloader
 require '../../vendor/autoload.php';
 
-use BigName\BackupManager\Config\Config;
-use BigName\BackupManager\Filesystems;
-use BigName\BackupManager\Databases;
-use BigName\BackupManager\Compressors;
-use BigName\BackupManager\Manager;
+use BackupManager\Config\Config;
+use BackupManager\Filesystems;
+use BackupManager\Databases;
+use BackupManager\Compressors;
+use BackupManager\Manager;
 
 // build providers
 $filesystems = new Filesystems\FilesystemProvider(Config::fromPhpFile('config/storage.php'));

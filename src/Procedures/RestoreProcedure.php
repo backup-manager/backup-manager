@@ -1,26 +1,25 @@
-<?php namespace BigName\BackupManager\Procedures;
+<?php namespace BackupManager\Procedures;
 
-use BigName\BackupManager\Tasks;
+use BackupManager\Tasks;
 
 /**
  * Class RestoreProcedure
- * @package BigName\BackupManager\Procedures
+ * @package BackupManager\Procedures
  */
-class RestoreProcedure extends Procedure
-{
+class RestoreProcedure extends Procedure {
+
     /**
      * @param $sourceType
      * @param $sourcePath
      * @param $databaseName
      * @param null $compression
-     * @throws \BigName\BackupManager\Filesystems\FilesystemTypeNotSupported
-     * @throws \BigName\BackupManager\Config\ConfigFieldNotFound
-     * @throws \BigName\BackupManager\Compressors\CompressorTypeNotSupported
-     * @throws \BigName\BackupManager\Databases\DatabaseTypeNotSupported
-     * @throws \BigName\BackupManager\Config\ConfigNotFoundForConnection
+     * @throws \BackupManager\Filesystems\FilesystemTypeNotSupported
+     * @throws \BackupManager\Config\ConfigFieldNotFound
+     * @throws \BackupManager\Compressors\CompressorTypeNotSupported
+     * @throws \BackupManager\Databases\DatabaseTypeNotSupported
+     * @throws \BackupManager\Config\ConfigNotFoundForConnection
      */
-    public function run($sourceType, $sourcePath, $databaseName, $compression = null)
-    {
+    public function run($sourceType, $sourcePath, $databaseName, $compression = null) {
         $sequence = new Sequence;
 
         // begin the life of a new working file

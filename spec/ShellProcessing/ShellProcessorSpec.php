@@ -1,6 +1,6 @@
 <?php
 
-namespace spec\BigName\BackupManager\ShellProcessing;
+namespace spec\BackupManager\ShellProcessing;
 
 use PhpSpec\ObjectBehavior;
 use Prophecy\Argument;
@@ -12,7 +12,7 @@ class ShellProcessorSpec extends ObjectBehavior
     {
         /** @noinspection PhpParamsInspection */
         $this->beConstructedWith($process);
-        $this->shouldHaveType('BigName\BackupManager\ShellProcessing\ShellProcessor');
+        $this->shouldHaveType('BackupManager\ShellProcessing\ShellProcessor');
     }
 
     function it_should_execute_a_command_line_process(Process $process)
@@ -35,7 +35,7 @@ class ShellProcessorSpec extends ObjectBehavior
 
         /** @noinspection PhpParamsInspection */
         $this->beConstructedWith($process);
-        $this->shouldThrow('BigName\BackupManager\ShellProcessing\ShellProcessFailed')->during('process', ['foo']);
+        $this->shouldThrow('BackupManager\ShellProcessing\ShellProcessFailed')->during('process', ['foo']);
     }
 
     function it_should_not_process_empty_commands(Process $process)

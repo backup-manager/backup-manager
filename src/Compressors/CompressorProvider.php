@@ -1,11 +1,11 @@
-<?php namespace BigName\BackupManager\Compressors;
+<?php namespace BackupManager\Compressors;
 
 /**
  * Class CompressorProvider
- * @package BigName\BackupManager\Compressors
+ * @package BackupManager\Compressors
  */
-class CompressorProvider
-{
+class CompressorProvider {
+
     /**
      * @var Compressor[]
      */
@@ -14,8 +14,7 @@ class CompressorProvider
     /**
      * @param Compressor $compressor
      */
-    public function add(Compressor $compressor)
-    {
+    public function add(Compressor $compressor) {
         $this->compressors[] = $compressor;
     }
 
@@ -24,8 +23,7 @@ class CompressorProvider
      * @return Compressor
      * @throws CompressorTypeNotSupported
      */
-    public function get($name)
-    {
+    public function get($name) {
         foreach ($this->compressors as $compressor) {
             if ($compressor->handles($name)) {
                 return $compressor;

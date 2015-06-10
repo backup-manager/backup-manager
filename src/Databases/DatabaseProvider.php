@@ -1,35 +1,33 @@
-<?php namespace BigName\BackupManager\Databases;
+<?php namespace BackupManager\Databases;
 
-use BigName\BackupManager\Config\Config;
+use BackupManager\Config\Config;
 
 /**
  * Class DatabaseProvider
- * @package BigName\BackupManager\Databases
+ * @package BackupManager\Databases
  */
-class DatabaseProvider
-{
+class DatabaseProvider {
+
     /**
-     * @var \BigName\BackupManager\Config\Config
+     * @var \BackupManager\Config\Config
      */
     private $config;
     /**
-     * @var \BigName\BackupManager\Databases\Database []
+     * @var \BackupManager\Databases\Database []
      */
     private $databases = [];
 
     /**
      * @param Config $config
      */
-    public function __construct(Config $config)
-    {
+    public function __construct(Config $config) {
         $this->config = $config;
     }
 
     /**
      * @param Database $database
      */
-    public function add(Database $database)
-    {
+    public function add(Database $database) {
         $this->databases[] = $database;
     }
 
@@ -37,10 +35,9 @@ class DatabaseProvider
      * @param $name
      * @return Database
      * @throws DatabaseTypeNotSupported
-     * @throws \BigName\BackupManager\Config\ConfigNotFoundForConnection
+     * @throws \BackupManager\Config\ConfigNotFoundForConnection
      */
-    public function get($name)
-    {
+    public function get($name) {
         $type = $this->config->get($name, 'type');
         foreach ($this->databases as $database) {
             if ($database->handles($type)) {
@@ -54,8 +51,7 @@ class DatabaseProvider
     /**
      * @return array
      */
-    public function getAvailableProviders()
-    {
+    public function getAvailableProviders() {
         return array_keys($this->config->getItems());
     }
 } 

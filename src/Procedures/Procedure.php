@@ -1,30 +1,30 @@
-<?php namespace BigName\BackupManager\Procedures;
+<?php namespace BackupManager\Procedures;
 
-use BigName\BackupManager\Databases\DatabaseProvider;
-use BigName\BackupManager\Compressors\CompressorProvider;
-use BigName\BackupManager\Filesystems\FilesystemProvider;
-use BigName\BackupManager\ShellProcessing\ShellProcessor;
+use BackupManager\Databases\DatabaseProvider;
+use BackupManager\Compressors\CompressorProvider;
+use BackupManager\Filesystems\FilesystemProvider;
+use BackupManager\ShellProcessing\ShellProcessor;
 
 /**
  * Class Procedure
  * @package Procedures
  */
-abstract class Procedure
-{
+abstract class Procedure {
+
     /**
-     * @var \BigName\BackupManager\Filesystems\FilesystemProvider
+     * @var \BackupManager\Filesystems\FilesystemProvider
      */
     protected $filesystems;
     /**
-     * @var \BigName\BackupManager\Databases\DatabaseProvider
+     * @var \BackupManager\Databases\DatabaseProvider
      */
     protected $databases;
     /**
-     * @var \BigName\BackupManager\Compressors\CompressorProvider
+     * @var \BackupManager\Compressors\CompressorProvider
      */
     protected $compressors;
     /**
-     * @var \BigName\BackupManager\ShellProcessing\ShellProcessor
+     * @var \BackupManager\ShellProcessing\ShellProcessor
      */
     protected $shellProcessor;
 
@@ -35,8 +35,7 @@ abstract class Procedure
      * @param ShellProcessor $shellProcessor
      * @internal param Sequence $sequence
      */
-    public function __construct(FilesystemProvider $filesystemProvider, DatabaseProvider $databaseProvider, CompressorProvider $compressorProvider, ShellProcessor $shellProcessor)
-    {
+    public function __construct(FilesystemProvider $filesystemProvider, DatabaseProvider $databaseProvider, CompressorProvider $compressorProvider, ShellProcessor $shellProcessor) {
         $this->filesystems = $filesystemProvider;
         $this->databases = $databaseProvider;
         $this->compressors = $compressorProvider;
@@ -46,11 +45,10 @@ abstract class Procedure
     /**
      * @param $name
      * @param null $filename
-     * @throws \BigName\BackupManager\Config\ConfigNotFoundForConnection
+     * @throws \BackupManager\Config\ConfigNotFoundForConnection
      * @return string
      */
-    protected function getWorkingFile($name, $filename = null)
-    {
+    protected function getWorkingFile($name, $filename = null) {
         if (is_null($filename)) {
             $filename = uniqid();
         }
@@ -59,12 +57,11 @@ abstract class Procedure
 
     /**
      * @param $name
-     * @throws \BigName\BackupManager\Config\ConfigFieldNotFound
-     * @throws \BigName\BackupManager\Config\ConfigNotFoundForConnection
+     * @throws \BackupManager\Config\ConfigFieldNotFound
+     * @throws \BackupManager\Config\ConfigNotFoundForConnection
      * @return string
      */
-    protected function getRootPath($name)
-    {
+    protected function getRootPath($name) {
         $path = $this->filesystems->getConfig($name, 'root');
         return preg_replace('/\/$/', '', $path);
     }

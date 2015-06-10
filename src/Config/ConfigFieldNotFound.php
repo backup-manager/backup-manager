@@ -1,7 +1,9 @@
-<?php namespace BigName\BackupManager\Config;
+<?php namespace BackupManager\Config;
 
 /**
  * Class ConfigFieldNotFound
- * @package BigName\BackupManager\Config
+ * @package BackupManager\Config
  */
-class ConfigFieldNotFound extends \Exception {}
+class ConfigFieldNotFound extends \Exception {
+
+}

@@ -1,14 +1,14 @@
-<?php namespace BigName\BackupManager\Tasks\Storage;
+<?php namespace BackupManager\Tasks\Storage;
 
 use League\Flysystem\Filesystem;
-use BigName\BackupManager\Tasks\Task;
+use BackupManager\Tasks\Task;
 
 /**
  * Class TransferFile
- * @package BigName\BackupManager\Tasks\Storage
+ * @package BackupManager\Tasks\Storage
  */
-class TransferFile implements Task
-{
+class TransferFile implements Task {
+
     /**
      * @var \League\Flysystem\Filesystem
      */
@@ -32,8 +32,7 @@ class TransferFile implements Task
      * @param Filesystem $destinationFilesystem
      * @param $destinationPath
      */
-    public function __construct(Filesystem $sourceFilesystem, $sourcePath, Filesystem $destinationFilesystem, $destinationPath)
-    {
+    public function __construct(Filesystem $sourceFilesystem, $sourcePath, Filesystem $destinationFilesystem, $destinationPath) {
         $this->sourceFilesystem = $sourceFilesystem;
         $this->sourcePath = $sourcePath;
         $this->destinationFilesystem = $destinationFilesystem;
@@ -43,8 +42,7 @@ class TransferFile implements Task
     /**
      * @throws \InvalidArgumentException
      */
-    public function execute()
-    {
+    public function execute() {
         $this->destinationFilesystem->writeStream(
             $this->destinationPath,
             $this->sourceFilesystem->readStream($this->sourcePath)

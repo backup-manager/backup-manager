@@ -1,6 +1,6 @@
 <?php
 
-namespace spec\BigName\BackupManager\Filesystems;
+namespace spec\BackupManager\Filesystems;
 
 use PhpSpec\ObjectBehavior;
 use Prophecy\Argument;
@@ -9,7 +9,7 @@ class Awss3FilesystemSpec extends ObjectBehavior
 {
     function it_is_initializable()
     {
-        $this->shouldHaveType('BigName\BackupManager\Filesystems\Awss3Filesystem');
+        $this->shouldHaveType('BackupManager\Filesystems\Awss3Filesystem');
     }
 
     function it_should_recognize_its_type_with_case_insensitivity()

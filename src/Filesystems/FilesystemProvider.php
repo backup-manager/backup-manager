@@ -1,35 +1,33 @@
-<?php namespace BigName\BackupManager\Filesystems;
+<?php namespace BackupManager\Filesystems;
 
-use BigName\BackupManager\Config\Config;
+use BackupManager\Config\Config;
 
 /**
  * Class FilesystemProvider
- * @package BigName\BackupManager\Filesystems
+ * @package BackupManager\Filesystems
  */
-class FilesystemProvider
-{
+class FilesystemProvider {
+
     /**
-     * @var \BigName\BackupManager\Config\Config
+     * @var \BackupManager\Config\Config
      */
     private $config;
     /**
-     * @var \BigName\BackupManager\Filesystems\Filesystem []
+     * @var \BackupManager\Filesystems\Filesystem []
      */
     private $filesystems = [];
 
     /**
      * @param Config $config
      */
-    public function __construct(Config $config)
-    {
+    public function __construct(Config $config) {
         $this->config = $config;
     }
 
     /**
      * @param Filesystem $filesystem
      */
-    public function add(Filesystem $filesystem)
-    {
+    public function add(Filesystem $filesystem) {
         $this->filesystems[] = $filesystem;
     }
 
@@ -37,10 +35,9 @@ class FilesystemProvider
      * @param $name
      * @return \League\Flysystem\Filesystem
      * @throws FilesystemTypeNotSupported
-     * @throws \BigName\BackupManager\Config\ConfigNotFoundForConnection
+     * @throws \BackupManager\Config\ConfigNotFoundForConnection
      */
-    public function get($name)
-    {
+    public function get($name) {
         $type = $this->getConfig($name, 'type');
         foreach ($this->filesystems as $filesystem) {
             if ($filesystem->handles($type)) {
@@ -53,20 +50,18 @@ class FilesystemProvider
     /**
      * @param $name
      * @param null $key
-     * @throws \BigName\BackupManager\Config\ConfigFieldNotFound
-     * @throws \BigName\BackupManager\Config\ConfigNotFoundForConnection
+     * @throws \BackupManager\Config\ConfigFieldNotFound
+     * @throws \BackupManager\Config\ConfigNotFoundForConnection
      * @return mixed
      */
-    public function getConfig($name, $key = null)
-    {
+    public function getConfig($name, $key = null) {
         return $this->config->get($name, $key);
     }
 
     /**
      * @return array
      */
-    public function getAvailableProviders()
-    {
+    public function getAvailableProviders() {
         return array_keys($this->config->getItems());
     }
 }

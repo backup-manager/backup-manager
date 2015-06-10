@@ -1,11 +1,11 @@
-<?php namespace BigName\BackupManager\Databases;
+<?php namespace BackupManager\Databases;
 
 /**
  * Class Database
- * @package BigName\BackupManager\Databases
+ * @package BackupManager\Databases
  */
-interface Database
-{
+interface Database {
+
     /**
      * @param $type
      * @return bool

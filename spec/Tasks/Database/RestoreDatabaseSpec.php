@@ -1,9 +1,9 @@
 <?php
 
-namespace spec\BigName\BackupManager\Tasks\Database;
+namespace spec\BackupManager\Tasks\Database;
 
-use BigName\BackupManager\Databases\Database;
-use BigName\BackupManager\ShellProcessing\ShellProcessor;
+use BackupManager\Databases\Database;
+use BackupManager\ShellProcessing\ShellProcessor;
 use PhpSpec\ObjectBehavior;
 use Prophecy\Argument;
 
@@ -12,7 +12,7 @@ class RestoreDatabaseSpec extends ObjectBehavior
     function it_is_initializable(Database $database, ShellProcessor $shellProcessor)
     {
         $this->beConstructedWith($database, 'path', $shellProcessor);
-        $this->shouldHaveType('BigName\BackupManager\Tasks\Database\RestoreDatabase');
+        $this->shouldHaveType('BackupManager\Tasks\Database\RestoreDatabase');
     }
 
     function it_should_execute_the_database_restore_command(Database $database, ShellProcessor $shellProcessor)

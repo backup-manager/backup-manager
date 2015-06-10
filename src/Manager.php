@@ -1,19 +1,19 @@
-<?php namespace BigName\BackupManager;
+<?php namespace BackupManager;
 
-use BigName\BackupManager\Procedures;
+use BackupManager\Procedures;
 use Symfony\Component\Process\Process;
-use BigName\BackupManager\Procedures\Sequence;
-use BigName\BackupManager\Databases\DatabaseProvider;
-use BigName\BackupManager\Filesystems\FilesystemProvider;
-use BigName\BackupManager\Compressors\CompressorProvider;
-use BigName\BackupManager\ShellProcessing\ShellProcessor;
+use BackupManager\Procedures\Sequence;
+use BackupManager\Databases\DatabaseProvider;
+use BackupManager\Filesystems\FilesystemProvider;
+use BackupManager\Compressors\CompressorProvider;
+use BackupManager\ShellProcessing\ShellProcessor;
 
 /**
  * Class Manager
- * @package BigName\BackupManager
+ * @package BackupManager
  */
-class Manager
-{
+class Manager {
+
     /**
      * @var Filesystems\FilesystemProvider
      */
@@ -28,12 +28,11 @@ class Manager
     private $compressors;
 
     /**
-     * @param \BigName\BackupManager\Filesystems\FilesystemProvider $filesystems
-     * @param \BigName\BackupManager\Databases\DatabaseProvider $databases
-     * @param \BigName\BackupManager\Compressors\CompressorProvider $compressors
+     * @param \BackupManager\Filesystems\FilesystemProvider $filesystems
+     * @param \BackupManager\Databases\DatabaseProvider $databases
+     * @param \BackupManager\Compressors\CompressorProvider $compressors
      */
-    public function __construct(FilesystemProvider $filesystems, DatabaseProvider $databases, CompressorProvider $compressors)
-    {
+    public function __construct(FilesystemProvider $filesystems, DatabaseProvider $databases, CompressorProvider $compressors) {
         $this->filesystems = $filesystems;
         $this->databases = $databases;
         $this->compressors = $compressors;
@@ -42,8 +41,7 @@ class Manager
     /**
      * @return Procedures\BackupProcedure
      */
-    public function makeBackup()
-    {
+    public function makeBackup() {
         return new Procedures\BackupProcedure(
             $this->filesystems,
             $this->databases,
@@ -55,8 +53,7 @@ class Manager
     /**
      * @return Procedures\RestoreProcedure
      */
-    public function makeRestore()
-    {
+    public function makeRestore() {
         return new Procedures\RestoreProcedure(
             $this->filesystems,
             $this->databases,
@@ -68,8 +65,7 @@ class Manager
     /**
      * @return ShellProcessing\ShellProcessor
      */
-    protected function getShellProcessor()
-    {
+    protected function getShellProcessor() {
         return new ShellProcessor(new Process('', null, null, null, null));
     }
 } 

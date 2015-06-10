@@ -1,4 +1,4 @@
-<?php namespace BigName\BackupManager\Filesystems;
+<?php namespace BackupManager\Filesystems;
 
 use League\Flysystem\Rackspace\RackspaceAdapter;
 use League\Flysystem\Filesystem as Flysystem;
@@ -6,17 +6,16 @@ use OpenCloud\OpenStack;
 
 /**
  * Class RackspaceFilesystem
- * @package BigName\BackupManager\Filesystems
+ * @package BackupManager\Filesystems
  */
-class RackspaceFilesystem implements Filesystem
-{
+class RackspaceFilesystem implements Filesystem {
+
     /**
      * Test fitness of visitor.
      * @param $type
      * @return bool
      */
-    public function handles($type)
-    {
+    public function handles($type) {
         return strtolower($type) == 'rackspace';
     }
 
@@ -24,8 +23,7 @@ class RackspaceFilesystem implements Filesystem
      * @param array $config
      * @return Flysystem
      */
-    public function get(array $config)
-    {
+    public function get(array $config) {
         $client = new OpenStack($config['endpoint'], [
             'username' => $config['username'],
             'password' => $config['key'],

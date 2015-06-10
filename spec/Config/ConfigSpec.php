@@ -1,6 +1,6 @@
 <?php
 
-namespace spec\BigName\BackupManager\Config;
+namespace spec\BackupManager\Config;
 
 use PhpSpec\ObjectBehavior;
 use Prophecy\Argument;
@@ -16,7 +16,7 @@ class ConfigSpec extends ObjectBehavior
     function it_is_initializable()
     {
         /** @noinspection PhpParamsInspection */
-        $this->shouldHaveType('BigName\BackupManager\Config\Config');
+        $this->shouldHaveType('BackupManager\Config\Config');
     }
 
     function it_should_initialize_from_a_php_configuration()
@@ -27,7 +27,7 @@ class ConfigSpec extends ObjectBehavior
 
     function it_should_throw_an_exception_if_the_php_configuration_isnt_found()
     {
-        $this->shouldThrow('BigName\BackupManager\Config\ConfigFileNotFound')->during('fromPhpFile', ['nonexistent-file']);
+        $this->shouldThrow('BackupManager\Config\ConfigFileNotFound')->during('fromPhpFile', ['nonexistent-file']);
     }
 
     function it_should_return_requested_configuration_fields()
@@ -46,13 +46,13 @@ class ConfigSpec extends ObjectBehavior
     function it_should_throw_an_exception_when_a_connection_configuration_is_not_found()
     {
         $this->constructFromStorageFile();
-        $this->shouldThrow('BigName\BackupManager\Config\ConfigNotFoundForConnection')->during('get', ['baz']);
+        $this->shouldThrow('BackupManager\Config\ConfigNotFoundForConnection')->during('get', ['baz']);
     }
 
     function it_should_throw_an_exception_when_a_configuration_field_is_not_found()
     {
         $this->constructFromStorageFile();
-        $this->shouldThrow('BigName\BackupManager\Config\ConfigFieldNotFound')->during('get', ['local', 'foo']);
+        $this->shouldThrow('BackupManager\Config\ConfigFieldNotFound')->during('get', ['local', 'foo']);
     }
 
     private function constructFromStorageFile()

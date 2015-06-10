@@ -182,7 +182,7 @@ The backup manager is easy to integrate into your favorite frameworks. We've inc
 To install into a Laravel project, first do the composer install then add the following class to your config/app.php service providers list.
 
 ```php
-'BigName\BackupManager\Integrations\Laravel\BackupManagerServiceProvider',
+'BackupManager\Integrations\Laravel\BackupManagerServiceProvider',
 ```
 
 Then, publish and modify the configuration file to suit your needs.
@@ -196,7 +196,7 @@ The Backup Manager will make use of Laravel's database configuration.
 `Manager` can be automatically resolved through constructor injection thanks to Laravel's IoC container.
 
 ```php
-use BigName\BackupManager\Manager;
+use BackupManager\Manager;
 
 public function __construct(Manager $manager) {
     $this->manager = $manager;
@@ -206,7 +206,7 @@ public function __construct(Manager $manager) {
 It can also be resolved manually from the container.
 
 ```php
-$manager = App::make('BigName\BackupManager\Manager');
+$manager = App::make('BackupManager\Manager');
 ```
 
 **Artisan Commands**
