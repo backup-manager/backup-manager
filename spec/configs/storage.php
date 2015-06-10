@@ -1,22 +1,22 @@
 <?php
 
 return [
-    'local' => [
+    'local'       => [
         'type' => 'Local',
         'root' => '/tmp',
     ],
-    's3' => [
-        'type' => 'AwsS3',
-        'key' => '',
+    's3'          => [
+        'type'   => 'AwsS3',
+        'key'    => '',
         'secret' => '',
         'region' => Aws\Common\Enum\Region::US_EAST_1,
         'bucket' => '',
-        'root' => '',
+        'root'   => '',
     ],
     'unsupported' => [
         'type' => 'doesnt exist',
     ],
-    'null' => [
+    'null'        => [
         'type' => null,
         'root' => null,
     ]

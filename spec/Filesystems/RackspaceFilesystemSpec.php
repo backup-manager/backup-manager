@@ -13,15 +13,13 @@ use Prophecy\Argument;
  *
  * @package spec\BackupManager\Filesystems
  */
-class RackspaceFilesystemSpec extends ObjectBehavior
-{
-    function it_is_initializable()
-    {
+class RackspaceFilesystemSpec extends ObjectBehavior {
+
+    function it_is_initializable() {
         $this->shouldHaveType('BackupManager\Filesystems\RackspaceFilesystem');
     }
 
-    function it_should_recognize_its_type_with_case_insensitivity()
-    {
+    function it_should_recognize_its_type_with_case_insensitivity() {
         foreach (['rackspace', 'RackSpace', 'RACKSPACE'] as $type) {
             $this->handles($type)->shouldBe(true);
         }
@@ -31,13 +29,12 @@ class RackspaceFilesystemSpec extends ObjectBehavior
         }
     }
 
-    function getConfig()
-    {
+    function getConfig() {
         return [
             'username' => 'username',
-            'key' => 'key',
-            'root' => 'root',
-            'zone' => 'zone',
+            'key'      => 'key',
+            'root'     => 'root',
+            'zone'     => 'zone',
             'endpoint' => 0
         ];
     }
