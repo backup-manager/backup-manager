@@ -50,7 +50,7 @@
   "minimum-stability": "dev",
   "extra": {
     "branch-alias": {
-      "dev-master": "dev-version1"
+      "dev-master": "version1-dev"
     }
   }
 }
