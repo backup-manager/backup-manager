@@ -10,17 +10,11 @@ use BackupManager\ShellProcessing\ShellProcessor;
  */
 class DecompressFile implements Task {
 
-    /**
-     * @var string
-     */
+    /** @var string */
     private $sourcePath;
-    /**
-     * @var \BackupManager\ShellProcessing\ShellProcessor
-     */
+    /** @var ShellProcessor */
     private $shellProcessor;
-    /**
-     * @var \BackupManager\Compressors\Compressor
-     */
+    /** @var Compressor */
     private $compressor;
 
     /**

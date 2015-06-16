@@ -8,13 +8,9 @@ use BackupManager\Config\Config;
  */
 class DatabaseProvider {
 
-    /**
-     * @var \BackupManager\Config\Config
-     */
+    /** @var Config */
     private $config;
-    /**
-     * @var \BackupManager\Databases\Database []
-     */
+    /** @var array */
     private $databases = [];
 
     /**

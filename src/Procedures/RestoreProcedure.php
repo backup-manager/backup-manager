@@ -9,9 +9,9 @@ use BackupManager\Tasks;
 class RestoreProcedure extends Procedure {
 
     /**
-     * @param $sourceType
-     * @param $sourcePath
-     * @param $databaseName
+     * @param string $sourceType
+     * @param string $sourcePath
+     * @param string $databaseName
      * @param null $compression
      * @throws \BackupManager\Filesystems\FilesystemTypeNotSupported
      * @throws \BackupManager\Config\ConfigFieldNotFound
@@ -34,7 +34,6 @@ class RestoreProcedure extends Procedure {
 
         // decompress the archived backup
         $compressor = $this->compressors->get($compression);
-
         $sequence->add(new Tasks\Compression\DecompressFile(
             $compressor,
             $workingFile,

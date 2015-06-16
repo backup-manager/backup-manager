@@ -4,6 +4,4 @@
  * Class CompressorTypeNotSupported
  * @package BackupManager\Compressors
  */
-class CompressorTypeNotSupported extends \Exception {
-
-}
+class CompressorTypeNotSupported extends \Exception {}

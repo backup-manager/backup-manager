@@ -9,21 +9,13 @@ use BackupManager\Tasks\Task;
  */
 class TransferFile implements Task {
 
-    /**
-     * @var \League\Flysystem\Filesystem
-     */
+    /** @var Filesystem */
     private $sourceFilesystem;
-    /**
-     * @var string
-     */
+    /** @var string */
     private $sourcePath;
-    /**
-     * @var \League\Flysystem\Filesystem
-     */
+    /** @var Filesystem */
     private $destinationFilesystem;
-    /**
-     * @var string
-     */
+    /** @var string */
     private $destinationPath;
 
     /**

@@ -14,17 +14,11 @@ use BackupManager\ShellProcessing\ShellProcessor;
  */
 class Manager {
 
-    /**
-     * @var Filesystems\FilesystemProvider
-     */
+    /** @var FilesystemProvider */
     private $filesystems;
-    /**
-     * @var Databases\DatabaseProvider
-     */
+    /** @var DatabaseProvider */
     private $databases;
-    /**
-     * @var Compressors\CompressorProvider
-     */
+    /** @var CompressorProvider */
     private $compressors;
 
     /**

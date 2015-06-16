@@ -10,17 +10,11 @@ use BackupManager\ShellProcessing\ShellProcessor;
  */
 class RestoreDatabase implements Task {
 
-    /**
-     * @var string
-     */
+    /** @var string */
     private $inputPath;
-    /**
-     * @var \BackupManager\ShellProcessing\ShellProcessor
-     */
+    /** @var ShellProcessor */
     private $shellProcessor;
-    /**
-     * @var \BackupManager\Databases\Database
-     */
+    /** @var Database */
     private $database;
 
     /**

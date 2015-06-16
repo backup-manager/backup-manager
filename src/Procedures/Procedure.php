@@ -11,21 +11,13 @@ use BackupManager\ShellProcessing\ShellProcessor;
  */
 abstract class Procedure {
 
-    /**
-     * @var \BackupManager\Filesystems\FilesystemProvider
-     */
+    /** @var FilesystemProvider */
     protected $filesystems;
-    /**
-     * @var \BackupManager\Databases\DatabaseProvider
-     */
+    /** @var DatabaseProvider */
     protected $databases;
-    /**
-     * @var \BackupManager\Compressors\CompressorProvider
-     */
+    /** @var CompressorProvider */
     protected $compressors;
-    /**
-     * @var \BackupManager\ShellProcessing\ShellProcessor
-     */
+    /** @var ShellProcessor */
     protected $shellProcessor;
 
     /**

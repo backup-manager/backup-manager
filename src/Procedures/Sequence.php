@@ -8,9 +8,7 @@ use BackupManager\Tasks\Task;
  */
 class Sequence {
 
-    /**
-     * @var array|Task[]
-     */
+    /** @var array|Task[] */
     private $tasks = [];
 
     /**

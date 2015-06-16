@@ -4,6 +4,4 @@
  * Class ConfigFieldNotFound
  * @package BackupManager\Config
  */
-class ConfigFieldNotFound extends \Exception {
-
-}
+class ConfigFieldNotFound extends \Exception {}

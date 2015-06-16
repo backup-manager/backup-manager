@@ -4,6 +4,4 @@
  * Class ConfigNotFoundForConnection
  * @package BackupManager\Config
  */
-class ConfigNotFoundForConnection extends \Exception {
-
-}
+class ConfigNotFoundForConnection extends \Exception {}

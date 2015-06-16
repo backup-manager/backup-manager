@@ -4,6 +4,4 @@
  * Class DatabaseTypeNotSupported
  * @package BackupManager\Databases
  */
-class DatabaseTypeNotSupported extends \Exception {
-
-}
+class DatabaseTypeNotSupported extends \Exception {}

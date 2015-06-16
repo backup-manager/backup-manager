@@ -8,13 +8,9 @@ use BackupManager\Config\Config;
  */
 class FilesystemProvider {
 
-    /**
-     * @var \BackupManager\Config\Config
-     */
+    /** @var Config */
     private $config;
-    /**
-     * @var \BackupManager\Filesystems\Filesystem []
-     */
+    /** @var array */
     private $filesystems = [];
 
     /**

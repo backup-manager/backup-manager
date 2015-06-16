@@ -4,6 +4,4 @@
  * Class ShellProcessFailed
  * @package BackupManager\ShellProcessing
  */
-class ShellProcessFailed extends \Exception {
-
-}
+class ShellProcessFailed extends \Exception {}

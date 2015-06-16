@@ -6,8 +6,8 @@
  */
 class Config {
 
-    /** @var mixed */
-    private $config;
+    /** @var array */
+    private $config = [];
 
     /**
      * @param $path

@@ -4,6 +4,4 @@
  * Class ConfigFileNotFound
  * @package BackupManager\Config
  */
-class ConfigFileNotFound extends \Exception {
-
-}
+class ConfigFileNotFound extends \Exception {}

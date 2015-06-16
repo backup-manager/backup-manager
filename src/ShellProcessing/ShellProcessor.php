@@ -8,9 +8,7 @@ use Symfony\Component\Process\Process;
  */
 class ShellProcessor {
 
-    /**
-     * @var \Symfony\Component\Process\Process
-     */
+    /** @var Process */
     private $process;
 
     /**

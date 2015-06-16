@@ -6,9 +6,7 @@
  */
 class MysqlDatabase implements Database {
 
-    /**
-     * @var array
-     */
+    /** @var array */
     private $config;
 
     /**

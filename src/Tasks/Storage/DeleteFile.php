@@ -9,13 +9,9 @@ use BackupManager\Tasks\Task;
  */
 class DeleteFile implements Task {
 
-    /**
-     * @var \League\Flysystem\Filesystem
-     */
+    /** @var Filesystem */
     private $filesystem;
-    /**
-     * @var string
-     */
+    /** @var string*/
     private $filePath;
 
     /**
