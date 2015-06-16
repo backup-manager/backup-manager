@@ -1,4 +1,4 @@
-> **Note:** 1.0 is brand new. The Laravel driver has been removed from this repository and moved [to its own repository](http://github.com/backup-manager/laravel-4). Instructions for installing and configuring it can be found there. 
+> **Note:** 1.0 is brand new. The Laravel driver has been removed from this repository and moved [to its own repository](http://github.com/backup-manager/laravel). Instructions for installing and configuring it can be found there. 
 
 # Database Backup Manager 1.0
 
@@ -12,7 +12,7 @@
 - compress with `Gzip`
 - framework-agnostic
 - dead simple configuration
-- [Laravel 4 Driver](http://github.com/backup-manager/laravel-4)
+- [Laravel Driver](http://github.com/backup-manager/laravel)
 
 This package is completely framework agnostic. Mitchell has put together a [video tour](https://www.youtube.com/watch?v=vWXy0R8OavM) of Laravel integration, to give you an idea what is possible with this package.
 
