@@ -23,8 +23,6 @@ This package is completely framework agnostic. Mitchell has put together a [vide
 - [Requirements](#requirements)
 - [Installation](#installation)
 - [Usage](#usage)
-- [Integrations](#integrations)
-    - [Laravel](#laravel)
 - [Contribution Guidelines](#contribution-guidelines)
 - [Maintainers](#maintainers)
 - [License](#license)
@@ -169,7 +167,7 @@ composer require league/flysystem-sftp
 
 ### Usage
 
-Once installed, the package must be bootstrapped (initial configuration) before it can be used. If you're using Laravel then skip directly to the [Laravel integration section](#laravel).
+Once installed, the package must be bootstrapped (initial configuration) before it can be used. 
 
 We've provided a native PHP example [here](https://github.com/heybigname/backup-manager/tree/master/examples).
 
