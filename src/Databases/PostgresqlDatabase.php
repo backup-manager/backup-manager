@@ -1,11 +1,11 @@
-<?php namespace BigName\BackupManager\Databases;
+<?php namespace BackupManager\Databases;
 
 /**
  * Class PostgresqlDatabase
- * @package BigName\BackupManager\Databases
+ * @package BackupManager\Databases
  */
-class PostgresqlDatabase implements Database
-{
+class PostgresqlDatabase implements Database {
+
     /**
      * @var array
      */
@@ -15,8 +15,7 @@ class PostgresqlDatabase implements Database
      * @param $type
      * @return bool
      */
-    public function handles($type)
-    {
+    public function handles($type) {
         return in_array(strtolower($type), ['postgresql', 'pgsql']);
     }
 
@@ -24,8 +23,7 @@ class PostgresqlDatabase implements Database
      * @param array $config
      * @return null
      */
-    public function setConfig(array $config)
-    {
+    public function setConfig(array $config) {
         $this->config = $config;
     }
 
@@ -33,8 +31,7 @@ class PostgresqlDatabase implements Database
      * @param $outputPath
      * @return string
      */
-    public function getDumpCommandLine($outputPath)
-    {
+    public function getDumpCommandLine($outputPath) {
         return sprintf('PGPASSWORD=%s pg_dump --host=%s --port=%s --username=%s %s -f %s',
             escapeshellarg($this->config['pass']),
             escapeshellarg($this->config['host']),
@@ -49,8 +46,7 @@ class PostgresqlDatabase implements Database
      * @param $inputPath
      * @return string
      */
-    public function getRestoreCommandLine($inputPath)
-    {
+    public function getRestoreCommandLine($inputPath) {
         return sprintf('PGPASSWORD=%s psql --host=%s --port=%s --user=%s %s -f %s',
             escapeshellarg($this->config['pass']),
             escapeshellarg($this->config['host']),

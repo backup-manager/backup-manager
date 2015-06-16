@@ -1,11 +1,11 @@
-<?php namespace BigName\BackupManager\Filesystems;
+<?php namespace BackupManager\Filesystems;
 
 /**
  * Interface Filesystem
- * @package BigName\BackupManager\Filesystems
+ * @package BackupManager\Filesystems
  */
-interface Filesystem
-{
+interface Filesystem {
+
     /**
      * Test fitness of visitor.
      * @param $type

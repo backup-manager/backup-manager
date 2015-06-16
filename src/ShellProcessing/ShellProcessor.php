@@ -1,13 +1,13 @@
-<?php namespace BigName\BackupManager\ShellProcessing;
+<?php namespace BackupManager\ShellProcessing;
 
 use Symfony\Component\Process\Process;
 
 /**
  * Class CommandProcessor
- * @package BigName\BackupManager
+ * @package BackupManager
  */
-class ShellProcessor
-{
+class ShellProcessor {
+
     /**
      * @var \Symfony\Component\Process\Process
      */
@@ -16,8 +16,7 @@ class ShellProcessor
     /**
      * @param Process $process
      */
-    public function __construct(Process $process)
-    {
+    public function __construct(Process $process) {
         $this->process = $process;
     }
 
@@ -26,8 +25,7 @@ class ShellProcessor
      * @throws ShellProcessFailed
      * @throws \Symfony\Component\Process\Exception\LogicException
      */
-    public function process($command)
-    {
+    public function process($command) {
         if (empty($command)) {
             return;
         }

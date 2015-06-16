@@ -1,26 +1,25 @@
-<?php namespace BigName\BackupManager\Procedures;
+<?php namespace BackupManager\Procedures;
 
-use BigName\BackupManager\Tasks;
+use BackupManager\Tasks;
 
 /**
  * Class BackupProcedure
- * @package BigName\BackupManager\Procedures
+ * @package BackupManager\Procedures
  */
-class BackupProcedure extends Procedure
-{
+class BackupProcedure extends Procedure {
+
     /**
      * @param $database
      * @param $destination
      * @param $destinationPath
      * @param $compression
-     * @throws \BigName\BackupManager\Filesystems\FilesystemTypeNotSupported
-     * @throws \BigName\BackupManager\Config\ConfigFieldNotFound
-     * @throws \BigName\BackupManager\Compressors\CompressorTypeNotSupported
-     * @throws \BigName\BackupManager\Databases\DatabaseTypeNotSupported
-     * @throws \BigName\BackupManager\Config\ConfigNotFoundForConnection
+     * @throws \BackupManager\Filesystems\FilesystemTypeNotSupported
+     * @throws \BackupManager\Config\ConfigFieldNotFound
+     * @throws \BackupManager\Compressors\CompressorTypeNotSupported
+     * @throws \BackupManager\Databases\DatabaseTypeNotSupported
+     * @throws \BackupManager\Config\ConfigNotFoundForConnection
      */
-    public function run($database, $destination, $destinationPath, $compression)
-    {
+    public function run($database, $destination, $destinationPath, $compression) {
         $sequence = new Sequence;
 
         // begin the life of a new working file
@@ -29,7 +28,7 @@ class BackupProcedure extends Procedure
 
         // dump the database
         $sequence->add(new Tasks\Database\DumpDatabase(
-            // database connection
+        // database connection
             $this->databases->get($database),
             // output file path
             $workingFile,
@@ -40,7 +39,7 @@ class BackupProcedure extends Procedure
         // archive the dump
         $compressor = $this->compressors->get($compression);
         $sequence->add(new Tasks\Compression\CompressFile(
-            // compression type
+        // compression type
             $compressor,
             // source file path
             $workingFile,
@@ -51,14 +50,14 @@ class BackupProcedure extends Procedure
 
         // upload the archive
         $sequence->add(new Tasks\Storage\TransferFile(
-            // source fs and path
+        // source fs and path
             $localFilesystem, basename($workingFile),
             // destination fs and path
             $this->filesystems->get($destination), $compressor->getCompressedPath($destinationPath)
         ));
         // cleanup the local archive
         $sequence->add(new Tasks\Storage\DeleteFile(
-            // storage fs
+        // storage fs
             $localFilesystem,
             // path
             basename($workingFile)

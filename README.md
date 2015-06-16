@@ -1,4 +1,6 @@
-# Database Backup Manager
+> **Note:** 1.0 is brand new. The Laravel driver has been removed from this repository and moved [to its own repository](http://github.com/backup-manager/laravel-4). Instructions for installing and configuring it can be found there. 
+
+# Database Backup Manager 1.0
 
 [![Latest Stable Version](https://poser.pugx.org/heybigname/backup-manager/version.png)](https://packagist.org/packages/heybigname/backup-manager)
 [![License](https://poser.pugx.org/heybigname/backup-manager/license.png)](https://packagist.org/packages/heybigname/backup-manager)
@@ -10,7 +12,7 @@
 - compress with `Gzip`
 - framework-agnostic
 - dead simple configuration
-- optional integrations for MVC framework [Laravel](http://laravel.com)
+- [Laravel 4 Driver](http://github.com/backup-manager/laravel-4)
 
 This package is completely framework agnostic. Mitchell has put together a [video tour](https://www.youtube.com/watch?v=vWXy0R8OavM) of Laravel integration, to give you an idea what is possible with this package.
 
@@ -133,7 +135,7 @@ $manager->makeRestore()->run('s3', 'test/backup.sql.gz', 'development', 'gzip');
 
 ### Requirements
 
-- PHP 5.4
+- PHP 5.5
 - MySQL support requires `mysqldump` and `mysql` command-line binaries
 - PostgreSQL support requires `pg_dump` and `psql` command-line binaries
 - Gzip support requires `gzip` and `gunzip` command-line binaries
@@ -173,48 +175,6 @@ We've provided a native PHP example [here](https://github.com/heybigname/backup-
 
 The required bootstrapping can [be found in the example here](https://github.com/heybigname/backup-manager/blob/master/examples/standalone/bootstrap.php).
 
-### Integrations
-
-The backup manager is easy to integrate into your favorite frameworks. We've included Laravel integration. We're definitely accepting pull-requests.
-
-#### Laravel
-
-To install into a Laravel project, first do the composer install then add the following class to your config/app.php service providers list.
-
-```php
-'BigName\BackupManager\Integrations\Laravel\BackupManagerServiceProvider',
-```
-
-Then, publish and modify the configuration file to suit your needs.
-
-`php artisan config:publish heybigname/backup-manager --path=vendor/heybigname/backup-manager/config`
-
-The Backup Manager will make use of Laravel's database configuration.
-
-**IoC Resolution**
-
-`Manager` can be automatically resolved through constructor injection thanks to Laravel's IoC container.
-
-```php
-use BigName\BackupManager\Manager;
-
-public function __construct(Manager $manager) {
-    $this->manager = $manager;
-}
-```
-
-It can also be resolved manually from the container.
-
-```php
-$manager = App::make('BigName\BackupManager\Manager');
-```
-
-**Artisan Commands**
-
-There are three commands available `db:backup`, `db:restore` and `db:list`.
-
-All will prompt you with simple questions to successfully execute the command.
-
 ### Contribution Guidelines
 
 We recommend using the vagrant configuration supplied with this package for development and contribution. Simply install VirtualBox, Vagrant, and Ansible then run `vagrant up` in the root folder. A virtualmachine specifically designed for development of the package will be built and launched for you.
@@ -230,7 +190,7 @@ When contributing please consider the following guidelines:
 
 ### Maintainers
 
-This package is maintained by [Mitchell van Wijngaarden](http://kooding.nl) and [Shawn McCool](http://shawnmc.cool) of [Big Name](http://heybigname.com)
+This package is maintained by [Shawn McCool](http://shawnmc.cool), [Mitchell van Wijngaarden](http://kooding.nl), and Graham Campbell.
 
 ### License
 

@@ -1,14 +1,14 @@
-<?php namespace BigName\BackupManager\Tasks\Storage;
+<?php namespace BackupManager\Tasks\Storage;
 
 use League\Flysystem\Filesystem;
-use BigName\BackupManager\Tasks\Task;
+use BackupManager\Tasks\Task;
 
 /**
  * Class DeleteFile
- * @package BigName\BackupManager\Tasks\Storage
+ * @package BackupManager\Tasks\Storage
  */
-class DeleteFile implements Task
-{
+class DeleteFile implements Task {
+
     /**
      * @var \League\Flysystem\Filesystem
      */
@@ -22,8 +22,7 @@ class DeleteFile implements Task
      * @param Filesystem $filesystem
      * @param $filePath
      */
-    public function __construct(Filesystem $filesystem, $filePath)
-    {
+    public function __construct(Filesystem $filesystem, $filePath) {
         $this->filesystem = $filesystem;
         $this->filePath = $filePath;
     }
@@ -31,8 +30,7 @@ class DeleteFile implements Task
     /**
      * @return bool
      */
-    public function execute()
-    {
+    public function execute() {
         return $this->filesystem->delete($this->filePath);
     }
 }

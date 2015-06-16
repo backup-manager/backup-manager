@@ -1,11 +1,11 @@
-<?php namespace BigName\BackupManager\Databases;
+<?php namespace BackupManager\Databases;
 
 /**
  * Class MysqlDatabase
- * @package BigName\BackupManager\Databases
+ * @package BackupManager\Databases
  */
-class MysqlDatabase implements Database
-{
+class MysqlDatabase implements Database {
+
     /**
      * @var array
      */
@@ -15,8 +15,7 @@ class MysqlDatabase implements Database
      * @param $type
      * @return bool
      */
-    public function handles($type)
-    {
+    public function handles($type) {
         return strtolower($type) == 'mysql';
     }
 
@@ -24,8 +23,7 @@ class MysqlDatabase implements Database
      * @param array $config
      * @return null
      */
-    public function setConfig(array $config)
-    {
+    public function setConfig(array $config) {
         $this->config = $config;
     }
 
@@ -33,8 +31,7 @@ class MysqlDatabase implements Database
      * @param $outputPath
      * @return string
      */
-    public function getDumpCommandLine($outputPath)
-    {
+    public function getDumpCommandLine($outputPath) {
         return sprintf('mysqldump --routines --host=%s --port=%s --user=%s --password=%s %s > %s',
             escapeshellarg($this->config['host']),
             escapeshellarg($this->config['port']),
@@ -49,8 +46,7 @@ class MysqlDatabase implements Database
      * @param $inputPath
      * @return string
      */
-    public function getRestoreCommandLine($inputPath)
-    {
+    public function getRestoreCommandLine($inputPath) {
         return sprintf('mysql --host=%s --port=%s --user=%s --password=%s %s -e "source %s;"',
             escapeshellarg($this->config['host']),
             escapeshellarg($this->config['port']),

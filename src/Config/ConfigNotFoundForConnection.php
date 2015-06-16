@@ -1,7 +1,9 @@
-<?php namespace BigName\BackupManager\Config;
+<?php namespace BackupManager\Config;
 
 /**
  * Class ConfigNotFoundForConnection
- * @package BigName\BackupManager\Config
+ * @package BackupManager\Config
  */
-class ConfigNotFoundForConnection extends \Exception {}
+class ConfigNotFoundForConnection extends \Exception {
+
+}

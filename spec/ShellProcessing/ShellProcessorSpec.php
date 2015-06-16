@@ -1,22 +1,20 @@
 <?php
 
-namespace spec\BigName\BackupManager\ShellProcessing;
+namespace spec\BackupManager\ShellProcessing;
 
 use PhpSpec\ObjectBehavior;
 use Prophecy\Argument;
 use Symfony\Component\Process\Process;
 
-class ShellProcessorSpec extends ObjectBehavior
-{
-    function it_is_initializable(Process $process)
-    {
+class ShellProcessorSpec extends ObjectBehavior {
+
+    function it_is_initializable(Process $process) {
         /** @noinspection PhpParamsInspection */
         $this->beConstructedWith($process);
-        $this->shouldHaveType('BigName\BackupManager\ShellProcessing\ShellProcessor');
+        $this->shouldHaveType('BackupManager\ShellProcessing\ShellProcessor');
     }
 
-    function it_should_execute_a_command_line_process(Process $process)
-    {
+    function it_should_execute_a_command_line_process(Process $process) {
         $process->setCommandLine('foo')->shouldBeCalled();
         $process->run()->shouldBeCalled();
         $process->isSuccessful()->willReturn(true);
@@ -26,8 +24,7 @@ class ShellProcessorSpec extends ObjectBehavior
         $this->process('foo');
     }
 
-    function it_should_throw_an_exception_when_a_process_fails(Process $process)
-    {
+    function it_should_throw_an_exception_when_a_process_fails(Process $process) {
         $process->setCommandLine('foo')->shouldBeCalled();
         $process->run()->shouldBeCalled();
         $process->isSuccessful()->willReturn(false);
@@ -35,11 +32,10 @@ class ShellProcessorSpec extends ObjectBehavior
 
         /** @noinspection PhpParamsInspection */
         $this->beConstructedWith($process);
-        $this->shouldThrow('BigName\BackupManager\ShellProcessing\ShellProcessFailed')->during('process', ['foo']);
+        $this->shouldThrow('BackupManager\ShellProcessing\ShellProcessFailed')->during('process', ['foo']);
     }
 
-    function it_should_not_process_empty_commands(Process $process)
-    {
+    function it_should_not_process_empty_commands(Process $process) {
         $process->setCommandLine('')->shouldNotBeCalled();
         $process->run()->shouldNotBeCalled();
         $process->isSuccessful()->willReturn(true);

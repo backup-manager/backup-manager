@@ -1,11 +1,11 @@
-<?php namespace BigName\BackupManager\Compressors;
+<?php namespace BackupManager\Compressors;
 
 /**
  * Class Compressor
- * @package BigName\BackupManager\Compressors
+ * @package BackupManager\Compressors
  */
-abstract class Compressor
-{
+abstract class Compressor {
+
     /**
      * @param $type
      * @return bool
