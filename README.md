@@ -2,7 +2,7 @@
 
 [![Latest Stable Version](https://poser.pugx.org/heybigname/backup-manager/version.png)](https://packagist.org/packages/heybigname/backup-manager)
 [![License](https://poser.pugx.org/heybigname/backup-manager/license.png)](https://packagist.org/packages/heybigname/backup-manager)
-[![Build Status](https://travis-ci.org/heybigname/backup-manager.svg?branch=master)](https://travis-ci.org/heybigname/backup-manager)
+[![Build Status](https://travis-ci.org/backup-manager/backup-manager.svg)](https://travis-ci.org/backup-manager/backup-manager)
 [![Coverage Status](https://coveralls.io/repos/heybigname/backup-manager/badge.png?branch=master)](https://coveralls.io/r/heybigname/backup-manager?branch=master)
 [![Total Downloads](https://poser.pugx.org/heybigname/backup-manager/downloads.png)](https://packagist.org/packages/heybigname/backup-manager)
 
