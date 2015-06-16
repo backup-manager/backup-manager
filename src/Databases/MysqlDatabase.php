@@ -45,7 +45,7 @@ class MysqlDatabase implements Database {
      * @return string
      */
     public function getRestoreCommandLine($inputPath) {
-        return sprintf('mysql --host=%s --port=%s --user=%s --password=%s %s -e "source %s;"',
+        return sprintf('mysql --host=%s --port=%s --user=%s --password=%s %s -e "source %s"',
             escapeshellarg($this->config['host']),
             escapeshellarg($this->config['port']),
             escapeshellarg($this->config['user']),
