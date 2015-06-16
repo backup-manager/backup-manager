@@ -1,3 +1,5 @@
+> **Note:** 1.0 is brand new. The Laravel driver has been removed from this repository and moved [to its own repository](http://github.com/backup-manager/laravel-4). Instructions for installing and configuring it can be found there. 
+
 # Database Backup Manager 1.0
 
 [![Latest Stable Version](https://poser.pugx.org/heybigname/backup-manager/version.png)](https://packagist.org/packages/heybigname/backup-manager)
