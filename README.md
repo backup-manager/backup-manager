@@ -2,11 +2,11 @@
 
 # Database Backup Manager 1.0
 
-[![Latest Stable Version](https://poser.pugx.org/heybigname/backup-manager/version.png)](https://packagist.org/packages/heybigname/backup-manager)
-[![License](https://poser.pugx.org/heybigname/backup-manager/license.png)](https://packagist.org/packages/heybigname/backup-manager)
+[![Latest Stable Version](https://poser.pugx.org/backup-manager/backup-manager/version.png)](https://packagist.org/packages/backup-manager/backup-manager)
+[![License](https://poser.pugx.org/backup-manager/backup-manager/license.png)](https://packagist.org/packages/backup-manager/backup-manager)
 [![Build Status](https://travis-ci.org/backup-manager/backup-manager.svg?branch=master)](https://travis-ci.org/backup-manager/backup-manager)
-[![Coverage Status](https://coveralls.io/repos/heybigname/backup-manager/badge.png?branch=master)](https://coveralls.io/r/heybigname/backup-manager?branch=master)
-[![Total Downloads](https://poser.pugx.org/heybigname/backup-manager/downloads.png)](https://packagist.org/packages/heybigname/backup-manager)
+[![Coverage Status](https://coveralls.io/repos/backup-manager/backup-manager/badge.png?branch=master)](https://coveralls.io/r/backup-manager/backup-manager?branch=master)
+[![Total Downloads](https://poser.pugx.org/backup-manager/backup-manager/downloads.png)](https://packagist.org/packages/backup-manager/backup-manager)
 
 - supports `MySQL` and `PostgreSQL`
 - compress with `Gzip`
@@ -31,7 +31,7 @@ This package is completely framework agnostic. Mitchell has put together a [vide
 
 It's stable enough, you'll need to understand permissions.
 
-This package is actively being developed and we would like to get feedback to improve it. [Please feel free to submit feedback.](https://github.com/heybigname/backup-manager/issues/new)
+This package is actively being developed and we would like to get feedback to improve it. [Please feel free to submit feedback.](https://github.com/backup-manager/backup-manager/issues/new)
 
 ### Quick and Dirty
 
@@ -146,7 +146,7 @@ $manager->makeRestore()->run('s3', 'test/backup.sql.gz', 'development', 'gzip');
 Run the following to include this via Composer
 
 ```shell
-composer require heybigname/backup-manager
+composer require backup-manager/backup-manager
 ```
 
 Then, you'll need to select the appropriate packages for the adapters that you want to use.
@@ -169,9 +169,9 @@ composer require league/flysystem-sftp
 
 Once installed, the package must be bootstrapped (initial configuration) before it can be used. 
 
-We've provided a native PHP example [here](https://github.com/heybigname/backup-manager/tree/master/examples).
+We've provided a native PHP example [here](https://github.com/backup-manager/backup-manager/tree/master/examples).
 
-The required bootstrapping can [be found in the example here](https://github.com/heybigname/backup-manager/blob/master/examples/standalone/bootstrap.php).
+The required bootstrapping can [be found in the example here](https://github.com/backup-manager/backup-manager/blob/master/examples/standalone/bootstrap.php).
 
 ### Contribution Guidelines
 
@@ -184,7 +184,7 @@ When contributing please consider the following guidelines:
     2. Interfaces should NOT be suffixed with `Interface`, Traits should NOT be suffixed with `Trait`.
 - All methods and classes must contain docblocks.
 - Ensure that you submit tests that have minimal 100% coverage.
-- When planning a pull-request to add new functionality, it may be wise to [submit a proposal](https://github.com/heybigname/backup-manager/issues/new) to ensure compatibility with the project's goals.
+- When planning a pull-request to add new functionality, it may be wise to [submit a proposal](https://github.com/backup-manager/backup-manager/issues/new) to ensure compatibility with the project's goals.
 
 ### Maintainers
 
@@ -192,4 +192,4 @@ This package is maintained by [Shawn McCool](http://shawnmc.cool), [Mitchell van
 
 ### License
 
-This package is licensed under the [MIT license](https://github.com/heybigname/backup-manager/blob/master/LICENSE).
+This package is licensed under the [MIT license](https://github.com/backup-manager/backup-manager/blob/master/LICENSE).
