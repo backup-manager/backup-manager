@@ -9,7 +9,7 @@ return [
         'type' => 'AwsS3',
         'key'    => '',
         'secret' => '',
-        'region' => Aws\Common\Enum\Region::US_EAST_1,
+        'region' => 'us-east-1',
         'bucket' => '',
         'root'   => '',
     ],
