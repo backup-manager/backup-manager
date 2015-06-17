@@ -22,9 +22,6 @@
   "require-dev": {
     "mockery/mockery": "dev-master",
     "satooshi/php-coveralls": "~0.6",
-    "illuminate/support": "4.x",
-    "illuminate/container": "4.x",
-    "illuminate/console": "4.x",
     "league/flysystem-aws-s3-v2": "~1.0",
     "league/flysystem-dropbox": "~1.0",
     "league/flysystem-rackspace": "~1.0",
