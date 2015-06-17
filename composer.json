@@ -1,6 +1,6 @@
 {
   "name": "heybigname/backup-manager",
-  "description": "Database backup manager for dumping to and restoring databases from S3, Dropbox, FTP, and SFTP.",
+  "description": "A framework agnostic database backup manager with user-definable procedures and support for S3, Dropbox, FTP, SFTP, and more with drivers for popular frameworks.",
   "authors": [
     {
       "name": "Shawn McCool",
