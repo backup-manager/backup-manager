@@ -22,7 +22,7 @@
   "require-dev": {
     "mockery/mockery": "dev-master",
     "satooshi/php-coveralls": "~0.6",
-    "league/flysystem-aws-s3-v2": "~1.0",
+    "league/flysystem-aws-s3-v3": "~1.0",
     "league/flysystem-dropbox": "~1.0",
     "league/flysystem-rackspace": "~1.0",
     "league/flysystem-sftp": "~1.0",
@@ -33,7 +33,7 @@
     "bin-dir": "bin"
   },
   "suggest": {
-    "league/flysystem-aws-s3-v2": "AwsS3 adapter support.",
+    "league/flysystem-aws-s3-v3": "AwsS3 adapter support.",
     "league/flysystem-dropbox": "Dropbox adapter support.",
     "league/flysystem-rackspace": "Rackspace adapter support.",
     "league/flysystem-sftp": "Sftp adapter support."
