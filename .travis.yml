@@ -1,8 +1,8 @@
 language: php
+sudo: false
 php:
   - "5.4"
 install:
-  - composer self-update
   - composer install --dev --no-scripts --prefer-source --no-interaction
 script: bin/phpspec run -fpretty -v
 after_script: bin/coveralls -v
