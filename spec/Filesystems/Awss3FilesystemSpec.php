@@ -29,7 +29,7 @@ class Awss3FilesystemSpec extends ObjectBehavior {
         return [
             'key'    => 'key',
             'secret' => 'secret',
-            'region' => 0,
+            'region' => 'us-east-1',
             'bucket' => 'bucket',
             'root'   => 'prefix',
             'version' => 'latest'
