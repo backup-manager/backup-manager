@@ -1,6 +1,6 @@
 <?php namespace BackupManager\Filesystems;
 
-use League\Flysystem\AwsS3v2\AwsS3Adapter;
+use League\Flysystem\AwsS3v3\AwsS3Adapter;
 use Aws\S3\S3Client;
 use League\Flysystem\Filesystem as Flysystem;
 
