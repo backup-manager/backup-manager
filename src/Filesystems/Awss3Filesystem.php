@@ -24,9 +24,12 @@ class Awss3Filesystem implements Filesystem {
      */
     public function get(array $config) {
         $client = S3Client::factory([
-            'key'    => $config['key'],
-            'secret' => $config['secret'],
+            'credentials' => [
+                'key'    => $config['key'],
+                'secret' => $config['secret'],
+            ],
             'region' => $config['region'],
+            'version' => isset($config['version']) ? $config['version'] : 'latest',
         ]);
 
         return new Flysystem(new AwsS3Adapter($client, $config['bucket'], $config['root']));

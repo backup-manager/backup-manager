@@ -70,6 +70,7 @@ This package is actively being developed and we would like to get feedback to im
     'key'    => '',
     'secret' => '',
     'region' => 'us-east-1',
+    'version' => 'latest',
     'bucket' => '',
     'root'   => '',
 ],

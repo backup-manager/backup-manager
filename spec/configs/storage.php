@@ -10,6 +10,7 @@ return [
         'key'    => '',
         'secret' => '',
         'region' => 'us-east-1',
+        'version' => 'latest',
         'bucket' => '',
         'root'   => '',
     ],
