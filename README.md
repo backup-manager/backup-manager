@@ -69,7 +69,7 @@ This package is actively being developed and we would like to get feedback to im
     'type' => 'AwsS3',
     'key'    => '',
     'secret' => '',
-    'region' => Aws\Common\Enum\Region::US_EAST_1,
+    'region' => 'us-east-1',
     'bucket' => '',
     'root'   => '',
 ],

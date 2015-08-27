@@ -16,7 +16,6 @@
   "require": {
     "php": ">=5.5.9",
     "symfony/process": "~2.1",
-    "aws/aws-sdk-php": "~3.0",
     "league/flysystem": "~1.0"
   },
   "require-dev": {
@@ -27,6 +26,7 @@
     "league/flysystem-rackspace": "~1.0",
     "league/flysystem-sftp": "~1.0",
     "dropbox/dropbox-sdk": "~1.1",
+    "aws/aws-sdk-php": "~3.0",
     "phpspec/phpspec": "~2.1"
   },
   "config": {
