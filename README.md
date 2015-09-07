@@ -74,6 +74,14 @@ This package is actively being developed and we would like to get feedback to im
     'bucket' => '',
     'root'   => '',
 ],
+'gcs' => [
+    'type' => 'Gcs',
+    'key'    => '',
+    'secret' => '',
+    'version' => 'latest',
+    'bucket' => '',
+    'root'   => '',
+],
 'rackspace' => [
     'type' => 'Rackspace',
     'username' => '',
