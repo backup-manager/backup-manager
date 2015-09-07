@@ -153,7 +153,7 @@ composer require backup-manager/backup-manager
 Then, you'll need to select the appropriate packages for the adapters that you want to use.
 
 ```shell
-# to support s3
+# to support s3 or google cs
 composer require league/flysystem-aws-s3-v2
 
 # to support dropbox
