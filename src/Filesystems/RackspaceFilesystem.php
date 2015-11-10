@@ -2,7 +2,7 @@
 
 use League\Flysystem\Rackspace\RackspaceAdapter;
 use League\Flysystem\Filesystem as Flysystem;
-use OpenCloud\OpenStack;
+use OpenCloud\Rackspace;
 
 /**
  * Class RackspaceFilesystem
@@ -24,9 +24,9 @@ class RackspaceFilesystem implements Filesystem {
      * @return Flysystem
      */
     public function get(array $config) {
-        $client = new OpenStack($config['endpoint'], [
+        $client = new Rackspace($config['endpoint'], [
             'username' => $config['username'],
-            'password' => $config['key'],
+            'apiKey' => $config['key'],
         ]);
         $container = $client->objectStoreService('cloudFiles', $config['zone'])->getContainer($config['container']);
         return new Flysystem(new RackspaceAdapter($container, $config['root']));
