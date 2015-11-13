@@ -29,6 +29,7 @@ class ShellProcessor {
         }
 
         $this->process->setCommandLine($command);
+        $this->process->setTimeout(null);
         $this->process->run();
         if ( ! $this->process->isSuccessful()) {
             throw new ShellProcessFailed($this->process->getErrorOutput());
