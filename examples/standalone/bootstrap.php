@@ -12,6 +12,7 @@ use BackupManager\Manager;
 // build providers
 $filesystems = new Filesystems\FilesystemProvider(Config::fromPhpFile('config/storage.php'));
 $filesystems->add(new Filesystems\Awss3Filesystem);
+$filesystems->add(new Filesystems\GcsFilesystem);
 $filesystems->add(new Filesystems\DropboxFilesystem);
 $filesystems->add(new Filesystems\FtpFilesystem);
 $filesystems->add(new Filesystems\LocalFilesystem);

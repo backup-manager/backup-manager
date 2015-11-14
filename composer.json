@@ -33,7 +33,7 @@
     "bin-dir": "bin"
   },
   "suggest": {
-    "league/flysystem-aws-s3-v3": "AwsS3 adapter support.",
+    "league/flysystem-aws-s3-v3": "AwsS3 and GoogleCS adapter support.",
     "league/flysystem-dropbox": "Dropbox adapter support.",
     "league/flysystem-rackspace": "Rackspace adapter support.",
     "league/flysystem-sftp": "Sftp adapter support."

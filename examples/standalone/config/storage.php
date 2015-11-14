@@ -14,6 +14,14 @@ return [
         'bucket' => '',
         'root'   => '',
     ],
+    'gcs' => [
+        'type' => 'Gcs',
+        'key'    => '',
+        'secret' => '',
+        'version' => 'latest',
+        'bucket' => '',
+        'root'   => '',
+    ],
     'rackspace' => [
         'type' => 'Rackspace',
         'username' => '',
