@@ -163,7 +163,7 @@ Then, you'll need to select the appropriate packages for the adapters that you w
 
 ```shell
 # to support s3 or google cs
-composer require league/flysystem-aws-s3-v2
+composer require league/flysystem-aws-s3-v3
 
 # to support dropbox
 composer require league/flysystem-dropbox
