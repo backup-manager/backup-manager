@@ -1,6 +1,8 @@
-> **Note:** 1.0 is brand new. The Laravel driver has been removed from this repository and moved [to its own repository](http://github.com/backup-manager/laravel). Instructions for installing and configuring it can be found there. 
-
 # Database Backup Manager 1.0
+
+This package provides a framework-agnostic database backup manager for dumping to and restoring databases from S3, Dropbox, FTP, SFTP, and Rackspace Cloud.
+
+[Watch a video tour](https://www.youtube.com/watch?v=vWXy0R8OavM) showing the Laravel driver in action to give you an idea what is possible with this package.
 
 [![Latest Stable Version](https://poser.pugx.org/backup-manager/backup-manager/version.png)](https://packagist.org/packages/backup-manager/backup-manager)
 [![License](https://poser.pugx.org/backup-manager/backup-manager/license.png)](https://packagist.org/packages/backup-manager/backup-manager)
@@ -14,8 +16,6 @@
 - dead simple configuration
 - [Laravel Driver](http://github.com/backup-manager/laravel)
 - [Symfony Driver](http://github.com/backup-manager/symfony)
-
-This package is completely framework agnostic. Mitchell has put together a [video tour](https://www.youtube.com/watch?v=vWXy0R8OavM) of Laravel integration, to give you an idea what is possible with this package.
 
 ### Table of Contents
 
