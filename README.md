@@ -5,7 +5,7 @@
 [![Latest Stable Version](https://poser.pugx.org/backup-manager/backup-manager/version.png)](https://packagist.org/packages/backup-manager/backup-manager)
 [![License](https://poser.pugx.org/backup-manager/backup-manager/license.png)](https://packagist.org/packages/backup-manager/backup-manager)
 [![Build Status](https://travis-ci.org/backup-manager/backup-manager.svg?branch=master)](https://travis-ci.org/backup-manager/backup-manager)
-[![Coverage Status](https://coveralls.io/repos/backup-manager/backup-manager/badge.png?branch=master)](https://coveralls.io/r/backup-manager/backup-manager?branch=master)
+[![Coverage Status](https://coveralls.io/repos/backup-manager/backup-manager/badge.svg?branch=master&service=github)](https://coveralls.io/github/backup-manager/backup-manager?branch=master)
 [![Total Downloads](https://poser.pugx.org/backup-manager/backup-manager/downloads.png)](https://packagist.org/packages/backup-manager/backup-manager)
 
 - supports `MySQL` and `PostgreSQL`
