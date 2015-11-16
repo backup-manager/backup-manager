@@ -13,6 +13,7 @@
 - framework-agnostic
 - dead simple configuration
 - [Laravel Driver](http://github.com/backup-manager/laravel)
+- [Symfony Driver](http://github.com/backup-manager/symfony)
 
 This package is completely framework agnostic. Mitchell has put together a [video tour](https://www.youtube.com/watch?v=vWXy0R8OavM) of Laravel integration, to give you an idea what is possible with this package.
 
