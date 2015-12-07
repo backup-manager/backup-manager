@@ -198,7 +198,7 @@ When contributing please consider the following guidelines:
 
 ### Maintainers
 
-This package is maintained by [Shawn McCool](http://shawnmc.cool), [Mitchell van Wijngaarden](http://blog.mitchellvanw.io), and Graham Campbell.
+This package is maintained by [Shawn McCool](http://shawnmc.cool), [Mitchell van Wijngaarden](http://blog.mitchellvanw.io), and you!
 
 ### License
 
