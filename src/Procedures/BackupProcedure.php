@@ -4,15 +4,31 @@ use BackupManager\Tasks;
 
 /**
  * Class BackupProcedure
+ *
  * @package BackupManager\Procedures
  */
 class BackupProcedure extends Procedure {
+    /** @var Sequence */
+    private $sequence;
+
+    /** @var string */
+    private $backup_database;
+
+    /** @var array */
+    private $backup_destination_filesystems = [];
+
+    /** @var string */
+    private $backup_destination_path;
+
+    /** @var string */
+    private $backup_compression;
 
     /**
      * @param string $database
      * @param string $destination
      * @param string $destinationPath
      * @param string $compression
+     *
      * @throws \BackupManager\Filesystems\FilesystemTypeNotSupported
      * @throws \BackupManager\Config\ConfigFieldNotFound
      * @throws \BackupManager\Compressors\CompressorTypeNotSupported
@@ -20,22 +36,48 @@ class BackupProcedure extends Procedure {
      * @throws \BackupManager\Config\ConfigNotFoundForConnection
      */
     public function run($database, $destination, $destinationPath, $compression) {
-        $sequence = new Sequence;
+        $this->setDatabase($database);
+        $this->addDestinationFilesystem($destination);
+        $this->setDestinationPath($destinationPath);
+        $this->setCompression($compression);
+        $this->execute();
+    }
+
+    public function setDatabase($database) {
+        $this->backup_database = $database;
+    }
+
+    public function addDestinationFilesystem($destination) {
+        if (!array_search($destination, $this->backup_destination_filesystems)) {
+            $this->backup_destination_filesystems[] = $destination;
+        }
+    }
+
+    public function setDestinationPath($destination_path) {
+        $this->backup_destination_path = $destination_path;
+    }
+
+    public function setCompression($compression) {
+        $this->backup_compression = $compression;
+    }
+
+    public function execute(){
+        $this->sequence = new Sequence();
 
         // begin the life of a new working file
         $localFilesystem = $this->filesystems->get('local');
-        $workingFile = $this->getWorkingFile('local');
+        $workingFile     = $this->getWorkingFile('local');
 
         // dump the database
-        $sequence->add(new Tasks\Database\DumpDatabase(
-            $this->databases->get($database),
+        $this->sequence->add(new Tasks\Database\DumpDatabase(
+            $this->databases->get($this->backup_database),
             $workingFile,
             $this->shellProcessor
         ));
 
         // archive the dump
-        $compressor = $this->compressors->get($compression);
-        $sequence->add(new Tasks\Compression\CompressFile(
+        $compressor = $this->compressors->get($this->backup_compression);
+        $this->sequence->add(new Tasks\Compression\CompressFile(
             $compressor,
             $workingFile,
             $this->shellProcessor
@@ -43,17 +85,18 @@ class BackupProcedure extends Procedure {
         $workingFile = $compressor->getCompressedPath($workingFile);
 
         // upload the archive
-        $sequence->add(new Tasks\Storage\TransferFile(
-            $localFilesystem, basename($workingFile),
-            $this->filesystems->get($destination), $compressor->getCompressedPath($destinationPath)
-        ));
+        foreach ($this->backup_destination_filesystems as $destination) {
+            $this->sequence->add(new Tasks\Storage\TransferFile(
+                $localFilesystem, basename($workingFile),
+                $this->filesystems->get($destination), $compressor->getCompressedPath($this->backup_destination_path)));
+        }
 
         // cleanup the local archive
-        $sequence->add(new Tasks\Storage\DeleteFile(
+        $this->sequence->add(new Tasks\Storage\DeleteFile(
             $localFilesystem,
             basename($workingFile)
         ));
 
-        $sequence->execute();
+        $this->sequence->execute();
     }
 }
