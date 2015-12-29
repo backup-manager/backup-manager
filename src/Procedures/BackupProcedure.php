@@ -43,24 +43,51 @@ class BackupProcedure extends Procedure {
         $this->execute();
     }
 
+    /**
+     * @param string $database
+     *
+     * @return void
+     */
     public function setDatabase($database) {
         $this->backup_database = $database;
     }
 
+    /**
+     * @param string $destination
+     *
+     * @return void
+     */
     public function addDestinationFilesystem($destination) {
         if (!array_search($destination, $this->backup_destination_filesystems)) {
             $this->backup_destination_filesystems[] = $destination;
         }
     }
 
+    /**
+     * @param string $destination_path
+     *
+     * @return void
+     */
     public function setDestinationPath($destination_path) {
         $this->backup_destination_path = $destination_path;
     }
 
+    /**
+     * @param string $compression
+     *
+     * @return void
+     */
     public function setCompression($compression) {
         $this->backup_compression = $compression;
     }
 
+    /**
+     * @return void
+     *
+     * @throws \BackupManager\Compressors\CompressorTypeNotSupported
+     * @throws \BackupManager\Databases\DatabaseTypeNotSupported
+     * @throws \BackupManager\Filesystems\FilesystemTypeNotSupported
+     */
     public function execute(){
         $this->sequence = new Sequence();
 
