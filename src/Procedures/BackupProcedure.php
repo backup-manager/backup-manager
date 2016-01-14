@@ -10,8 +10,7 @@ class BackupProcedure extends Procedure {
 
     /**
      * @param string $database
-     * @param string $destination
-     * @param string $destinationPath
+     * @param \BackupManager\Filesystems\Destination[] $destinations
      * @param string $compression
      * @throws \BackupManager\Filesystems\FilesystemTypeNotSupported
      * @throws \BackupManager\Config\ConfigFieldNotFound
@@ -19,7 +18,7 @@ class BackupProcedure extends Procedure {
      * @throws \BackupManager\Databases\DatabaseTypeNotSupported
      * @throws \BackupManager\Config\ConfigNotFoundForConnection
      */
-    public function run($database, $destination, $destinationPath, $compression) {
+    public function run($database, array $destinations, $compression) {
         $sequence = new Sequence;
 
         // begin the life of a new working file
@@ -43,10 +42,13 @@ class BackupProcedure extends Procedure {
         $workingFile = $compressor->getCompressedPath($workingFile);
 
         // upload the archive
-        $sequence->add(new Tasks\Storage\TransferFile(
-            $localFilesystem, basename($workingFile),
-            $this->filesystems->get($destination), $compressor->getCompressedPath($destinationPath)
-        ));
+        foreach ($destinations as $destination) {
+            $sequence->add(new Tasks\Storage\TransferFile(
+                $localFilesystem, basename($workingFile),
+                $this->filesystems->get($destination->destinationFilesystem()),
+                $compressor->getCompressedPath($destination->destinationPath())
+            ));
+        }
 
         // cleanup the local archive
         $sequence->add(new Tasks\Storage\DeleteFile(
