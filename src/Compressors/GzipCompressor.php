@@ -27,7 +27,7 @@ class GzipCompressor extends Compressor {
      * @return string
      */
     public function getDecompressCommandLine($outputPath) {
-        return 'gunzip ' . escapeshellarg($outputPath);
+        return 'gzip -d ' . escapeshellarg($outputPath);
     }
 
     /**
