@@ -1,0 +1,7 @@
+/vendor
+/.phpspec
+/bin
+/tests/report
+/.idea
+composer.phar
+composer.lock
