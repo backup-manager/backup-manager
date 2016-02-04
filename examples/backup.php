@@ -40,5 +40,6 @@ $compressor = new GzipCompressor($shell);
 
 $backup = new Backup($mysql, $files, $compressor);
 $backup->run([
-    new RemoteFile('other_local', new File('some.sql'))
+    new RemoteFile('other_local', new File('some1.sql')),
+    new RemoteFile('other_local', new File('some2.sql'))
 ]);
