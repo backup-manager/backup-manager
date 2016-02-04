@@ -16,8 +16,8 @@ use League\Flysystem\MountManager;
 use Symfony\Component\Process\Process;
 
 
-$localFilesystem = new Filesystem(new Local(__DIR__.'/'));
-$otherLocalFilesystem = new Filesystem(new Local(__DIR__.'/'));
+$localFilesystem = new Filesystem(new Local(__DIR__.'/working'));
+$otherLocalFilesystem = new Filesystem(new Local(__DIR__.'/working/other'));
 $mountManager = new MountManager([
     'local' => $localFilesystem,
     'other_local' => $otherLocalFilesystem
@@ -39,4 +39,4 @@ $files = new FlysystemFilesystem($mountManager);
 $compressor = new GzipCompressor($shell);
 
 $restore = new Restore($mysql, $files, $compressor);
-$restore->run(new RemoteFile('other_local', new File('some.sql.gz')));
+$restore->run(new RemoteFile('other_local', new File('some1.sql.gz')));
