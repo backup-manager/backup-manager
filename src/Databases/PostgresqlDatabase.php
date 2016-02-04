@@ -1,12 +1,11 @@
 <?php namespace BackupManager\Databases;
 
 use BackupManager\Config\Config;
-use BackupManager\Shell\ShellCommand;
-use BackupManager\Shell\ShellProcessFailed;
-use BackupManager\Shell\ShellProcessor;
 use BackupManager\File;
+use BackupManager\Shell\ShellCommand;
+use BackupManager\Shell\ShellProcessor;
 
-class MysqlDatabase implements Database {
+class PostgresqlDatabase implements Database {
 
     /** @var ShellProcessor */
     private $shell;
@@ -21,14 +20,13 @@ class MysqlDatabase implements Database {
     /**
      * @param File $file
      * @return void
-     * @throws ShellProcessFailed
      */
     public function dump(File $file) {
-        $command = new ShellCommand(sprintf('mysqldump --routines --host=%s --port=%s --user=%s --password=%s %s > %s',
+        $command = new ShellCommand(sprintf('PGPASSWORD=%s pg_dump --host=%s --port=%s --username=%s %s -f %s',
+            escapeshellarg($this->config->get('pass')),
             escapeshellarg($this->config->get('host')),
             escapeshellarg($this->config->get('port')),
             escapeshellarg($this->config->get('user')),
-            escapeshellarg($this->config->get('pass')),
             escapeshellarg($this->config->get('database')),
             escapeshellarg($file->path())
         ));
@@ -38,14 +36,13 @@ class MysqlDatabase implements Database {
     /**
      * @param File $file
      * @return void
-     * @throws ShellProcessFailed
      */
     public function restore(File $file) {
-        $command = new ShellCommand(sprintf('mysql --host=%s --port=%s --user=%s --password=%s %s -e "source %s"',
+        $command = new ShellCommand(sprintf('PGPASSWORD=%s psql --host=%s --port=%s --user=%s %s -f %s',
+            escapeshellarg($this->config->get('pass')),
             escapeshellarg($this->config->get('host')),
             escapeshellarg($this->config->get('port')),
             escapeshellarg($this->config->get('user')),
-            escapeshellarg($this->config->get('pass')),
             escapeshellarg($this->config->get('database')),
             escapeshellarg($file->path())
         ));

@@ -2,8 +2,8 @@
 
 use BackupManager\File;
 
-interface Compressor
-{
+interface Compressor {
+
     /**
      * @param File $file
      * @return void

@@ -2,17 +2,17 @@
 
 use BackupManager\File;
 
-interface Database
-{
+interface Database {
+
     /**
      * @param File $file
-     * @return string
+     * @return void
      */
     public function dump(File $file);
 
     /**
      * @param File $file
-     * @return string
+     * @return void
      */
     public function restore(File $file);
 }
