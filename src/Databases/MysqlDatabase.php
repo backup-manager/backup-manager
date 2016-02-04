@@ -6,7 +6,7 @@ use BackupManager\Shell\ShellProcessFailed;
 use BackupManager\Shell\ShellProcessor;
 use BackupManager\File;
 
-class Mysql implements Database {
+class MysqlDatabase implements Database {
 
     /** @var ShellProcessor */
     private $shell;

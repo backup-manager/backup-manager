@@ -33,8 +33,7 @@ class Backup
         foreach ($remoteFiles as $remoteFile) {
             $compressedFile = $this->compressor->compressedFile($remoteFile->file());
             $this->filesystem->writeStream(
-                $remoteFile->provider(),
-                $compressedFile->path(),
+                $remoteFile->provider(), $compressedFile->path(),
                 $this->filesystem->readStream('local', $compressedWorkingFile->path())
             );
         }
