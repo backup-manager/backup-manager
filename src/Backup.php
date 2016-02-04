@@ -3,7 +3,6 @@
 use BackupManager\Compressors\Compressor;
 use BackupManager\Databases\Database;
 use BackupManager\Filesystems\Filesystem;
-use BackupManager\Filesystems\RemoteFile;
 
 class Backup
 {
@@ -39,7 +38,6 @@ class Backup
         }
 
         // Clean up
-        $this->filesystem->delete('local', $workingFile->path());
         $this->filesystem->delete('local', $compressedWorkingFile->path());
     }
 }

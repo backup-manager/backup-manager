@@ -8,6 +8,8 @@ class FlysystemFilesystem implements Filesystem {
     private $files;
 
     public function __construct(MountManager $files) {
+        if ( ! $files->getAdapter('local://'))
+            throw new NoLocalFilesystemAvailable;
         $this->files = $files;
     }
     
@@ -16,7 +18,7 @@ class FlysystemFilesystem implements Filesystem {
     }
 
     public function readStream($provider, $path) {
-        $this->files->readStream("{$provider}://{$path}");
+        return $this->files->readStream("{$provider}://{$path}");
     }
 
     public function delete($provider, $path) {

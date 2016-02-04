@@ -1,7 +1,5 @@
 <?php namespace BackupManager;
 
-use BackupManager\File;
-
 class RemoteFile {
 
     private $provider;

@@ -1,7 +1,7 @@
 /vendor
 /.phpspec
 /bin
-/tests/report
 /.idea
+/examples/working/
 composer.phar
 composer.lock

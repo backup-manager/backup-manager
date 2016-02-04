@@ -3,7 +3,6 @@
 use BackupManager\Compressors\Compressor;
 use BackupManager\Databases\Database;
 use BackupManager\Filesystems\Filesystem;
-use BackupManager\Filesystems\RemoteFile;
 
 class Restore {
 
@@ -32,7 +31,6 @@ class Restore {
         $this->database->restore($decompressedFile);
 
         // Clean up
-        $this->filesystem->delete('local', $workingFile->path());
         $this->filesystem->delete('local', $decompressedFile->path());
     }
 }

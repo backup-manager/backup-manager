@@ -47,7 +47,7 @@ class MysqlDatabase implements Database {
             escapeshellarg($this->config->get('user')),
             escapeshellarg($this->config->get('pass')),
             escapeshellarg($this->config->get('database')),
-            escapeshellarg($file->path())
+            $file->path()
         ));
         $this->shell->process($command);
     }

@@ -6,9 +6,8 @@ class ShellCommand
     private $command;
 
     public function __construct($command) {
-        if (empty($command)) {
+        if (empty($command))
             throw new InvalidShellCommand("Give command [{$command}] is not valid.");
-        }
         $this->command = $command;
     }
 
