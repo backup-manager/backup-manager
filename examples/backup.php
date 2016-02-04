@@ -16,8 +16,8 @@ use League\Flysystem\MountManager;
 use Symfony\Component\Process\Process;
 
 
-$localFilesystem = new Filesystem(new Local(__DIR__.'/'));
-$otherLocalFilesystem = new Filesystem(new Local(__DIR__.'/'));
+$localFilesystem = new Filesystem(new Local(__DIR__.'/working'));
+$otherLocalFilesystem = new Filesystem(new Local(__DIR__.'/working/other'));
 $mountManager = new MountManager([
     'local' => $localFilesystem,
     'other_local' => $otherLocalFilesystem

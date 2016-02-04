@@ -21,16 +21,16 @@ class Restore {
 
     public function run(RemoteFile $remoteFile) {
         $unique = uniqid();
-        $workingFile = new File("{$unique}_{$remoteFile->path()}");
+        $workingFile = new File("{$unique}_{$remoteFile->filePath()}", $this->filesystem->root('local'));
         $this->filesystem->writeStream(
-            'local', $workingFile->path(),
-            $this->filesystem->readStream($remoteFile->provider(), $remoteFile->path())
+            'local', $workingFile->filePath(),
+            $this->filesystem->readStream($remoteFile->provider(), $remoteFile->filePath())
         );
         $this->compressor->decompress($workingFile);
         $decompressedFile = $this->compressor->decompressedFile($workingFile);
         $this->database->restore($decompressedFile);
 
         // Clean up
-        $this->filesystem->delete('local', $decompressedFile->path());
+        $this->filesystem->delete('local', $decompressedFile->filePath());
     }
 }

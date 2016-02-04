@@ -27,7 +27,7 @@ class RemoteFile {
     /**
      * @return string
      */
-    public function path() {
-        return $this->file->path();
+    public function filePath() {
+        return $this->file->filePath();
     }
 }

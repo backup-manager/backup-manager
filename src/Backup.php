@@ -24,7 +24,7 @@ class Backup
      * @return void
      */
     public function run(array $remoteFiles) {
-        $workingFile = new File;
+        $workingFile = new File(null, $this->filesystem->root('local'));
         $this->database->dump($workingFile);
         $this->compressor->compress($workingFile);
         $compressedWorkingFile = $this->compressor->compressedFile($workingFile);
@@ -32,12 +32,12 @@ class Backup
         foreach ($remoteFiles as $remoteFile) {
             $compressedFile = $this->compressor->compressedFile($remoteFile->file());
             $this->filesystem->writeStream(
-                $remoteFile->provider(), $compressedFile->path(),
-                $this->filesystem->readStream('local', $compressedWorkingFile->path())
+                $remoteFile->provider(), $compressedFile->filePath(),
+                $this->filesystem->readStream('local', $compressedWorkingFile->filePath())
             );
         }
 
         // Clean up
-        $this->filesystem->delete('local', $compressedWorkingFile->path());
+        $this->filesystem->delete('local', $compressedWorkingFile->filePath());
     }
 }

@@ -30,7 +30,7 @@ class MysqlDatabase implements Database {
             escapeshellarg($this->config->get('user')),
             escapeshellarg($this->config->get('pass')),
             escapeshellarg($this->config->get('database')),
-            escapeshellarg($file->path())
+            escapeshellarg($file->fullPath())
         ));
         $this->shell->process($command);
     }
@@ -47,7 +47,7 @@ class MysqlDatabase implements Database {
             escapeshellarg($this->config->get('user')),
             escapeshellarg($this->config->get('pass')),
             escapeshellarg($this->config->get('database')),
-            $file->path()
+            $file->fullPath()
         ));
         $this->shell->process($command);
     }

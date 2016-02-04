@@ -41,13 +41,13 @@ class GzipCompressorSpec extends ObjectBehavior {
         $file = new File('file.sql');
         $compressedFile = $this->compressedFile($file);
         $compressedFile->shouldBeAnInstanceOf(File::class);
-        $compressedFile->path()->shouldReturn('file.sql.gz');
+        $compressedFile->fullPath()->shouldReturn('file.sql.gz');
     }
 
     function it_retrieves_the_decompressed_file() {
         $file = new File('file.sql.gz');
         $compressedFile = $this->decompressedFile($file);
         $compressedFile->shouldBeAnInstanceOf(File::class);
-        $compressedFile->path()->shouldReturn('file.sql');
+        $compressedFile->fullPath()->shouldReturn('file.sql');
     }
 }

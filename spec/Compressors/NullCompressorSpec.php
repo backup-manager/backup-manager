@@ -29,13 +29,13 @@ class NullCompressorSpec extends ObjectBehavior {
         $file = new File('file.sql');
         $compressedFile = $this->compressedFile($file);
         $compressedFile->shouldBeAnInstanceOf(File::class);
-        $compressedFile->path()->shouldReturn('file.sql');
+        $compressedFile->fullPath()->shouldReturn('file.sql');
     }
 
     function it_retrieves_the_decompressed_file() {
         $file = new File('file.sql');
         $decompressedFile = $this->decompressedFile($file);
         $decompressedFile->shouldBeAnInstanceOf(File::class);
-        $decompressedFile->path()->shouldReturn('file.sql');
+        $decompressedFile->fullPath()->shouldReturn('file.sql');
     }
 }

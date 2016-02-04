@@ -31,7 +31,7 @@ class MysqlDatabaseSpec extends ObjectBehavior {
     }
 
     function it_can_restore_the_dump(ShellProcessor $shell) {
-        $shell->process(new ShellCommand("mysql --host='host' --port='port' --user='user' --password='pass' 'database' -e \"source 'file.sql'\""))->shouldBeCalled();
+        $shell->process(new ShellCommand("mysql --host='host' --port='port' --user='user' --password='pass' 'database' -e \"source file.sql\""))->shouldBeCalled();
         $config = new Config(['host' => 'host', 'port' => 'port', 'user' => 'user', 'pass' => 'pass', 'database' => 'database']);
         $this->beConstructedWith($shell, $config);
 

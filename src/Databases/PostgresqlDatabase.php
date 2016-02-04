@@ -28,7 +28,7 @@ class PostgresqlDatabase implements Database {
             escapeshellarg($this->config->get('port')),
             escapeshellarg($this->config->get('user')),
             escapeshellarg($this->config->get('database')),
-            escapeshellarg($file->path())
+            escapeshellarg($file->fullPath())
         ));
         $this->shell->process($command);
     }
@@ -44,7 +44,7 @@ class PostgresqlDatabase implements Database {
             escapeshellarg($this->config->get('port')),
             escapeshellarg($this->config->get('user')),
             escapeshellarg($this->config->get('database')),
-            escapeshellarg($file->path())
+            escapeshellarg($file->fullPath())
         ));
         $this->shell->process($command);
     }

@@ -22,7 +22,7 @@ class RemoteFileSpec extends ObjectBehavior {
     }
 
     function it_retrieves_the_path() {
-        $this->path()->shouldReturn('path/to/file.sql');
+        $this->filePath()->shouldReturn('path/to/file.sql');
     }
 
     function it_retrieves_the_file() {

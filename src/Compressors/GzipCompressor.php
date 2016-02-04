@@ -20,7 +20,7 @@ class GzipCompressor implements Compressor {
      * @throws ShellProcessFailed
      */
     public function compress(File $file) {
-        $command = new ShellCommand('gzip ' . escapeshellarg($file->path()));
+        $command = new ShellCommand('gzip ' . escapeshellarg($file->fullPath()));
         $this->shell->process($command);
     }
 
@@ -30,7 +30,7 @@ class GzipCompressor implements Compressor {
      * @throws ShellProcessFailed
      */
     public function decompress(File $file) {
-        $command = new ShellCommand('gunzip ' . escapeshellarg($file->path()));
+        $command = new ShellCommand('gunzip ' . escapeshellarg($file->fullPath()));
         $this->shell->process($command);
     }
 
@@ -39,7 +39,7 @@ class GzipCompressor implements Compressor {
      * @return File
      */
     public function compressedFile(File $file) {
-        return new File("{$file->path()}.gz");
+        return new File("{$file->filePath()}.gz", $file->root());
     }
 
     /**
@@ -47,6 +47,6 @@ class GzipCompressor implements Compressor {
      * @return File
      */
     public function decompressedFile(File $file) {
-        return new File(preg_replace('/.gz$/', '', $file->path()));
+        return new File(preg_replace('/.gz$/', '', $file->filePath()), $file->root());
     }
 }
