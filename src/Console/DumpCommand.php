@@ -1,6 +1,7 @@
 <?php namespace BackupManager\Console;
 
 use Symfony\Component\Console\Input\InputInterface;
+use Symfony\Component\Console\Input\InputOption;
 use Symfony\Component\Console\Output\OutputInterface;
 
 class DumpCommand extends ConsoleCommand {
@@ -8,10 +9,16 @@ class DumpCommand extends ConsoleCommand {
     protected function configure() {
         $this
             ->setName('dump')
-            ->setDescription('Create database dump and save it on a service');
+            ->setDescription('Create database dump and save it on a service')
+            ->setDefinition([
+                new InputOption('config', null, InputOption::VALUE_OPTIONAL, null)
+            ]);
     }
 
     protected function execute(InputInterface $input, OutputInterface $output) {
+        if ( ! $this->configurationFileExists())
+            throw new CouldNotFindConfiguration;
+
         $databases = [
             'default' => 'master',
             'connections' => [
@@ -25,30 +32,30 @@ class DumpCommand extends ConsoleCommand {
             ]
         ];
 
-        $database = $this->choiceQuestion($input, $output, 'Which database do you want to dump?', $databases['connections'], $databases['default']);
-        $this->lineBreak($output);
+        $database = $this->choiceQuestion('Which database do you want to dump?', $databases['connections'], $databases['default']);
+        $this->lineBreak();
 
-        $provider = $this->choiceQuestion($input, $output, 'On which storage provider do you want to store this dump?', $storage['providers'], $storage['default']);
-        $this->lineBreak($output);
+        $provider = $this->choiceQuestion('On which storage provider do you want to store this dump?', $storage['providers'], $storage['default']);
+        $this->lineBreak();
 
         $output->writeln("<question>And what path?</question>");
-        $remoteFilePath = $this->askInput($input, $output);
-        $this->lineBreak($output);
+        $remoteFilePath = $this->askInput();
+        $this->lineBreak();
 
-        $compress = $this->confirmation($input, $output, 'Do you want to compress this dump?', false);
-        $this->lineBreak($output);
+        $compress = $this->confirmation('Do you want to compress this dump?', false);
+        $this->lineBreak();
 
         if ($compress) {
-            $compression = $this->choiceQuestion($input, $output, 'With what?', ['gzip' => 'Gzip'], 'gzip');
-            $this->lineBreak($output);
+            $compression = $this->choiceQuestion('With what?', ['gzip' => 'Gzip'], 'gzip');
+            $this->lineBreak();
         }
 
         $compressionText = $compress ? "and compress it to [{$compression}]" : "without compression";
-        $confirmation = $this->confirmation($input, $output, "To be sure, you want to backup [{$database}], store it on [{$provider}] at [{$remoteFilePath}], {$compressionText}?");
+        $confirmation = $this->confirmation("To be sure, you want to backup [{$database}], store it on [{$provider}] at [{$remoteFilePath}], {$compressionText}?");
         if ($confirmation)
             return compact('database', 'provider', 'remoteFilePath', 'compress');
 
-        $this->lineBreak($output);
+        $this->lineBreak();
         $output->writeln('Failed to run backup.');
         exit;
     }
