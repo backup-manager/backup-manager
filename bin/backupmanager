@@ -4,5 +4,5 @@
 // Find correct autoloader
 require file_exists(__DIR__.'/../vendor/autoload.php') ? __DIR__.'/../vendor/autoload.php' : __DIR__.'/../../../autoload.php';
 
-$app = new BackupManager\Console\ConsoleApplication;
+$app = new BackupManager\Console\Application;
 $app->run();

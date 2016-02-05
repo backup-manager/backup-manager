@@ -1,8 +1,8 @@
 <?php namespace BackupManager\Console;
 
-use Symfony\Component\Console\Application;
+use Symfony\Component\Console\Application as BaseApplication;
 
-class ConsoleApplication extends Application {
+class Application extends BaseApplication {
 
     public function __construct() {
         parent::__construct('Backup Manager', '2.0');
