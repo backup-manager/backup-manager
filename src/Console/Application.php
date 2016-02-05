@@ -4,8 +4,8 @@ use Symfony\Component\Console\Application as BaseApplication;
 
 class Application extends BaseApplication {
 
-    public function __construct() {
-        parent::__construct('Backup Manager', '2.0');
+    public function __construct($version) {
+        parent::__construct('Backup Manager', $version);
 
         $this->add(new InitCommand);
         $this->add(new DumpCommand);
