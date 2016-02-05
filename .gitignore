@@ -1,6 +1,4 @@
 /vendor
-/.phpspec
-/bin
 /.idea
 /examples/working/
 composer.phar

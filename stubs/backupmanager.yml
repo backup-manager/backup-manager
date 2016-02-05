@@ -1,0 +1,24 @@
+---
+databases:
+  default: master
+  connections:
+    master:
+      driver: mysql
+      host: "%env.db_host%"
+      port: "%env.db_host%"
+      user: "%env.db_user%"
+      pass: "%env.db_password%"
+      database: "%env.db_database%"
+
+storage:
+  default: local
+  providers:
+    local:
+      driver: local
+      root: "%project_root%"
+    s3:
+      driver: s3
+      key: "%env.stripe_key%"
+      secret: "%env.stripe_secret%"
+      region: eu-west-1
+      bucket: my_project
