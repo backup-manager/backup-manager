@@ -28,9 +28,9 @@ class GzipCompressorSpec extends ObjectBehavior {
     }
 
     function it_should_generate_valid_decompression_commands() {
-        $this->getDecompressCommandLine('foo')->shouldBe("gunzip 'foo'");
-        $this->getDecompressCommandLine('../foo.gz')->shouldBe("gunzip '../foo.gz'");
-        $this->getDecompressCommandLine('../foo.sql.gz')->shouldBe("gunzip '../foo.sql.gz'");
+        $this->getDecompressCommandLine('foo')->shouldBe("gzip -d 'foo'");
+        $this->getDecompressCommandLine('../foo.gz')->shouldBe("gzip -d '../foo.gz'");
+        $this->getDecompressCommandLine('../foo.sql.gz')->shouldBe("gzip -d '../foo.sql.gz'");
     }
 
     function it_should_generate_compressed_paths_from_filenames() {
