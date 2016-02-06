@@ -1,9 +1,6 @@
 <?php namespace BackupManager\Console;
 
-use Symfony\Component\Console\Input\InputInterface;
-use Symfony\Component\Console\Output\OutputInterface;
-
-class RestoreCommand extends ConsoleCommand {
+class RestoreCommand extends ConfigurationDependentCommand {
 
     protected function configure() {
         $this
@@ -11,7 +8,7 @@ class RestoreCommand extends ConsoleCommand {
             ->setDescription('Restore a database dump on a service.');
     }
 
-    protected function execute(InputInterface $input, OutputInterface $output) {
-
+    protected function handle() {
+        // TODO: Implement handle() method.
     }
 }

@@ -1,9 +1,6 @@
 <?php namespace BackupManager\Console;
 
-use Symfony\Component\Console\Input\InputInterface;
-use Symfony\Component\Console\Output\OutputInterface;
-
-class InitCommand extends ConsoleCommand {
+class InitCommand extends Command {
 
     protected function configure() {
         $this
@@ -11,7 +8,7 @@ class InitCommand extends ConsoleCommand {
             ->setDescription('Initialize the Backup Manager configuration.');
     }
 
-    protected function execute(InputInterface $input, OutputInterface $output) {
-
+    protected function handle() {
+        // TODO: Implement handle() method.
     }
 }

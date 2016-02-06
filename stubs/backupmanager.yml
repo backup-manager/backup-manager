@@ -1,4 +1,11 @@
 ---
+procedures:
+  nameitwhatever:
+    database: master
+    destinations:
+      s3: idontfuckingknow.sql
+      dropbox: brainhasntbootedyet.sql
+    compression: gzip
 databases:
   default: master
   connections:
@@ -15,7 +22,7 @@ storage:
   providers:
     local:
       driver: local
-      root: "%project_root%"
+      root: "%paths.root%"
     s3:
       driver: s3
       key: "%env.stripe_key%"

@@ -1,24 +1,22 @@
 <?php namespace BackupManager\Console;
 
-use Symfony\Component\Console\Input\InputInterface;
+use Symfony\Component\Console\Input\InputArgument;
 use Symfony\Component\Console\Input\InputOption;
-use Symfony\Component\Console\Output\OutputInterface;
 
-class DumpCommand extends ConsoleCommand {
+class DumpCommand extends ConfigurationDependentCommand {
 
     protected function configure() {
         $this
             ->setName('dump')
             ->setDescription('Create database dump and save it on a service')
             ->setDefinition([
-                new InputOption('config', null, InputOption::VALUE_OPTIONAL, null)
+                new InputArgument('procedure', InputArgument::OPTIONAL, null),
+                new InputOption('config', null, InputOption::VALUE_OPTIONAL, null),
+                new InputOption('database', null, InputOption::VALUE_OPTIONAL, null)
             ]);
     }
 
-    protected function execute(InputInterface $input, OutputInterface $output) {
-        if ( ! $this->configurationFileExists())
-            throw new CouldNotFindConfiguration;
-
+    protected function handle() {
         $databases = [
             'default' => 'master',
             'connections' => [
@@ -38,7 +36,7 @@ class DumpCommand extends ConsoleCommand {
         $provider = $this->choiceQuestion('On which storage provider do you want to store this dump?', $storage['providers'], $storage['default']);
         $this->lineBreak();
 
-        $output->writeln("<question>And what path?</question>");
+        $this->output()->writeln("<question>And what path?</question>");
         $remoteFilePath = $this->askInput();
         $this->lineBreak();
 
@@ -56,7 +54,7 @@ class DumpCommand extends ConsoleCommand {
             return compact('database', 'provider', 'remoteFilePath', 'compress');
 
         $this->lineBreak();
-        $output->writeln('Failed to run backup.');
+        $this->output()->writeln('Failed to run backup.');
         exit;
     }
 
