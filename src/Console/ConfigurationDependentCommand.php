@@ -4,6 +4,7 @@ use BackupManager\Compressors\CompressorFactory;
 use BackupManager\Config\Config;
 use BackupManager\Config\ConfigReaderFactory;
 use BackupManager\Config\ConfigReaderTypeDoesNotExist;
+use BackupManager\Databases\DatabaseFactory;
 use BackupManager\File;
 use BackupManager\Shell\ShellProcessor;
 use Symfony\Component\Console\Input\InputInterface;
@@ -18,6 +19,8 @@ abstract class ConfigurationDependentCommand extends Command {
     private $shell;
     /** @var CompressorFactory */
     private $compressorFactory;
+    /** @var DatabaseFactory */
+    private $databaseFactory;
 
     protected function execute(InputInterface $input, OutputInterface $output) {
         if ( ! $file = $this->configurationFile())
@@ -26,7 +29,7 @@ abstract class ConfigurationDependentCommand extends Command {
         $this->parseConfiguration($file);
         $this->makeShellProcessor();
         $this->makeCompressorFactory();
-
+        $this->makeDatabaseFactory();
 
         parent::execute($input, $output);
     }
@@ -72,5 +75,9 @@ abstract class ConfigurationDependentCommand extends Command {
 
     private function makeCompressorFactory() {
         $this->compressorFactory = new CompressorFactory($this->shell);
+    }
+
+    private function makeDatabaseFactory() {
+        $this->databaseFactory = new DatabaseFactory($this->shell, $this->config);
     }
 }
