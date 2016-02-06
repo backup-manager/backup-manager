@@ -12,7 +12,8 @@ class DumpCommand extends ConfigurationDependentCommand {
             ->setDefinition([
                 new InputArgument('procedure', InputArgument::OPTIONAL, null),
                 new InputOption('config', null, InputOption::VALUE_OPTIONAL, null),
-                new InputOption('database', null, InputOption::VALUE_OPTIONAL, null)
+                new InputOption('database', null, InputOption::VALUE_OPTIONAL, null),
+                new InputOption('compressor', null, InputOption::VALUE_OPTIONAL, null),
             ]);
     }
 

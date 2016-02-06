@@ -21,7 +21,7 @@ class YamlConfigReader implements ConfigReader {
      * @return Config
      */
     public function read(File $file) {
-        $yaml = $this->filesystem->read($file->fullPath());
+        $yaml = $this->filesystem->read($file->filePath());
         return new Config($this->parser->parse($yaml));
     }
 }

@@ -31,4 +31,14 @@ class FileSpec extends ObjectBehavior {
         $this->beConstructedWith('file.sql', 'path/to/');
         $this->root()->shouldReturn('path/to');
     }
+
+    function it_retrieves_the_file_extension() {
+        $this->beConstructedWith('file.sql');
+        $this->extension()->shouldReturn('sql');
+    }
+
+    function it_retrieves_null_when_file_has_no_extension() {
+        $this->beConstructedWith('no_extension');
+        $this->extension()->shouldReturn(null);
+    }
 }

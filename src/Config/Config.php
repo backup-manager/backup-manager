@@ -10,9 +10,14 @@ class Config {
     }
 
     public function get($key) {
-        if (!array_key_exists($key, $this->items))
-            throw new ConfigItemNotFound("Could not find item [{$key}].");
-        return $this->items[$key];
+        $items = $this->items;
+        if (isset($items[$key]))
+            return $items[$key];
+
+        foreach (explode('.', $key) as $segment)
+            $items = $items[$segment];
+
+        return $items;
     }
 
     public function all() {

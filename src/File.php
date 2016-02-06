@@ -26,8 +26,13 @@ class File {
     }
 
     public function fullPath() {
-        if ($this->root == '')
-            return $this->filePath;
+        if ($this->root == '') return $this->filePath;
         return "{$this->root}/{$this->filePath}";
+    }
+
+    public function extension() {
+        $filename = basename($this->filePath);
+        $filename = explode('.', $filename);
+        return isset($filename[1]) ? $filename[1] : null;
     }
 }
