@@ -2,6 +2,7 @@
 
 use BackupManager\Backup;
 use BackupManager\File;
+use BackupManager\Procedure;
 use BackupManager\RemoteFile;
 use Symfony\Component\Console\Input\InputArgument;
 use Symfony\Component\Console\Input\InputOption;
@@ -21,12 +22,14 @@ class DumpCommand extends ConfigurationDependentCommand {
     }
 
     protected function handle() {
-        // Database
+        if ( ! $procedure = $this->makeProcedure()) {
+
+        }
+
         $connections = $this->mapDatabaseConnections($this->config()->get('databases.connections'));
         $database = $this->choiceQuestion('Which database do you want to dump?', $connections, $this->config()->get('databases.default'));
         $this->lineBreak();
 
-        // Storage provider
         $providers = $this->mapFilesystemProviders($this->config()->get('storage.providers'));
         $provider = $this->choiceQuestion('On which storage provider do you want to store this dump?', $providers, $this->config()->get('storage.default'));
         $this->lineBreak();
@@ -43,13 +46,12 @@ class DumpCommand extends ConfigurationDependentCommand {
             $this->lineBreak();
         }
 
-        $compressionText = $compress ? "and compress it to [{$compression}]" : "without compression";
+        $compressionText = $compress ? "and compress it with [{$compression}]" : "without compression";
         $confirmation = $this->confirmation("To be sure, you want to backup [{$database}], store it on [{$provider}] at [{$remoteFilePath}], {$compressionText}?");
         if ($confirmation)
             $this->performBackup($database, $provider, $remoteFilePath, $compression);
 
-        $this->lineBreak();
-        $this->output()->writeln('Failed to run backup.');
+        $this->error('Failed to run backup.');
         exit;
     }
 
@@ -69,6 +71,15 @@ class DumpCommand extends ConfigurationDependentCommand {
             $mapped[$key] = "{$key} ({$driver})";
         }
         return $mapped;
+    }
+
+    private function makeProcedure() {
+        if ( ! $procedureName = $this->input()->getArgument('procedure'))
+            return false;
+        die(var_dump($this->config()->get("procedures.{$procedureName}")));
+//        return new Procedure(
+//
+//        )
     }
 
     private function performBackup($database, $provider, $remoteFilePath, $compression) {

@@ -54,7 +54,14 @@ abstract class Command extends SymfonyCommand {
     }
 
     protected function info($text) {
+        $this->lineBreak();
         $this->output()->writeln("<info>{$text}</info>");
+        $this->lineBreak();
+    }
+
+    protected function error($text) {
+        $this->output()->writeln("<error>{$text}</error>");
+        $this->lineBreak();
     }
 
     protected function lineBreak() {
