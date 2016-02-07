@@ -55,8 +55,8 @@ abstract class ConfigurationDependentCommand extends Command {
      * @throws ConfigReaderTypeDoesNotExist
      */
     private function parseConfiguration(File $file) {
-        $readerFactory = new ConfigReaderFactory;
-        $reader = $readerFactory->make($file->extension());
+        $factory = new ConfigReaderFactory;
+        $reader = $factory->make($file->extension());
         $this->config = $reader->read($file);
     }
 
