@@ -43,10 +43,10 @@ abstract class ConfigurationDependentCommand extends Command {
         $paths = ['backupmanager.yml', 'backupmanager.yml.dist'];
         if ($this->input()->getOption('config'))
             array_unshift($paths, $this->input()->getOption('config'));
-        foreach ($paths as $path)
-            if (file_exists(getcwd() . "/{$path}"))
+        foreach ($paths as $path) {
+            if (file_exists(realpath(getcwd() . "/{$path}")))
                 return new File($path, getcwd());
-
+        }
         return false;
     }
 

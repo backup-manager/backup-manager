@@ -39,7 +39,7 @@ class DumpCommand extends ConfigurationDependentCommand {
         $this->lineBreak();
 
         if ($compress) {
-            $compression = $this->choiceQuestion('With what?', ['gzip' => 'Gzip'], 'gzip');
+            $compression = $this->choiceQuestion('With what?', ['null' => 'Null', 'gzip' => 'Gzip'], 'null');
             $this->lineBreak();
         }
 

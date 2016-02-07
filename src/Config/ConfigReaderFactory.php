@@ -21,7 +21,7 @@ class ConfigReaderFactory {
      * @return YamlConfigReader
      */
     private function makeYamlReader() {
-        $filesystem = new Filesystem(new Local(getcwd()));
+        $filesystem = new Filesystem(new Local('/'));
         $parser = new Parser;
         return new YamlConfigReader($filesystem, $parser);
     }

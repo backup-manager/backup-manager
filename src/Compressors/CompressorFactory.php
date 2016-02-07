@@ -15,11 +15,16 @@ class CompressorFactory {
         switch (strtolower($type)) {
             case 'gzip':
                 return $this->makeGzipCompressor();
-            // make null compressor
+            case 'null':
+                return $this->makeNullCompressor();
         }
     }
 
     private function makeGzipCompressor() {
         return new GzipCompressor($this->shell);
+    }
+
+    private function makeNullCompressor() {
+        return new NullCompressor;
     }
 }
