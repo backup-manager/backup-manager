@@ -18,21 +18,16 @@
     "php": "^5.6",
     "symfony/process": "~3.0",
     "league/flysystem": "~1.0",
-    "symfony/yaml": "^3.0"
+    "symfony/yaml": "^3.0",
+    "league/flysystem-aws-s3-v3": "^1.0",
+    "league/flysystem-dropbox": "^1.0",
+    "league/flysystem-rackspace": "^1.0",
+    "league/flysystem-webdav": "^1.0",
+    "league/flysystem-sftp": "^1.0"
   },
   "require-dev": {
     "satooshi/php-coveralls": "~1.0",
     "phpspec/phpspec": "~2.4"
-  },
-  "suggest": {
-    "league/flysystem-rackspace": "Allows you to use Rackspace Cloud Files",
-    "league/flysystem-azure": "Allows you to use Windows Azure Blob storage",
-    "league/flysystem-webdav": "Allows you to use WebDAV storage",
-    "league/flysystem-aws-s3-v2": "Allows you to use S3 storage with AWS SDK v2",
-    "league/flysystem-aws-s3-v3": "Allows you to use S3 storage with AWS SDK v3",
-    "league/flysystem-dropbox": "Allows you to use Dropbox storage",
-    "league/flysystem-sftp": "Allows you to use SFTP server storage via phpseclib",
-    "league/flysystem-ziparchive": "Allows you to use ZipArchive adapter"
   },
   "autoload": {
     "psr-4": {

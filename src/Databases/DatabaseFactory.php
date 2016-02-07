@@ -15,22 +15,21 @@ class DatabaseFactory {
         $this->config = $config;
     }
 
-    public function make($type) {
-        switch (strtolower($type)) {
+    public function make($connectionName) {
+        $connectionConfig = new Config($this->config->get("databases.connections.{$connectionName}"));
+        switch (strtolower($connectionConfig->get('driver'))) {
             case 'mysql':
-                return $this->makeMysqlDatabase();
-                break;
+                return $this->makeMysqlDatabase($connectionConfig);
             case 'postgresql':
-                return $this->makePostgresqlDatabase();
-                break;
+                return $this->makePostgresqlDatabase($connectionConfig);
         }
     }
 
-    private function makeMysqlDatabase() {
-        return new MysqlDatabase($this->shell, $this->config);
+    private function makeMysqlDatabase(Config $config) {
+        return new MysqlDatabase($this->shell, $config);
     }
 
-    private function makePostgresqlDatabase() {
-        return new PostgresqlDatabase($this->shell, $this->config);
+    private function makePostgresqlDatabase(Config $config) {
+        return new PostgresqlDatabase($this->shell, $config);
     }
 }

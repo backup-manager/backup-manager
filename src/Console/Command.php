@@ -45,15 +45,19 @@ abstract class Command extends SymfonyCommand {
         return $helper->ask($this->input(), $this->output(), $question);
     }
 
-    protected function lineBreak() {
-        $this->output()->writeln('');
-    }
-
     protected function confirmation($text, $default = false) {
         /** @var QuestionHelper $helper */
         $helper = $this->getHelper('question');
         $defaultOption = $default ? '[Y/n]' : '[y/N]';
         $question = new ConfirmationQuestion("<question>{$text} {$defaultOption}</question> ", $default);
         return $helper->ask($this->input(), $this->output(), $question);
+    }
+
+    protected function info($text) {
+        $this->output()->writeln("<info>{$text}</info>");
+    }
+
+    protected function lineBreak() {
+        $this->output()->writeln('');
     }
 }

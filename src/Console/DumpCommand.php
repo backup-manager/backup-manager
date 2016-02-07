@@ -1,5 +1,8 @@
 <?php namespace BackupManager\Console;
 
+use BackupManager\Backup;
+use BackupManager\File;
+use BackupManager\RemoteFile;
 use Symfony\Component\Console\Input\InputArgument;
 use Symfony\Component\Console\Input\InputOption;
 
@@ -18,23 +21,14 @@ class DumpCommand extends ConfigurationDependentCommand {
     }
 
     protected function handle() {
-        $databases = [
-            'default' => 'master',
-            'connections' => [
-                'master' => '(MySQL)'
-            ]
-        ];
-        $storage = [
-            'default' => 'master',
-            'providers' => [
-                'master' => '(MySQL)'
-            ]
-        ];
-
-        $database = $this->choiceQuestion('Which database do you want to dump?', $databases['connections'], $databases['default']);
+        // Database
+        $connections = $this->mapDatabaseConnections($this->config()->get('databases.connections'));
+        $database = $this->choiceQuestion('Which database do you want to dump?', $connections, $this->config()->get('databases.default'));
         $this->lineBreak();
 
-        $provider = $this->choiceQuestion('On which storage provider do you want to store this dump?', $storage['providers'], $storage['default']);
+        // Storage provider
+        $providers = $this->mapFilesystemProviders($this->config()->get('storage.providers'));
+        $provider = $this->choiceQuestion('On which storage provider do you want to store this dump?', $providers, $this->config()->get('storage.default'));
         $this->lineBreak();
 
         $this->output()->writeln("<question>And what path?</question>");
@@ -52,34 +46,40 @@ class DumpCommand extends ConfigurationDependentCommand {
         $compressionText = $compress ? "and compress it to [{$compression}]" : "without compression";
         $confirmation = $this->confirmation("To be sure, you want to backup [{$database}], store it on [{$provider}] at [{$remoteFilePath}], {$compressionText}?");
         if ($confirmation)
-            return compact('database', 'provider', 'remoteFilePath', 'compress');
+            $this->performBackup($database, $provider, $remoteFilePath, $compression);
 
         $this->lineBreak();
         $this->output()->writeln('Failed to run backup.');
         exit;
     }
 
-    private function structureDatabases($config) {
-        $connections = [];
-        foreach ($config['connections'] as $key => $connection) {
+    private function mapDatabaseConnections($connections) {
+        $mapped = [];
+        foreach ($connections as $key => $connection) {
             $driver = $connection['driver'] == 'mysql' ? 'MySQL' : 'PostgreSQL';
-            $connections[$key] = "({$driver})";
+            $mapped[$key] = "{$key} ({$driver})";
         }
-        return [
-            'default' => $config['default'],
-            'connections' => $connections
-        ];
+        return $mapped;
     }
 
-    private function structureFilesystems($config) {
-        $providers = [];
-        foreach ($config['disks'] as $key => $provider) {
+    private function mapFilesystemProviders($providers) {
+        $mapped = [];
+        foreach ($providers as $key => $provider) {
             $driver = ucfirst($provider['driver']);
-            $providers[$key] = "({$driver})";
+            $mapped[$key] = "{$key} ({$driver})";
         }
-        return [
-            'default' => $config['default'],
-            'providers' => $providers
-        ];
+        return $mapped;
+    }
+
+    private function performBackup($database, $provider, $remoteFilePath, $compression) {
+        $remoteFiles = [new RemoteFile($provider, new File($remoteFilePath))];
+        $backup = new Backup(
+            $this->databaseFactory()->make($database),
+            $this->filesystem(),
+            $this->compressorFactory()->make($compression)
+        );
+        $backup->run($remoteFiles);
+        $this->info('Successfully created database dump.');
+        exit;
     }
 }

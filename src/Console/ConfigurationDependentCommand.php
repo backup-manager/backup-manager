@@ -6,6 +6,8 @@ use BackupManager\Config\ConfigReaderFactory;
 use BackupManager\Config\ConfigReaderTypeDoesNotExist;
 use BackupManager\Databases\DatabaseFactory;
 use BackupManager\File;
+use BackupManager\Filesystems\Filesystem;
+use BackupManager\Filesystems\FilesystemFactory;
 use BackupManager\Shell\ShellProcessor;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
@@ -17,10 +19,12 @@ abstract class ConfigurationDependentCommand extends Command {
     private $config;
     /** @var ShellProcessor */
     private $shell;
-    /** @var CompressorFactory */
-    private $compressorFactory;
     /** @var DatabaseFactory */
     private $databaseFactory;
+    /** @var Filesystem */
+    private $filesystem;
+    /** @var CompressorFactory */
+    private $compressorFactory;
 
     protected function execute(InputInterface $input, OutputInterface $output) {
         if ( ! $file = $this->configurationFile())
@@ -28,8 +32,9 @@ abstract class ConfigurationDependentCommand extends Command {
 
         $this->parseConfiguration($file);
         $this->makeShellProcessor();
-        $this->makeCompressorFactory();
         $this->makeDatabaseFactory();
+        $this->makeFilesystem();
+        $this->makeCompressorFactory();
 
         parent::execute($input, $output);
     }
@@ -62,10 +67,6 @@ abstract class ConfigurationDependentCommand extends Command {
         return $this->config;
     }
 
-    protected function compressorFactory() {
-        return $this->compressorFactory;
-    }
-
     /**
      * @return ShellProcessor
      */
@@ -73,11 +74,37 @@ abstract class ConfigurationDependentCommand extends Command {
         $this->shell = new ShellProcessor(new Process('', null, null, null, null));
     }
 
-    private function makeCompressorFactory() {
-        $this->compressorFactory = new CompressorFactory($this->shell);
+    /**
+     * @return DatabaseFactory
+     */
+    protected function databaseFactory() {
+        return $this->databaseFactory;
+    }
+
+    /**
+     * @return Filesystem
+     */
+    protected function filesystem() {
+        return $this->filesystem;
+    }
+
+    /**
+     * @return CompressorFactory
+     */
+    protected function compressorFactory() {
+        return $this->compressorFactory;
     }
 
     private function makeDatabaseFactory() {
         $this->databaseFactory = new DatabaseFactory($this->shell, $this->config);
+    }
+
+    private function makeFilesystem() {
+        $factory = new FilesystemFactory($this->config);
+        $this->filesystem = $factory->make();
+    }
+
+    private function makeCompressorFactory() {
+        $this->compressorFactory = new CompressorFactory($this->shell);
     }
 }

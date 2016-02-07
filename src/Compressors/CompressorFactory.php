@@ -15,7 +15,7 @@ class CompressorFactory {
         switch (strtolower($type)) {
             case 'gzip':
                 return $this->makeGzipCompressor();
-            break;
+            // make null compressor
         }
     }
 
