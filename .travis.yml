@@ -8,6 +8,6 @@ php:
 
 install: composer install --prefer-source --no-interaction
 
-script: bin/phpspec run -fpretty -v
+script: vendor/bin/phpspec run -fpretty -v
 
-after_script: bin/coveralls -v
+after_script: vendor/bin/coveralls -v
