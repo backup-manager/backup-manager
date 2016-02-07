@@ -14,8 +14,11 @@ class Config {
         if (isset($items[$key]))
             return $items[$key];
 
-        foreach (explode('.', $key) as $segment)
+        foreach (explode('.', $key) as $segment) {
+            if ( ! array_key_exists($segment, $items))
+                throw new ConfigItemDoesNotExist($key);
             $items = $items[$segment];
+        }
 
         return $items;
     }

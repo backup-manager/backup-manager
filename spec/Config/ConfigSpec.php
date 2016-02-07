@@ -3,6 +3,7 @@
 namespace spec\BackupManager\Config;
 
 use BackupManager\Config\Config;
+use BackupManager\Config\ConfigItemDoesNotExist;
 use PhpSpec\ObjectBehavior;
 use Prophecy\Argument;
 
@@ -36,5 +37,9 @@ class ConfigSpec extends ObjectBehavior {
                 'item' => 'another'
             ]
         ]);
+    }
+
+    function it_throws_when_retrieving_unknown_item() {
+        $this->shouldThrow(ConfigItemDoesNotExist::class)->during('get', ['unknown']);
     }
 }
