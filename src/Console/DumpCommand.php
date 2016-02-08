@@ -1,6 +1,8 @@
 <?php namespace BackupManager\Console;
 
 use BackupManager\Backup;
+use BackupManager\Config\Config;
+use BackupManager\Config\ConfigItemDoesNotExist;
 use BackupManager\File;
 use BackupManager\Procedure;
 use BackupManager\RemoteFile;
@@ -15,17 +17,16 @@ class DumpCommand extends ConfigurationDependentCommand {
             ->setDescription('Create database dump and save it on a service')
             ->setDefinition([
                 new InputArgument('procedure', InputArgument::OPTIONAL, null),
-                new InputOption('config', null, InputOption::VALUE_OPTIONAL, null),
-                new InputOption('database', null, InputOption::VALUE_OPTIONAL, null),
-                new InputOption('compressor', null, InputOption::VALUE_OPTIONAL, null),
+                new InputOption('config', null, InputOption::VALUE_OPTIONAL, null)
             ]);
     }
 
     protected function handle() {
-        if ( ! $procedure = $this->makeProcedure()) {
+        $procedure = $this->filledInProcedure() ? $this->makeProcedure() : $this->askQuestionsAndMakeProcedure();
+        $this->performBackup($procedure);
+    }
 
-        }
-
+    private function askQuestionsAndMakeProcedure() {
         $connections = $this->mapDatabaseConnections($this->config()->get('databases.connections'));
         $database = $this->choiceQuestion('Which database do you want to dump?', $connections, $this->config()->get('databases.default'));
         $this->lineBreak();
@@ -48,11 +49,10 @@ class DumpCommand extends ConfigurationDependentCommand {
 
         $compressionText = $compress ? "and compress it with [{$compression}]" : "without compression";
         $confirmation = $this->confirmation("To be sure, you want to backup [{$database}], store it on [{$provider}] at [{$remoteFilePath}], {$compressionText}?");
-        if ($confirmation)
-            $this->performBackup($database, $provider, $remoteFilePath, $compression);
-
-        $this->error('Failed to run backup.');
-        exit;
+        if ( ! $confirmation) {
+            $this->error('Failed to run backup.');
+            exit;
+        }
     }
 
     private function mapDatabaseConnections($connections) {
@@ -73,23 +73,34 @@ class DumpCommand extends ConfigurationDependentCommand {
         return $mapped;
     }
 
-    private function makeProcedure() {
-        if ( ! $procedureName = $this->input()->getArgument('procedure'))
-            return false;
-        die(var_dump($this->config()->get("procedures.{$procedureName}")));
-//        return new Procedure(
-//
-//        )
+    private function filledInProcedure() {
+        return $this->input()->getArgument('procedure') != null;
     }
 
-    private function performBackup($database, $provider, $remoteFilePath, $compression) {
-        $remoteFiles = [new RemoteFile($provider, new File($remoteFilePath))];
-        $backup = new Backup(
-            $this->databaseFactory()->make($database),
-            $this->filesystem(),
-            $this->compressorFactory()->make($compression)
+    private function makeProcedure() {
+        try {
+            // Change so if Config returns an array, it'll return another Config instance
+            $procedureName = $this->input()->getArgument('procedure');
+            $procedureConfig = new Config($this->config()->get("procedures.{$procedureName}"));
+        } catch (ConfigItemDoesNotExist $e) {
+            $this->error($e->getMessage());
+            exit;
+        }
+        return new Procedure(
+            $procedureName,
+            $procedureConfig->get('database'),
+            $procedureConfig->get('destinations'),
+            $procedureConfig->get('compression')
         );
-        $backup->run($remoteFiles);
+    }
+
+    private function performBackup(Procedure $procedure) {
+        $backup = new Backup(
+            $this->databaseFactory()->make($procedure->database()),
+            $this->filesystem(),
+            $this->compressorFactory()->make($procedure->compression())
+        );
+        $backup->run($procedure->destinations());
         $this->info('Successfully created database dump.');
         exit;
     }

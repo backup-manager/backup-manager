@@ -4,15 +4,13 @@ class Procedure {
 
     private $name;
     private $database;
-    private $storageProvider;
-    private $filePath;
+    private $destinations;
     private $compression;
 
-    public function __construct($name, $database, $storageProvider, $filePath, $compression) {
+    public function __construct($name, $database, $destinations, $compression) {
         $this->name = $name;
         $this->database = $database;
-        $this->storageProvider = $storageProvider;
-        $this->filePath = $filePath;
+        $this->destinations = $destinations;
         $this->compression = $compression;
     }
 
@@ -24,12 +22,11 @@ class Procedure {
         return $this->database;
     }
 
-    public function storageProvider() {
-        return $this->storageProvider;
-    }
-
-    public function filePath() {
-        return $this->filePath;
+    public function destinations() {
+        $destinations = [];
+        foreach ($this->destinations as $provider => $filePath)
+            $destinations[] = new RemoteFile($provider, new File($filePath));
+        return $destinations;
     }
 
     public function compression() {
