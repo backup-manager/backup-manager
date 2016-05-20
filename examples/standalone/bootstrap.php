@@ -22,6 +22,7 @@ $filesystems->add(new Filesystems\SftpFilesystem);
 $databases = new Databases\DatabaseProvider(Config::fromPhpFile('config/database.php'));
 $databases->add(new Databases\MysqlDatabase);
 $databases->add(new Databases\PostgresqlDatabase);
+$databases->add(new Databases\MongoDatabase);
 
 $compressors = new Compressors\CompressorProvider;
 $compressors->add(new Compressors\GzipCompressor);
