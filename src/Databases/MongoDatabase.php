@@ -30,8 +30,13 @@ class MongoDatabase implements Database {
      * @return string
      */
     public function getDumpCommandLine($outputPath) {
-    	//mongodump 
     	$archive_name = 'mongodump.tar.gz';
+        if(!array_key_exists('auth_db', $this->config)) {
+            //set default authentication database
+            $this->config['auth_db'] = 'admin';
+        }
+
+        //mongodump 
     	//dump and create archive (=> creates single file) - then remove the seperate files
         return sprintf('mongodump --quiet -h %s:%s -u %s -p %s -d %s -o %s --authenticationDatabase %s && tar -zcf %s %s && find %s ! -name %s -type d -exec rm -f -r {} +',
             escapeshellarg($this->config['host']),
