@@ -30,27 +30,35 @@ class MongoDatabase implements Database {
      * @return string
      */
     public function getDumpCommandLine($outputPath) {
-    	$archive_name = 'mongodump.tar.gz';
+    	$tempPath = 'tmp_backup';
+        $archive_name = 'mongodump.tar.gz';
         if(!array_key_exists('auth_db', $this->config)) {
             //set default authentication database
             $this->config['auth_db'] = 'admin';
         }
 
         //mongodump 
-    	//dump and create archive (=> creates single file) - then remove the seperate files
-        return sprintf('mongodump --quiet -h %s:%s -u %s -p %s -d %s -o %s --authenticationDatabase %s && tar -zcf %s %s && find %s ! -name %s -type d -exec rm -f -r {} +',
+        //dump and create archive (=> creates single file) - then remove the seperate files
+        return sprintf('mongodump --quiet -h %s:%s -u %s -p %s -d %s -o %s --authenticationDatabase %s && cd %s && tar -zcf %s %s && mv %s %s && cd .. && find %s ! -name %s -type d -exec rm -f -r {} +',
+            //values for mongodump
             escapeshellarg($this->config['host']),
             escapeshellarg($this->config['port']),
             escapeshellarg($this->config['user']),
             escapeshellarg($this->config['pass']),
             escapeshellarg($this->config['database']),
-            escapeshellarg($outputPath),
+            escapeshellarg($tempPath),
             escapeshellarg($this->config['auth_db']),
+            //value for working directory
+            escapeshellarg($tempPath),
             //values for archiving:
-            escapeshellarg($archive_name),
-            escapeshellarg($outputPath),
-            escapeshellarg($outputPath.'/.'),
-            escapeshellarg($archive_name)
+            escapeshellarg( $archive_name ),
+            escapeshellarg( $this->config['database'] ),
+            //moving the archive
+            escapeshellarg( $archive_name ),
+            escapeshellarg( $outputPath ),
+            //finding and removing temp files
+            escapeshellarg( $tempPath ),
+            escapeshellarg( $archive_name )
         );
     }
 

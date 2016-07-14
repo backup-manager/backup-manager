@@ -24,7 +24,7 @@ class MongoDatabaseSpec extends ObjectBehavior {
 
     function it_should_generate_a_valid_database_dump_command() {
         $this->configure();
-        $this->getDumpCommandLine('outputPath')->shouldBe("mongodump --quiet -h 'foo':'3306' -u 'bar' -p 'baz' -d 'test' -o 'outputPath' --authenticationDatabase 'admin' && tar -zcf 'mongodump.tar.gz' 'outputPath' && find 'outputPath/.' ! -name 'mongodump.tar.gz' -type d -exec rm -f -r {} +");
+        $this->getDumpCommandLine('outputPath')->shouldBe("mongodump --quiet -h 'foo':'3306' -u 'bar' -p 'baz' -d 'test' -o 'tmp_backup' --authenticationDatabase 'admin' && cd 'tmp_backup' && tar -zcf 'mongodump.tar.gz' 'test' && mv 'mongodump.tar.gz' 'outputPath' && cd .. && find 'tmp_backup' ! -name 'mongodump.tar.gz' -type d -exec rm -f -r {} +");
     }
 
     private function configure() {
