@@ -28,6 +28,6 @@ class DatabaseProviderSpec extends ObjectBehavior {
     }
 
     function it_should_provide_a_list_of_available_databases() {
-        $this->getAvailableProviders()->shouldBe(['development', 'production', 'unsupported', 'null']);
+        $this->getAvailableProviders()->shouldBe(['development', 'developmentSingleTrans', 'production', 'unsupported', 'null']);
     }
 }
