@@ -24,7 +24,7 @@ class MysqlDatabaseSpec extends ObjectBehavior {
 
     function it_should_generate_a_valid_database_dump_command() {
         $this->configure();
-        $this->getDumpCommandLine('outputPath')->shouldBe("mysqldump --routines --host='foo' --port='3306' --user='bar' --password='baz' 'test' > 'outputPath'");
+        $this->getDumpCommandLine('outputPath')->shouldBe("mysqldump --routines  --host='foo' --port='3306' --user='bar' --password='baz' 'test' > 'outputPath'");
     }
 
     function it_should_generate_a_valid_database_dump_command_with_single_transaction() {

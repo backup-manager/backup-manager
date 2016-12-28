@@ -34,8 +34,7 @@ class MysqlDatabase implements Database {
     	if (array_key_exists('singleTransaction', $this->config) && $this->config['singleTransaction'] === true) {
     		$extras[] = '--single-transaction';
     	}
-    	$extra = count($extras) > 0 ? ' '. implode(' ', $extras) : '';
-    	$command = 'mysqldump --routines'.$extra.' --host=%s --port=%s --user=%s --password=%s %s > %s';
+    	$command = 'mysqldump --routines '.implode(' ', $extras).' --host=%s --port=%s --user=%s --password=%s %s > %s';
         return sprintf($command,
             escapeshellarg($this->config['host']),
             escapeshellarg($this->config['port']),
