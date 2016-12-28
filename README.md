@@ -126,8 +126,10 @@ This package is actively being developed and we would like to get feedback to im
 Backup the development database to `Amazon S3`. The S3 backup path will be `test/backup.sql.gz` in the end, when `gzip` is done with it.
 
 ```php
+use BackupManager\Filesystems\Destination;
+
 $manager = require 'bootstrap.php';
-$manager->makeBackup()->run('development', 's3', 'test/backup.sql', 'gzip');
+$manager->makeBackup()->run('development', [new Destination('s3', 'test/backup.sql')], 'gzip');
 ```
 
 **Backup to / restore from any configured filesystem.**
