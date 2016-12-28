@@ -47,6 +47,10 @@ This package is actively being developed and we would like to get feedback to im
     'user' => 'root',
     'pass' => 'password',
     'database' => 'test',
+    // If singleTransaction is set to true, the --single-transcation flag will be set.
+    // This is useful on transactional databases like InnoDB.
+    // http://dev.mysql.com/doc/refman/5.7/en/mysqldump.html#option_mysqldump_single-transaction
+    'singleTransaction' => false
 ],
 'production' => [
     'type' => 'postgresql',

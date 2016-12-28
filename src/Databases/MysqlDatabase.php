@@ -30,7 +30,12 @@ class MysqlDatabase implements Database {
      * @return string
      */
     public function getDumpCommandLine($outputPath) {
-        return sprintf('mysqldump --routines --host=%s --port=%s --user=%s --password=%s %s > %s',
+    	$extras = [];
+    	if (array_key_exists('singleTransaction', $this->config) && $this->config['singleTransaction'] === true) {
+    		$extras[] = '--single-transaction';
+    	}
+    	$command = 'mysqldump --routines '.implode(' ', $extras).' --host=%s --port=%s --user=%s --password=%s %s > %s';
+        return sprintf($command,
             escapeshellarg($this->config['host']),
             escapeshellarg($this->config['port']),
             escapeshellarg($this->config['user']),
