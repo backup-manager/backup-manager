@@ -34,6 +34,13 @@ class MysqlDatabase implements Database {
     	if (array_key_exists('singleTransaction', $this->config) && $this->config['singleTransaction'] === true) {
     		$extras[] = '--single-transaction';
     	}
+        if (array_key_exists('ignoreTables', $this->config) && is_array($this->config['ignoreTables']) && count($this->config['ignoreTables'])) {
+    	    $db = $this->config['database'];
+    	    $ignoreTables = implode(',', array_map(function($table) use ($db) {
+                return $db.'.'.$table;
+            }, $this->config['ignoreTables']));
+            $extras[] = '--ignore-table='.$ignoreTables;
+        }
     	$command = 'mysqldump --routines '.implode(' ', $extras).' --host=%s --port=%s --user=%s --password=%s %s > %s';
         return sprintf($command,
             escapeshellarg($this->config['host']),
