@@ -34,6 +34,9 @@ class MysqlDatabase implements Database {
     	if (array_key_exists('singleTransaction', $this->config) && $this->config['singleTransaction'] === true) {
     		$extras[] = '--single-transaction';
     	}
+        if (array_key_exists('ignoreTables', $this->config)) {
+            $extras[] = $this->getIgnoreTableParameter();
+        }
     	$command = 'mysqldump --routines '.implode(' ', $extras).' --host=%s --port=%s --user=%s --password=%s %s > %s';
         return sprintf($command,
             escapeshellarg($this->config['host']),
@@ -57,6 +60,25 @@ class MysqlDatabase implements Database {
             escapeshellarg($this->config['pass']),
             escapeshellarg($this->config['database']),
             $inputPath
+        );
+    }
+
+    /**
+     * @return string
+     */
+    public function getIgnoreTableParameter() {
+
+        if (!is_array($this->config['ignoreTables']) || count($this->config['ignoreTables']) === 0) {
+            return '';
+        }
+
+        $db = $this->config['database'];
+        $ignoreTables = implode(',', array_map(function($table) use ($db) {
+            return $db.'.'.$table;
+        }, $this->config['ignoreTables']));
+
+        return sprintf('--ignore-table=%s',
+            escapeshellarg($ignoreTables)
         );
     }
 }
