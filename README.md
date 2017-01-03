@@ -50,7 +50,12 @@ This package is actively being developed and we would like to get feedback to im
     // If singleTransaction is set to true, the --single-transcation flag will be set.
     // This is useful on transactional databases like InnoDB.
     // http://dev.mysql.com/doc/refman/5.7/en/mysqldump.html#option_mysqldump_single-transaction
-    'singleTransaction' => false
+    'singleTransaction' => false,
+    // Do not dump the given tables
+    // Set only table names, without database name
+    // Example: ['table1', 'table2']
+    // http://dev.mysql.com/doc/refman/5.7/en/mysqldump.html#option_mysqldump_ignore-table
+    'ignoreTables' => [],
 ],
 'production' => [
     'type' => 'postgresql',
