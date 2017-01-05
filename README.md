@@ -154,7 +154,7 @@ $manager->makeRestore()->run('s3', 'test/backup.sql.gz', 'development', 'gzip');
 
 ### Requirements
 
-- PHP 5.5
+- PHP 5.4
 - MySQL support requires `mysqldump` and `mysql` command-line binaries
 - PostgreSQL support requires `pg_dump` and `psql` command-line binaries
 - Gzip support requires `gzip` and `gunzip` command-line binaries
