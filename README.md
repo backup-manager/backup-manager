@@ -1,4 +1,4 @@
-# Database Backup Manager 1.0
+# Database Backup Manager 1.1.3
 
 [![Latest Stable Version](https://poser.pugx.org/backup-manager/backup-manager/version.png)](https://packagist.org/packages/backup-manager/backup-manager)
 [![License](https://poser.pugx.org/backup-manager/backup-manager/license.png)](https://packagist.org/packages/backup-manager/backup-manager)
