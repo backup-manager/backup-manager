@@ -178,7 +178,7 @@ Then, you'll need to select the appropriate packages for the adapters that you w
 composer require league/flysystem-aws-s3-v3
 
 # to support dropbox (api v2)
-composer require spatie/flysystem-dropbox
+composer require srmklive/flysystem-dropbox-v2
 
 # to support rackspace
 composer require league/flysystem-rackspace
