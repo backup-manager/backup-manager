@@ -102,6 +102,7 @@ This package is actively being developed and we would like to get feedback to im
 ],
 'dropbox' => [
     'type' => 'Dropbox',
+    'token' => '',
     'key' => '',
     'secret' => '',
     'app' => '',
@@ -176,8 +177,8 @@ Then, you'll need to select the appropriate packages for the adapters that you w
 # to support s3 or google cs
 composer require league/flysystem-aws-s3-v3
 
-# to support dropbox
-composer require league/flysystem-dropbox
+# to support dropbox (api v2)
+composer require srmklive/flysystem-dropbox-v2
 
 # to support rackspace
 composer require league/flysystem-rackspace
