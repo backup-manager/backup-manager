@@ -24,7 +24,12 @@ class MysqlDatabaseSpec extends ObjectBehavior {
 
     function it_should_generate_a_valid_database_dump_command() {
         $this->configure();
-        $this->getDumpCommandLine('outputPath')->shouldBe("mysqldump --routines --host='foo' --port='3306' --user='bar' --password='baz' 'test' > 'outputPath'");
+        $this->getDumpCommandLine('outputPath')->shouldBe("mysqldump --routines  --host='foo' --port='3306' --user='bar' --password='baz' 'test' > 'outputPath'");
+    }
+
+    function it_should_generate_a_valid_database_dump_command_with_single_transaction() {
+        $this->configure('developmentSingleTrans');
+        $this->getDumpCommandLine('outputPath')->shouldBe("mysqldump --routines --single-transaction --host='foo' --port='3306' --user='bar' --password='baz' 'test' > 'outputPath'");
     }
 
     function it_should_generate_a_valid_database_restore_command() {
@@ -32,8 +37,8 @@ class MysqlDatabaseSpec extends ObjectBehavior {
         $this->getRestoreCommandLine('outputPath')->shouldBe("mysql --host='foo' --port='3306' --user='bar' --password='baz' 'test' -e \"source outputPath\"");
     }
 
-    private function configure() {
+    private function configure($db = 'development') {
         $config = Config::fromPhpFile('spec/configs/database.php');
-        $this->setConfig($config->get('development'));
+        $this->setConfig($config->get($db));
     }
 }

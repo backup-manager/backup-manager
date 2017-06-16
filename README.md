@@ -1,4 +1,4 @@
-# Database Backup Manager 1.0
+# Database Backup Manager 1.1.3
 
 [![Latest Stable Version](https://poser.pugx.org/backup-manager/backup-manager/version.png)](https://packagist.org/packages/backup-manager/backup-manager)
 [![License](https://poser.pugx.org/backup-manager/backup-manager/license.png)](https://packagist.org/packages/backup-manager/backup-manager)
@@ -47,6 +47,15 @@ This package is actively being developed and we would like to get feedback to im
     'user' => 'root',
     'pass' => 'password',
     'database' => 'test',
+    // If singleTransaction is set to true, the --single-transcation flag will be set.
+    // This is useful on transactional databases like InnoDB.
+    // http://dev.mysql.com/doc/refman/5.7/en/mysqldump.html#option_mysqldump_single-transaction
+    'singleTransaction' => false,
+    // Do not dump the given tables
+    // Set only table names, without database name
+    // Example: ['table1', 'table2']
+    // http://dev.mysql.com/doc/refman/5.7/en/mysqldump.html#option_mysqldump_ignore-table
+    'ignoreTables' => [],
 ],
 'production' => [
     'type' => 'postgresql',
@@ -126,8 +135,10 @@ This package is actively being developed and we would like to get feedback to im
 Backup the development database to `Amazon S3`. The S3 backup path will be `test/backup.sql.gz` in the end, when `gzip` is done with it.
 
 ```php
+use BackupManager\Filesystems\Destination;
+
 $manager = require 'bootstrap.php';
-$manager->makeBackup()->run('development', 's3', 'test/backup.sql', 'gzip');
+$manager->makeBackup()->run('development', [new Destination('s3', 'test/backup.sql')], 'gzip');
 ```
 
 **Backup to / restore from any configured filesystem.**

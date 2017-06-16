@@ -8,6 +8,8 @@ return [
         'user' => 'root',
         'pass' => 'password',
         'database' => 'test',
+        'singleTransaction' => false,
+        'ignoreTables' => [],
     ],
     'production' => [
         'type' => 'postgresql',
