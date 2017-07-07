@@ -37,6 +37,9 @@ class MysqlDatabase implements Database {
         if (array_key_exists('ignoreTables', $this->config)) {
             $extras[] = $this->getIgnoreTableParameter();
         }
+        if (array_key_exists('ssl', $this->config) && $this->config['ssl'] === true) {
+    		$extras[] = '--ssl';
+    	}
     	$command = 'mysqldump --routines '.implode(' ', $extras).' --host=%s --port=%s --user=%s --password=%s %s > %s';
         return sprintf($command,
             escapeshellarg($this->config['host']),
@@ -53,7 +56,11 @@ class MysqlDatabase implements Database {
      * @return string
      */
     public function getRestoreCommandLine($inputPath) {
-        return sprintf('mysql --host=%s --port=%s --user=%s --password=%s %s -e "source %s"',
+        $extras = [];
+        if (array_key_exists('ssl', $this->config) && $this->config['ssl'] === true) {
+    		$extras[] = '--ssl';
+    	}
+        return sprintf('mysql --host=%s --port=%s --user=%s --password=%s '.implode(' ', $extras).' %s -e "source %s"',
             escapeshellarg($this->config['host']),
             escapeshellarg($this->config['port']),
             escapeshellarg($this->config['user']),

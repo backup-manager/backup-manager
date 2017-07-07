@@ -56,6 +56,8 @@ This package is actively being developed and we would like to get feedback to im
     // Example: ['table1', 'table2']
     // http://dev.mysql.com/doc/refman/5.7/en/mysqldump.html#option_mysqldump_ignore-table
     'ignoreTables' => [],
+    // using ssl to connect to your database - active ssl-support (mysql only):
+    'ssl'=>false,
 ],
 'production' => [
     'type' => 'postgresql',
