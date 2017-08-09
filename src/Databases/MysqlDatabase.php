@@ -80,12 +80,17 @@ class MysqlDatabase implements Database {
         }
 
         $db = $this->config['database'];
-        $ignoreTables = implode(',', array_map(function($table) use ($db) {
+        $ignoreTables = array_map(function($table) use ($db) {
             return $db.'.'.$table;
-        }, $this->config['ignoreTables']));
+        }, $this->config['ignoreTables']);
 
-        return sprintf('--ignore-table=%s',
-            escapeshellarg($ignoreTables)
-        );
+        $commands=[];
+        foreach($ignoreTables AS $ignoreTable) {
+            $commands[]=sprintf('--ignore-table=%s',
+                escapeshellarg($ignoreTable)
+            );
+        }
+        
+        return implode(' ',$commands);
     }
 }
