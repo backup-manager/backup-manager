@@ -54,6 +54,8 @@ It's stable enough, you'll need to understand permissions.
     // Example: ['table1', 'table2']
     // http://dev.mysql.com/doc/refman/5.7/en/mysqldump.html#option_mysqldump_ignore-table
     'ignoreTables' => [],
+    // using ssl to connect to your database - active ssl-support (mysql only):
+    'ssl'=>false,
 ],
 'production' => [
     'type' => 'postgresql',
@@ -100,6 +102,7 @@ It's stable enough, you'll need to understand permissions.
 ],
 'dropbox' => [
     'type' => 'Dropbox',
+    'token' => '',
     'key' => '',
     'secret' => '',
     'app' => '',
@@ -171,11 +174,14 @@ composer require backup-manager/backup-manager
 Then, you'll need to select the appropriate packages for the adapters that you want to use.
 
 ```shell
-# to support s3 or google cs
+# to support s3
 composer require league/flysystem-aws-s3-v3
 
-# to support dropbox
-composer require league/flysystem-dropbox
+# to support google cs
+composer require league/flysystem-aws-s3-v2
+
+# to support dropbox (api v2)
+composer require srmklive/flysystem-dropbox-v2
 
 # to support rackspace
 composer require league/flysystem-rackspace

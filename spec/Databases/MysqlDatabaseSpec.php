@@ -34,7 +34,7 @@ class MysqlDatabaseSpec extends ObjectBehavior {
 
     function it_should_generate_a_valid_database_restore_command() {
         $this->configure();
-        $this->getRestoreCommandLine('outputPath')->shouldBe("mysql --host='foo' --port='3306' --user='bar' --password='baz' 'test' -e \"source outputPath\"");
+        $this->getRestoreCommandLine('outputPath')->shouldBe("mysql --host='foo' --port='3306' --user='bar' --password='baz'  'test' -e \"source outputPath\"");
     }
 
     private function configure($db = 'development') {
