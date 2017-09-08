@@ -32,8 +32,6 @@ This package provides a framework-agnostic database backup manager for dumping t
 
 It's stable enough, you'll need to understand permissions.
 
-This package is actively being developed and we would like to get feedback to improve it. [Please feel free to submit feedback.](https://github.com/backup-manager/backup-manager/issues/new)
-
 ### Quick and Dirty
 
 **Configure your databases.**
