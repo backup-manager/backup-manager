@@ -8,7 +8,7 @@ use Prophecy\Argument;
 class DropboxV2FilesystemSpec extends ObjectBehavior {
 
     function it_is_initializable() {
-        $this->shouldHaveType('BackupManager\Filesystems\DropboxFilesystem');
+        $this->shouldHaveType('BackupManager\Filesystems\DropboxV2Filesystem');
     }
 
     function it_should_recognize_its_type_with_case_insensitivity() {
