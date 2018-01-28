@@ -67,11 +67,18 @@ class MysqlDatabase implements Database {
         if (array_key_exists('ssl', $this->config) && $this->config['ssl'] === true) {
     		$extras[] = '--ssl';
     	}
-        return sprintf('mysql --host=%s --port=%s --user=%s --password=%s '.implode(' ', $extras).' %s -e "source %s"',
-            escapeshellarg($this->config['host']),
-            escapeshellarg($this->config['port']),
-            escapeshellarg($this->config['user']),
-            escapeshellarg($this->config['pass']),
+
+        // Prepare a "params" string from our config
+        $params = '';
+        $keys = ['host'=>'host', 'port'=>'port', 'user'=>'user', 'pass'=>'password'];
+        foreach ($keys as $key => $mysqlParam) {
+            if (!empty($this->config[$key])) {
+                $params.=sprintf(' --%s=%s', $mysqlParam, escapeshellarg($this->config[$key]));
+            }
+        }
+
+        return sprintf('mysql %s '.implode(' ', $extras).' %s -e "source %s"',
+            $params,
             escapeshellarg($this->config['database']),
             $inputPath
         );
