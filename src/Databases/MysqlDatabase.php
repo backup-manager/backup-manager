@@ -50,7 +50,7 @@ class MysqlDatabase implements Database {
             }
         }
 
-    	$command = 'mysqldump --routines '.implode(' ', $extras).' %s %s > %s';
+    	$command = 'mysqldump --routines '.implode(' ', $extras).'%s %s > %s';
         return sprintf($command,
             $params,
             escapeshellarg($this->config['database']),
@@ -77,7 +77,7 @@ class MysqlDatabase implements Database {
             }
         }
 
-        return sprintf('mysql %s '.implode(' ', $extras).' %s -e "source %s"',
+        return sprintf('mysql%s '.implode(' ', $extras).' %s -e "source %s"',
             $params,
             escapeshellarg($this->config['database']),
             $inputPath
