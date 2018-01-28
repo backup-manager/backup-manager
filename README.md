@@ -101,7 +101,7 @@ It's stable enough, you'll need to understand permissions.
     'root' => '',
 ],
 'dropbox' => [
-    'type' => 'Dropbox',
+    'type' => 'DropboxV2',
     'token' => '',
     'key' => '',
     'secret' => '',
