@@ -14,20 +14,19 @@
     }
   ],
   "require": {
-    "php": ">=5.5.9",
-    "symfony/process": "~2.1|~3.0|~4.0",
-    "league/flysystem": "~1.0"
+    "php": "^5.5.9 || ^7.0",
+    "symfony/process": "^2.1 || ^3.0 || ^4.0",
+    "league/flysystem": "^1.0"
   },
   "require-dev": {
-    "mockery/mockery": "~0.9",
-    "satooshi/php-coveralls": "~0.6",
-    "league/flysystem-aws-s3-v3": "~1.0",
-    "srmklive/flysystem-dropbox-v2": "~1.0",
-    "league/flysystem-rackspace": "~1.0",
-    "league/flysystem-sftp": "~1.0",
-    "dropbox/dropbox-sdk": "~1.1",
-    "aws/aws-sdk-php": "~3.0",
-    "phpspec/phpspec": "~2.1"
+    "satooshi/php-coveralls": "^2.0",
+    "league/flysystem-aws-s3-v3": "^1.0",
+    "srmklive/flysystem-dropbox-v2": "^1.0",
+    "league/flysystem-rackspace": "^1.0",
+    "league/flysystem-sftp": "^1.0",
+    "dropbox/dropbox-sdk": "^1.1",
+    "aws/aws-sdk-php": "^3.0",
+    "phpspec/phpspec": "^2.5 || ^3.4 || ^4.3"
   },
   "config": {
     "bin-dir": "bin"
@@ -45,7 +44,6 @@
     }
   },
   "license": "MIT",
-  "minimum-stability": "dev",
   "extra": {
     "branch-alias": {
       "dev-master": "1.0-dev"
