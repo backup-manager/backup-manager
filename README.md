@@ -56,6 +56,8 @@ It's stable enough, you'll need to understand permissions.
     'ignoreTables' => [],
     // using ssl to connect to your database - active ssl-support (mysql only):
     'ssl'=>false,
+    // add additional options to dump-command (like '--max-allowed-packet')
+    'extraParams'=>null,
 ],
 'production' => [
     'type' => 'postgresql',
