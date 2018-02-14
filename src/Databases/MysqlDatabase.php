@@ -40,6 +40,9 @@ class MysqlDatabase implements Database {
         if (array_key_exists('ssl', $this->config) && $this->config['ssl'] === true) {
     		$extras[] = '--ssl';
     	}
+        if (array_key_exists('extraParams', $this->config) && $this->config['extraParams']) {
+            $extras[] = $this->config['extraParams'];
+        }
 
     	// Prepare a "params" string from our config
     	$params = '';
