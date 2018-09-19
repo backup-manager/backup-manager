@@ -1,8 +1,8 @@
 <?php namespace BackupManager\Filesystems;
 
-use League\Flysystem\AwsS3v2\AwsS3Adapter;
-use Aws\S3\S3Client;
+use Google\Cloud\Storage\StorageClient;
 use League\Flysystem\Filesystem as Flysystem;
+use Superbalist\Flysystem\GoogleStorage\GoogleStorageAdapter;
 
 /**
  * Class GcsFilesystem
@@ -23,12 +23,12 @@ class GcsFilesystem implements Filesystem {
      * @return \League\Flysystem\Filesystem
      */
     public function get(array $config) {
-        $client = S3Client::factory([
-            'key'      => $config['key'],
-            'secret'   => $config['secret'],
-            'base_url' => 'https://storage.googleapis.com',
-        ]);
 
-        return new Flysystem(new AwsS3Adapter($client, $config['bucket'], $config['root']));
+        $storageClient = new StorageClient([
+            'projectId' => $config['project'],
+        ]);
+        $bucket = $storageClient->bucket($config['bucket']);
+
+        return new Flysystem(new GoogleStorageAdapter($storageClient, $bucket, $config['prefix']));
     }
 }
