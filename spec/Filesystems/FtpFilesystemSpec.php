@@ -22,7 +22,7 @@ class FtpFilesystemSpec extends ObjectBehavior {
     }
 
     function it_should_provide_an_instance_of_an_ftp_filesystem() {
-        $this->get($this->getConfig())->getAdapter()
+        @$this->get($this->getConfig())->getAdapter()
             ->shouldHaveType('League\Flysystem\Adapter\Ftp');
     }
 
