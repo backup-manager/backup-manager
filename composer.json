@@ -26,6 +26,7 @@
     "srmklive/flysystem-dropbox-v2": "~1.0",
     "league/flysystem-rackspace": "~1.0",
     "league/flysystem-sftp": "~1.0",
+    "mhetreramesh/flysystem-backblaze" : "~1.0",
     "superbalist/flysystem-google-storage": "^7.0",
     "dropbox/dropbox-sdk": "~1.1",
     "aws/aws-sdk-php": "~3.0",
@@ -35,6 +36,7 @@
     "bin-dir": "bin"
   },
   "suggest": {
+    "mhetreramesh/flysystem-backblaze": "B2 adapter support.",
     "league/flysystem-aws-s3-v3": "AWS S3 adapter support.",
     "superbalist/flysystem-google-storage": "Google Cloud Storage adapter support.",
     "srmklive/flysystem-dropbox-v2": "Dropbox API v2 adapter support.",

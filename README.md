@@ -86,6 +86,12 @@ It's stable enough, you'll need to understand permissions.
     'bucket' => '',
     'root'   => '',
 ],
+'b2' => [
+    'type' => 'B2',
+    'key'    => '',
+    'accountId' => '',
+    'bucket' => '',
+],
 'gcs' => [
     'type' => 'Gcs',
     'key'    => '',
@@ -178,6 +184,9 @@ Then, you'll need to select the appropriate packages for the adapters that you w
 ```shell
 # to support s3
 composer require league/flysystem-aws-s3-v3
+
+# to support b2
+composer require mhetreramesh/flysystem-backblaze
 
 # to support google cs
 composer require league/flysystem-aws-s3-v2
