@@ -15,11 +15,11 @@ return [
         'root'   => '',
     ],
     'gcs' => [
-        'type' => 'Gcs',
-        'key'    => '',
-        'secret' => '',
-        'bucket' => '',
-        'root'   => '',
+        'type'            => 'Gcs',
+        'keyFilePath'     => '',
+        'projectId'       => '',
+        'bucket'          => '',
+        'root'            => '',
     ],
     'rackspace' => [
         'type' => 'Rackspace',
