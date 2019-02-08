@@ -26,6 +26,7 @@ class GcsFilesystem implements Filesystem {
 
         $storageClient = new StorageClient([
             'projectId' => $config['project'],
+            'keyFilePath' => isset($config['keyFilePath']) ? $config['keyFilePath'] : null,
         ]);
         $bucket = $storageClient->bucket($config['bucket']);
 
