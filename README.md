@@ -209,6 +209,7 @@ We've provided a native PHP example [here](https://github.com/backup-manager/bac
 
 The required bootstrapping can [be found in the example here](https://github.com/backup-manager/backup-manager/blob/master/examples/standalone/bootstrap.php).
 
+
 ### Contribution Guidelines
 
 We recommend using the vagrant configuration supplied with this package for development and contribution. Simply install VirtualBox, Vagrant, and Ansible then run `vagrant up` in the root folder. A virtualmachine specifically designed for development of the package will be built and launched for you.

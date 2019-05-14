@@ -10,6 +10,12 @@ use BackupManager\ShellProcessing\ShellProcessor;
 
 /**
  * Class Manager
+ *
+ * This is a facade class that gives consumers access to the simple backup and restore procedures.
+ * This class can be copied and namespaced into your project, renamed, added to, modified, etc.
+ * Once you've done that, your application can interact with the backup manager in one place only
+ * and the rest of the system will interact with the new Manager-like construct that you created.
+ *
  * @package BackupManager
  */
 class Manager {
