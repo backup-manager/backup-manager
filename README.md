@@ -137,6 +137,11 @@ It's stable enough, you'll need to understand permissions.
     'timeout' => 10,
     'privateKey' => '',
 ],
+'flysystem' => [
+    'type' => 'Flysystem',
+    'name => 's3_backup',
+    //'prefix' => 'upload',
+],
 ```
 
 **Backup to / restore from any configured database.**
