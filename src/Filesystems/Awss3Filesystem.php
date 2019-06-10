@@ -30,6 +30,7 @@ class Awss3Filesystem implements Filesystem {
             ],
             'region' => $config['region'],
             'version' => isset($config['version']) ? $config['version'] : 'latest',
+            'endpoint' => isset($config['endpoint']) ? $config['endpoint'] : null,
         ]);
 
         return new Flysystem(new AwsS3Adapter($client, $config['bucket'], $config['root']));

@@ -59,4 +59,13 @@ return [
         'privateKey' => '',
         'root' => '',
     ],
+    'doSpaces' => [
+        'type' => 'AwsS3',
+        'key' => '',
+        'secret' => '',
+        'region' => '',
+        'bucket' => '',
+        'root' => '',
+        'endpoint' => '',
+    ],
 ];
