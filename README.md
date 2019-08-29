@@ -142,6 +142,15 @@ It's stable enough, you'll need to understand permissions.
     'name => 's3_backup',
     //'prefix' => 'upload',
 ],
+'doSpaces' => [
+  'type' => 'AwsS3',
+  'key' => '',
+  'secret' => '',
+  'region' => '',
+  'bucket' => '',
+  'root' => '',
+  'endpoint' => '',
+],
 ```
 
 **Backup to / restore from any configured database.**
