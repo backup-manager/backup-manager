@@ -26,6 +26,7 @@
     "srmklive/flysystem-dropbox-v2": "~1.0",
     "league/flysystem-rackspace": "~1.0",
     "league/flysystem-sftp": "~1.0",
+    "league/flysystem-webdav": "~1.0",
     "mhetreramesh/flysystem-backblaze" : "~1.0",
     "superbalist/flysystem-google-storage": "^7.0",
     "dropbox/dropbox-sdk": "~1.1",
@@ -41,7 +42,8 @@
     "superbalist/flysystem-google-storage": "Google Cloud Storage adapter support.",
     "srmklive/flysystem-dropbox-v2": "Dropbox API v2 adapter support.",
     "league/flysystem-rackspace": "Rackspace adapter support.",
-    "league/flysystem-sftp": "SFTP adapter support."
+    "league/flysystem-sftp": "SFTP adapter support.",
+    "league/flysystem-webdav": "Webdav adapter support."
   },
   "autoload": {
     "psr-4": {

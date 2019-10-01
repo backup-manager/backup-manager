@@ -57,4 +57,14 @@ return [
         'timeout' => 10,
         'privateKey' => '',
     ],
+    'webdav' => [
+        'type' => 'webdab',
+        'host' => '',
+        'username' => '',
+        'password' => '',
+        'root' => '',
+        'port' => 21,
+        'timeout' => 10,
+        'privateKey' => '',
+    ],
 ];

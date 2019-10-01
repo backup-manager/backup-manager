@@ -18,6 +18,7 @@ $filesystems->add(new Filesystems\FtpFilesystem);
 $filesystems->add(new Filesystems\LocalFilesystem);
 $filesystems->add(new Filesystems\RackspaceFilesystem);
 $filesystems->add(new Filesystems\SftpFilesystem);
+$filesystems->add(new Filesystems\WebdavFilesystem);
 
 $databases = new Databases\DatabaseProvider(Config::fromPhpFile('config/database.php'));
 $databases->add(new Databases\MysqlDatabase);
