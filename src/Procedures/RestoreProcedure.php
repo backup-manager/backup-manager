@@ -12,7 +12,7 @@ class RestoreProcedure extends Procedure {
      * @param string $sourceType
      * @param string $sourcePath
      * @param string $databaseName
-     * @param null $compression
+     * @param string|null $compression
      * @throws \BackupManager\Filesystems\FilesystemTypeNotSupported
      * @throws \BackupManager\Config\ConfigFieldNotFound
      * @throws \BackupManager\Compressors\CompressorTypeNotSupported
