@@ -1,4 +1,4 @@
-# Database Backup Manager 1.3
+# Database Backup Manager
 
 [![Latest Stable Version](https://poser.pugx.org/backup-manager/backup-manager/version.png)](https://packagist.org/packages/backup-manager/backup-manager)
 [![License](https://poser.pugx.org/backup-manager/backup-manager/license.png)](https://packagist.org/packages/backup-manager/backup-manager)
@@ -27,10 +27,6 @@ This package provides a framework-agnostic database backup manager for dumping t
 - [Contribution Guidelines](#contribution-guidelines)
 - [Maintainers](#maintainers)
 - [License](#license)
-
-### Stability Notice
-
-It's stable enough, you'll need to understand permissions.
 
 ### Quick and Dirty
 
