@@ -151,6 +151,13 @@ It's stable enough, you'll need to understand permissions.
   'root' => '',
   'endpoint' => '',
 ],
+'webdav' => [
+    'type' => 'Webdav',
+    'baseUri' => 'http://myserver.com',
+    'userName' => '',
+    'password' => '',
+    'prefix' => '',
+],
 ```
 
 **Backup to / restore from any configured database.**
@@ -213,6 +220,9 @@ composer require league/flysystem-rackspace
 
 # to support sftp
 composer require league/flysystem-sftp
+
+# to support webdav (supported by owncloud nad many other)
+composer require league/flysystem-webdav
 ```
 
 ### Usage
