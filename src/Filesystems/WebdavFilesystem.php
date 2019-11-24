@@ -8,14 +8,15 @@ use Sabre\DAV\Client;
  * Class WebdavFilesystem
  * @package BackupManager\Filesystems
  */
-class WebdavFilesystem implements Filesystem {
-
+class WebdavFilesystem implements Filesystem
+{
     /**
      * Test fitness of visitor.
      * @param $type
      * @return bool
      */
-    public function handles($type) {
+    public function handles($type)
+    {
         return strtolower($type) === 'webdav';
     }
 
@@ -23,7 +24,8 @@ class WebdavFilesystem implements Filesystem {
      * @param array $config
      * @return Flysystem
      */
-    public function get(array $config) {
+    public function get(array $config)
+    {
         return new Flysystem(new WebDAVAdapter(new Client($config), $config['prefix']));
     }
 }

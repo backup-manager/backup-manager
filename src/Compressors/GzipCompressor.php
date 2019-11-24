@@ -4,13 +4,14 @@
  * Class GzipCompressor
  * @package BackupManager\Compressors
  */
-class GzipCompressor extends Compressor {
-
+class GzipCompressor implements Compressor
+{
     /**
      * @param $type
      * @return bool
      */
-    public function handles($type) {
+    public function handles($type)
+    {
         return strtolower($type) == 'gzip';
     }
 
@@ -18,7 +19,8 @@ class GzipCompressor extends Compressor {
      * @param $inputPath
      * @return string
      */
-    public function getCompressCommandLine($inputPath) {
+    public function getCompressCommandLine($inputPath)
+    {
         return 'gzip ' . escapeshellarg($inputPath);
     }
 
@@ -26,7 +28,8 @@ class GzipCompressor extends Compressor {
      * @param $outputPath
      * @return string
      */
-    public function getDecompressCommandLine($outputPath) {
+    public function getDecompressCommandLine($outputPath)
+    {
         return 'gzip -d ' . escapeshellarg($outputPath);
     }
 
@@ -34,7 +37,8 @@ class GzipCompressor extends Compressor {
      * @param $inputPath
      * @return string
      */
-    public function getCompressedPath($inputPath) {
+    public function getCompressedPath($inputPath)
+    {
         return $inputPath . '.gz';
     }
 
@@ -42,7 +46,8 @@ class GzipCompressor extends Compressor {
      * @param $inputPath
      * @return string
      */
-    public function getDecompressedPath($inputPath) {
-        return preg_replace('/.gz$/', '', $inputPath);
+    public function getDecompressedPath($inputPath)
+    {
+        return preg_replace('/\.gz$/', '', $inputPath);
     }
 }

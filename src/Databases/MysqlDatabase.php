@@ -4,8 +4,8 @@
  * Class MysqlDatabase
  * @package BackupManager\Databases
  */
-class MysqlDatabase implements Database {
-
+class MysqlDatabase implements Database
+{
     /** @var array */
     private $config;
 
@@ -13,7 +13,8 @@ class MysqlDatabase implements Database {
      * @param $type
      * @return bool
      */
-    public function handles($type) {
+    public function handles($type)
+    {
         return strtolower($type) == 'mysql';
     }
 
@@ -21,7 +22,8 @@ class MysqlDatabase implements Database {
      * @param array $config
      * @return null
      */
-    public function setConfig(array $config) {
+    public function setConfig(array $config)
+    {
         $this->config = $config;
     }
 
@@ -29,31 +31,32 @@ class MysqlDatabase implements Database {
      * @param $outputPath
      * @return string
      */
-    public function getDumpCommandLine($outputPath) {
-    	$extras = [];
-    	if (array_key_exists('singleTransaction', $this->config) && $this->config['singleTransaction'] === true) {
-    		$extras[] = '--single-transaction';
-    	}
+    public function getDumpCommandLine($outputPath)
+    {
+        $extras = [];
+        if (array_key_exists('singleTransaction', $this->config) && $this->config['singleTransaction'] === true) {
+            $extras[] = '--single-transaction';
+        }
         if (array_key_exists('ignoreTables', $this->config)) {
             $extras[] = $this->getIgnoreTableParameter();
         }
         if (array_key_exists('ssl', $this->config) && $this->config['ssl'] === true) {
-    		$extras[] = '--ssl';
-    	}
+            $extras[] = '--ssl';
+        }
         if (array_key_exists('extraParams', $this->config) && $this->config['extraParams']) {
             $extras[] = $this->config['extraParams'];
         }
 
-    	// Prepare a "params" string from our config
-    	$params = '';
-    	$keys = ['host'=>'host', 'port'=>'port', 'user'=>'user', 'pass'=>'password'];
-    	foreach ($keys as $key => $mysqlParam) {
-    	    if (!empty($this->config[$key])) {
-    	        $params.=sprintf(' --%s=%s', $mysqlParam, escapeshellarg($this->config[$key]));
+        // Prepare a "params" string from our config
+        $params = '';
+        $keys = ['host' => 'host', 'port' => 'port', 'user' => 'user', 'pass' => 'password'];
+        foreach ($keys as $key => $mysqlParam) {
+            if (!empty($this->config[$key])) {
+                $params .= sprintf(' --%s=%s', $mysqlParam, escapeshellarg($this->config[$key]));
             }
         }
 
-    	$command = 'mysqldump --routines '.implode(' ', $extras).'%s %s > %s';
+        $command = 'mysqldump --routines ' . implode(' ', $extras) . '%s %s > %s';
         return sprintf($command,
             $params,
             escapeshellarg($this->config['database']),
@@ -65,22 +68,23 @@ class MysqlDatabase implements Database {
      * @param $inputPath
      * @return string
      */
-    public function getRestoreCommandLine($inputPath) {
+    public function getRestoreCommandLine($inputPath)
+    {
         $extras = [];
         if (array_key_exists('ssl', $this->config) && $this->config['ssl'] === true) {
-    		$extras[] = '--ssl';
-    	}
+            $extras[] = '--ssl';
+        }
 
         // Prepare a "params" string from our config
         $params = '';
-        $keys = ['host'=>'host', 'port'=>'port', 'user'=>'user', 'pass'=>'password'];
+        $keys = ['host' => 'host', 'port' => 'port', 'user' => 'user', 'pass' => 'password'];
         foreach ($keys as $key => $mysqlParam) {
             if (!empty($this->config[$key])) {
-                $params.=sprintf(' --%s=%s', $mysqlParam, escapeshellarg($this->config[$key]));
+                $params .= sprintf(' --%s=%s', $mysqlParam, escapeshellarg($this->config[$key]));
             }
         }
 
-        return sprintf('mysql%s '.implode(' ', $extras).' %s -e "source %s"',
+        return sprintf('mysql%s ' . implode(' ', $extras) . ' %s -e "source %s"',
             $params,
             escapeshellarg($this->config['database']),
             $inputPath
@@ -90,24 +94,25 @@ class MysqlDatabase implements Database {
     /**
      * @return string
      */
-    public function getIgnoreTableParameter() {
+    public function getIgnoreTableParameter()
+    {
 
         if (!is_array($this->config['ignoreTables']) || count($this->config['ignoreTables']) === 0) {
             return '';
         }
 
         $db = $this->config['database'];
-        $ignoreTables = array_map(function($table) use ($db) {
-            return $db.'.'.$table;
+        $ignoreTables = array_map(function ($table) use ($db) {
+            return $db . '.' . $table;
         }, $this->config['ignoreTables']);
 
-        $commands=[];
-        foreach($ignoreTables AS $ignoreTable) {
-            $commands[]=sprintf('--ignore-table=%s',
+        $commands = [];
+        foreach ($ignoreTables AS $ignoreTable) {
+            $commands[] = sprintf('--ignore-table=%s',
                 escapeshellarg($ignoreTable)
             );
         }
-        
-        return implode(' ',$commands);
+
+        return implode(' ', $commands);
     }
 }

@@ -4,8 +4,8 @@
  * Class Config
  * @package BackupManager\Config
  */
-class Config {
-
+class Config
+{
     /** @var array */
     private $config = [];
 
@@ -14,8 +14,9 @@ class Config {
      * @return static
      * @throws ConfigFileNotFound
      */
-    public static function fromPhpFile($path) {
-        if ( ! file_exists($path)) {
+    public static function fromPhpFile($path)
+    {
+        if (!file_exists($path)) {
             throw new ConfigFileNotFound('The configuration file "' . $path . '" could not be found.');
         }
         /** @noinspection PhpIncludeInspection */
@@ -25,7 +26,8 @@ class Config {
     /**
      * @param array $config
      */
-    public function __construct(array $config) {
+    public function __construct(array $config)
+    {
         $this->config = $config;
     }
 
@@ -36,8 +38,9 @@ class Config {
      * @throws ConfigFieldNotFound
      * @throws ConfigNotFoundForConnection
      */
-    public function get($name, $field = null) {
-        if ( ! array_key_exists($name, $this->config)) {
+    public function get($name, $field = null)
+    {
+        if (!array_key_exists($name, $this->config)) {
             throw new ConfigNotFoundForConnection("Could not find configuration for connection {$name}");
         }
         if ($field) {
@@ -49,7 +52,8 @@ class Config {
     /**
      * @return array
      */
-    public function getItems() {
+    public function getItems()
+    {
         return $this->config;
     }
 
@@ -59,8 +63,9 @@ class Config {
      * @return mixed
      * @throws ConfigFieldNotFound
      */
-    private function getConfigField($name, $field) {
-        if ( ! array_key_exists($field, $this->config[$name])) {
+    private function getConfigField($name, $field)
+    {
+        if (!array_key_exists($field, $this->config[$name])) {
             throw new ConfigFieldNotFound("Could not find field {$field} in configuration for connection type {$name}");
         }
         return $this->config[$name][$field];

@@ -4,10 +4,7 @@
  * Interface Task
  * @package BackupManager\Tasks
  */
-interface Task {
-
-    /**
-     * @return mixed
-     */
+interface Task
+{
     public function execute();
 } 

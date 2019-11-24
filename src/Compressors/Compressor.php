@@ -1,38 +1,38 @@
 <?php namespace BackupManager\Compressors;
 
 /**
- * Class Compressor
+ * Interface Compressor
  * @package BackupManager\Compressors
  */
-abstract class Compressor {
-
+interface Compressor
+{
     /**
      * @param $type
      * @return bool
      */
-    abstract public function handles($type);
+    function handles($type);
 
     /**
      * @param $inputPath
      * @return string
      */
-    abstract public function getCompressCommandLine($inputPath);
+    function getCompressCommandLine($inputPath);
 
     /**
      * @param $outputPath
      * @return string
      */
-    abstract public function getDecompressCommandLine($outputPath);
+    function getDecompressCommandLine($outputPath);
 
     /**
      * @param $inputPath
      * @return string
      */
-    abstract public function getCompressedPath($inputPath);
+    function getCompressedPath($inputPath);
 
     /**
      * @param $inputPath
      * @return string
      */
-    abstract public function getDecompressedPath($inputPath);
+    function getDecompressedPath($inputPath);
 }

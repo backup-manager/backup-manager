@@ -1,5 +1,6 @@
 <?php namespace BackupManager\Tasks\Database;
 
+use BackupManager\ShellProcessing\ShellProcessFailed;
 use BackupManager\Tasks\Task;
 use BackupManager\Databases\Database;
 use BackupManager\ShellProcessing\ShellProcessor;
@@ -8,8 +9,8 @@ use BackupManager\ShellProcessing\ShellProcessor;
  * Class RestoreDatabase
  * @package BackupManager\Tasks\Database
  */
-class RestoreDatabase implements Task {
-
+class RestoreDatabase implements Task
+{
     /** @var string */
     private $inputPath;
     /** @var ShellProcessor */
@@ -22,16 +23,20 @@ class RestoreDatabase implements Task {
      * @param $inputPath
      * @param ShellProcessor $shellProcessor
      */
-    public function __construct(Database $database, $inputPath, ShellProcessor $shellProcessor) {
+    public function __construct(Database $database, $inputPath, ShellProcessor $shellProcessor)
+    {
         $this->inputPath = $inputPath;
         $this->shellProcessor = $shellProcessor;
         $this->database = $database;
     }
 
     /**
-     * @throws \BackupManager\ShellProcessing\ShellProcessFailed
+     * @throws ShellProcessFailed
      */
-    public function execute() {
-        return $this->shellProcessor->process($this->database->getRestoreCommandLine($this->inputPath));
+    public function execute()
+    {
+        return $this->shellProcessor->process(
+            $this->database->getRestoreCommandLine($this->inputPath)
+        );
     }
 }

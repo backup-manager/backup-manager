@@ -8,24 +8,26 @@ use League\Flysystem\Filesystem as Flysystem;
  * Class Awss3Filesystem
  * @package BackupManager\Filesystems
  */
-class Awss3Filesystem implements Filesystem {
-
+class Awss3Filesystem implements Filesystem
+{
     /**
      * @param $type
      * @return bool
      */
-    public function handles($type) {
+    public function handles($type)
+    {
         return strtolower($type) == 'awss3';
     }
 
     /**
      * @param array $config
-     * @return \League\Flysystem\Filesystem
+     * @return Flysystem
      */
-    public function get(array $config) {
+    public function get(array $config)
+    {
         $client = S3Client::factory([
             'credentials' => [
-                'key'    => $config['key'],
+                'key' => $config['key'],
                 'secret' => $config['secret'],
             ],
             'region' => $config['region'],

@@ -1,5 +1,7 @@
 <?php namespace BackupManager\Procedures;
 
+use BackupManager\Config\ConfigFieldNotFound;
+use BackupManager\Config\ConfigNotFoundForConnection;
 use BackupManager\Databases\DatabaseProvider;
 use BackupManager\Compressors\CompressorProvider;
 use BackupManager\Filesystems\FilesystemProvider;
@@ -9,8 +11,8 @@ use BackupManager\ShellProcessing\ShellProcessor;
  * Class Procedure
  * @package Procedures
  */
-abstract class Procedure {
-
+abstract class Procedure
+{
     /** @var FilesystemProvider */
     protected $filesystems;
     /** @var DatabaseProvider */
@@ -27,7 +29,8 @@ abstract class Procedure {
      * @param ShellProcessor $shellProcessor
      * @internal param Sequence $sequence
      */
-    public function __construct(FilesystemProvider $filesystemProvider, DatabaseProvider $databaseProvider, CompressorProvider $compressorProvider, ShellProcessor $shellProcessor) {
+    public function __construct(FilesystemProvider $filesystemProvider, DatabaseProvider $databaseProvider, CompressorProvider $compressorProvider, ShellProcessor $shellProcessor)
+    {
         $this->filesystems = $filesystemProvider;
         $this->databases = $databaseProvider;
         $this->compressors = $compressorProvider;
@@ -37,10 +40,12 @@ abstract class Procedure {
     /**
      * @param $name
      * @param null $filename
-     * @throws \BackupManager\Config\ConfigNotFoundForConnection
      * @return string
+     * @throws ConfigNotFoundForConnection
+     * @throws ConfigFieldNotFound
      */
-    protected function getWorkingFile($name, $filename = null) {
+    protected function getWorkingFile($name, $filename = null)
+    {
         if (is_null($filename)) {
             $filename = uniqid();
         }
@@ -49,11 +54,12 @@ abstract class Procedure {
 
     /**
      * @param $name
-     * @throws \BackupManager\Config\ConfigFieldNotFound
-     * @throws \BackupManager\Config\ConfigNotFoundForConnection
      * @return string
+     * @throws ConfigNotFoundForConnection
+     * @throws ConfigFieldNotFound
      */
-    protected function getRootPath($name) {
+    protected function getRootPath($name)
+    {
         $path = $this->filesystems->getConfig($name, 'root');
         return preg_replace('/\/$/', '', $path);
     }

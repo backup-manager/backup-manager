@@ -20,7 +20,7 @@ class GcsFilesystem implements Filesystem {
 
     /**
      * @param array $config
-     * @return \League\Flysystem\Filesystem
+     * @return Flysystem
      */
     public function get(array $config) {
 

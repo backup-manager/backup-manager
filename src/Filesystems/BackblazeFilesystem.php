@@ -8,22 +8,26 @@ use Mhetreramesh\Flysystem\BackblazeAdapter;
  * Class BackblazeFilesystem
  * @package BackupManager\Filesystems
  */
-class BackblazeFilesystem implements Filesystem {
+class BackblazeFilesystem implements Filesystem
+{
 
     /**
      * Test fitness of visitor.
      * @param $type
      * @return bool
      */
-    public function handles($type) {
+    public function handles($type)
+    {
         return strtolower($type) == 'b2';
     }
 
     /**
      * @param array $config
      * @return Flysystem
+     * @throws \Exception
      */
-    public function get(array $config) {
+    public function get(array $config)
+    {
         if (!isset($config['options'])) {
             $config['options'] = [];
         }

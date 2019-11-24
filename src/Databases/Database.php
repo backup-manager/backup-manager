@@ -4,8 +4,8 @@
  * Class Database
  * @package BackupManager\Databases
  */
-interface Database {
-
+interface Database
+{
     /**
      * @param $type
      * @return bool

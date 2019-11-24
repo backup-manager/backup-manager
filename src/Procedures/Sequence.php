@@ -6,15 +6,16 @@ use BackupManager\Tasks\Task;
  * Class Sequence
  * @package BackupManager\Procedures
  */
-class Sequence {
-
+class Sequence
+{
     /** @var array|Task[] */
     private $tasks = [];
 
     /**
-     * @param \BackupManager\Tasks\Task $task
+     * @param Task $task
      */
-    public function add(Task $task) {
+    public function add(Task $task)
+    {
         $this->tasks[] = $task;
     }
 
@@ -22,7 +23,8 @@ class Sequence {
      * Run the procedure.
      * @return void
      */
-    public function execute() {
+    public function execute()
+    {
         foreach ($this->tasks as $task) {
             $task->execute();
         }

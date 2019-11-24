@@ -8,14 +8,15 @@ use OpenCloud\Rackspace;
  * Class RackspaceFilesystem
  * @package BackupManager\Filesystems
  */
-class RackspaceFilesystem implements Filesystem {
-
+class RackspaceFilesystem implements Filesystem
+{
     /**
      * Test fitness of visitor.
      * @param $type
      * @return bool
      */
-    public function handles($type) {
+    public function handles($type)
+    {
         return strtolower($type) == 'rackspace';
     }
 
@@ -23,7 +24,8 @@ class RackspaceFilesystem implements Filesystem {
      * @param array $config
      * @return Flysystem
      */
-    public function get(array $config) {
+    public function get(array $config)
+    {
         $client = new Rackspace($config['endpoint'], [
             'username' => $config['username'],
             'apiKey' => $config['key'],

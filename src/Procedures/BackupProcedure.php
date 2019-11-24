@@ -1,24 +1,31 @@
 <?php namespace BackupManager\Procedures;
 
+use BackupManager\Compressors\CompressorTypeNotSupported;
+use BackupManager\Config\ConfigFieldNotFound;
+use BackupManager\Config\ConfigNotFoundForConnection;
+use BackupManager\Databases\DatabaseTypeNotSupported;
+use BackupManager\Filesystems\Destination;
+use BackupManager\Filesystems\FilesystemTypeNotSupported;
 use BackupManager\Tasks;
 
 /**
  * Class BackupProcedure
  * @package BackupManager\Procedures
  */
-class BackupProcedure extends Procedure {
-
+class BackupProcedure extends Procedure
+{
     /**
      * @param string $database
-     * @param \BackupManager\Filesystems\Destination[] $destinations
+     * @param Destination[] $destinations
      * @param string $compression
-     * @throws \BackupManager\Filesystems\FilesystemTypeNotSupported
-     * @throws \BackupManager\Config\ConfigFieldNotFound
-     * @throws \BackupManager\Compressors\CompressorTypeNotSupported
-     * @throws \BackupManager\Databases\DatabaseTypeNotSupported
-     * @throws \BackupManager\Config\ConfigNotFoundForConnection
+     * @throws FilesystemTypeNotSupported
+     * @throws ConfigFieldNotFound
+     * @throws CompressorTypeNotSupported
+     * @throws DatabaseTypeNotSupported
+     * @throws ConfigNotFoundForConnection
      */
-    public function run($database, array $destinations, $compression) {
+    public function run($database, array $destinations, $compression)
+    {
         $sequence = new Sequence;
 
         // begin the life of a new working file

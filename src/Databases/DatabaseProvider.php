@@ -1,13 +1,14 @@
 <?php namespace BackupManager\Databases;
 
 use BackupManager\Config\Config;
+use BackupManager\Config\ConfigNotFoundForConnection;
 
 /**
  * Class DatabaseProvider
  * @package BackupManager\Databases
  */
-class DatabaseProvider {
-
+class DatabaseProvider
+{
     /** @var Config */
     private $config;
     /** @var array */
@@ -16,14 +17,16 @@ class DatabaseProvider {
     /**
      * @param Config $config
      */
-    public function __construct(Config $config) {
+    public function __construct(Config $config)
+    {
         $this->config = $config;
     }
 
     /**
      * @param Database $database
      */
-    public function add(Database $database) {
+    public function add(Database $database)
+    {
         $this->databases[] = $database;
     }
 
@@ -31,9 +34,11 @@ class DatabaseProvider {
      * @param $name
      * @return Database
      * @throws DatabaseTypeNotSupported
-     * @throws \BackupManager\Config\ConfigNotFoundForConnection
+     * @throws ConfigNotFoundForConnection
+     * @throws \BackupManager\Config\ConfigFieldNotFound
      */
-    public function get($name) {
+    public function get($name)
+    {
         $type = $this->config->get($name, 'type');
         foreach ($this->databases as $database) {
             if ($database->handles($type)) {
@@ -47,7 +52,8 @@ class DatabaseProvider {
     /**
      * @return array
      */
-    public function getAvailableProviders() {
+    public function getAvailableProviders()
+    {
         return array_keys($this->config->getItems());
     }
 } 

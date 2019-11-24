@@ -7,14 +7,15 @@ use League\Flysystem\Filesystem as Flysystem;
  * Class SftpFilesystem
  * @package BackupManager\Filesystems
  */
-class SftpFilesystem implements Filesystem {
-
+class SftpFilesystem implements Filesystem
+{
     /**
      * Test fitness of visitor.
      * @param $type
      * @return bool
      */
-    public function handles($type) {
+    public function handles($type)
+    {
         return strtolower($type) == 'sftp';
     }
 
@@ -22,7 +23,8 @@ class SftpFilesystem implements Filesystem {
      * @param array $config
      * @return Flysystem
      */
-    public function get(array $config) {
+    public function get(array $config)
+    {
         return new Flysystem(new SftpAdapter($config));
     }
 }

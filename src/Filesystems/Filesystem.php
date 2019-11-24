@@ -4,8 +4,8 @@
  * Interface Filesystem
  * @package BackupManager\Filesystems
  */
-interface Filesystem {
-
+interface Filesystem
+{
     /**
      * Test fitness of visitor.
      * @param $type

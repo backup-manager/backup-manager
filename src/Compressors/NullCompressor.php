@@ -4,13 +4,14 @@
  * Class NullCompressor
  * @package BackupManager\Compressors
  */
-class NullCompressor extends Compressor {
-
+class NullCompressor implements Compressor
+{
     /**
      * @param $type
      * @return bool
      */
-    public function handles($type) {
+    public function handles($type)
+    {
         return strtolower($type) == 'null';
     }
 
@@ -18,7 +19,8 @@ class NullCompressor extends Compressor {
      * @param $inputPath
      * @return string
      */
-    public function getCompressCommandLine($inputPath) {
+    public function getCompressCommandLine($inputPath)
+    {
         return '';
     }
 
@@ -26,7 +28,8 @@ class NullCompressor extends Compressor {
      * @param $outputPath
      * @return string
      */
-    public function getDecompressCommandLine($outputPath) {
+    public function getDecompressCommandLine($outputPath)
+    {
         return '';
     }
 
@@ -34,7 +37,8 @@ class NullCompressor extends Compressor {
      * @param $inputPath
      * @return string
      */
-    public function getCompressedPath($inputPath) {
+    public function getCompressedPath($inputPath)
+    {
         return $inputPath;
     }
 
@@ -42,7 +46,8 @@ class NullCompressor extends Compressor {
      * @param $inputPath
      * @return string
      */
-    public function getDecompressedPath($inputPath) {
+    public function getDecompressedPath($inputPath)
+    {
         return $inputPath;
     }
 }

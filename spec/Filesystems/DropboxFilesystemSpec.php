@@ -23,7 +23,7 @@ class DropboxFilesystemSpec extends ObjectBehavior {
 
     function it_should_provide_an_instance_of_a_dropbox_filesystem() {
         $this->get($this->getConfig())->getAdapter()
-            ->shouldHaveType('League\Flysystem\Dropbox\DropboxAdapter');
+            ->shouldHaveType('Spatie\FlysystemDropbox\DropboxAdapter');
     }
 
     function getConfig() {
