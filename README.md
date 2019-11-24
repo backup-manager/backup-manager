@@ -208,7 +208,10 @@ composer require mhetreramesh/flysystem-backblaze
 # to support google cs
 composer require league/flysystem-aws-s3-v2
 
-# to support dropbox (api v2)
+# to install the preferred dropbox v2 driver
+composer required spatie/flysystem-dropbox
+
+# to install legacy dropbox v2 driver
 composer require srmklive/flysystem-dropbox-v2
 
 # to support rackspace
@@ -236,17 +239,16 @@ We recommend using the vagrant configuration supplied with this package for deve
 
 When contributing please consider the following guidelines:
 
-- please conform to the code style of the project, it's essentially PSR-2 with a few differences.
-    1. The NOT operator when next to parenthesis should be surrounded by a single space. `if ( ! is_null(...)) {`.
-    2. Interfaces should NOT be suffixed with `Interface`, Traits should NOT be suffixed with `Trait`.
+- Code style is PSR-2
+    - Interfaces should NOT be suffixed with `Interface`, Traits should NOT be suffixed with `Trait`.
 - All methods and classes must contain docblocks.
-- Ensure that you submit tests that have minimal 100% coverage.
+- Ensure that you submit tests that have minimal 100% coverage. Given the project's simplicity it just makes sense.
 - When planning a pull-request to add new functionality, it may be wise to [submit a proposal](https://github.com/backup-manager/backup-manager/issues/new) to ensure compatibility with the project's goals.
 
 ### Maintainers
 
-This package is maintained by [Shawn McCool](http://shawnmc.cool), [Mitchell van Wijngaarden](http://blog.mitchellvanw.io), and you!
+This package is maintained by [Shawn McCool](http://shawnmc.cool) and you!
 
 ### License
 
-This package is licensed under the [MIT license](https://github.com/backup-manager/backup-manager/blob/master/LICENSE).
+This package is licensed under the [MIT license](https://github.com/backup-manager/backup-manager/blob/master/LICENSE). Go wild.
