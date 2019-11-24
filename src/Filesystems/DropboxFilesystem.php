@@ -1,8 +1,8 @@
 <?php namespace BackupManager\Filesystems;
 
-use League\Flysystem\Dropbox\DropboxAdapter;
 use Dropbox\Client;
 use League\Flysystem\Filesystem as Flysystem;
+use Spatie\FlysystemDropbox\DropboxAdapter;
 
 /**
  * Class DropboxFilesystem
