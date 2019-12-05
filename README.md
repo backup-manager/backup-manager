@@ -138,7 +138,7 @@ This package provides a framework-agnostic database backup manager for dumping t
 ],
 'flysystem' => [
     'type' => 'Flysystem',
-    'name => 's3_backup',
+    'name' => 's3_backup',
     //'prefix' => 'upload',
 ],
 'doSpaces' => [
