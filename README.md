@@ -22,14 +22,15 @@ This package provides a framework-agnostic database backup manager for dumping t
 
 ### Table of Contents
 
-- [Stability Notice](#stability-notice)
-- [Quick and Dirty](#quick-and-dirty)
-- [Requirements](#requirements)
-- [Installation](#installation)
-- [Usage](#usage)
-- [Contribution Guidelines](#contribution-guidelines)
-- [Maintainers](#maintainers)
-- [License](#license)
+- [Database Backup Manager](#database-backup-manager)
+    - [Table of Contents](#table-of-contents)
+    - [Quick and Dirty](#quick-and-dirty)
+    - [Requirements](#requirements)
+    - [Installation](#installation)
+    - [Usage](#usage)
+    - [Contribution Guidelines](#contribution-guidelines)
+    - [Maintainers](#maintainers)
+    - [License](#license)
 
 ### Quick and Dirty
 
@@ -84,6 +85,7 @@ This package provides a framework-agnostic database backup manager for dumping t
     'version' => 'latest',
     'bucket' => '',
     'root'   => '',
+    'use_path_style_endpoint' => false,
 ],
 'b2' => [
     'type' => 'B2',
@@ -142,13 +144,14 @@ This package provides a framework-agnostic database backup manager for dumping t
     //'prefix' => 'upload',
 ],
 'doSpaces' => [
-  'type' => 'AwsS3',
-  'key' => '',
-  'secret' => '',
-  'region' => '',
-  'bucket' => '',
-  'root' => '',
-  'endpoint' => '',
+    'type' => 'AwsS3',
+    'key' => '',
+    'secret' => '',
+    'region' => '',
+    'bucket' => '',
+    'root' => '',
+    'endpoint' => '',
+    'use_path_style_endpoint' => false,
 ],
 'webdav' => [
     'type' => 'Webdav',
@@ -229,7 +232,7 @@ composer require league/flysystem-webdav
 
 ### Usage
 
-Once installed, the package must be bootstrapped (initial configuration) before it can be used. 
+Once installed, the package must be bootstrapped (initial configuration) before it can be used.
 
 We've provided a native PHP example [here](https://github.com/backup-manager/backup-manager/tree/master/examples).
 
