@@ -13,6 +13,7 @@ return [
         'version' => 'latest',
         'bucket' => '',
         'root'   => '',
+        'use_path_style_endpoint' => false,
     ],
     'gcs' => [
         'type' => 'Gcs',
