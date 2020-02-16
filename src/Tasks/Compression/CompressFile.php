@@ -1,5 +1,6 @@
 <?php namespace BackupManager\Tasks\Compression;
 
+use Symfony\Component\Process\Process;
 use BackupManager\ShellProcessing\ShellProcessFailed;
 use BackupManager\Tasks\Task;
 use BackupManager\Compressors\Compressor;
@@ -36,7 +37,9 @@ class CompressFile implements Task
     public function execute()
     {
         return $this->shellProcessor->process(
-            $this->compressor->getCompressCommandLine($this->sourcePath)
+            Process::fromShellCommandline(
+                $this->compressor->getCompressCommandLine($this->sourcePath)
+            )
         );
     }
 }

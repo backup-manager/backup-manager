@@ -1,6 +1,5 @@
 <?php namespace BackupManager\ShellProcessing;
 
-use Symfony\Component\Process\Exception\LogicException;
 use Symfony\Component\Process\Process;
 
 /**
@@ -9,34 +8,20 @@ use Symfony\Component\Process\Process;
  */
 class ShellProcessor
 {
-    /** @var Process */
-    private $process;
-
     /**
      * @param Process $process
-     */
-    public function __construct(Process $process)
-    {
-        $this->process = $process;
-    }
-
-    /**
-     * @param $command
+     * @return string
      * @throws ShellProcessFailed
-     * @throws LogicException
      */
-    public function process($command)
+    public function process(Process $process)
     {
-        if (empty($command)) {
-            return;
+        $process->setTimeout(null);
+        $process->run();
+        
+        if ( ! $process->isSuccessful()) {
+            throw new ShellProcessFailed($process->getErrorOutput());
         }
-
-        $this->process->setCommandLine($command);
-        $this->process->setTimeout(null);
-        $this->process->run();
-
-        if (!$this->process->isSuccessful()) {
-            throw new ShellProcessFailed($this->process->getErrorOutput());
-        }
+        
+        return $process->getOutput();
     }
 }

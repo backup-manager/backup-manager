@@ -15,7 +15,7 @@
   ],
   "require": {
     "php":  ">=7.3",
-    "symfony/process": "^3.0 || ^4 || ^5",
+    "symfony/process": "^4 || ^5",
     "league/flysystem": "^1.0"
   },
   "require-dev": {
@@ -31,7 +31,7 @@
     "superbalist/flysystem-google-storage": "^7.0",
     "dropbox/dropbox-sdk": "~1.1",
     "aws/aws-sdk-php": "~3.0",
-    "phpspec/phpspec": "~2.1"
+    "phpspec/phpspec": "^4"
   },
   "suggest": {
     "mhetreramesh/flysystem-backblaze": "B2 adapter support.",

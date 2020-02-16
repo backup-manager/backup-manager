@@ -1,9 +1,10 @@
 <?php namespace BackupManager\Tasks\Database;
 
-use BackupManager\ShellProcessing\ShellProcessFailed;
 use BackupManager\Tasks\Task;
 use BackupManager\Databases\Database;
+use Symfony\Component\Process\Process;
 use BackupManager\ShellProcessing\ShellProcessor;
+use BackupManager\ShellProcessing\ShellProcessFailed;
 
 /**
  * Class RestoreDatabase
@@ -36,7 +37,9 @@ class RestoreDatabase implements Task
     public function execute()
     {
         return $this->shellProcessor->process(
-            $this->database->getRestoreCommandLine($this->inputPath)
+            Process::fromShellCommandline(
+                $this->database->getRestoreCommandLine($this->inputPath)
+            )
         );
     }
 }
