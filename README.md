@@ -8,7 +8,7 @@
 
 This package provides a framework-agnostic database backup manager for dumping to and restoring databases from S3, Dropbox, FTP, SFTP, and Rackspace Cloud.
 
-- use version 2 for &gt;=PHP 7.3
+- use version 2+ for &gt;=PHP 7.3
 - use version 1 for &lt;PHP 7.2
 
 [Watch a video tour](https://www.youtube.com/watch?v=vWXy0R8OavM) showing the Laravel driver in action to give you an idea what is possible.
@@ -30,6 +30,7 @@ This package provides a framework-agnostic database backup manager for dumping t
     - [Usage](#usage)
     - [Contribution Guidelines](#contribution-guidelines)
     - [Maintainers](#maintainers)
+    - [Backwards Compatibility Breaks](#backwards-compatibility-breaks)
     - [License](#license)
 
 ### Quick and Dirty
@@ -254,6 +255,12 @@ When contributing please consider the following guidelines:
 ### Maintainers
 
 This package is maintained by [Shawn McCool](http://shawnmc.cool) and you!
+
+### Backwards Compatibility Breaks
+
+#### 3.0
+
+Remove support for symfony 2. Specifically symfony/process versions < 3.x
 
 ### License
 
