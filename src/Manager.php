@@ -69,6 +69,6 @@ class Manager
      */
     protected function getShellProcessor()
     {
-        return new ShellProcessor(new Process('', null, null, null, null));
+        return new ShellProcessor(new Process([], null, null, null, null));
     }
 }
