@@ -10,4 +10,7 @@ install: composer install --prefer-source --no-interaction
 
 script: bin/phpspec run -fpretty -v
 
-after_script: bin/coveralls -v
+after_script:
+  - wget https://github.com/php-coveralls/php-coveralls/releases/download/v2.2.0/php-coveralls.phar
+  - chmod +x php-coveralls.phar
+  - php-coveralls.phar -v
