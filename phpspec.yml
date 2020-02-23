@@ -5,3 +5,10 @@ suites:
     psr4_prefix: BackupManager
 
 formatter.name: pretty
+
+extensions:
+  FriendsOfPhpSpec\PhpSpec\CodeCoverage\CodeCoverageExtension:
+    format:
+      - clover
+    output:
+      clover: coverage.xml

@@ -13,4 +13,4 @@ script: bin/phpspec run -fpretty -v
 after_script:
   - wget https://github.com/php-coveralls/php-coveralls/releases/download/v2.2.0/php-coveralls.phar
   - chmod +x php-coveralls.phar
-  - php-coveralls.phar -v
+  - ./php-coveralls.phar -v --coverage_clover coverage.xml --json_path coveralls-upload.json
