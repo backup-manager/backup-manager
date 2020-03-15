@@ -10,3 +10,4 @@ composer.phar
 composer.lock
 vagrant_ansible_inventory_default
 Vagrantfile
+coverage.xml

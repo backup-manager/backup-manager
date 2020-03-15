@@ -14,24 +14,23 @@
     }
   ],
   "require": {
-    "php":  ">=7.3",
-    "symfony/process": "^4 || ^5",
-    "league/flysystem": "^1.0"
+    "php":  "^7.3 || ^7.4",
+    "symfony/process": "^4.4 || ^5.0",
+    "league/flysystem": "^1.0.64"
   },
   "require-dev": {
-    "mockery/mockery": "~0.9",
-    "satooshi/php-coveralls": "~0.6",
-    "league/flysystem-aws-s3-v3": "~1.0",
-    "spatie/flysystem-dropbox": "~1.0",
-    "srmklive/flysystem-dropbox-v2": "~1.0",
-    "league/flysystem-rackspace": "~1.0",
-    "league/flysystem-sftp": "~1.0",
-    "league/flysystem-webdav": "~1.0",
-    "mhetreramesh/flysystem-backblaze" : "~1.0",
-    "superbalist/flysystem-google-storage": "^7.0",
-    "dropbox/dropbox-sdk": "~1.1",
-    "aws/aws-sdk-php": "~3.0",
-    "phpspec/phpspec": "^4"
+    "league/flysystem-aws-s3-v3": "^1.0.24",
+    "spatie/flysystem-dropbox": "^1.2",
+    "srmklive/flysystem-dropbox-v2": "^1.0",
+    "league/flysystem-rackspace": "^1.0",
+    "league/flysystem-sftp": "^1.0",
+    "league/flysystem-webdav": "^1.0",
+    "mhetreramesh/flysystem-backblaze" : "^1.5",
+    "superbalist/flysystem-google-storage": "^7.2",
+    "dropbox/dropbox-sdk": "^1.1.7",
+    "aws/aws-sdk-php": "^3.133.20",
+    "phpspec/phpspec": "^6.1.1",
+    "friends-of-phpspec/phpspec-code-coverage": "^4.3"
   },
   "suggest": {
     "mhetreramesh/flysystem-backblaze": "B2 adapter support.",
