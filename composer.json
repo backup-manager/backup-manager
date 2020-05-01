@@ -27,7 +27,6 @@
     "league/flysystem-webdav": "^1.0",
     "mhetreramesh/flysystem-backblaze" : "^1.5",
     "superbalist/flysystem-google-storage": "^7.2",
-    "dropbox/dropbox-sdk": "^1.1.7",
     "aws/aws-sdk-php": "^3.133.20",
     "phpspec/phpspec": "^6.1.1",
     "friends-of-phpspec/phpspec-code-coverage": "^4.3"

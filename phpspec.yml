@@ -6,9 +6,9 @@ suites:
 
 formatter.name: pretty
 
-extensions:
-  FriendsOfPhpSpec\PhpSpec\CodeCoverage\CodeCoverageExtension:
-    format:
-      - clover
-    output:
-      clover: coverage.xml
+#extensions:
+#  FriendsOfPhpSpec\PhpSpec\CodeCoverage\CodeCoverageExtension:
+#    format:
+#      - clover
+#    output:
+#      clover: coverage.xml
