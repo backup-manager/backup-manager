@@ -15,7 +15,9 @@ class AsyncAwsS3Filesystem implements Filesystem
      */
     public function handles($type)
     {
-        return strtolower($type) == 'asyncawss3';
+        $type = strtolower($type);
+        
+        return $type == 'asyncawss3' || $type == 'async-awss3' || $type == 'async-aws-s3';
     }
 
     /**

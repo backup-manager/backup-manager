@@ -11,7 +11,7 @@ class AsyncAwsS3FilesystemSpec extends ObjectBehavior {
     }
 
     function it_should_recognize_its_type_with_case_insensitivity() {
-        foreach (['asyncawss3', 'AsyncAWSS3', 'AsyncAwsS3'] as $type) {
+        foreach (['asyncawss3', 'AsyncAWSS3', 'AsyncAwsS3', 'async-awss3', 'async-aws-s3'] as $type) {
             $this->handles($type)->shouldBe(true);
         }
 
