@@ -15,7 +15,7 @@ class PostgresqlDatabase implements Database
      */
     public function handles($type)
     {
-        return in_array(strtolower($type), ['postgresql', 'pgsql']);
+        return in_array(strtolower($type), ['postgresql', 'postgres', 'pgsql']);
     }
 
     /**
