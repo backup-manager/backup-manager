@@ -14,7 +14,7 @@
     }
   ],
   "require": {
-    "php":  "^7.3 || ^7.4",
+    "php":  "^7.3 || ^8.0",
     "symfony/process": "^4.4 || ^5.0",
     "league/flysystem": "^1.0.64"
   },
