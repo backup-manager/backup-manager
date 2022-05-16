@@ -1,6 +1,6 @@
 # Database Backup Manager
 
-![Build Status](https://github.com/fezfez/backup-manager/actions/workflows/continuous-integration.yml/badge.svg)](https://github.com/fezfez/backup-manager/actions/workflows/continuous-integration.yml)
+[![Build Status](https://github.com/fezfez/backup-manager/actions/workflows/continuous-integration.yml/badge.svg)](https://github.com/fezfez/backup-manager/actions/workflows/continuous-integration.yml)
 [![Type Coverage](https://shepherd.dev/github/fezfez/backup-manager/coverage.svg)](https://shepherd.dev/github/fezfez/backup-manager)
 [![Type Coverage](https://shepherd.dev/github/fezfez/backup-manager/level.svg)](https://shepherd.dev/github/fezfez/backup-manager)
 [![Latest Stable Version](https://poser.pugx.org/fezfez/backup-manager/v/stable)](https://packagist.org/packages/fezfez/backup-manager)
