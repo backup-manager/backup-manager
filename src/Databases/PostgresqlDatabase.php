@@ -7,7 +7,7 @@ namespace Fezfez\BackupManager\Databases;
 use function escapeshellarg;
 use function sprintf;
 
-class PostgresqlDatabase implements Database
+final class PostgresqlDatabase implements Database
 {
     private string $host;
     private string $port;

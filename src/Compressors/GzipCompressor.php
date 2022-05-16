@@ -10,7 +10,7 @@ use Symfony\Component\Process\Process;
 use function escapeshellarg;
 use function preg_replace;
 
-class GzipCompressor implements Compressor
+final class GzipCompressor implements Compressor
 {
     private ShellProcessor $shellProcessor;
 

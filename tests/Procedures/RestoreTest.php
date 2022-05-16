@@ -13,7 +13,7 @@ use Fezfez\BackupManager\ShellProcessing\ShellProcessor;
 use PHPUnit\Framework\TestCase;
 use Symfony\Component\Process\Process;
 
-class RestoreTest extends TestCase
+final class RestoreTest extends TestCase
 {
     public function testOk(): void
     {

@@ -9,7 +9,7 @@ use Fezfez\BackupManager\ShellProcessing\ShellProcessor;
 use PHPUnit\Framework\TestCase;
 use Symfony\Component\Process\Process;
 
-class GzipCompressorTest extends TestCase
+final class GzipCompressorTest extends TestCase
 {
     /** @return iterable<int, array<string>> */
     public function provideCompress(): iterable

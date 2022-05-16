@@ -9,7 +9,7 @@ use Fezfez\BackupManager\ShellProcessing\ShellProcessor;
 use PHPUnit\Framework\TestCase;
 use Symfony\Component\Process\Process;
 
-class ShellProcessorTest extends TestCase
+final class ShellProcessorTest extends TestCase
 {
     public function testExecuteACommandLineProcess(): void
     {

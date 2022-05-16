@@ -7,7 +7,7 @@ namespace Fezfez\BackupManager\Tests\Databases;
 use Fezfez\BackupManager\Databases\MysqlDatabase;
 use PHPUnit\Framework\TestCase;
 
-class MysqlDatabaseTest extends TestCase
+final class MysqlDatabaseTest extends TestCase
 {
     public function testGenerateAValidDatabaseDumpCommand(): void
     {
@@ -45,7 +45,7 @@ class MysqlDatabaseTest extends TestCase
             'test',
             true,
             true,
-            ['tutu'],
+            ['tutu', ' '],
             ['test']
         );
 

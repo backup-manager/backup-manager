@@ -14,7 +14,7 @@ use function basename;
 use function sprintf;
 use function uniqid;
 
-class Restore implements RestoreProcedure
+final class Restore implements RestoreProcedure
 {
     private ShellProcessor $shellProcessor;
 

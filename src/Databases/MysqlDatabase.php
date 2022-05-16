@@ -10,7 +10,7 @@ use function implode;
 use function sprintf;
 use function trim;
 
-class MysqlDatabase implements Database
+final class MysqlDatabase implements Database
 {
     private string $host;
     private string $port;

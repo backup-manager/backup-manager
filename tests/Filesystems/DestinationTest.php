@@ -8,7 +8,7 @@ use Fezfez\BackupManager\Filesystems\BackupManagerFilesystemAdapter;
 use Fezfez\BackupManager\Filesystems\Destination;
 use PHPUnit\Framework\TestCase;
 
-class DestinationTest extends TestCase
+final class DestinationTest extends TestCase
 {
     public function testOk(): void
     {

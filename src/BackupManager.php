@@ -19,7 +19,7 @@ use Fezfez\BackupManager\Procedures\RestoreProcedure;
  * Once you've done that, your application can interact with the backup manager in one place only
  * and the rest of the system will interact with the new Manager-like construct that you created.
  */
-class BackupManager
+class BackupManager implements BackupManagerContract
 {
     private BackupProcedure $backupProcedure;
     private RestoreProcedure $restoreProcedure;

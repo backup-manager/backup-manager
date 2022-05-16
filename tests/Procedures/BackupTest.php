@@ -14,7 +14,7 @@ use Fezfez\BackupManager\ShellProcessing\ShellProcessor;
 use PHPUnit\Framework\TestCase;
 use Symfony\Component\Process\Process;
 
-class BackupTest extends TestCase
+final class BackupTest extends TestCase
 {
     public function testOk(): void
     {

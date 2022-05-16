@@ -6,6 +6,6 @@ namespace Fezfez\BackupManager\Filesystems;
 
 use RuntimeException;
 
-class NotARessource extends RuntimeException
+final class NotARessource extends RuntimeException
 {
 }

@@ -13,7 +13,7 @@ use function fwrite;
 use function rewind;
 use function stream_get_contents;
 
-class BackupManagerRessourceTest extends TestCase
+final class BackupManagerRessourceTest extends TestCase
 {
     public function testFail(): void
     {

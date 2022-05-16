@@ -6,6 +6,6 @@ namespace Fezfez\BackupManager\Filesystems;
 
 use RuntimeException;
 
-class CantDeleteFile extends RuntimeException
+final class CantDeleteFile extends RuntimeException
 {
 }

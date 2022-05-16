@@ -50,7 +50,7 @@ test:
 	$(BASE) ./vendor/bin/phpunit $(COMMAND_ARGS)
 
 infection: dup
-	$(BASE) phpdbg -qrr -d memory_limit=-1 ./vendor/bin/infection -j=5 $(COMMAND_ARGS)
+	$(BASE) ./vendor/bin/infection
 
 # Analyse
 
@@ -62,3 +62,9 @@ cs:
 
 cbf: dup
 	$(BASE) php -d memory_limit=-1 ./vendor/bin/phpcbf $(COMMAND_ARGS)
+
+is-valid:
+	$(BASE) ./vendor/bin/phpunit $(COMMAND_ARGS)
+	$(BASE) ./vendor/bin/infection
+	$(BASE) ./vendor/bin/psalm --show-info=true $(COMMAND_ARGS)
+	$(BASE) php -d memory_limit=-1 ./vendor/bin/phpcs $(COMMAND_ARGS)

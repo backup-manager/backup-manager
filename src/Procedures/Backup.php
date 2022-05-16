@@ -15,7 +15,7 @@ use function basename;
 use function sprintf;
 use function uniqid;
 
-class Backup implements BackupProcedure
+final class Backup implements BackupProcedure
 {
     private ShellProcessor $shellProcessor;
 

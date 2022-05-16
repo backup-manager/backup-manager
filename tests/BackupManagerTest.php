@@ -13,7 +13,7 @@ use Fezfez\BackupManager\Procedures\BackupProcedure;
 use Fezfez\BackupManager\Procedures\RestoreProcedure;
 use PHPUnit\Framework\TestCase;
 
-class BackupManagerTest extends TestCase
+final class BackupManagerTest extends TestCase
 {
     public function testCreateABackupProcedure(): void
     {

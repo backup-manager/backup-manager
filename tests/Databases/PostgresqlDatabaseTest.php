@@ -7,7 +7,7 @@ namespace Fezfez\BackupManager\Tests\Databases;
 use Fezfez\BackupManager\Databases\PostgresqlDatabase;
 use PHPUnit\Framework\TestCase;
 
-class PostgresqlDatabaseTest extends TestCase
+final class PostgresqlDatabaseTest extends TestCase
 {
     public function testGenerateAValidDatabaseDumpCommand(): void
     {
