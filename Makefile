@@ -58,7 +58,6 @@ static:
 	$(BASE) ./vendor/bin/psalm $(COMMAND_ARGS)
 
 cs:
-	@echo "Attention, si des erreurs sont détectées sur gitlab et pas en local, il faut supprimer le cache local (make cs-clear-cache)"
 	$(BASE) php -d memory_limit=-1 ./vendor/bin/phpcs $(COMMAND_ARGS)
 
 cbf: dup
