@@ -24,18 +24,10 @@ class BackupManager
     private BackupProcedure $backupProcedure;
     private RestoreProcedure $restoreProcedure;
 
-    public function __construct(BackupProcedure $backupProcedure, RestoreProcedure $restoreProcedure)
+    public function __construct(?BackupProcedure $backupProcedure = null, ?RestoreProcedure $restoreProcedure = null)
     {
-        $this->backupProcedure  = $backupProcedure;
-        $this->restoreProcedure = $restoreProcedure;
-    }
-
-    public static function create(): self
-    {
-        return new self(
-            Backup::create(),
-            Restore::create()
-        );
+        $this->backupProcedure  = $backupProcedure ?? new Backup();
+        $this->restoreProcedure = $restoreProcedure ?? new Restore();
     }
 
     /** @param Destination[] $destinations */

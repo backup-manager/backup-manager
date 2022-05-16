@@ -19,14 +19,9 @@ class Backup implements BackupProcedure
 {
     private ShellProcessor $shellProcessor;
 
-    public function __construct(ShellProcessor $shellProcessor)
+    public function __construct(?ShellProcessor $shellProcessor = null)
     {
-        $this->shellProcessor = $shellProcessor;
-    }
-
-    public static function create(): self
-    {
-        return new self(new ShellProcessor());
+        $this->shellProcessor = $shellProcessor ?? new ShellProcessor();
     }
 
     /** @param Destination[] $destinations */

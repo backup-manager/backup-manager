@@ -18,14 +18,9 @@ class Restore implements RestoreProcedure
 {
     private ShellProcessor $shellProcessor;
 
-    public function __construct(ShellProcessor $shellProcessor)
+    public function __construct(?ShellProcessor $shellProcessor = null)
     {
-        $this->shellProcessor = $shellProcessor;
-    }
-
-    public static function create(): self
-    {
-        return new self(new ShellProcessor());
+        $this->shellProcessor = $shellProcessor ?? new ShellProcessor();
     }
 
     public function __invoke(BackupManagerFilesystemAdapter $localFileSystem, BackupManagerFilesystemAdapter $to, string $sourcePath, Database $databaseName, Compressor ...$compressorList): void
@@ -35,7 +30,7 @@ class Restore implements RestoreProcedure
 
         // download or retrieve the archived backup file
 
-        $to->writeStream($sourcePath, $localFileSystem->readStream(basename($workingFile)));
+        $to->writeStream(basename($workingFile), $localFileSystem->readStream($sourcePath));
 
         // decompress the archived backup
         foreach ($compressorList as $compressor) {

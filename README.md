@@ -21,7 +21,6 @@ This package provides a framework-agnostic database backup manager for dumping t
 Backup the development database to `Amazon S3`. The S3 backup path will be `test/backup.sql.gz` in the end, when `gzip` is done with it.
 
 ```php
-
 $local = new \League\Flysystem\Adapter\Local(getcwd() . '/data/');
 $webdav = new \League\Flysystem\WebDAV\WebDAVAdapter(new \Sabre\DAV\Client([
     'baseUri' => getenv('WEBDAV_HOST'),

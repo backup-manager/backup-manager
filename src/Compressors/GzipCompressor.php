@@ -14,14 +14,9 @@ class GzipCompressor implements Compressor
 {
     private ShellProcessor $shellProcessor;
 
-    public function __construct(ShellProcessor $shellProcessor)
+    public function __construct(?ShellProcessor $shellProcessor = null)
     {
-        $this->shellProcessor = $shellProcessor;
-    }
-
-    public static function create(): self
-    {
-        return new self(new ShellProcessor());
+        $this->shellProcessor = $shellProcessor ?? new ShellProcessor();
     }
 
     public function compress(string $path): string
