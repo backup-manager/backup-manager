@@ -1,44 +1,27 @@
-<?php namespace BackupManager\Tasks\Database;
+<?php
 
-use BackupManager\Tasks\Task;
-use BackupManager\Databases\Database;
+declare(strict_types=1);
+
+namespace Fezfez\BackupManager\Tasks\Database;
+
+use Fezfez\BackupManager\Databases\Database;
+use Fezfez\BackupManager\ShellProcessing\ShellProcessor;
 use Symfony\Component\Process\Process;
-use BackupManager\ShellProcessing\ShellProcessor;
-use BackupManager\ShellProcessing\ShellProcessFailed;
 
-/**
- * Class RestoreDatabase
- * @package BackupManager\Tasks\Database
- */
-class RestoreDatabase implements Task
+class RestoreDatabase
 {
-    /** @var string */
-    private $inputPath;
-    /** @var ShellProcessor */
-    private $shellProcessor;
-    /** @var Database */
-    private $database;
+    private ShellProcessor $shellProcessor;
 
-    /**
-     * @param Database $database
-     * @param $inputPath
-     * @param ShellProcessor $shellProcessor
-     */
-    public function __construct(Database $database, $inputPath, ShellProcessor $shellProcessor)
+    public function __construct(ShellProcessor $shellProcessor)
     {
-        $this->inputPath = $inputPath;
         $this->shellProcessor = $shellProcessor;
-        $this->database = $database;
     }
 
-    /**
-     * @throws ShellProcessFailed
-     */
-    public function execute()
+    public function __invoke(Database $database, string $inputPath): void
     {
-        return $this->shellProcessor->process(
+        $this->shellProcessor->__invoke(
             Process::fromShellCommandline(
-                $this->database->getRestoreCommandLine($this->inputPath)
+                $database->getRestoreCommandLine($inputPath)
             )
         );
     }

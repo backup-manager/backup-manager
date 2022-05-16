@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 return [
     'development' => [
         'type'     => 'mysql',
@@ -16,7 +18,7 @@ return [
         'user'     => 'bar',
         'pass'     => 'baz',
         'database' => 'test',
-        'singleTransaction' => true
+        'singleTransaction' => true,
     ],
     'production'  => [
         'type'     => 'postgresql',
@@ -26,10 +28,6 @@ return [
         'pass'     => 'baz',
         'database' => 'test',
     ],
-    'unsupported' => [
-        'type' => 'doesnt exist',
-    ],
-    'null'        => [
-        'type' => null,
-    ],
+    'unsupported' => ['type' => 'doesnt exist'],
+    'null'        => ['type' => null],
 ];

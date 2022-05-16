@@ -1,19 +1,17 @@
-<?php namespace spec\BackupManager\Tasks\Compression;
+<?php
 
+declare(strict_types=1);
+
+namespace Fezfez\BackupManager\Tests\Tasks\Compression;
+
+use Fezfez\BackupManager\Compressors\Compressor;
+use Fezfez\BackupManager\ShellProcessing\ShellProcessor;
+use PHPUnit\Framework\TestCase;
 use Prophecy\Argument;
-use PhpSpec\ObjectBehavior;
-use BackupManager\Compressors\Compressor;
-use BackupManager\ShellProcessing\ShellProcessor;
 
-class CompressFileSpec extends ObjectBehavior
+class CompressFileSpec extends TestCase
 {
-    function it_is_initializable(Compressor $compressor, ShellProcessor $shellProcessor)
-    {
-        $this->beConstructedWith($compressor, 'path', $shellProcessor);
-        $this->shouldHaveType('BackupManager\Tasks\Compression\CompressFile');
-    }
-
-    function it_should_execute_the_compression_command(Compressor $compressor, ShellProcessor $shellProcessor)
+    public function testExecuteTheCompressionCommand(Compressor $compressor, ShellProcessor $shellProcessor): void
     {
         $compressor->getCompressCommandLine('path')->willReturn('compress path');
 

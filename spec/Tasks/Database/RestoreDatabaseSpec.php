@@ -1,20 +1,17 @@
-<?php namespace spec\BackupManager\Tasks\Database;
+<?php
 
+declare(strict_types=1);
+
+namespace Fezfez\BackupManager\Tests\Tasks\Database;
+
+use Fezfez\BackupManager\Databases\Database;
+use Fezfez\BackupManager\ShellProcessing\ShellProcessor;
+use PHPUnit\Framework\TestCase;
 use Prophecy\Argument;
-use PhpSpec\ObjectBehavior;
-use BackupManager\Databases\Database;
-use BackupManager\ShellProcessing\ShellProcessor;
 
-class RestoreDatabaseSpec extends ObjectBehavior
+class RestoreDatabaseSpec extends TestCase
 {
-
-    function it_is_initializable(Database $database, ShellProcessor $shellProcessor)
-    {
-        $this->beConstructedWith($database, 'path', $shellProcessor);
-        $this->shouldHaveType('BackupManager\Tasks\Database\RestoreDatabase');
-    }
-
-    function it_should_execute_the_database_restore_command(Database $database, ShellProcessor $shellProcessor)
+    public function testExecuteTheDatabaseRestoreCommand(Database $database, ShellProcessor $shellProcessor): void
     {
         $database->getRestoreCommandLine('path')->willReturn('restore path');
         $shellProcessor->process(Argument::any())->shouldBeCalled();

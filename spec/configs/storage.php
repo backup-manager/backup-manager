@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 return [
     'local'       => [
         'type' => 'Local',
@@ -14,11 +16,9 @@ return [
         'bucket' => '',
         'root'   => '',
     ],
-    'unsupported' => [
-        'type' => 'doesnt exist',
-    ],
+    'unsupported' => ['type' => 'doesnt exist'],
     'null'        => [
         'type' => null,
         'root' => null,
-    ]
+    ],
 ];

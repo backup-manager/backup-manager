@@ -1,44 +1,27 @@
-<?php namespace BackupManager\Tasks\Database;
+<?php
 
-use BackupManager\Tasks\Task;
-use BackupManager\Databases\Database;
+declare(strict_types=1);
+
+namespace Fezfez\BackupManager\Tasks\Database;
+
+use Fezfez\BackupManager\Databases\Database;
+use Fezfez\BackupManager\ShellProcessing\ShellProcessor;
 use Symfony\Component\Process\Process;
-use BackupManager\ShellProcessing\ShellProcessor;
-use BackupManager\ShellProcessing\ShellProcessFailed;
 
-/**
- * Class DumpDatabase
- * @package BackupManager\Tasks\Database\Mysql
- */
-class DumpDatabase implements Task
+class DumpDatabase
 {
-    /** @var string */
-    private $outputPath;
-    /** @var ShellProcessor */
-    private $shellProcessor;
-    /** @var Database */
-    private $database;
+    private ShellProcessor $shellProcessor;
 
-    /**
-     * @param Database $database
-     * @param $outputPath
-     * @param ShellProcessor $shellProcessor
-     */
-    public function __construct(Database $database, $outputPath, ShellProcessor $shellProcessor)
+    public function __construct(ShellProcessor $shellProcessor)
     {
-        $this->outputPath = $outputPath;
         $this->shellProcessor = $shellProcessor;
-        $this->database = $database;
     }
 
-    /**
-     * @throws ShellProcessFailed
-     */
-    public function execute()
+    public function __invoke(Database $database, string $outputPath): void
     {
-        return $this->shellProcessor->process(
+        $this->shellProcessor->__invoke(
             Process::fromShellCommandline(
-                $this->database->getDumpCommandLine($this->outputPath)
+                $database->getDumpCommandLine($outputPath)
             )
         );
     }

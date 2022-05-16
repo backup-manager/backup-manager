@@ -1,22 +1,17 @@
 <?php
 
-namespace spec\BackupManager\Tasks\Compression;
+declare(strict_types=1);
 
+namespace Fezfez\BackupManager\Tests\Tasks\Compression;
+
+use Fezfez\BackupManager\Compressors\Compressor;
+use Fezfez\BackupManager\ShellProcessing\ShellProcessor;
+use PHPUnit\Framework\TestCase;
 use Prophecy\Argument;
-use PhpSpec\ObjectBehavior;
-use BackupManager\Compressors\Compressor;
-use BackupManager\ShellProcessing\ShellProcessor;
 
-class DecompressFileSpec extends ObjectBehavior
+class DecompressFileSpec extends TestCase
 {
-
-    function it_is_initializable(Compressor $compressor, ShellProcessor $shellProcessor)
-    {
-        $this->beConstructedWith($compressor, 'path', $shellProcessor);
-        $this->shouldHaveType('BackupManager\Tasks\Compression\DecompressFile');
-    }
-
-    function it_should_execute_the_decompression_command(Compressor $compressor, ShellProcessor $shellProcessor)
+    public function testExecuteTheDecompressionCommand(Compressor $compressor, ShellProcessor $shellProcessor): void
     {
         $compressor->getDecompressCommandLine('path')->willReturn('decompress path');
         $shellProcessor->process(Argument::any())->shouldBeCalled();

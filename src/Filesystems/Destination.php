@@ -1,36 +1,27 @@
-<?php namespace BackupManager\Filesystems;
+<?php
 
-final class Destination
+declare(strict_types=1);
+
+namespace Fezfez\BackupManager\Filesystems;
+
+class Destination
 {
-    /** @var string */
-    private $destination_filesystem;
+    private FilesystemAdapter $destinationFilesystem;
+    private string $destinationPath;
 
-    /** @var string */
-    private $destination_path;
-
-    /**
-     * @param string $a_destination_filesystem
-     * @param string $a_destination_path
-     */
-    public function __construct($a_destination_filesystem, $a_destination_path)
+    public function __construct(FilesystemAdapter $destinationFilesystem, string $destinationPath)
     {
-        $this->destination_filesystem = $a_destination_filesystem;
-        $this->destination_path = $a_destination_path;
+        $this->destinationFilesystem = $destinationFilesystem;
+        $this->destinationPath       = $destinationPath;
     }
 
-    /**
-     * @return string
-     */
-    public function destinationFilesystem()
+    public function destinationFilesystem(): FilesystemAdapter
     {
-        return $this->destination_filesystem;
+        return $this->destinationFilesystem;
     }
 
-    /**
-     * @return string
-     */
-    public function destinationPath()
+    public function destinationPath(): string
     {
-        return $this->destination_path;
+        return $this->destinationPath;
     }
 }

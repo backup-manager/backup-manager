@@ -11,47 +11,40 @@
       "name": "Mitchell van Wijngaarden",
       "email": "mitchell@kooding.nl",
       "homepage": "http://heybigname.com/"
+    },
+    {
+      "name": "Stéphane Demonchaux",
+      "email": "demonchaux.stephane@gmail.com",
+      "homepage": "https://github.com/fezfez"
     }
   ],
   "require": {
-    "php":  "^7.3 || ^7.4",
-    "symfony/process": "^4.4 || ^5.0 || ^6.0",
-    "league/flysystem": "^1.0.64"
+    "php":  "~8.0.0 || ~8.1.0",
+    "symfony/process": "^4.4 || ^5.0 || ^6.0"
   },
   "require-dev": {
-    "league/flysystem-aws-s3-v3": "^1.0.24",
-    "spatie/flysystem-dropbox": "^1.2",
-    "srmklive/flysystem-dropbox-v2": "^1.0",
-    "league/flysystem-rackspace": "^1.0",
-    "league/flysystem-sftp": "^1.0",
-    "league/flysystem-webdav": "^1.0",
-    "mhetreramesh/flysystem-backblaze" : "^1.5",
-    "superbalist/flysystem-google-storage": "^7.2",
-    "aws/aws-sdk-php": "^3.133.20",
-    "phpspec/phpspec": "^6.1.1",
-    "friends-of-phpspec/phpspec-code-coverage": "^4.3"
+    "doctrine/coding-standard": "^9.0",
+    "league/flysystem": "^1.0.64",
+    "phpunit/phpunit": "^9.5",
+    "vimeo/psalm": "^4.23"
   },
   "suggest": {
-    "mhetreramesh/flysystem-backblaze": "B2 adapter support.",
-    "league/flysystem-aws-s3-v3": "AWS S3 adapter support.",
-    "superbalist/flysystem-google-storage": "Google Cloud Storage adapter support.",
-    "srmklive/flysystem-dropbox-v2": "Dropbox API v2 adapter support.",
-    "league/flysystem-rackspace": "Rackspace adapter support.",
-    "league/flysystem-sftp": "SFTP adapter support.",
-    "league/flysystem-webdav": "Webdav adapter support."
+    "league/flysystem": "league flysystem adapter"
   },
   "config": {
-    "bin-dir": "bin"
+    "allow-plugins": {
+      "dealerdirect/phpcodesniffer-composer-installer": true
+    }
   },
   "autoload": {
     "psr-4": {
-      "BackupManager\\": "src/"
+      "Fezfez\\BackupManager\\": "src/"
     }
   },
-  "license": "MIT",
-  "extra": {
-    "branch-alias": {
-      "dev-master": "1.0-dev"
+  "autoload-dev": {
+    "psr-4": {
+      "Fezfez\\BackupManager\\Tests\\": "spec/"
     }
-  }
+  },
+  "license": "MIT"
 }

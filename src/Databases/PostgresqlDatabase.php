@@ -1,61 +1,57 @@
-<?php namespace BackupManager\Databases;
+<?php
 
-/**
- * Class PostgresqlDatabase
- * @package BackupManager\Databases
- */
+declare(strict_types=1);
+
+namespace Fezfez\BackupManager\Databases;
+
+use function escapeshellarg;
+use function sprintf;
+
 class PostgresqlDatabase implements Database
 {
-    /** @var array */
-    private $config;
+    private string $host;
+    private string $port;
+    private string $user;
+    private string $password;
+    private string $database;
 
-    /**
-     * @param $type
-     * @return bool
-     */
-    public function handles($type)
-    {
-        return in_array(strtolower($type), ['postgresql', 'pgsql']);
+    public function __construct(
+        string $host,
+        string $port,
+        string $user,
+        string $password,
+        string $database
+    ) {
+        $this->host     = $host;
+        $this->port     = $port;
+        $this->user     = $user;
+        $this->password = $password;
+        $this->database = $database;
     }
 
-    /**
-     * @param array $config
-     * @return null
-     */
-    public function setConfig(array $config)
+    public function getDumpCommandLine(string $path): string
     {
-        $this->config = $config;
-    }
-
-    /**
-     * @param $outputPath
-     * @return string
-     */
-    public function getDumpCommandLine($outputPath)
-    {
-        return sprintf('PGPASSWORD=%s pg_dump --clean --host=%s --port=%s --username=%s %s -f %s',
-            escapeshellarg($this->config['pass']),
-            escapeshellarg($this->config['host']),
-            escapeshellarg($this->config['port']),
-            escapeshellarg($this->config['user']),
-            escapeshellarg($this->config['database']),
-            escapeshellarg($outputPath)
+        return sprintf(
+            'PGPASSWORD=%s pg_dump --clean --host=%s --port=%s --username=%s %s -f %s',
+            escapeshellarg($this->password),
+            escapeshellarg($this->host),
+            escapeshellarg($this->port),
+            escapeshellarg($this->user),
+            escapeshellarg($this->database),
+            escapeshellarg($path)
         );
     }
 
-    /**
-     * @param $inputPath
-     * @return string
-     */
-    public function getRestoreCommandLine($inputPath)
+    public function getRestoreCommandLine(string $path): string
     {
-        return sprintf('PGPASSWORD=%s psql --host=%s --port=%s --user=%s %s -f %s',
-            escapeshellarg($this->config['pass']),
-            escapeshellarg($this->config['host']),
-            escapeshellarg($this->config['port']),
-            escapeshellarg($this->config['user']),
-            escapeshellarg($this->config['database']),
-            escapeshellarg($inputPath)
+        return sprintf(
+            'PGPASSWORD=%s psql --host=%s --port=%s --user=%s %s -f %s',
+            escapeshellarg($this->password),
+            escapeshellarg($this->host),
+            escapeshellarg($this->port),
+            escapeshellarg($this->user),
+            escapeshellarg($this->database),
+            escapeshellarg($path)
         );
     }
 }

@@ -1,18 +1,16 @@
 <?php
 
-namespace spec\BackupManager\Procedures;
+declare(strict_types=1);
 
-use BackupManager\Tasks\Task;
-use PhpSpec\ObjectBehavior;
-use Prophecy\Argument;
+namespace Fezfez\BackupManager\Tests\Procedures;
 
-class SequenceSpec extends ObjectBehavior {
+use Fezfez\BackupManager\Tasks\Task;
+use PHPUnit\Framework\TestCase;
 
-    function it_is_initializable() {
-        $this->shouldHaveType('BackupManager\Procedures\Sequence');
-    }
-
-    function it_should_execute_a_programmed_sequence_of_tasks(Task $taskOne, Task $taskTwo) {
+class SequenceSpec extends TestCase
+{
+    public function testExecuteAProgrammedSequenceOfTasks(Task $taskOne, Task $taskTwo): void
+    {
         $taskOne->execute()->shouldBeCalled();
         $taskTwo->execute()->shouldBeCalled();
 

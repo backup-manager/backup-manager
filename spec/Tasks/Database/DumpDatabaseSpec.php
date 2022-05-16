@@ -1,20 +1,17 @@
-<?php namespace spec\BackupManager\Tasks\Database;
+<?php
 
+declare(strict_types=1);
+
+namespace Fezfez\BackupManager\Tests\Tasks\Database;
+
+use Fezfez\BackupManager\Databases\Database;
+use Fezfez\BackupManager\ShellProcessing\ShellProcessor;
+use PHPUnit\Framework\TestCase;
 use Prophecy\Argument;
-use PhpSpec\ObjectBehavior;
-use BackupManager\Databases\Database;
-use BackupManager\ShellProcessing\ShellProcessor;
 
-class DumpDatabaseSpec extends ObjectBehavior
+class DumpDatabaseSpec extends TestCase
 {
-
-    function it_is_initializable(Database $database, ShellProcessor $shellProcessor)
-    {
-        $this->beConstructedWith($database, 'path', $shellProcessor);
-        $this->shouldHaveType('BackupManager\Tasks\Database\DumpDatabase');
-    }
-
-    function it_should_execute_the_database_dump_command(Database $database, ShellProcessor $shellProcessor)
+    public function testExecuteTheDatabaseDumpCommand(Database $database, ShellProcessor $shellProcessor): void
     {
         $database->getDumpCommandLine('path')->willReturn('dump path');
         $shellProcessor->process(Argument::any())->shouldBeCalled();

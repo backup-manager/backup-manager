@@ -1,19 +1,11 @@
 <?php
 
-namespace spec\BackupManager\Procedures;
+declare(strict_types=1);
 
-use BackupManager\Compressors\CompressorProvider;
-use BackupManager\Databases\DatabaseProvider;
-use BackupManager\Filesystems\FilesystemProvider;
-use BackupManager\Procedures\Sequence;
-use BackupManager\ShellProcessing\ShellProcessor;
-use PhpSpec\ObjectBehavior;
-use Prophecy\Argument;
+namespace Fezfez\BackupManager\Tests\Procedures;
 
-class BackupProcedureSpec extends ObjectBehavior {
+use PHPUnit\Framework\TestCase;
 
-    function it_is_initializable(FilesystemProvider $filesystemProvider, DatabaseProvider $databaseProvider, CompressorProvider $compressorProvider, ShellProcessor $shellProcessor, Sequence $sequence) {
-        $this->beConstructedWith($filesystemProvider, $databaseProvider, $compressorProvider, $shellProcessor, $sequence);
-        $this->shouldHaveType('BackupManager\Procedures\BackupProcedure');
-    }
+class BackupProcedureSpec extends TestCase
+{
 }
