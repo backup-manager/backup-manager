@@ -39,13 +39,13 @@ class BackupManager
     }
 
     /** @param Destination[] $destinations */
-    public function backup(BackupManagerFilesystemAdapter $from, Database $database, array $destinations, string $localTmpPath, Compressor ...$compression): void
+    public function backup(BackupManagerFilesystemAdapter $localFileSystem, Database $database, array $destinations, string $localTmpPath, Compressor ...$compression): void
     {
-        $this->backupProcedure->__invoke($from, $database, $destinations, $localTmpPath, ...$compression);
+        $this->backupProcedure->__invoke($localFileSystem, $database, $destinations, $localTmpPath, ...$compression);
     }
 
-    public function restore(BackupManagerFilesystemAdapter $from, BackupManagerFilesystemAdapter $to, string $sourcePath, Database $databaseName, Compressor ...$compression): void
+    public function restore(BackupManagerFilesystemAdapter $localFileSystem, BackupManagerFilesystemAdapter $to, string $sourcePath, Database $databaseName, Compressor ...$compression): void
     {
-        $this->restoreProcedure->__invoke($from, $to, $sourcePath, $databaseName, ...$compression);
+        $this->restoreProcedure->__invoke($localFileSystem, $to, $sourcePath, $databaseName, ...$compression);
     }
 }

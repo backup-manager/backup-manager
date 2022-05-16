@@ -1,177 +1,63 @@
 # Database Backup Manager
 
-[![Latest Stable Version](https://poser.pugx.org/backup-manager/backup-manager/version.png)](https://packagist.org/packages/backup-manager/backup-manager)
-[![License](https://poser.pugx.org/backup-manager/backup-manager/license.png)](https://packagist.org/packages/backup-manager/backup-manager)
-[![Build Status](https://travis-ci.org/backup-manager/backup-manager.svg?branch=master)](https://travis-ci.org/backup-manager/backup-manager)
-[![Coverage Status](https://coveralls.io/repos/backup-manager/backup-manager/badge.svg?branch=master&service=github)](https://coveralls.io/github/backup-manager/backup-manager?branch=master)
-[![Total Downloads](https://poser.pugx.org/backup-manager/backup-manager/downloads.png)](https://packagist.org/packages/backup-manager/backup-manager)
+![Build Status](https://github.com/fezfez/backup-manager/actions/workflows/continuous-integration.yml/badge.svg)](https://github.com/fezfez/backup-manager/actions/workflows/continuous-integration.yml)
+[![Type Coverage](https://shepherd.dev/github/fezfez/backup-manager/coverage.svg)](https://shepherd.dev/github/fezfez/backup-manager)
+[![Type Coverage](https://shepherd.dev/github/fezfez/backup-manager/level.svg)](https://shepherd.dev/github/fezfez/backup-manager)
+[![Latest Stable Version](https://poser.pugx.org/fezfez/backup-manager/v/stable)](https://packagist.org/packages/fezfez/backup-manager)
+[![License](https://poser.pugx.org/fezfez/backup-manager/license)](https://packagist.org/packages/fezfez/backup-manager)
 
-This package provides a framework-agnostic database backup manager for dumping to and restoring databases from S3, Dropbox, FTP, SFTP, and Rackspace Cloud.
 
-- use version 2+ for &gt;=PHP 7.3
-- use version 1 for &lt;PHP 7.2
-
-[Watch a video tour](https://www.youtube.com/watch?v=vWXy0R8OavM) showing the Laravel driver in action to give you an idea what is possible.
+This package provides a framework-agnostic database backup manager for dumping to and restoring databases from any file system.
 
 - supports `MySQL` and `PostgreSQL`
 - compress with `Gzip`
 - framework-agnostic
 - dead simple configuration
-- [Laravel Driver](http://github.com/backup-manager/laravel)
-- [Symfony Driver](http://github.com/backup-manager/symfony)
-
-### Table of Contents
-
-- [Database Backup Manager](#database-backup-manager)
-    - [Table of Contents](#table-of-contents)
-    - [Quick and Dirty](#quick-and-dirty)
-    - [Requirements](#requirements)
-    - [Installation](#installation)
-    - [Usage](#usage)
-    - [Contribution Guidelines](#contribution-guidelines)
-    - [Maintainers](#maintainers)
-    - [Backwards Compatibility Breaks](#backwards-compatibility-breaks)
-    - [License](#license)
 
 ### Quick and Dirty
-
-**Configure your databases.**
-
-```php
-// config/database.php
-'development' => [
-    'type' => 'mysql',
-    'host' => 'localhost',
-    'port' => '3306',
-    'user' => 'root',
-    'pass' => 'password',
-    'database' => 'test',
-    // If singleTransaction is set to true, the --single-transcation flag will be set.
-    // This is useful on transactional databases like InnoDB.
-    // http://dev.mysql.com/doc/refman/5.7/en/mysqldump.html#option_mysqldump_single-transaction
-    'singleTransaction' => false,
-    // Do not dump the given tables
-    // Set only table names, without database name
-    // Example: ['table1', 'table2']
-    // http://dev.mysql.com/doc/refman/5.7/en/mysqldump.html#option_mysqldump_ignore-table
-    'ignoreTables' => [],
-    // using ssl to connect to your database - active ssl-support (mysql only):
-    'ssl'=>false,
-    // add additional options to dump-command (like '--max-allowed-packet')
-    'extraParams'=>null,
-],
-'production' => [
-    'type' => 'postgresql',
-    'host' => 'localhost',
-    'port' => '5432',
-    'user' => 'postgres',
-    'pass' => 'password',
-    'database' => 'test',
-],
-```
-
-**Configure your filesystems.**
-
-```php
-// config/storage.php
-'local' => [
-    'type' => 'Local',
-    'root' => '/path/to/working/directory',
-],
-'s3' => [
-    'type' => 'AwsS3',
-    'key'    => '',
-    'secret' => '',
-    'region' => 'us-east-1',
-    'version' => 'latest',
-    'bucket' => '',
-    'root'   => '',
-    'use_path_style_endpoint' => false,
-],
-'b2' => [
-    'type' => 'B2',
-    'key'    => '',
-    'accountId' => '',
-    'bucket' => '',
-],
-'gcs' => [
-    'type' => 'Gcs',
-    'key'    => '',
-    'secret' => '',
-    'version' => 'latest',
-    'bucket' => '',
-    'root'   => '',
-],
-'rackspace' => [
-    'type' => 'Rackspace',
-    'username' => '',
-    'key' => '',
-    'container' => '',
-    'zone' => '',
-    'root' => '',
-],
-'dropbox' => [
-    'type' => 'DropboxV2',
-    'token' => '',
-    'key' => '',
-    'secret' => '',
-    'app' => '',
-    'root' => '',
-],
-'ftp' => [
-    'type' => 'Ftp',
-    'host' => '',
-    'username' => '',
-    'password' => '',
-    'root' => '',
-    'port' => 21,
-    'passive' => true,
-    'ssl' => true,
-    'timeout' => 30,
-],
-'sftp' => [
-    'type' => 'Sftp',
-    'host' => '',
-    'username' => '',
-    'password' => '',
-    'root' => '',
-    'port' => 21,
-    'timeout' => 10,
-    'privateKey' => '',
-],
-'flysystem' => [
-    'type' => 'Flysystem',
-    'name' => 's3_backup',
-    //'prefix' => 'upload',
-],
-'doSpaces' => [
-    'type' => 'AwsS3',
-    'key' => '',
-    'secret' => '',
-    'region' => '',
-    'bucket' => '',
-    'root' => '',
-    'endpoint' => '',
-    'use_path_style_endpoint' => false,
-],
-'webdav' => [
-    'type' => 'Webdav',
-    'baseUri' => 'http://myserver.com',
-    'userName' => '',
-    'password' => '',
-    'prefix' => '',
-],
-```
 
 **Backup to / restore from any configured database.**
 
 Backup the development database to `Amazon S3`. The S3 backup path will be `test/backup.sql.gz` in the end, when `gzip` is done with it.
 
 ```php
-use BackupManager\Filesystems\Destination;
 
-$manager = require 'bootstrap.php';
-$manager->makeBackup()->run('development', [new Destination('s3', 'test/backup.sql')], 'gzip');
+$local = new \League\Flysystem\Adapter\Local(getcwd() . '/data/');
+$webdav = new \League\Flysystem\WebDAV\WebDAVAdapter(new \Sabre\DAV\Client([
+    'baseUri' => getenv('WEBDAV_HOST'),
+    'userName' => getenv('WEBDAV_username'),
+    'password' => getenv('WEBDAV_password'),
+]), 'remote.php/webdav/');
+
+$manager = \Fezfez\BackupManager\BackupManager::create();
+$manager->backup(
+    new LeagueFilesystemAdapaterV1($local),
+    new \Fezfez\BacpkupManager\Databases\MysqlDatabase(
+        getenv('DB_HOST'),
+        getenv('DB_PORT'),
+        getenv('DB_USER'),
+        getenv('DB_PASSWORD'),
+        getenv('DB_DATABASE')
+    ),
+  [
+    new \Fezfez\BackupManager\Filesystems\Destination(new LeagueFilesystemAdapaterV1($webdav), 'test/backup.sql')
+  ],
+  \Fezfez\BackupManager\Compressors\GzipCompressor::create()
+);
+
+$manager->restore(
+    new LeagueFilesystemAdapaterV1($local),
+    new LeagueFilesystemAdapaterV1($webdav),
+    'test/backup.sql',
+    new \Fezfez\BacpkupManager\Databases\MysqlDatabase(
+        getenv('DB_HOST'),
+        getenv('DB_PORT'),
+        getenv('DB_USER'),
+        getenv('DB_PASSWORD'),
+        getenv('DB_DATABASE')
+    ),
+  \Fezfez\BackupManager\Compressors\GzipCompressor::create()
+);
 ```
 
 **Backup to / restore from any configured filesystem.**
@@ -187,7 +73,7 @@ $manager->makeRestore()->run('s3', 'test/backup.sql.gz', 'development', 'gzip');
 
 ### Requirements
 
-- PHP 5.5
+- PHP ^8.0
 - MySQL support requires `mysqldump` and `mysql` command-line binaries
 - PostgreSQL support requires `pg_dump` and `psql` command-line binaries
 - Gzip support requires `gzip` and `gunzip` command-line binaries
@@ -200,35 +86,20 @@ $manager->makeRestore()->run('s3', 'test/backup.sql.gz', 'development', 'gzip');
 Run the following to include this via Composer
 
 ```shell
-composer require backup-manager/backup-manager
+composer require fezfez/backup-manager
 ```
 
 Then, you'll need to select the appropriate packages for the adapters that you want to use.
 
 ```shell
-# to support s3
-composer require league/flysystem-aws-s3-v3
+# to support league-flysystem:^1.0
+composer require fezfez/backup-manager-league-flysystem-v1
 
-# to support b2
-composer require mhetreramesh/flysystem-backblaze
+# to support league-flysystem:^2.0
+composer require fezfez/backup-manager-league-flysystem-v2
 
-# to support google cs
-composer require league/flysystem-aws-s3-v2
-
-# to install the preferred dropbox v2 driver
-composer required spatie/flysystem-dropbox
-
-# to install legacy dropbox v2 driver
-composer require srmklive/flysystem-dropbox-v2
-
-# to support rackspace
-composer require league/flysystem-rackspace
-
-# to support sftp
-composer require league/flysystem-sftp
-
-# to support webdav (supported by owncloud nad many other)
-composer require league/flysystem-webdav
+# to support league-flysystem:^3.0
+composer require fezfez/backup-manager-league-flysystem-v3
 ```
 
 ### Usage
@@ -252,15 +123,8 @@ When contributing please consider the following guidelines:
 - Ensure that you submit tests that have minimal 100% coverage. Given the project's simplicity it just makes sense.
 - When planning a pull-request to add new functionality, it may be wise to [submit a proposal](https://github.com/backup-manager/backup-manager/issues/new) to ensure compatibility with the project's goals.
 
-### Maintainers
-
-This package is maintained by [Shawn McCool](http://shawnmc.cool) and you!
 
 ### Backwards Compatibility Breaks
-
-#### 3.0
-
-Remove support for symfony 2. Specifically symfony/process versions < 3.x
 
 ### License
 

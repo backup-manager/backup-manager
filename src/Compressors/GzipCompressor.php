@@ -19,6 +19,11 @@ class GzipCompressor implements Compressor
         $this->shellProcessor = $shellProcessor;
     }
 
+    public static function create(): self
+    {
+        return new self(new ShellProcessor());
+    }
+
     public function compress(string $path): string
     {
         $this->shellProcessor->__invoke(Process::fromShellCommandline('gzip ' . escapeshellarg($path)));
