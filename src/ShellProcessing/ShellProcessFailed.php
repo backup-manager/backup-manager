@@ -1,7 +1,11 @@
-<?php namespace BackupManager\ShellProcessing;
+<?php
 
-/**
- * Class ShellProcessFailed
- * @package BackupManager\ShellProcessing
- */
-class ShellProcessFailed extends \Exception {}
+declare(strict_types=1);
+
+namespace Fezfez\BackupManager\ShellProcessing;
+
+use Exception;
+
+class ShellProcessFailed extends Exception
+{
+}

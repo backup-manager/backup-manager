@@ -1,0 +1,7 @@
+version : '3'
+services :
+  php:
+    image: cube43/docker-apache2-php:8.0
+    volumes:
+      - .:/var/www
+      - ./../composercache/:/home/www-data/.composer/

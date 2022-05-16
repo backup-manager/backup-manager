@@ -1,53 +1,45 @@
-<?php namespace BackupManager\Compressors;
+<?php
 
-/**
- * Class GzipCompressor
- * @package BackupManager\Compressors
- */
+declare(strict_types=1);
+
+namespace Fezfez\BackupManager\Compressors;
+
+use Fezfez\BackupManager\ShellProcessing\ShellProcessor;
+use Symfony\Component\Process\Process;
+
+use function escapeshellarg;
+use function preg_replace;
+
 class GzipCompressor implements Compressor
 {
-    /**
-     * @param $type
-     * @return bool
-     */
-    public function handles($type)
+    private ShellProcessor $shellProcessor;
+
+    public function __construct(ShellProcessor $shellProcessor)
     {
-        return strtolower($type) == 'gzip';
+        $this->shellProcessor = $shellProcessor;
     }
 
-    /**
-     * @param $inputPath
-     * @return string
-     */
-    public function getCompressCommandLine($inputPath)
+    public function compress(string $path): string
     {
-        return 'gzip ' . escapeshellarg($inputPath);
+        $this->shellProcessor->__invoke(Process::fromShellCommandline('gzip ' . escapeshellarg($path)));
+
+        return $this->getCompressedPath($path);
     }
 
-    /**
-     * @param $outputPath
-     * @return string
-     */
-    public function getDecompressCommandLine($outputPath)
+    public function decompress(string $path): string
     {
-        return 'gzip -d ' . escapeshellarg($outputPath);
+        $this->shellProcessor->__invoke(Process::fromShellCommandline('gzip -d ' . escapeshellarg($path)));
+
+        return $this->getDecompressedPath($path);
     }
 
-    /**
-     * @param $inputPath
-     * @return string
-     */
-    public function getCompressedPath($inputPath)
+    private function getCompressedPath(string $path): string
     {
-        return $inputPath . '.gz';
+        return $path . '.gz';
     }
 
-    /**
-     * @param $inputPath
-     * @return string
-     */
-    public function getDecompressedPath($inputPath)
+    private function getDecompressedPath(string $path): string
     {
-        return preg_replace('/\.gz$/', '', $inputPath);
+        return preg_replace('/\.gz$/', '', $path);
     }
 }

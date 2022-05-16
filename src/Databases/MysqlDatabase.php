@@ -1,118 +1,113 @@
-<?php namespace BackupManager\Databases;
+<?php
 
-/**
- * Class MysqlDatabase
- * @package BackupManager\Databases
- */
+declare(strict_types=1);
+
+namespace Fezfez\BackupManager\Databases;
+
+use function array_filter;
+use function escapeshellarg;
+use function implode;
+use function sprintf;
+use function trim;
+
 class MysqlDatabase implements Database
 {
-    /** @var array */
-    private $config;
+    private string $host;
+    private string $port;
+    private string $user;
+    private string $password;
+    private string $database;
+    private bool $singleTransaction;
+    private bool $ssl;
+    /** @var array<int, string> */
+    private array $extraParams;
+    /** @var array<int, string> */
+    private array $ignoreTables;
 
     /**
-     * @param $type
-     * @return bool
+     * @param array<int, string> $extraParams
+     * @param array<int, string> $ignoreTables
      */
-    public function handles($type)
-    {
-        return strtolower($type) == 'mysql';
+    public function __construct(
+        string $host,
+        string $port,
+        string $user,
+        string $password,
+        string $database,
+        bool $singleTransaction = false,
+        bool $ssl = false,
+        array $extraParams = [],
+        array $ignoreTables = []
+    ) {
+        $this->host              = $host;
+        $this->port              = $port;
+        $this->user              = $user;
+        $this->password          = $password;
+        $this->database          = $database;
+        $this->singleTransaction = $singleTransaction;
+        $this->ssl               = $ssl;
+        $this->extraParams       = $extraParams;
+        $this->ignoreTables      = $ignoreTables;
     }
 
-    /**
-     * @param array $config
-     * @return null
-     */
-    public function setConfig(array $config)
+    public function getDumpCommandLine(string $path): string
     {
-        $this->config = $config;
+        return sprintf(
+            'mysqldump %s %s > %s',
+            self::addConnectionInformation([
+                '--routines',
+                $this->singleTransaction ? '--single-transaction' : '',
+                $this->ssl ? '--ssl' : '',
+                ...$this->getIgnoreTableParameter(),
+                ...$this->extraParams,
+            ]),
+            escapeshellarg($this->database),
+            escapeshellarg($path)
+        );
     }
 
-    /**
-     * @param $outputPath
-     * @return string
-     */
-    public function getDumpCommandLine($outputPath)
+    public function getRestoreCommandLine(string $path): string
     {
-        $extras = [];
-        if (array_key_exists('singleTransaction', $this->config) && $this->config['singleTransaction'] === true) {
-            $extras[] = '--single-transaction';
-        }
-        if (array_key_exists('ignoreTables', $this->config)) {
-            $extras[] = $this->getIgnoreTableParameter();
-        }
-        if (array_key_exists('ssl', $this->config) && $this->config['ssl'] === true) {
-            $extras[] = '--ssl';
-        }
-        if (array_key_exists('extraParams', $this->config) && $this->config['extraParams']) {
-            $extras[] = $this->config['extraParams'];
-        }
-
-        // Prepare a "params" string from our config
-        $params = '';
-        $keys = ['host' => 'host', 'port' => 'port', 'user' => 'user', 'pass' => 'password'];
-        foreach ($keys as $key => $mysqlParam) {
-            if (!empty($this->config[$key])) {
-                $params .= sprintf(' --%s=%s', $mysqlParam, escapeshellarg($this->config[$key]));
-            }
-        }
-
-        $command = 'mysqldump --routines ' . implode(' ', $extras) . '%s %s > %s';
-        return sprintf($command,
-            $params,
-            escapeshellarg($this->config['database']),
-            escapeshellarg($outputPath)
+        return sprintf(
+            'mysql %s %s -e "source %s"',
+            self::addConnectionInformation([$this->ssl ? '--ssl' : '']),
+            escapeshellarg($this->database),
+            $path
         );
     }
 
     /**
-     * @param $inputPath
-     * @return string
+     * @return iterable<int, string>
+     * @psalm-return iterable<int, string>
      */
-    public function getRestoreCommandLine($inputPath)
+    private function getIgnoreTableParameter(): iterable
     {
-        $extras = [];
-        if (array_key_exists('ssl', $this->config) && $this->config['ssl'] === true) {
-            $extras[] = '--ssl';
+        foreach ($this->ignoreTables as $table) {
+            yield sprintf('--ignore-table=%s', escapeshellarg($this->database . '.' . $table));
         }
-
-        // Prepare a "params" string from our config
-        $params = '';
-        $keys = ['host' => 'host', 'port' => 'port', 'user' => 'user', 'pass' => 'password'];
-        foreach ($keys as $key => $mysqlParam) {
-            if (!empty($this->config[$key])) {
-                $params .= sprintf(' --%s=%s', $mysqlParam, escapeshellarg($this->config[$key]));
-            }
-        }
-
-        return sprintf('mysql%s ' . implode(' ', $extras) . ' %s -e "source %s"',
-            $params,
-            escapeshellarg($this->config['database']),
-            $inputPath
-        );
     }
 
     /**
-     * @return string
+     * @param array<int|string, string> $value
+     *
+     * @return array<int|string, string>
      */
-    public function getIgnoreTableParameter()
+    private static function removeEmptyValue(array $value): array
     {
+        return array_filter($value, static fn (string $value) => trim($value) !== '');
+    }
 
-        if (!is_array($this->config['ignoreTables']) || count($this->config['ignoreTables']) === 0) {
-            return '';
+    /**
+     * @param array<int, string> $params
+     */
+    private function addConnectionInformation(array $params): string
+    {
+        $data = ['host' => $this->host, 'port' => $this->port, 'user' => $this->user, 'password' => $this->password];
+
+        foreach (self::removeEmptyValue($data) as $key => $value) {
+            $params[] = sprintf('--%s=%s', $key, escapeshellarg($value));
         }
 
-        $db = $this->config['database'];
-        $ignoreTables = array_map(function ($table) use ($db) {
-            return $db . '.' . $table;
-        }, $this->config['ignoreTables']);
-
-        $commands = [];
-        foreach ($ignoreTables AS $ignoreTable) {
-            $commands[] = sprintf('--ignore-table=%s',
-                escapeshellarg($ignoreTable)
-            );
-        }
-
-        return implode(' ', $commands);
+        return implode(' ', self::removeEmptyValue($params));
     }
 }

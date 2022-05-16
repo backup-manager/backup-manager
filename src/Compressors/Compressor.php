@@ -1,38 +1,12 @@
-<?php namespace BackupManager\Compressors;
+<?php
 
-/**
- * Interface Compressor
- * @package BackupManager\Compressors
- */
+declare(strict_types=1);
+
+namespace Fezfez\BackupManager\Compressors;
+
 interface Compressor
 {
-    /**
-     * @param $type
-     * @return bool
-     */
-    function handles($type);
+    public function compress(string $path): string;
 
-    /**
-     * @param $inputPath
-     * @return string
-     */
-    function getCompressCommandLine($inputPath);
-
-    /**
-     * @param $outputPath
-     * @return string
-     */
-    function getDecompressCommandLine($outputPath);
-
-    /**
-     * @param $inputPath
-     * @return string
-     */
-    function getCompressedPath($inputPath);
-
-    /**
-     * @param $inputPath
-     * @return string
-     */
-    function getDecompressedPath($inputPath);
+    public function decompress(string $path): string;
 }
