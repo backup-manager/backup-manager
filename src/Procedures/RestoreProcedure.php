@@ -34,8 +34,10 @@ class RestoreProcedure extends Procedure
 
         // download or retrieve the archived backup file
         $sequence->add(new Tasks\Storage\TransferFile(
-            $this->filesystems->get($sourceType), $sourcePath,
-            $localFilesystem, basename($workingFile)
+            $this->filesystems->get($sourceType),
+            $sourcePath,
+            $localFilesystem,
+            basename($workingFile)
         ));
 
         // decompress the archived backup
@@ -62,4 +64,4 @@ class RestoreProcedure extends Procedure
 
         $sequence->execute();
     }
-} 
+}
