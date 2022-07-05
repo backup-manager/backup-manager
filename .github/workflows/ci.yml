@@ -8,7 +8,7 @@ jobs:
     strategy:
       max-parallel: 10
       matrix:
-        php: [ '7.3', '7.4', '8.0', '8.1']
+        php: [ '7.4', '8.0', '8.1']
 
     steps:
       - name: Set up PHP
@@ -34,7 +34,7 @@ jobs:
       - name: Set up PHP
         uses: shivammathur/setup-php@v2
         with:
-          php-version: 7.3
+          php-version: 7.4
           coverage: none
 
       - name: Checkout code
