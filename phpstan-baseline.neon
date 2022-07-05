@@ -146,7 +146,22 @@ parameters:
 			path: src/Filesystems/Awss3Filesystem.php
 
 		-
+			message: "#^Instantiated class BackblazeB2\\\\Client not found\\.$#"
+			count: 1
+			path: src/Filesystems/BackblazeFilesystem.php
+
+		-
+			message: "#^Instantiated class Mhetreramesh\\\\Flysystem\\\\BackblazeAdapter not found\\.$#"
+			count: 1
+			path: src/Filesystems/BackblazeFilesystem.php
+
+		-
 			message: "#^PHPDoc tag @param has invalid value \\(\\$type\\)\\: Unexpected token \"\\$type\", expected type at offset 50$#"
+			count: 1
+			path: src/Filesystems/BackblazeFilesystem.php
+
+		-
+			message: "#^Parameter \\#1 \\$adapter of class League\\\\Flysystem\\\\Filesystem constructor expects League\\\\Flysystem\\\\AdapterInterface, Mhetreramesh\\\\Flysystem\\\\BackblazeAdapter given\\.$#"
 			count: 1
 			path: src/Filesystems/BackblazeFilesystem.php
 
