@@ -4,4 +4,6 @@
  * Class FilesystemTypeNotSupported
  * @package BackupManager\Filesystems
  */
-class FilesystemTypeNotSupported extends \Exception {}
+class FilesystemTypeNotSupported extends \Exception
+{
+}

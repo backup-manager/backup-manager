@@ -1,0 +1,287 @@
+parameters:
+	ignoreErrors:
+		-
+			message: "#^PHPDoc tag @param has invalid value \\(\\$inputPath\\)\\: Unexpected token \"\\$inputPath\", expected type at offset 18$#"
+			count: 3
+			path: src/Compressors/Compressor.php
+
+		-
+			message: "#^PHPDoc tag @param has invalid value \\(\\$outputPath\\)\\: Unexpected token \"\\$outputPath\", expected type at offset 18$#"
+			count: 1
+			path: src/Compressors/Compressor.php
+
+		-
+			message: "#^PHPDoc tag @param has invalid value \\(\\$type\\)\\: Unexpected token \"\\$type\", expected type at offset 18$#"
+			count: 1
+			path: src/Compressors/Compressor.php
+
+		-
+			message: "#^PHPDoc tag @param has invalid value \\(\\$name\\)\\: Unexpected token \"\\$name\", expected type at offset 18$#"
+			count: 1
+			path: src/Compressors/CompressorProvider.php
+
+		-
+			message: "#^PHPDoc tag @param has invalid value \\(\\$inputPath\\)\\: Unexpected token \"\\$inputPath\", expected type at offset 18$#"
+			count: 3
+			path: src/Compressors/GzipCompressor.php
+
+		-
+			message: "#^PHPDoc tag @param has invalid value \\(\\$outputPath\\)\\: Unexpected token \"\\$outputPath\", expected type at offset 18$#"
+			count: 1
+			path: src/Compressors/GzipCompressor.php
+
+		-
+			message: "#^PHPDoc tag @param has invalid value \\(\\$type\\)\\: Unexpected token \"\\$type\", expected type at offset 18$#"
+			count: 1
+			path: src/Compressors/GzipCompressor.php
+
+		-
+			message: "#^PHPDoc tag @param has invalid value \\(\\$inputPath\\)\\: Unexpected token \"\\$inputPath\", expected type at offset 18$#"
+			count: 3
+			path: src/Compressors/NullCompressor.php
+
+		-
+			message: "#^PHPDoc tag @param has invalid value \\(\\$outputPath\\)\\: Unexpected token \"\\$outputPath\", expected type at offset 18$#"
+			count: 1
+			path: src/Compressors/NullCompressor.php
+
+		-
+			message: "#^PHPDoc tag @param has invalid value \\(\\$type\\)\\: Unexpected token \"\\$type\", expected type at offset 18$#"
+			count: 1
+			path: src/Compressors/NullCompressor.php
+
+		-
+			message: "#^If condition is always false\\.$#"
+			count: 1
+			path: src/Config/Config.php
+
+		-
+			message: "#^PHPDoc tag @param has invalid value \\(\\$field\\)\\: Unexpected token \"\\$field\", expected type at offset 38$#"
+			count: 1
+			path: src/Config/Config.php
+
+		-
+			message: "#^PHPDoc tag @param has invalid value \\(\\$name\\)\\: Unexpected token \"\\$name\", expected type at offset 18$#"
+			count: 2
+			path: src/Config/Config.php
+
+		-
+			message: "#^PHPDoc tag @param has invalid value \\(\\$path\\)\\: Unexpected token \"\\$path\", expected type at offset 18$#"
+			count: 1
+			path: src/Config/Config.php
+
+		-
+			message: "#^Unsafe usage of new static\\(\\)\\.$#"
+			count: 1
+			path: src/Config/Config.php
+
+		-
+			message: "#^PHPDoc tag @param has invalid value \\(\\$inputPath\\)\\: Unexpected token \"\\$inputPath\", expected type at offset 18$#"
+			count: 1
+			path: src/Databases/Database.php
+
+		-
+			message: "#^PHPDoc tag @param has invalid value \\(\\$outputPath\\)\\: Unexpected token \"\\$outputPath\", expected type at offset 18$#"
+			count: 1
+			path: src/Databases/Database.php
+
+		-
+			message: "#^PHPDoc tag @param has invalid value \\(\\$type\\)\\: Unexpected token \"\\$type\", expected type at offset 18$#"
+			count: 1
+			path: src/Databases/Database.php
+
+		-
+			message: "#^PHPDoc tag @param has invalid value \\(\\$name\\)\\: Unexpected token \"\\$name\", expected type at offset 18$#"
+			count: 1
+			path: src/Databases/DatabaseProvider.php
+
+		-
+			message: "#^Parameter \\#2 \\$field of method BackupManager\\\\Config\\\\Config\\:\\:get\\(\\) expects null, string given\\.$#"
+			count: 1
+			path: src/Databases/DatabaseProvider.php
+
+		-
+			message: "#^Method BackupManager\\\\Databases\\\\MysqlDatabase\\:\\:setConfig\\(\\) should return null but return statement is missing\\.$#"
+			count: 1
+			path: src/Databases/MysqlDatabase.php
+
+		-
+			message: "#^PHPDoc tag @param has invalid value \\(\\$inputPath\\)\\: Unexpected token \"\\$inputPath\", expected type at offset 18$#"
+			count: 1
+			path: src/Databases/MysqlDatabase.php
+
+		-
+			message: "#^PHPDoc tag @param has invalid value \\(\\$outputPath\\)\\: Unexpected token \"\\$outputPath\", expected type at offset 18$#"
+			count: 1
+			path: src/Databases/MysqlDatabase.php
+
+		-
+			message: "#^PHPDoc tag @param has invalid value \\(\\$type\\)\\: Unexpected token \"\\$type\", expected type at offset 18$#"
+			count: 1
+			path: src/Databases/MysqlDatabase.php
+
+		-
+			message: "#^Method BackupManager\\\\Databases\\\\PostgresqlDatabase\\:\\:setConfig\\(\\) should return null but return statement is missing\\.$#"
+			count: 1
+			path: src/Databases/PostgresqlDatabase.php
+
+		-
+			message: "#^PHPDoc tag @param has invalid value \\(\\$inputPath\\)\\: Unexpected token \"\\$inputPath\", expected type at offset 18$#"
+			count: 1
+			path: src/Databases/PostgresqlDatabase.php
+
+		-
+			message: "#^PHPDoc tag @param has invalid value \\(\\$outputPath\\)\\: Unexpected token \"\\$outputPath\", expected type at offset 18$#"
+			count: 1
+			path: src/Databases/PostgresqlDatabase.php
+
+		-
+			message: "#^PHPDoc tag @param has invalid value \\(\\$type\\)\\: Unexpected token \"\\$type\", expected type at offset 18$#"
+			count: 1
+			path: src/Databases/PostgresqlDatabase.php
+
+		-
+			message: "#^PHPDoc tag @param has invalid value \\(\\$type\\)\\: Unexpected token \"\\$type\", expected type at offset 18$#"
+			count: 1
+			path: src/Filesystems/Awss3Filesystem.php
+
+		-
+			message: "#^Instantiated class BackblazeB2\\\\Client not found\\.$#"
+			count: 1
+			path: src/Filesystems/BackblazeFilesystem.php
+
+		-
+			message: "#^Instantiated class Mhetreramesh\\\\Flysystem\\\\BackblazeAdapter not found\\.$#"
+			count: 1
+			path: src/Filesystems/BackblazeFilesystem.php
+
+		-
+			message: "#^PHPDoc tag @param has invalid value \\(\\$type\\)\\: Unexpected token \"\\$type\", expected type at offset 50$#"
+			count: 1
+			path: src/Filesystems/BackblazeFilesystem.php
+
+		-
+			message: "#^Parameter \\#1 \\$adapter of class League\\\\Flysystem\\\\Filesystem constructor expects League\\\\Flysystem\\\\AdapterInterface, Mhetreramesh\\\\Flysystem\\\\BackblazeAdapter given\\.$#"
+			count: 1
+			path: src/Filesystems/BackblazeFilesystem.php
+
+		-
+			message: "#^PHPDoc tag @param has invalid value \\(\\$type\\)\\: Unexpected token \"\\$type\", expected type at offset 50$#"
+			count: 1
+			path: src/Filesystems/DropboxFilesystem.php
+
+		-
+			message: "#^PHPDoc tag @param has invalid value \\(\\$type\\)\\: Unexpected token \"\\$type\", expected type at offset 50$#"
+			count: 1
+			path: src/Filesystems/DropboxV2Filesystem.php
+
+		-
+			message: "#^PHPDoc tag @param has invalid value \\(\\$type\\)\\: Unexpected token \"\\$type\", expected type at offset 50$#"
+			count: 1
+			path: src/Filesystems/Filesystem.php
+
+		-
+			message: "#^PHPDoc tag @param has invalid value \\(\\$name\\)\\: Unexpected token \"\\$name\", expected type at offset 18$#"
+			count: 2
+			path: src/Filesystems/FilesystemProvider.php
+
+		-
+			message: "#^Parameter \\#2 \\$key of method BackupManager\\\\Filesystems\\\\FilesystemProvider\\:\\:getConfig\\(\\) expects null, string given\\.$#"
+			count: 1
+			path: src/Filesystems/FilesystemProvider.php
+
+		-
+			message: "#^Method BackupManager\\\\Filesystems\\\\FlysystemFilesystem\\:\\:get\\(\\) should return League\\\\Flysystem\\\\Filesystem but returns League\\\\Flysystem\\\\FilesystemInterface\\.$#"
+			count: 2
+			path: src/Filesystems/FlysystemFilesystem.php
+
+		-
+			message: "#^PHPDoc tag @param has invalid value \\(\\$type\\)\\: Unexpected token \"\\$type\", expected type at offset 18$#"
+			count: 1
+			path: src/Filesystems/FlysystemFilesystem.php
+
+		-
+			message: "#^PHPDoc tag @param has invalid value \\(\\$type\\)\\: Unexpected token \"\\$type\", expected type at offset 50$#"
+			count: 1
+			path: src/Filesystems/FtpFilesystem.php
+
+		-
+			message: "#^PHPDoc tag @param has invalid value \\(\\$type\\)\\: Unexpected token \"\\$type\", expected type at offset 18$#"
+			count: 1
+			path: src/Filesystems/GcsFilesystem.php
+
+		-
+			message: "#^PHPDoc tag @param has invalid value \\(\\$type\\)\\: Unexpected token \"\\$type\", expected type at offset 50$#"
+			count: 1
+			path: src/Filesystems/LocalFilesystem.php
+
+		-
+			message: "#^PHPDoc tag @param has invalid value \\(\\$type\\)\\: Unexpected token \"\\$type\", expected type at offset 50$#"
+			count: 1
+			path: src/Filesystems/RackspaceFilesystem.php
+
+		-
+			message: "#^PHPDoc tag @param has invalid value \\(\\$type\\)\\: Unexpected token \"\\$type\", expected type at offset 50$#"
+			count: 1
+			path: src/Filesystems/SftpFilesystem.php
+
+		-
+			message: "#^PHPDoc tag @param has invalid value \\(\\$type\\)\\: Unexpected token \"\\$type\", expected type at offset 50$#"
+			count: 1
+			path: src/Filesystems/WebdavFilesystem.php
+
+		-
+			message: "#^Class BackupManager\\\\ShellProcessing\\\\ShellProcessor does not have a constructor and must be instantiated without any parameters\\.$#"
+			count: 1
+			path: src/Manager.php
+
+		-
+			message: "#^PHPDoc tag @param has invalid value \\(\\$name\\)\\: Unexpected token \"\\$name\", expected type at offset 18$#"
+			count: 2
+			path: src/Procedures/Procedure.php
+
+		-
+			message: "#^Parameter \\#2 \\$key of method BackupManager\\\\Filesystems\\\\FilesystemProvider\\:\\:getConfig\\(\\) expects null, string given\\.$#"
+			count: 1
+			path: src/Procedures/Procedure.php
+
+		-
+			message: "#^Parameter \\#2 \\$filename of method BackupManager\\\\Procedures\\\\Procedure\\:\\:getWorkingFile\\(\\) expects null, string given\\.$#"
+			count: 1
+			path: src/Procedures/RestoreProcedure.php
+
+		-
+			message: "#^PHPDoc tag @param has invalid value \\(\\$sourcePath\\)\\: Unexpected token \"\\$sourcePath\", expected type at offset 55$#"
+			count: 1
+			path: src/Tasks/Compression/CompressFile.php
+
+		-
+			message: "#^PHPDoc tag @param has invalid value \\(\\$sourcePath\\)\\: Unexpected token \"\\$sourcePath\", expected type at offset 55$#"
+			count: 1
+			path: src/Tasks/Compression/DecompressFile.php
+
+		-
+			message: "#^PHPDoc tag @param has invalid value \\(\\$outputPath\\)\\: Unexpected token \"\\$outputPath\", expected type at offset 51$#"
+			count: 1
+			path: src/Tasks/Database/DumpDatabase.php
+
+		-
+			message: "#^PHPDoc tag @param has invalid value \\(\\$inputPath\\)\\: Unexpected token \"\\$inputPath\", expected type at offset 51$#"
+			count: 1
+			path: src/Tasks/Database/RestoreDatabase.php
+
+		-
+			message: "#^PHPDoc tag @param has invalid value \\(\\$filePath\\)\\: Unexpected token \"\\$filePath\", expected type at offset 55$#"
+			count: 1
+			path: src/Tasks/Storage/DeleteFile.php
+
+		-
+			message: "#^PHPDoc tag @param has invalid value \\(\\$destinationPath\\)\\: Unexpected token \"\\$destinationPath\", expected type at offset 135$#"
+			count: 1
+			path: src/Tasks/Storage/TransferFile.php
+
+		-
+			message: "#^PHPDoc tag @param has invalid value \\(\\$sourcePath\\)\\: Unexpected token \"\\$sourcePath\", expected type at offset 61$#"
+			count: 1
+			path: src/Tasks/Storage/TransferFile.php
+

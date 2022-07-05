@@ -12,7 +12,7 @@ class GzipCompressor implements Compressor
      */
     public function handles($type)
     {
-        return strtolower($type) == 'gzip';
+        return strtolower($type ?? '') == 'gzip';
     }
 
     /**

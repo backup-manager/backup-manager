@@ -18,4 +18,4 @@ interface Filesystem
      * @return \League\Flysystem\Filesystem
      */
     public function get(array $config);
-} 
+}

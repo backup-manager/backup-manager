@@ -70,4 +70,4 @@ class Config
         }
         return $this->config[$name][$field];
     }
-} 
+}

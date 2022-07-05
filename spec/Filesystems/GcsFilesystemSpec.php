@@ -6,13 +6,15 @@ use PhpSpec\ObjectBehavior;
 use Prophecy\Argument;
 use Superbalist\Flysystem\GoogleStorage\GoogleStorageAdapter;
 
-class GcsFilesystemSpec extends ObjectBehavior {
-
-    function it_is_initializable() {
+class GcsFilesystemSpec extends ObjectBehavior
+{
+    public function it_is_initializable()
+    {
         $this->shouldHaveType('BackupManager\Filesystems\GcsFilesystem');
     }
 
-    function it_should_recognize_its_type_with_case_insensitivity() {
+    public function it_should_recognize_its_type_with_case_insensitivity()
+    {
         foreach (['gcs', 'GCS', 'Gcs'] as $type) {
             $this->handles($type)->shouldBe(true);
         }
@@ -22,11 +24,13 @@ class GcsFilesystemSpec extends ObjectBehavior {
         }
     }
 
-    function it_should_provide_an_instance_of_an_gcp_filesystem() {
+    public function it_should_provide_an_instance_of_an_gcp_filesystem()
+    {
         $this->get($this->getConfig())->getAdapter()->shouldHaveType(GoogleStorageAdapter::class);
     }
 
-    function getConfig() {
+    public function getConfig()
+    {
         return [
             'type'         => 'gcs',
             'keyFilePath'  => '',

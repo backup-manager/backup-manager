@@ -16,7 +16,7 @@ class Awss3Filesystem implements Filesystem
      */
     public function handles($type)
     {
-        return strtolower($type) == 'awss3';
+        return strtolower($type ?? '') == 'awss3';
     }
 
     /**

@@ -10,29 +10,29 @@ interface Compressor
      * @param $type
      * @return bool
      */
-    function handles($type);
+    public function handles($type);
 
     /**
      * @param $inputPath
      * @return string
      */
-    function getCompressCommandLine($inputPath);
+    public function getCompressCommandLine($inputPath);
 
     /**
      * @param $outputPath
      * @return string
      */
-    function getDecompressCommandLine($outputPath);
+    public function getDecompressCommandLine($outputPath);
 
     /**
      * @param $inputPath
      * @return string
      */
-    function getCompressedPath($inputPath);
+    public function getCompressedPath($inputPath);
 
     /**
      * @param $inputPath
      * @return string
      */
-    function getDecompressedPath($inputPath);
+    public function getDecompressedPath($inputPath);
 }

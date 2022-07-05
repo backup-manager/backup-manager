@@ -15,7 +15,7 @@ class MysqlDatabase implements Database
      */
     public function handles($type)
     {
-        return strtolower($type) == 'mysql';
+        return strtolower($type ?? '') == 'mysql';
     }
 
     /**
@@ -57,7 +57,8 @@ class MysqlDatabase implements Database
         }
 
         $command = 'mysqldump --routines ' . implode(' ', $extras) . '%s %s > %s';
-        return sprintf($command,
+        return sprintf(
+            $command,
             $params,
             escapeshellarg($this->config['database']),
             escapeshellarg($outputPath)
@@ -84,7 +85,8 @@ class MysqlDatabase implements Database
             }
         }
 
-        return sprintf('mysql%s ' . implode(' ', $extras) . ' %s -e "source %s"',
+        return sprintf(
+            'mysql%s ' . implode(' ', $extras) . ' %s -e "source %s"',
             $params,
             escapeshellarg($this->config['database']),
             $inputPath
@@ -96,7 +98,6 @@ class MysqlDatabase implements Database
      */
     public function getIgnoreTableParameter()
     {
-
         if (!is_array($this->config['ignoreTables']) || count($this->config['ignoreTables']) === 0) {
             return '';
         }
@@ -107,8 +108,9 @@ class MysqlDatabase implements Database
         }, $this->config['ignoreTables']);
 
         $commands = [];
-        foreach ($ignoreTables AS $ignoreTable) {
-            $commands[] = sprintf('--ignore-table=%s',
+        foreach ($ignoreTables as $ignoreTable) {
+            $commands[] = sprintf(
+                '--ignore-table=%s',
                 escapeshellarg($ignoreTable)
             );
         }
