@@ -17,7 +17,7 @@ class GcsFilesystem implements Filesystem
      */
     public function handles($type)
     {
-        return strtolower($type) == 'gcs';
+        return strtolower($type ?? '') == 'gcs';
     }
 
     /**

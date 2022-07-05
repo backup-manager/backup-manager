@@ -16,7 +16,7 @@ class LocalFilesystem implements Filesystem
      */
     public function handles($type)
     {
-        return strtolower($type) == 'local';
+        return strtolower($type ?? '') == 'local';
     }
 
     /**

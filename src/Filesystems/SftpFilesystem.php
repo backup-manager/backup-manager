@@ -16,7 +16,7 @@ class SftpFilesystem implements Filesystem
      */
     public function handles($type)
     {
-        return strtolower($type) == 'sftp';
+        return strtolower($type ?? '') == 'sftp';
     }
 
     /**

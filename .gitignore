@@ -1,5 +1,4 @@
 /vendor
 /.phpspec
-/bin
 composer.lock
 .php-cs-fixer.cache

@@ -17,7 +17,7 @@ class WebdavFilesystem implements Filesystem
      */
     public function handles($type)
     {
-        return strtolower($type) === 'webdav';
+        return strtolower($type ?? '') === 'webdav';
     }
 
     /**

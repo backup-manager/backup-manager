@@ -17,6 +17,12 @@
       <code>$outputPath</code>
     </ParamNameMismatch>
   </file>
+  <file src="src/Filesystems/BackblazeFilesystem.php">
+    <UndefinedClass occurrences="2">
+      <code>BackblazeAdapter</code>
+      <code>Client</code>
+    </UndefinedClass>
+  </file>
   <file src="src/Filesystems/FilesystemProvider.php">
     <InvalidArgument occurrences="1">
       <code>'type'</code>
@@ -36,5 +42,14 @@
     <InvalidArgument occurrences="1">
       <code>uniqid() . basename($sourcePath)</code>
     </InvalidArgument>
+  </file>
+  <file src="vendor/symfony/process/Exception/ProcessTimedOutException.php">
+    <ParseError occurrences="5">
+      <code>,</code>
+      <code>,</code>
+      <code>,</code>
+      <code>=&gt;</code>
+      <code>=&gt;</code>
+    </ParseError>
   </file>
 </files>

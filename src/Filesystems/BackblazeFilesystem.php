@@ -10,7 +10,6 @@ use Mhetreramesh\Flysystem\BackblazeAdapter;
  */
 class BackblazeFilesystem implements Filesystem
 {
-
     /**
      * Test fitness of visitor.
      * @param $type
@@ -18,7 +17,7 @@ class BackblazeFilesystem implements Filesystem
      */
     public function handles($type)
     {
-        return strtolower($type) == 'b2';
+        return strtolower($type ?? '') == 'b2';
     }
 
     /**
