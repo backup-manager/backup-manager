@@ -8,13 +8,15 @@ use Superbalist\Flysystem\GoogleStorage\GoogleStorageAdapter;
  * Class GcsFilesystem
  * @package BackupManager\Filesystems
  */
-class GcsFilesystem implements Filesystem {
+class GcsFilesystem implements Filesystem
+{
 
     /**
      * @param $type
      * @return bool
      */
-    public function handles($type) {
+    public function handles($type)
+    {
         return strtolower($type) == 'gcs';
     }
 
@@ -22,8 +24,8 @@ class GcsFilesystem implements Filesystem {
      * @param array $config
      * @return Flysystem
      */
-    public function get(array $config) {
-
+    public function get(array $config)
+    {
         $storageClient = new StorageClient([
             'projectId' => $config['project'],
             'keyFilePath' => isset($config['keyFilePath']) ? $config['keyFilePath'] : null,

@@ -51,7 +51,8 @@ class BackupProcedure extends Procedure
         // upload the archive
         foreach ($destinations as $destination) {
             $sequence->add(new Tasks\Storage\TransferFile(
-                $localFilesystem, basename($workingFile),
+                $localFilesystem,
+                basename($workingFile),
                 $this->filesystems->get($destination->destinationFilesystem()),
                 $compressor->getCompressedPath($destination->destinationPath())
             ));
