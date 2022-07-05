@@ -1,7 +1,7 @@
 <?php namespace BackupManager\Filesystems;
 
-use AsyncAws\Flysystem\S3\S3FilesystemV1;
 use AsyncAws\S3\S3Client;
+use League\Flysystem\AsyncAwsS3\AsyncAwsS3Adapter;
 use League\Flysystem\Filesystem as Flysystem;
 
 /**
@@ -16,7 +16,7 @@ class AsyncAwsS3Filesystem implements Filesystem
     public function handles($type)
     {
         $type = strtolower($type);
-        
+
         return $type == 'asyncawss3' || $type == 'async-awss3' || $type == 'async-aws-s3';
     }
 
@@ -46,6 +46,6 @@ class AsyncAwsS3Filesystem implements Filesystem
             $clientConfig['endpoint'] = $config['endpoint'];
         }
 
-        return new Flysystem(new S3FilesystemV1(new S3Client($clientConfig), $config['bucket'], $config['root']));
+        return new Flysystem(new AsyncAwsS3Adapter(new S3Client($clientConfig), $config['bucket'], $config['root']));
     }
 }

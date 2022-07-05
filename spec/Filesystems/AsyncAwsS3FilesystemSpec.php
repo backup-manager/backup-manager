@@ -21,7 +21,7 @@ class AsyncAwsS3FilesystemSpec extends ObjectBehavior {
     }
 
     function it_should_provide_an_instance_of_an_s3_filesystem() {
-        $this->get($this->getConfig())->getAdapter()->shouldHaveType('AsyncAws\Flysystem\S3\S3FilesystemV1');
+        $this->get($this->getConfig())->getAdapter()->shouldHaveType('League\Flysystem\AsyncAwsS3\AsyncAwsS3Adapter');
     }
 
     function getConfig() {
