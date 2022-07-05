@@ -1,7 +1,7 @@
 <?php namespace BackupManager\Filesystems;
 
-use League\Flysystem\Adapter\Ftp;
 use League\Flysystem\Filesystem as Flysystem;
+use League\Flysystem\PhpseclibV2\SftpAdapter;
 
 /**
  * Class FtpFilesystem
@@ -25,6 +25,6 @@ class FtpFilesystem implements Filesystem
      */
     public function get(array $config)
     {
-        return new Flysystem(new Ftp($config));
+        return new Flysystem(new SftpAdapter($config));
     }
 }

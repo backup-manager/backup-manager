@@ -32,12 +32,4 @@ class FlysystemFilesystemSpec extends ObjectBehavior
         $this->beConstructedWith([$name => $filesystem]);
         $this->get(['name' => $name])->shouldHaveType(FilesystemAdapter::class);
     }
-
-    public function it_should_provide_an_instance_of_an_flysystem_filesystem_in_mount_manager(MountManager $manager, FilesystemAdapter $filesystem)
-    {
-        $prefix = 'upload';
-        $manager->getFilesystem(Argument::exact($prefix))->willReturn($filesystem);
-        $this->beConstructedWith([], $manager);
-        $this->get(['prefix' => $prefix])->shouldHaveType(FilesystemAdapter::class);
-    }
 }

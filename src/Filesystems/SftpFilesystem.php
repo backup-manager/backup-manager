@@ -1,7 +1,7 @@
 <?php namespace BackupManager\Filesystems;
 
-use League\Flysystem\Sftp\SftpAdapter;
 use League\Flysystem\Filesystem as Flysystem;
+use League\Flysystem\PhpseclibV2\SftpAdapter;
 
 /**
  * Class SftpFilesystem

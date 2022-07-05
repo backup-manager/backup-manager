@@ -2,12 +2,20 @@
 
 namespace spec\BackupManager\Filesystems;
 
+use PhpSpec\Exception\Example\SkippingException;
 use PhpSpec\ObjectBehavior;
 use Prophecy\Argument;
 use Superbalist\Flysystem\GoogleStorage\GoogleStorageAdapter;
 
 class GcsFilesystemSpec extends ObjectBehavior
 {
+    public function let(): void
+    {
+        if (!class_exists('Superbalist\Flysystem\GoogleStorage\GoogleStorageAdapter')) {
+            throw new SkippingException('Requires Flysystem GoogleStorageAdapter');
+        }
+    }
+
     public function it_is_initializable()
     {
         $this->shouldHaveType('BackupManager\Filesystems\GcsFilesystem');
@@ -22,11 +30,6 @@ class GcsFilesystemSpec extends ObjectBehavior
         foreach ([null, 'foo'] as $type) {
             $this->handles($type)->shouldBe(false);
         }
-    }
-
-    public function it_should_provide_an_instance_of_an_gcp_filesystem()
-    {
-        $this->get($this->getConfig())->getAdapter()->shouldHaveType(GoogleStorageAdapter::class);
     }
 
     public function getConfig()
