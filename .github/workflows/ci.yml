@@ -1,0 +1,49 @@
+name: Tests
+on: [pull_request]
+
+jobs:
+  phpunit:
+    name: PHPUnit
+    runs-on: ubuntu-latest
+    strategy:
+      max-parallel: 10
+      matrix:
+        php: [ '7.3', '7.4', '8.0', '8.1']
+
+    steps:
+      - name: Set up PHP
+        uses: shivammathur/setup-php@v2
+        with:
+          php-version: ${{ matrix.php }}
+          coverage: none
+          tools: flex
+
+      - name: Checkout code
+        uses: actions/checkout@v2
+
+      - name: Download dependencies
+        uses: ramsey/composer-install@v2
+
+      - name: Run tests
+        run: ./vendor/bin/phpspec run -fpretty -v
+
+  lowest:
+    name: Lowest deps
+    runs-on: ubuntu-latest
+    steps:
+      - name: Set up PHP
+        uses: shivammathur/setup-php@v2
+        with:
+          php-version: 7.3
+          coverage: none
+
+      - name: Checkout code
+        uses: actions/checkout@v2
+
+      - name: Download dependencies
+        uses: ramsey/composer-install@v2
+        with:
+          dependency-versions: "lowest"
+
+      - name: Run tests
+        run: ./vendor/bin/phpspec run -fpretty -v
