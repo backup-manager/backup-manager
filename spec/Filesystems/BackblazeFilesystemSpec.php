@@ -6,10 +6,18 @@ use BackblazeB2\Http\Client;
 use GuzzleHttp\Handler\MockHandler;
 use GuzzleHttp\HandlerStack;
 use GuzzleHttp\Psr7\Response;
+use PhpSpec\Exception\Example\SkippingException;
 use PhpSpec\ObjectBehavior;
 
 class BackblazeFilesystemSpec extends ObjectBehavior
 {
+    public function let(): void
+    {
+        if (!class_exists('Mhetreramesh\Flysystem\BackblazeAdapter')) {
+            throw new SkippingException('Requires Backblaze');
+        }
+    }
+
     public function it_is_initializable()
     {
         $this->shouldHaveType('BackupManager\Filesystems\BackblazeFilesystem');
@@ -51,9 +59,9 @@ class BackblazeFilesystemSpec extends ObjectBehavior
     public function getMockAuthorizationResponse()
     {
         $body = '{
-                    "accountId: "test_id", 
-                    "apiUrl": "https://api900.backblaze.com", 
-                    "authorizationToken": "testAuthToken, 
+                    "accountId: "test_id",
+                    "apiUrl": "https://api900.backblaze.com",
+                    "authorizationToken": "testAuthToken,
                     "downloadUrl": "https://f900.backblaze.com"
                 }';
 

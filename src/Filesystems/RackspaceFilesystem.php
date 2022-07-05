@@ -17,7 +17,7 @@ class RackspaceFilesystem implements Filesystem
      */
     public function handles($type)
     {
-        return strtolower($type) == 'rackspace';
+        return strtolower($type ?? '') == 'rackspace';
     }
 
     /**

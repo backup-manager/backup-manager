@@ -31,7 +31,7 @@ class FlysystemFilesystem implements Filesystem
      */
     public function handles($type)
     {
-        return strtolower($type) === 'flysystem';
+        return strtolower($type ?? '') === 'flysystem';
     }
 
     public function get(array $config)

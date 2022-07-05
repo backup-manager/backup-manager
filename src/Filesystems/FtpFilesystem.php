@@ -16,7 +16,7 @@ class FtpFilesystem implements Filesystem
      */
     public function handles($type)
     {
-        return strtolower($type) == 'ftp';
+        return strtolower($type ?? '') == 'ftp';
     }
 
     /**

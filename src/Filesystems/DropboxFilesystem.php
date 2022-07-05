@@ -17,7 +17,7 @@ class DropboxFilesystem implements Filesystem
      */
     public function handles($type)
     {
-        return strtolower($type) == 'dropbox';
+        return strtolower($type ?? '') == 'dropbox';
     }
 
     /**

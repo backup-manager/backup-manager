@@ -16,7 +16,7 @@ class DropboxV2Filesystem implements Filesystem
      */
     public function handles($type)
     {
-        return strtolower($type) == 'dropboxv2';
+        return strtolower($type ?? '') == 'dropboxv2';
     }
 
     /**

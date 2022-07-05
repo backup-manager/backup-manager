@@ -12,7 +12,7 @@ class NullCompressor implements Compressor
      */
     public function handles($type)
     {
-        return strtolower($type) == 'null';
+        return strtolower($type ?? '') == 'null';
     }
 
     /**
