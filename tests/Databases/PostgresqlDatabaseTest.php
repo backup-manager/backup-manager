@@ -16,7 +16,7 @@ final class PostgresqlDatabaseTest extends TestCase
             '3306',
             'bar',
             'baz',
-            'test'
+            'test',
         );
 
         self::assertSame("PGPASSWORD='baz' pg_dump --clean --host='foo' --port='3306' --username='bar' 'test' -f 'outputPath'", $sUT->getDumpCommandLine('outputPath'));
@@ -29,7 +29,7 @@ final class PostgresqlDatabaseTest extends TestCase
             '3306',
             'bar',
             'baz',
-            'test'
+            'test',
         );
         self::assertSame("PGPASSWORD='baz' psql --host='foo' --port='3306' --user='bar' 'test' -f 'outputPath'", $sUT->getRestoreCommandLine('outputPath'));
     }

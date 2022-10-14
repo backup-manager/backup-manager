@@ -16,7 +16,7 @@ final class MysqlDatabaseTest extends TestCase
             '3306',
             'bar',
             'baz',
-            'test'
+            'test',
         );
 
         self::assertSame("mysqldump --routines --host='foo' --port='3306' --user='bar' --password='baz' 'test' > 'outputPath'", $sUT->getDumpCommandLine('outputPath'));
@@ -29,7 +29,7 @@ final class MysqlDatabaseTest extends TestCase
             '3306',
             'bar',
             '',
-            'test'
+            'test',
         );
 
         self::assertSame("mysqldump --routines --host='foo' --port='3306' --user='bar' 'test' > 'outputPath'", $sUT->getDumpCommandLine('outputPath'));
@@ -46,7 +46,7 @@ final class MysqlDatabaseTest extends TestCase
             true,
             true,
             ['tutu', ' '],
-            ['test']
+            ['test'],
         );
 
         self::assertSame("mysqldump --routines --single-transaction --ssl --ignore-table='test.test' tutu --host='foo' --port='3306' --user='bar' --password='baz' 'test' > 'outputPath'", $sUT->getDumpCommandLine('outputPath'));
@@ -60,7 +60,7 @@ final class MysqlDatabaseTest extends TestCase
             'bar',
             'baz',
             'test',
-            true
+            true,
         );
 
         self::assertSame("mysqldump --routines --single-transaction --host='foo' --port='3306' --user='bar' --password='baz' 'test' > 'outputPath'", $sUT->getDumpCommandLine('outputPath'));
@@ -73,7 +73,7 @@ final class MysqlDatabaseTest extends TestCase
             '3306',
             'bar',
             'baz',
-            'test'
+            'test',
         );
         self::assertSame("mysql --host='foo' --port='3306' --user='bar' --password='baz' 'test' -e \"source outputPath\"", $sUT->getRestoreCommandLine('outputPath'));
     }
@@ -89,7 +89,7 @@ final class MysqlDatabaseTest extends TestCase
             true,
             true,
             ['toto'],
-            ['test']
+            ['test'],
         );
         self::assertSame("mysql --ssl --host='foo' --port='3306' --user='bar' --password='baz' 'test' -e \"source outputPath\"", $sUT->getRestoreCommandLine('outputPath'));
     }
