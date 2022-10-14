@@ -25,7 +25,7 @@
   "require-dev": {
     "doctrine/coding-standard": "^9.0.0",
     "phpunit/phpunit": "^9.5.20",
-    "vimeo/psalm": "^4.23.0",
+    "vimeo/psalm": "^4.29.0",
     "infection/infection": "^0.26.10"
   },
   "config": {
