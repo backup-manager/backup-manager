@@ -24,8 +24,10 @@ class BackupManager implements BackupManagerContract
     private BackupProcedure $backupProcedure;
     private RestoreProcedure $restoreProcedure;
 
-    public function __construct(?BackupProcedure $backupProcedure = null, ?RestoreProcedure $restoreProcedure = null)
-    {
+    public function __construct(
+        BackupProcedure|null $backupProcedure = null,
+        RestoreProcedure|null $restoreProcedure = null,
+    ) {
         $this->backupProcedure  = $backupProcedure ?? new Backup();
         $this->restoreProcedure = $restoreProcedure ?? new Restore();
     }

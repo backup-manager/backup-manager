@@ -8,9 +8,7 @@ use Symfony\Component\Process\Process;
 
 class ShellProcessor
 {
-    /**
-     * @throws ShellProcessFailed
-     */
+    /** @throws ShellProcessFailed */
     public function __invoke(Process $process): void
     {
         $process->setTimeout(500.0);

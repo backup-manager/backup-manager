@@ -20,9 +20,7 @@ class BackupManagerRessource
         $this->resource = $resource;
     }
 
-    /**
-     * @return resource
-     */
+    /** @return resource */
     public function getResource()
     {
         return $this->resource;

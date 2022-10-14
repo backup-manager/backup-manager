@@ -12,42 +12,21 @@ use function trim;
 
 final class MysqlDatabase implements Database
 {
-    private string $host;
-    private string $port;
-    private string $user;
-    private string $password;
-    private string $database;
-    private bool $singleTransaction;
-    private bool $ssl;
-    /** @var array<int, string> */
-    private array $extraParams;
-    /** @var array<int, string> */
-    private array $ignoreTables;
-
     /**
      * @param array<int, string> $extraParams
      * @param array<int, string> $ignoreTables
      */
     public function __construct(
-        string $host,
-        string $port,
-        string $user,
-        string $password,
-        string $database,
-        bool $singleTransaction = false,
-        bool $ssl = false,
-        array $extraParams = [],
-        array $ignoreTables = []
+        private readonly string $host,
+        private readonly string $port,
+        private readonly string $user,
+        private readonly string $password,
+        private readonly string $database,
+        private readonly bool $singleTransaction = false,
+        private readonly bool $ssl = false,
+        private readonly array $extraParams = [],
+        private readonly array $ignoreTables = [],
     ) {
-        $this->host              = $host;
-        $this->port              = $port;
-        $this->user              = $user;
-        $this->password          = $password;
-        $this->database          = $database;
-        $this->singleTransaction = $singleTransaction;
-        $this->ssl               = $ssl;
-        $this->extraParams       = $extraParams;
-        $this->ignoreTables      = $ignoreTables;
     }
 
     public function getDumpCommandLine(string $path): string
@@ -62,7 +41,7 @@ final class MysqlDatabase implements Database
                 ...$this->extraParams,
             ]),
             escapeshellarg($this->database),
-            escapeshellarg($path)
+            escapeshellarg($path),
         );
     }
 
@@ -72,7 +51,7 @@ final class MysqlDatabase implements Database
             'mysql %s %s -e "source %s"',
             self::addConnectionInformation([$this->ssl ? '--ssl' : '']),
             escapeshellarg($this->database),
-            $path
+            $path,
         );
     }
 
@@ -97,9 +76,7 @@ final class MysqlDatabase implements Database
         return array_filter($value, static fn (string $value) => trim($value) !== '');
     }
 
-    /**
-     * @param array<int, string> $params
-     */
+    /** @param array<int, string> $params */
     private function addConnectionInformation(array $params): string
     {
         $data = ['host' => $this->host, 'port' => $this->port, 'user' => $this->user, 'password' => $this->password];

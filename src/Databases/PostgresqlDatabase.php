@@ -9,24 +9,13 @@ use function sprintf;
 
 final class PostgresqlDatabase implements Database
 {
-    private string $host;
-    private string $port;
-    private string $user;
-    private string $password;
-    private string $database;
-
     public function __construct(
-        string $host,
-        string $port,
-        string $user,
-        string $password,
-        string $database
+        private readonly string $host,
+        private readonly string $port,
+        private readonly string $user,
+        private readonly string $password,
+        private readonly string $database,
     ) {
-        $this->host     = $host;
-        $this->port     = $port;
-        $this->user     = $user;
-        $this->password = $password;
-        $this->database = $database;
     }
 
     public function getDumpCommandLine(string $path): string
@@ -38,7 +27,7 @@ final class PostgresqlDatabase implements Database
             escapeshellarg($this->port),
             escapeshellarg($this->user),
             escapeshellarg($this->database),
-            escapeshellarg($path)
+            escapeshellarg($path),
         );
     }
 
@@ -51,7 +40,7 @@ final class PostgresqlDatabase implements Database
             escapeshellarg($this->port),
             escapeshellarg($this->user),
             escapeshellarg($this->database),
-            escapeshellarg($path)
+            escapeshellarg($path),
         );
     }
 }

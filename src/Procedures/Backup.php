@@ -19,7 +19,7 @@ final class Backup implements BackupProcedure
 {
     private ShellProcessor $shellProcessor;
 
-    public function __construct(?ShellProcessor $shellProcessor = null)
+    public function __construct(ShellProcessor|null $shellProcessor = null)
     {
         $this->shellProcessor = $shellProcessor ?? new ShellProcessor();
     }
