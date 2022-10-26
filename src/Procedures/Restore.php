@@ -30,7 +30,7 @@ final class Restore implements RestoreProcedure
 
         // download or retrieve the archived backup file
 
-        $to->writeStream(basename($workingFile), $localFileSystem->readStream($sourcePath));
+        $localFileSystem->writeStream(basename($workingFile), $to->readStream($sourcePath));
 
         // decompress the archived backup
         foreach ($compressorList as $compressor) {
