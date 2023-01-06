@@ -16,7 +16,6 @@ interface BackupProcedure
         LocalFilesystemAdapter $localFileSystem,
         Database $database,
         array $destinations,
-        string $localTmpPath,
         Compressor ...$compressor,
     ): void;
 }

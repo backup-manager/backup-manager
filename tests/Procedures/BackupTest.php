@@ -40,6 +40,6 @@ final class BackupTest extends TestCase
         $local->expects(self::once())->method('readStream')->with('my compressd path')->willReturn($ressource);
         $local->expects(self::once())->method('delete')->with('my compressd path');
 
-        $sUT->__invoke($local, $database, [$destination], 'my tmp path', $compressor);
+        $sUT->__invoke($local, $database, [$destination], $compressor);
     }
 }

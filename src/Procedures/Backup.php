@@ -29,10 +29,9 @@ final class Backup implements BackupProcedure
         LocalFilesystemAdapter $localFileSystem,
         Database $database,
         array $destinations,
-        string $localTmpPath,
         Compressor ...$compressorList,
     ): void {
-        $tmpPath = sprintf('%s/%s', $localTmpPath, uniqid());
+        $tmpPath = sprintf('%s/%s', $localFileSystem->getRootPath(), uniqid());
 
         $this->shellProcessor->__invoke(Process::fromShellCommandline($database->getDumpCommandLine($tmpPath)));
 
