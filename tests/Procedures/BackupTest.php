@@ -9,6 +9,7 @@ use Fezfez\BackupManager\Databases\Database;
 use Fezfez\BackupManager\Filesystems\BackupManagerFilesystemAdapter;
 use Fezfez\BackupManager\Filesystems\BackupManagerRessource;
 use Fezfez\BackupManager\Filesystems\Destination;
+use Fezfez\BackupManager\Filesystems\LocalFilesystemAdapter;
 use Fezfez\BackupManager\Procedures\Backup;
 use Fezfez\BackupManager\ShellProcessing\ShellProcessor;
 use PHPUnit\Framework\TestCase;
@@ -19,7 +20,7 @@ final class BackupTest extends TestCase
     public function testOk(): void
     {
         $shellProcessor = $this->createMock(ShellProcessor::class);
-        $local          = $this->createMock(BackupManagerFilesystemAdapter::class);
+        $local          = $this->createMock(LocalFilesystemAdapter::class);
         $to             = $this->createMock(BackupManagerFilesystemAdapter::class);
         $database       = $this->createMock(Database::class);
         $compressor     = $this->createMock(Compressor::class);
