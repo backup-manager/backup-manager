@@ -28,10 +28,10 @@ final class BackupManagerTest extends TestCase
 
         $sUT = new BackupManager($backupProcedure, $restoreProcedure);
 
-        $backupProcedure->expects(self::once())->method('__invoke')->with($local, $database, [$destination], 'tutu', $compressor);
+        $backupProcedure->expects(self::once())->method('__invoke')->with($local, $database, [$destination], $compressor);
         $restoreProcedure->expects(self::once())->method('__invoke')->with($local, $to, 'toto', $database, $compressor);
 
-        $sUT->backup($local, $database, [$destination], 'tutu', $compressor);
+        $sUT->backup($local, $database, [$destination], $compressor);
         $sUT->restore($local, $to, 'toto', $database, $compressor);
     }
 }

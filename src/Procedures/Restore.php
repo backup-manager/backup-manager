@@ -32,7 +32,7 @@ final class Restore implements RestoreProcedure
         Compressor ...$compressorList,
     ): void {
         // begin the life of a new working file
-        $workingFile = sprintf('%s/%s', basename($sourcePath), uniqid());
+        $workingFile = sprintf('%s/%s', $localFileSystem->getRootPath(), uniqid()) . '.gz';
 
         // download or retrieve the archived backup file
 
