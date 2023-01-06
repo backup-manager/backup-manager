@@ -7,6 +7,7 @@ namespace Fezfez\BackupManager\Procedures;
 use Fezfez\BackupManager\Compressors\Compressor;
 use Fezfez\BackupManager\Databases\Database;
 use Fezfez\BackupManager\Filesystems\BackupManagerFilesystemAdapter;
+use Fezfez\BackupManager\Filesystems\LocalFilesystemAdapter;
 use Fezfez\BackupManager\ShellProcessing\ShellProcessor;
 use Symfony\Component\Process\Process;
 
@@ -23,14 +24,19 @@ final class Restore implements RestoreProcedure
         $this->shellProcessor = $shellProcessor ?? new ShellProcessor();
     }
 
-    public function __invoke(BackupManagerFilesystemAdapter $localFileSystem, BackupManagerFilesystemAdapter $to, string $sourcePath, Database $databaseName, Compressor ...$compressorList): void
-    {
+    public function __invoke(
+        LocalFilesystemAdapter $localFileSystem,
+        BackupManagerFilesystemAdapter $to,
+        string $sourcePath,
+        Database $databaseName,
+        Compressor ...$compressorList,
+    ): void {
         // begin the life of a new working file
         $workingFile = sprintf('%s/%s', basename($sourcePath), uniqid());
 
         // download or retrieve the archived backup file
 
-        $to->writeStream(basename($workingFile), $localFileSystem->readStream($sourcePath));
+        $localFileSystem->writeStream(basename($workingFile), $to->readStream($sourcePath));
 
         // decompress the archived backup
         foreach ($compressorList as $compressor) {

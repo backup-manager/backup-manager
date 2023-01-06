@@ -6,8 +6,8 @@ namespace Fezfez\BackupManager\Procedures;
 
 use Fezfez\BackupManager\Compressors\Compressor;
 use Fezfez\BackupManager\Databases\Database;
-use Fezfez\BackupManager\Filesystems\BackupManagerFilesystemAdapter;
 use Fezfez\BackupManager\Filesystems\Destination;
+use Fezfez\BackupManager\Filesystems\LocalFilesystemAdapter;
 use Fezfez\BackupManager\ShellProcessing\ShellProcessor;
 use Symfony\Component\Process\Process;
 
@@ -25,8 +25,13 @@ final class Backup implements BackupProcedure
     }
 
     /** @param Destination[] $destinations */
-    public function __invoke(BackupManagerFilesystemAdapter $localFileSystem, Database $database, array $destinations, string $localTmpPath, Compressor ...$compressorList): void
-    {
+    public function __invoke(
+        LocalFilesystemAdapter $localFileSystem,
+        Database $database,
+        array $destinations,
+        string $localTmpPath,
+        Compressor ...$compressorList,
+    ): void {
         $tmpPath = sprintf('%s/%s', $localTmpPath, uniqid());
 
         $this->shellProcessor->__invoke(Process::fromShellCommandline($database->getDumpCommandLine($tmpPath)));
