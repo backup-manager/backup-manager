@@ -11,7 +11,7 @@ use Fezfez\BackupManager\Filesystems\LocalFilesystemAdapter;
 use Fezfez\BackupManager\ShellProcessing\ShellProcessor;
 use Symfony\Component\Process\Process;
 
-use function basename;
+use function date;
 use function sprintf;
 use function uniqid;
 
@@ -31,9 +31,10 @@ final class Backup implements BackupProcedure
         array $destinations,
         Compressor ...$compressorList,
     ): void {
-        $tmpPath = sprintf('%s/%s', $localFileSystem->getRootPath(), uniqid());
+        $tmpPath = sprintf('%s/%s-%s.sql', $localFileSystem->getRootPath(), date('d-m-Y-H-i-s'), uniqid());
 
-        $this->shellProcessor->__invoke(Process::fromShellCommandline($database->getDumpCommandLine($tmpPath)));
+        $this->shellProcessor->__invoke(Process::fromShellCommandline($database->getDumpStructCommandLine($tmpPath)));
+        $this->shellProcessor->__invoke(Process::fromShellCommandline($database->getDumpDataCommandLine($tmpPath)));
 
         foreach ($compressorList as $compressor) {
             $tmpPath = $compressor->compress($tmpPath);
@@ -41,10 +42,10 @@ final class Backup implements BackupProcedure
 
         // upload the archive
         foreach ($destinations as $destination) {
-            $destination->destinationFilesystem()->writeStream($destination->destinationPath(), $localFileSystem->readStream(basename($tmpPath)));
+            $destination->destinationFilesystem()->writeStream($destination->destinationPath(), $localFileSystem->readStream($tmpPath));
         }
 
         // cleanup the local archive
-        $localFileSystem->delete(basename($tmpPath));
+        $localFileSystem->delete($tmpPath);
     }
 }

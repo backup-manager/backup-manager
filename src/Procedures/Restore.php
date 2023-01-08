@@ -11,7 +11,6 @@ use Fezfez\BackupManager\Filesystems\LocalFilesystemAdapter;
 use Fezfez\BackupManager\ShellProcessing\ShellProcessor;
 use Symfony\Component\Process\Process;
 
-use function basename;
 use function sprintf;
 use function uniqid;
 
@@ -36,7 +35,7 @@ final class Restore implements RestoreProcedure
 
         // download or retrieve the archived backup file
 
-        $localFileSystem->writeStream(basename($workingFile), $to->readStream($sourcePath));
+        $localFileSystem->writeStream($workingFile, $to->readStream($sourcePath));
 
         // decompress the archived backup
         foreach ($compressorList as $compressor) {
@@ -45,6 +44,6 @@ final class Restore implements RestoreProcedure
 
         $this->shellProcessor->__invoke(Process::fromShellCommandline($databaseName->getRestoreCommandLine($workingFile)));
 
-        $localFileSystem->delete(basename($workingFile));
+        $localFileSystem->delete($workingFile);
     }
 }

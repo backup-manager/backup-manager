@@ -6,7 +6,9 @@ namespace Fezfez\BackupManager\Databases;
 
 interface Database
 {
-    public function getDumpCommandLine(string $path): string;
+    public function getDumpStructCommandLine(string $path): string;
+
+    public function getDumpDataCommandLine(string $path): string;
 
     public function getRestoreCommandLine(string $path): string;
 }

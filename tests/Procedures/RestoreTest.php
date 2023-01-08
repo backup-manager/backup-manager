@@ -27,7 +27,8 @@ final class RestoreTest extends TestCase
 
         $sUT = new Restore($shellProcessor);
 
-        $local->expects(self::once())->method('writeStream')->with(self::anything(), $ressource);
+        $local->expects(self::once())->method('getRootPath')->willReturn('myrootpath');
+        $local->expects(self::once())->method('writeStream')->with(self::matchesRegularExpression('/myrootpath\/.*\.gz/'), $ressource);
         $to->expects(self::once())->method('readStream')->with('toto')->willReturn($ressource);
         $compressor->expects(self::once())->method('decompress')->with(self::anything())->willReturn('toto');
         $database->expects(self::once())->method('getRestoreCommandLine')->with('toto')->willReturn('a script');

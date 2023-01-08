@@ -19,7 +19,8 @@ final class PostgresqlDatabaseTest extends TestCase
             'test',
         );
 
-        self::assertSame("PGPASSWORD='baz' pg_dump --clean --host='foo' --port='3306' --username='bar' 'test' -f 'outputPath'", $sUT->getDumpCommandLine('outputPath'));
+        self::assertSame("PGPASSWORD='baz' pg_dump --column-inserts --data-only --clean --host='foo' --port='3306' --username='bar' 'test' -f 'outputPath'", $sUT->getDumpDataCommandLine('outputPath'));
+        self::assertSame("PGPASSWORD='baz' pg_dump --schema-only --section=pre-data --clean --host='foo' --port='3306' --username='bar' 'test' -f 'outputPath'", $sUT->getDumpStructCommandLine('outputPath'));
     }
 
     public function testGenerateAValidDatabaseRestoreCommand(): void

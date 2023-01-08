@@ -9,6 +9,27 @@ use PHPUnit\Framework\TestCase;
 
 final class MysqlDatabaseTest extends TestCase
 {
+    public function testWith(): void
+    {
+        $sUT = new MysqlDatabase(
+            'foo',
+            '3306',
+            'bar',
+            'baz',
+            'test',
+        );
+
+        self::assertSame("mysqldump --routines --no-create-info --host='foo' --port='3306' --user='bar' --password='baz' 'test' > 'outputPath'", $sUT->getDumpDataCommandLine('outputPath'));
+        self::assertSame("mysqldump --routines --no-data --host='foo' --port='3306' --user='bar' --password='baz' 'test' > 'outputPath'", $sUT->getDumpStructCommandLine('outputPath'));
+
+        $sUT = $sUT->withOnlyTable(['toto']);
+        self::assertSame("mysqldump --routines --no-create-info --host='foo' --port='3306' --user='bar' --password='baz' 'test' 'toto' > 'outputPath'", $sUT->getDumpDataCommandLine('outputPath'));
+        self::assertSame("mysqldump --routines --no-data --host='foo' --port='3306' --user='bar' --password='baz' 'test' 'toto' > 'outputPath'", $sUT->getDumpStructCommandLine('outputPath'));
+        $sUT = $sUT->withIgnoreTable(['tutu']);
+        self::assertSame("mysqldump --routines --no-create-info --ignore-table='test.tutu' --host='foo' --port='3306' --user='bar' --password='baz' 'test' 'toto' > 'outputPath'", $sUT->getDumpDataCommandLine('outputPath'));
+        self::assertSame("mysqldump --routines --no-data --host='foo' --port='3306' --user='bar' --password='baz' 'test' 'toto' > 'outputPath'", $sUT->getDumpStructCommandLine('outputPath'));
+    }
+
     public function testGenerateAValidDatabaseDumpCommand(): void
     {
         $sUT = new MysqlDatabase(
@@ -19,7 +40,8 @@ final class MysqlDatabaseTest extends TestCase
             'test',
         );
 
-        self::assertSame("mysqldump --routines --host='foo' --port='3306' --user='bar' --password='baz' 'test' > 'outputPath'", $sUT->getDumpCommandLine('outputPath'));
+        self::assertSame("mysqldump --routines --no-create-info --host='foo' --port='3306' --user='bar' --password='baz' 'test' > 'outputPath'", $sUT->getDumpDataCommandLine('outputPath'));
+        self::assertSame("mysqldump --routines --no-data --host='foo' --port='3306' --user='bar' --password='baz' 'test' > 'outputPath'", $sUT->getDumpStructCommandLine('outputPath'));
     }
 
     public function testGenerateAValidDatabaseDumpCommandWithEmptyPassword(): void
@@ -28,11 +50,12 @@ final class MysqlDatabaseTest extends TestCase
             'foo',
             '3306',
             'bar',
-            '',
+            '   ',
             'test',
         );
 
-        self::assertSame("mysqldump --routines --host='foo' --port='3306' --user='bar' 'test' > 'outputPath'", $sUT->getDumpCommandLine('outputPath'));
+        self::assertSame("mysqldump --routines --no-create-info --host='foo' --port='3306' --user='bar' 'test' > 'outputPath'", $sUT->getDumpDataCommandLine('outputPath'));
+        self::assertSame("mysqldump --routines --no-data --host='foo' --port='3306' --user='bar' 'test' > 'outputPath'", $sUT->getDumpStructCommandLine('outputPath'));
     }
 
     public function testGenerateAValidDatabaseDumpCommandWithSsl(): void
@@ -45,11 +68,11 @@ final class MysqlDatabaseTest extends TestCase
             'test',
             true,
             true,
-            ['tutu', ' '],
             ['test'],
         );
 
-        self::assertSame("mysqldump --routines --single-transaction --ssl --ignore-table='test.test' tutu --host='foo' --port='3306' --user='bar' --password='baz' 'test' > 'outputPath'", $sUT->getDumpCommandLine('outputPath'));
+        self::assertSame("mysqldump --routines --no-create-info --single-transaction --ssl --ignore-table='test.test' --host='foo' --port='3306' --user='bar' --password='baz' 'test' > 'outputPath'", $sUT->getDumpDataCommandLine('outputPath'));
+        self::assertSame("mysqldump --routines --no-data --single-transaction --ssl --host='foo' --port='3306' --user='bar' --password='baz' 'test' > 'outputPath'", $sUT->getDumpStructCommandLine('outputPath'));
     }
 
     public function testGenerateAValidDatabaseDumpCommandWithSingleTransaction(): void
@@ -63,7 +86,8 @@ final class MysqlDatabaseTest extends TestCase
             true,
         );
 
-        self::assertSame("mysqldump --routines --single-transaction --host='foo' --port='3306' --user='bar' --password='baz' 'test' > 'outputPath'", $sUT->getDumpCommandLine('outputPath'));
+        self::assertSame("mysqldump --routines --no-create-info --single-transaction --host='foo' --port='3306' --user='bar' --password='baz' 'test' > 'outputPath'", $sUT->getDumpDataCommandLine('outputPath'));
+        self::assertSame("mysqldump --routines --no-data --single-transaction --host='foo' --port='3306' --user='bar' --password='baz' 'test' > 'outputPath'", $sUT->getDumpStructCommandLine('outputPath'));
     }
 
     public function testGenerateAValidDatabaseRestoreCommand(): void
@@ -88,8 +112,6 @@ final class MysqlDatabaseTest extends TestCase
             'test',
             true,
             true,
-            ['toto'],
-            ['test'],
         );
         self::assertSame("mysql --ssl --host='foo' --port='3306' --user='bar' --password='baz' 'test' -e \"source outputPath\"", $sUT->getRestoreCommandLine('outputPath'));
     }

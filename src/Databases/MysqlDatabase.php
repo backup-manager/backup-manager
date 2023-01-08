@@ -10,12 +10,12 @@ use function implode;
 use function sprintf;
 use function trim;
 
+/** @psalm-immutable */
 final class MysqlDatabase implements Database
 {
-    /**
-     * @param array<int, string> $extraParams
-     * @param array<int, string> $ignoreTables
-     */
+    /** @param array<int, string> $ignoreTables */
+
+    /** @param array<int, string> $onlyTables */
     public function __construct(
         private readonly string $host,
         private readonly string $port,
@@ -24,25 +24,80 @@ final class MysqlDatabase implements Database
         private readonly string $database,
         private readonly bool $singleTransaction = false,
         private readonly bool $ssl = false,
-        private readonly array $extraParams = [],
         private readonly array $ignoreTables = [],
+        private readonly array $onlyTables = [],
     ) {
     }
 
-    public function getDumpCommandLine(string $path): string
+    /** @param array<int, string> $onlyTables */
+    public function withOnlyTable(array $onlyTables): self
+    {
+        return new self(
+            $this->host,
+            $this->port,
+            $this->user,
+            $this->password,
+            $this->database,
+            $this->singleTransaction,
+            $this->ssl,
+            $this->ignoreTables,
+            $onlyTables,
+        );
+    }
+
+    /** @param array<int, string> $ignoreTables */
+    public function withIgnoreTable(array $ignoreTables): self
+    {
+        return new self(
+            $this->host,
+            $this->port,
+            $this->user,
+            $this->password,
+            $this->database,
+            $this->singleTransaction,
+            $this->ssl,
+            $ignoreTables,
+            $this->onlyTables,
+        );
+    }
+
+    public function getDumpDataCommandLine(string $path): string
     {
         return sprintf(
             'mysqldump %s %s > %s',
             self::addConnectionInformation([
                 '--routines',
+                '--no-create-info',
                 $this->singleTransaction ? '--single-transaction' : '',
                 $this->ssl ? '--ssl' : '',
                 ...$this->getIgnoreTableParameter(),
-                ...$this->extraParams,
             ]),
-            escapeshellarg($this->database),
+            $this->getDbAndTables(),
             escapeshellarg($path),
         );
+    }
+
+    public function getDumpStructCommandLine(string $path): string
+    {
+        return sprintf(
+            'mysqldump %s %s > %s',
+            self::addConnectionInformation([
+                '--routines',
+                '--no-data',
+                $this->singleTransaction ? '--single-transaction' : '',
+                $this->ssl ? '--ssl' : '',
+            ]),
+            $this->getDbAndTables(),
+            escapeshellarg($path),
+        );
+    }
+
+    private function getDbAndTables(): string
+    {
+        return implode(' ', [
+            escapeshellarg($this->database),
+            ...$this->getOnlyTable(),
+        ]);
     }
 
     public function getRestoreCommandLine(string $path): string
@@ -63,6 +118,17 @@ final class MysqlDatabase implements Database
     {
         foreach ($this->ignoreTables as $table) {
             yield sprintf('--ignore-table=%s', escapeshellarg($this->database . '.' . $table));
+        }
+    }
+
+    /**
+     * @return iterable<int, string>
+     * @psalm-return iterable<int, string>
+     */
+    private function getOnlyTable(): iterable
+    {
+        foreach ($this->onlyTables as $table) {
+            yield sprintf('%s', escapeshellarg($table));
         }
     }
 

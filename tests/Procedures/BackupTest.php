@@ -29,8 +29,9 @@ final class BackupTest extends TestCase
 
         $sUT = new Backup($shellProcessor);
 
-        $database->expects(self::once())->method('getDumpCommandLine')->with(self::anything())->willReturn('a script');
-        $shellProcessor->expects(self::once())->method('__invoke')->with(self::callback(static function (Process $process) {
+        $database->expects(self::once())->method('getDumpDataCommandLine')->with(self::anything())->willReturn('a script');
+        $database->expects(self::once())->method('getDumpStructCommandLine')->with(self::anything())->willReturn('a script');
+        $shellProcessor->expects(self::exactly(2))->method('__invoke')->with(self::callback(static function (Process $process) {
             return $process->getCommandLine() === 'a script';
         }));
         $compressor->expects(self::once())->method('compress')->with(self::anything())->willReturn('my compressd path');
@@ -39,6 +40,7 @@ final class BackupTest extends TestCase
         $to->expects(self::once())->method('writeStream')->with('my dest path', $ressource);
         $local->expects(self::once())->method('readStream')->with('my compressd path')->willReturn($ressource);
         $local->expects(self::once())->method('delete')->with('my compressd path');
+        $local->expects(self::once())->method('getRootPath')->willReturn('/myrootpath/');
 
         $sUT->__invoke($local, $database, [$destination], $compressor);
     }
