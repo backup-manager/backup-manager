@@ -10,7 +10,6 @@ use function implode;
 use function sprintf;
 use function trim;
 
-/** @psalm-immutable */
 final class MysqlDatabase implements Database
 {
     /**
