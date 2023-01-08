@@ -13,9 +13,10 @@ use function trim;
 /** @psalm-immutable */
 final class MysqlDatabase implements Database
 {
-    /** @param array<int, string> $ignoreTables */
-
-    /** @param array<int, string> $onlyTables */
+    /**
+     * @param array<int, string> $ignoreTables
+     * @param array<int, string> $onlyTables
+     */
     public function __construct(
         private readonly string $host,
         private readonly string $port,
