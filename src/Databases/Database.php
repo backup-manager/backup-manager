@@ -11,4 +11,10 @@ interface Database
     public function getDumpDataCommandLine(string $path): string;
 
     public function getRestoreCommandLine(string $path): string;
+
+    /** @param array<int, string> $onlyTables */
+    public function withOnlyTable(array $onlyTables): self;
+
+    /** @param array<int, string> $ignoreTables */
+    public function withIgnoreTable(array $ignoreTables): self;
 }
