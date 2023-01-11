@@ -15,7 +15,7 @@ class MysqlDatabase implements Database
      */
     public function handles($type)
     {
-        return strtolower($type ?? '') == 'mysql';
+        return strtolower($type ?? '') == 'mysql' || strtolower($type ?? '') == 'pdo_mysql';
     }
 
     /**
