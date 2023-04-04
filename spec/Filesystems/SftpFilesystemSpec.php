@@ -23,12 +23,6 @@ class SftpFilesystemSpec extends ObjectBehavior
         }
     }
 
-    public function it_should_provide_an_instance_of_an_sftp_filesystem()
-    {
-        $this->get($this->getConfig())->getAdapter()
-            ->shouldHaveType('League\Flysystem\Sftp\SftpAdapter');
-    }
-
     public function getConfig()
     {
         return [

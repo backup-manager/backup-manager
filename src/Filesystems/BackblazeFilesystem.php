@@ -2,7 +2,7 @@
 
 use BackblazeB2\Client;
 use League\Flysystem\Filesystem as Flysystem;
-use Mhetreramesh\Flysystem\BackblazeAdapter;
+use MarcAndreAppel\FlysystemBackblaze\BackblazeAdapter;
 
 /**
  * Class BackblazeFilesystem

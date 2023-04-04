@@ -1,5 +1,5 @@
 {
-  "name": "backup-manager/backup-manager",
+  "name": "district09/backup-manager",
   "description": "A framework agnostic database backup manager with user-definable procedures and support for S3, Dropbox, FTP, SFTP, and more with drivers for popular frameworks.",
   "license": "MIT",
   "authors": [
@@ -12,41 +12,41 @@
       "name": "Mitchell van Wijngaarden",
       "email": "mitchell@kooding.nl",
       "homepage": "http://heybigname.com/"
+    },
+    {
+      "name": "Jelle Sebreghts",
+      "email": "Jelle.Sebreghts@district09.gent",
+      "homepage": "https://district09.gent/"
     }
   ],
   "require": {
-    "php": ">=7.4",
-    "league/flysystem": "^1.1.4 || ^2.1.1 || ^3.0",
+    "php": ">=8.0",
+    "league/flysystem": "^2.1.1 || ^3.0",
     "symfony/process": "^5.4 || ^6.0"
   },
   "require-dev": {
-    "aws/aws-sdk-php": "^3.133.20",
-    "league/flysystem-aws-s3-v3": "^1.0.24",
-    "league/flysystem-rackspace": "^1.0",
-    "league/flysystem-sftp": "^1.0",
-    "league/flysystem-webdav": "^1.0",
+    "league/flysystem-async-aws-s3": "^2.0.6 || ^3.0",
+    "league/flysystem-aws-s3-v3": "^2.0 || ^3.0",
+    "league/flysystem-ftp": "^2.4 || ^3.0",
+    "league/flysystem-google-cloud-storage": "^2.0 || ^3.0",
+    "league/flysystem-sftp-v3": "^2.0 || ^3.0",
+    "league/flysystem-webdav": "^3.0",
+    "marcandreappel/flysystem-backblaze": "^2.1",
     "phpspec/phpspec": "^7.2",
-    "spatie/flysystem-dropbox": "^1.2",
-    "srmklive/flysystem-dropbox-v2": "^1.0",
-    "superbalist/flysystem-google-storage": "^7.2"
+    "spatie/flysystem-dropbox": "^2.0 || ^3.0"
   },
   "suggest": {
     "league/flysystem-aws-s3-v3": "AWS S3 adapter support.",
+    "league/flysystem-google-cloud-storage": "Google Cloud Storage adapter support.",
     "league/flysystem-rackspace": "Rackspace adapter support.",
     "league/flysystem-sftp": "SFTP adapter support.",
     "league/flysystem-webdav": "Webdav adapter support.",
-    "mhetreramesh/flysystem-backblaze": "B2 adapter support.",
-    "srmklive/flysystem-dropbox-v2": "Dropbox API v2 adapter support.",
-    "superbalist/flysystem-google-storage": "Google Cloud Storage adapter support."
+    "marcandreappel/flysystem-backblaze": "B2 adapter support.",
+    "spatie/flysystem-dropbox": "Dropbox API v2 adapter support."
   },
   "autoload": {
     "psr-4": {
-      "BackupManager\\": "src/"
-    }
-  },
-  "extra": {
-    "branch-alias": {
-      "dev-master": "1.0-dev"
+      "District09\\BackupManager\\": "src/"
     }
   }
 }

@@ -2,7 +2,7 @@
 
 use Google\Cloud\Storage\StorageClient;
 use League\Flysystem\Filesystem as Flysystem;
-use Superbalist\Flysystem\GoogleStorage\GoogleStorageAdapter;
+use League\Flysystem\GoogleCloudStorage\GoogleCloudStorageAdapter;
 
 /**
  * Class GcsFilesystem
@@ -32,6 +32,6 @@ class GcsFilesystem implements Filesystem
         ]);
         $bucket = $storageClient->bucket($config['bucket']);
 
-        return new Flysystem(new GoogleStorageAdapter($storageClient, $bucket, $config['prefix']));
+        return new Flysystem(new GoogleCloudStorageAdapter($storageClient, $bucket, $config['prefix']));
     }
 }

@@ -1,4 +1,6 @@
-<?php namespace BackupManager\Filesystems;
+<?php
+
+namespace BackupManager\Filesystems;
 
 /**
  * Interface Filesystem
