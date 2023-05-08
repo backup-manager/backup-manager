@@ -20,14 +20,14 @@
   ],
   "require": {
     "php":  "~8.1.0 || ~8.2.0",
-    "symfony/process": "^v5.4.8 || ^6.2"
+    "symfony/process": "^6.2.10",
+    "league/flysystem": "^3.15.1"
   },
   "require-dev": {
-    "doctrine/coding-standard": "^11.1",
-    "infection/infection": "^0.26.18",
-    "phpunit/phpunit": "^9.5.27",
+    "doctrine/coding-standard": "^12.0",
+    "phpunit/phpunit": "^10.1.2",
     "psalm/plugin-phpunit": "^0.18.4",
-    "vimeo/psalm": "^5.6"
+    "vimeo/psalm": "^5.11"
   },
   "config": {
     "allow-plugins": {

@@ -12,7 +12,7 @@ use Symfony\Component\Process\Process;
 final class GzipCompressorTest extends TestCase
 {
     /** @return iterable<int, array<string>> */
-    public function provideCompress(): iterable
+    public static function provideCompress(): iterable
     {
         yield ['foo', "gzip 'foo'", 'foo.gz'];
         yield ['../foo', "gzip '../foo'", '../foo.gz'];
@@ -32,7 +32,7 @@ final class GzipCompressorTest extends TestCase
     }
 
     /** @return iterable<int, array<string>> */
-    public function provideDecompress(): iterable
+    public static function provideDecompress(): iterable
     {
         yield ['foo.gz', "gzip -d 'foo.gz'", 'foo'];
         yield ['../foo.gz', "gzip -d '../foo.gz'", '../foo'];
