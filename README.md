@@ -1,8 +1,8 @@
 # Database Backup Manager
 
-[![Latest Stable Version](https://poser.pugx.org/backup-manager/backup-manager/version.png)](https://packagist.org/packages/backup-manager/backup-manager)
-[![License](https://poser.pugx.org/backup-manager/backup-manager/license.png)](https://packagist.org/packages/backup-manager/backup-manager)
-[![Total Downloads](https://poser.pugx.org/backup-manager/backup-manager/downloads.png)](https://packagist.org/packages/backup-manager/backup-manager)
+![Packagist Version](https://img.shields.io/packagist/v/backup-manager/backup-manager)
+![Packagist License](https://img.shields.io/packagist/l/backup-manager/backup-manager)
+![Installs](https://img.shields.io/packagist/dt/backup-manager/backup-manager)
 
 This package provides a framework-agnostic database backup manager for dumping to and restoring databases from S3, Dropbox, FTP, SFTP, and Rackspace Cloud.
 
