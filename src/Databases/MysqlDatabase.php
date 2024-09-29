@@ -15,7 +15,7 @@ class MysqlDatabase implements Database
      */
     public function handles($type)
     {
-        return strtolower($type ?? '') == 'mysql';
+        return strtolower($type ?? '') == 'mysql' || strtolower($type ?? '') == 'pdo_mysql';
     }
 
     /**
@@ -56,7 +56,7 @@ class MysqlDatabase implements Database
             }
         }
 
-        $command = 'mysqldump --routines ' . implode(' ', $extras) . '%s %s > %s';
+        $command = 'mysqldump --column-statistics=0 --routines ' . implode(' ', $extras) . '%s %s > %s';
         return sprintf(
             $command,
             $params,
