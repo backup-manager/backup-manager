@@ -15,7 +15,7 @@ interface Filesystem
 
     /**
      * @param array $config
-     * @return \League\Flysystem\Filesystem
+     * @return \League\Flysystem\FilesystemAdapter
      */
     public function get(array $config);
 }

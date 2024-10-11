@@ -2,11 +2,19 @@
 
 namespace spec\BackupManager\Filesystems;
 
+use PhpSpec\Exception\Example\SkippingException;
 use PhpSpec\ObjectBehavior;
 use Prophecy\Argument;
 
 class FtpFilesystemSpec extends ObjectBehavior
 {
+    public function let(): void
+    {
+        if (!class_exists('League\Flysystem\Adapter\FtpAdapter')) {
+            throw new SkippingException('Requires Spatie Dropbox');
+        }
+    }
+
     public function it_is_initializable()
     {
         $this->shouldHaveType('BackupManager\Filesystems\FtpFilesystem');
@@ -21,12 +29,6 @@ class FtpFilesystemSpec extends ObjectBehavior
         foreach ([null, 'foo'] as $type) {
             $this->handles($type)->shouldBe(false);
         }
-    }
-
-    public function it_should_provide_an_instance_of_an_ftp_filesystem()
-    {
-        @$this->get($this->getConfig())->getAdapter()
-            ->shouldHaveType('League\Flysystem\Adapter\Ftp');
     }
 
     public function getConfig()

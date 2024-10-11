@@ -3,6 +3,7 @@
 use League\Flysystem\FileNotFoundException;
 use League\Flysystem\Filesystem;
 use BackupManager\Tasks\Task;
+use League\Flysystem\FilesystemException;
 
 /**
  * Class DeleteFile
@@ -27,10 +28,12 @@ class DeleteFile implements Task
 
     /**
      * @return bool
-     * @throws FileNotFoundException
+     * @throws FilesystemException
      */
     public function execute()
     {
-        return $this->filesystem->delete($this->filePath);
+        $this->filesystem->delete($this->filePath);
+
+        return true;
     }
 }

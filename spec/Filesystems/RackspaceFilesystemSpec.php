@@ -2,6 +2,7 @@
 
 namespace spec\BackupManager\Filesystems;
 
+use PhpSpec\Exception\Example\SkippingException;
 use PhpSpec\ObjectBehavior;
 use Prophecy\Argument;
 
@@ -15,6 +16,13 @@ use Prophecy\Argument;
  */
 class RackspaceFilesystemSpec extends ObjectBehavior
 {
+    public function let(): void
+    {
+        if (!class_exists('League\Flysystem\Rackspace\RackspaceAdapter')) {
+            throw new SkippingException('Requires Flysystem RackspaceAdapter');
+        }
+    }
+
     public function it_is_initializable()
     {
         $this->shouldHaveType('BackupManager\Filesystems\RackspaceFilesystem');
