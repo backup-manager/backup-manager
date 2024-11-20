@@ -77,7 +77,7 @@ This package provides a framework-agnostic database backup manager for dumping t
     'root' => '/path/to/working/directory',
 ],
 's3' => [
-    'type' => 'AwsS3',
+    'type' => 'AwsS3', // AsyncAws is also supported with type 'AsyncAwsS3'
     'key'    => '',
     'secret' => '',
     'region' => 'us-east-1',
@@ -207,11 +207,14 @@ Then, you'll need to select the appropriate packages for the adapters that you w
 # to support s3
 composer require league/flysystem-aws-s3-v3
 
+# to support AsyncAwsS3
+composer require async-aws/flysystem-s3
+
 # to support b2
 composer require mhetreramesh/flysystem-backblaze
 
 # to support google cs
-composer require league/flysystem-aws-s3-v2
+composer require superbalist/flysystem-google-storage
 
 # to install the preferred dropbox v2 driver
 composer required spatie/flysystem-dropbox
