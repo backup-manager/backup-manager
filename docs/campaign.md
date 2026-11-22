@@ -240,6 +240,11 @@ Defects found by reading the code (no issue filed):
   AsyncAWS instead of AWS SDK; #78 error on DSN.
 
 ## M4: Close-out
+- README badges in all three repos (core, laravel, symfony): replace stale
+  badges with current ones that represent the project well (CI status from
+  GitHub Actions, Packagist version, downloads, PHP version, license; drop
+  dead services such as Travis/Scrutinizer/Coveralls). Do each framework
+  repo's badges in its foundation step; core's here (Shawn, 2026-11-22).
 - Every PR and issue across the three repos closed with a comment.
 - Move the glossary to `docs/GLOSSARY.md`.
 - Final summary of releases and credits.
