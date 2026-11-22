@@ -16,7 +16,7 @@ This document is the campaign's durable record. A new session resumes from
 | M1 3.2.0: Flysystem 2/3 support, AsyncAws, failure reporting | released 3.2.0 | #201 |
 | Security patch 3.2.1: patched dependency floors, CI hardening | released 3.2.1 (from `3.x`) | #202 |
 | M2 4.0.0: PHP 8.2, Flysystem 3, typed API | released 4.0.0 (from `master`) | #203 |
-| M3a `backup-manager/laravel` | **next**, not started | separate repo |
+| M3a `backup-manager/laravel` | **in progress**: triage done; next core 3.3.0/4.1.0 socket, then laravel foundation | separate repo |
 | M3b `backup-manager/symfony` | not started | separate repo |
 | M4 close-out | not started | |
 
@@ -168,6 +168,12 @@ Plan per package, same semver discipline as core:
    and EOL framework/PHP versions; UPGRADE notes.
 4. Close every PR and issue with a comment.
 
+PR and issue triage is part of each framework package's work, as it was for
+core: every open PR and issue is read against the current code and gets a
+recorded decision (fix/merge, reimplement with credit, answer, or decline with
+a reason) in that package's triage table below, before the minor release is
+planned. Feature requests that fit are scheduled into the minor or major.
+
 ### M3a: `backup-manager/laravel` (survey 2026-11-22)
 - Latest tag 2.0 (tags: 2.0, 1.4.0, 1.3.1). Constraints: PHP `^7.3||^7.4`,
   `illuminate/* ^5.5||^6||^7`, `symfony/process ^3||^4||^5`.
@@ -184,6 +190,46 @@ Plan per package, same semver discipline as core:
   table separation; #98 back up storage directory; #97 Aws S3Client not found;
   #95 PHP 7.1; #88 Laravel51Compatibility::table signature; #85 empty
   password; #82 dynamic S3 bucket; #78 no database selected with dynamic DB.
+- Current Laravel (2026-11-22): 12 (PHP ^8.2, symfony ^7.2) and 13 (PHP ^8.3,
+  symfony ^7.4 || ^8.0). Core ^3.2.1 needs `symfony/process ^5.4.51`, so
+  Laravel 6 and older can no longer resolve; 7–13 can.
+
+#### M3a triage (2026-11-22)
+
+Defects found by reading the code (no issue filed):
+- D1: `db:list` and interactive `db:restore` read Flysystem 1 listing keys
+  (`basename`, `size`, `timestamp`); on Flysystem 2/3 (what core 3.2 installs)
+  they fail. Fix: read v1 and v2/v3 attributes.
+- D2: `Lumen55ServiceProvider` does not register `GcsFilesystem` (#120).
+- D3: commands receive procedures/providers in their constructors at console
+  boot, so config changed at runtime is ignored (#78, #82). Fix: resolve them
+  in `handle()`.
+- D4: non-MySQL/PostgreSQL connections map to `null` config entries, giving
+  "Could not find field type" (#107) instead of "not supported".
+
+| # | Kind | Decision | Release |
+|---|---|---|---|
+| PR #135 martindrapeau | PHP 8 signature fix | reimplement with credit (conflicts with #130 composer change) | 2.1 |
+| PR #130 nafiesl | Laravel 8+ | reimplement with explicit ranges, not `>=5.5`; credit | 2.1 |
+| #136 | spam | close | now |
+| #132 | abandoned? | answer with 2.1 release | 2.1 |
+| #131 | Lumen `new Process('')` on symfony/process 5 | fix | 2.1 |
+| #129 | Dropbox silently no file | DropboxV2 deprecated in core; config default switches to `Dropbox`; close with pointer | 2.1 |
+| #128 | MySQL socket, no `host` | core gets a MySQL `socket` key (3.3.0, 4.1.0); package maps `unix_socket` and makes `host` optional | core 3.3.0 + 2.1 |
+| #125 | Laravel 7 | already in 2.0; close | now |
+| #124 | delete old backups | answer (retention is out of scope; Flysystem delete example) | 2.1 |
+| #121 | `Config(null)` with cached config | fix (fall back to `[]`, clear error) | 2.1 |
+| #120 | Gcs on Lumen | fix (D2) | 2.1 |
+| #116, #101, #99 | singleTransaction, ignoreTables, onlyTables, ssl, columnStatistics | fix: pass these keys through from the Laravel DB connection | 2.1 |
+| #115 | config from DB table | answer: set config at runtime before resolving (works after D3) | 2.1 |
+| #107 | MongoDB | decline (core supports MySQL/PostgreSQL); clearer error (D4) | 2.1 |
+| #102 | DigitalOcean Spaces | core 3.x reads `endpoint`/`use_path_style_endpoint`; document in default config | 2.1 |
+| #98 | back up storage directory | decline: out of scope (database backups) | now |
+| #97 | `Aws\S3\S3Client` not found | core 3.2 throws `FilesystemAdapterMissing` naming the package; close | 2.1 |
+| #95 | Dropbox on PHP 7.1 | stale (Laravel 5.5); close with pointer | 2.1 |
+| #88 | `table()` signature | fixed in 2.0 (#91, whoacowboy); close | now |
+| #85 | empty password | core 3.x omits empty `pass` for MySQL; close | 2.1 |
+| #82, #78 | runtime config ignored | fix (D3) | 2.1 |
 
 ### M3b: `backup-manager/symfony` (survey 2026-11-22)
 - Latest tag 3.2.1 (also v1.1, v1.0). Constraints: PHP `^7.3 || ^8.0`,
@@ -223,3 +269,9 @@ Plan per package, same semver discipline as core:
   extensible; specs double several of them).
 - 2026-11-22: phpspec `^7.5 || ^8.0` covers PHP 7.4–8.5 on 3.x; `^8.0` on 4.x.
 - 2026-11-22: Issue #167 (Docker image) declined: out of scope for a library.
+- 2026-11-22: Framework repos get the same PR/issue triage as core (Shawn).
+- 2026-11-22: laravel #128: add a MySQL `socket` key to core (3.3.0 on `3.x`,
+  4.1.0 on master) rather than an extraParams workaround (restore would miss it).
+- 2026-11-22: laravel versions: 2.1.0 on core ^3.2.1 (after 3.3.0: ^3.3), 3.0.0
+  on core ^4.1. 3.0 drops the Lumen provider (Lumen is discontinued).
+- Local clone of the laravel repo: `/home/shawn/src/backup-manager/laravel`.
