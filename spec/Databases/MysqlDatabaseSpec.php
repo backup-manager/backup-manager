@@ -64,6 +64,21 @@ class MysqlDatabaseSpec extends ObjectBehavior
         $this->getRestoreCommandLine('outputPath')->shouldBe("mysql --host='foo' --port='3306' --user='bar' --password='baz'  'test' -e \"source outputPath\"");
     }
 
+    public function it_should_connect_through_a_socket_instead_of_host_and_port()
+    {
+        $this->setConfig([
+            'type' => 'mysql',
+            'host' => 'foo',
+            'port' => '3306',
+            'socket' => '/run/mysqld/mysqld.sock',
+            'user' => 'bar',
+            'pass' => 'baz',
+            'database' => 'test',
+        ]);
+        $this->getDumpCommandLine('outputPath')->shouldBe("mysqldump --routines  --socket='/run/mysqld/mysqld.sock' --user='bar' --password='baz' 'test' > 'outputPath'");
+        $this->getRestoreCommandLine('outputPath')->shouldBe("mysql --socket='/run/mysqld/mysqld.sock' --user='bar' --password='baz'  'test' -e \"source outputPath\"");
+    }
+
     private function configure($db = 'development')
     {
         $config = Config::fromPhpFile('spec/configs/database.php');
