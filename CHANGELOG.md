@@ -6,7 +6,7 @@ adheres to [Semantic Versioning](https://semver.org/).
 
 ## [Unreleased]
 
-## [4.0.0]
+## [4.0.0] - 2026-11-22
 
 Requires PHP 8.2 and Flysystem 3. See [UPGRADE.md](UPGRADE.md).
 
