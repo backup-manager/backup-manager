@@ -51,14 +51,7 @@ class MysqlDatabase implements Database
             $extras[] = $this->config['extraParams'];
         }
 
-        // Prepare a "params" string from our config
-        $params = '';
-        $keys = ['host' => 'host', 'port' => 'port', 'user' => 'user', 'pass' => 'password'];
-        foreach ($keys as $key => $mysqlParam) {
-            if (!empty($this->config[$key])) {
-                $params .= sprintf(' --%s=%s', $mysqlParam, escapeshellarg($this->config[$key]));
-            }
-        }
+        $params = $this->getConnectionParameters();
 
         $command = 'mysqldump --routines ' . implode(' ', $extras) . '%s %s > %s';
         return sprintf(
@@ -80,14 +73,7 @@ class MysqlDatabase implements Database
             $extras[] = '--ssl';
         }
 
-        // Prepare a "params" string from our config
-        $params = '';
-        $keys = ['host' => 'host', 'port' => 'port', 'user' => 'user', 'pass' => 'password'];
-        foreach ($keys as $key => $mysqlParam) {
-            if (!empty($this->config[$key])) {
-                $params .= sprintf(' --%s=%s', $mysqlParam, escapeshellarg($this->config[$key]));
-            }
-        }
+        $params = $this->getConnectionParameters();
 
         return sprintf(
             'mysql%s ' . implode(' ', $extras) . ' %s -e "source %s"',
@@ -95,6 +81,29 @@ class MysqlDatabase implements Database
             escapeshellarg($this->config['database']),
             $inputPath
         );
+    }
+
+    /**
+     * Connection options for mysqldump and mysql. A configured socket replaces
+     * host and port, as with Laravel's unix_socket.
+     *
+     * @return string
+     */
+    private function getConnectionParameters()
+    {
+        $keys = ['host' => 'host', 'port' => 'port', 'user' => 'user', 'pass' => 'password'];
+        if (!empty($this->config['socket'])) {
+            $keys = ['socket' => 'socket', 'user' => 'user', 'pass' => 'password'];
+        }
+
+        $params = '';
+        foreach ($keys as $key => $mysqlParam) {
+            if (!empty($this->config[$key])) {
+                $params .= sprintf(' --%s=%s', $mysqlParam, escapeshellarg($this->config[$key]));
+            }
+        }
+
+        return $params;
     }
 
     /**
