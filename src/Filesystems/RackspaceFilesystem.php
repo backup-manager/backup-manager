@@ -7,6 +7,7 @@ use OpenCloud\Rackspace;
 /**
  * Class RackspaceFilesystem
  * @package BackupManager\Filesystems
+ * @deprecated since 3.2.0, removed in 4.0: its adapter package only supports Flysystem 1. There is no Flysystem 2 or 3 adapter for Rackspace Cloud Files.
  */
 class RackspaceFilesystem implements Filesystem
 {

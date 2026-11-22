@@ -30,9 +30,9 @@ class GcsFilesystem implements Filesystem
      */
     public function get(array $config)
     {
-        $v3 = class_exists(GoogleCloudStorageAdapter::class);
+        $v2OrV3 = class_exists(GoogleCloudStorageAdapter::class);
 
-        if (! $v3 && ! class_exists(GoogleStorageAdapter::class)) {
+        if (! $v2OrV3 && ! class_exists(GoogleStorageAdapter::class)) {
             throw FilesystemAdapterMissing::forType('Gcs', 'league/flysystem-google-cloud-storage');
         }
 
@@ -43,7 +43,7 @@ class GcsFilesystem implements Filesystem
         $bucket = $storageClient->bucket($config['bucket']);
         $prefix = $this->first($config, ['prefix', 'root']);
 
-        if ($v3) {
+        if ($v2OrV3) {
             return new Flysystem(new GoogleCloudStorageAdapter($bucket, (string) $prefix));
         }
 

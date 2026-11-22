@@ -19,6 +19,7 @@ case "${1:-}" in
       "league/flysystem-async-aws-s3:^2.0" \
       "league/flysystem-aws-s3-v3:^2.0" \
       "league/flysystem-ftp:^2.4" \
+      "league/flysystem-google-cloud-storage:^2.0" \
       "league/flysystem-sftp:^2.0" \
       "spatie/flysystem-dropbox:^2.0"
     ;;

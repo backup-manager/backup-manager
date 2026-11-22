@@ -33,7 +33,7 @@
     "league/flysystem-async-aws-s3": "AsyncAws S3 adapter support (Flysystem 2/3).",
     "league/flysystem-aws-s3-v3": "AWS S3 adapter support.",
     "league/flysystem-ftp": "FTP adapter support (Flysystem 2/3; built into Flysystem 1).",
-    "league/flysystem-google-cloud-storage": "Google Cloud Storage adapter support (Flysystem 3).",
+    "league/flysystem-google-cloud-storage": "Google Cloud Storage adapter support (Flysystem 2/3).",
     "league/flysystem-rackspace": "Rackspace adapter support (Flysystem 1 only).",
     "league/flysystem-sftp": "SFTP adapter support (Flysystem 1/2).",
     "league/flysystem-sftp-v3": "SFTP adapter support (Flysystem 3).",
