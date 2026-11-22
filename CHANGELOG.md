@@ -40,8 +40,10 @@ the Flysystem major you have installed.
   user-supplied `FilesystemOperator` implementations on Flysystem 2/3.
 - `FlysystemFilesystem`'s `prefix` option works with the Flysystem 2/3
   `MountManager`.
-- `Gcs` accepts the `projectId` and `root` keys used by the sample config, as
-  well as `project` and `prefix`.
+- `Gcs` accepts the `projectId` key used by the sample config, as well as
+  `project`. With Flysystem 2/3 it also accepts `root` as well as `prefix`.
+- `Ftp` and `Sftp` accept numeric and boolean options given as strings (for
+  example from environment variables) with Flysystem 2/3.
 - The "filesystem type is not supported" message says how to register the
   missing filesystem. (#198)
 - `symfony/process` 4.4 is accepted again; an unreleased change had narrowed
