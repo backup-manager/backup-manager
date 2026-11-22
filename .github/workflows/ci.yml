@@ -34,6 +34,7 @@ jobs:
         uses: ramsey/composer-install@v3
         with:
           dependency-versions: ${{ matrix.dependencies }}
+          composer-options: --no-security-blocking
 
       - name: Run tests
         run: ./vendor/bin/phpspec run -fpretty -v

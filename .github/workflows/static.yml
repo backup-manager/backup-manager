@@ -21,6 +21,8 @@ jobs:
 
       - name: Download dependencies
         uses: ramsey/composer-install@v3
+        with:
+          composer-options: --no-security-blocking
 
       - name: PHPStan
         run: phpstan analyze --no-progress --error-format=checkstyle | cs2pr
@@ -59,6 +61,8 @@ jobs:
 
       - name: Download dependencies
         uses: ramsey/composer-install@v3
+        with:
+          composer-options: --no-security-blocking
 
       - name: Psalm
         run: psalm --no-progress --output-format=github

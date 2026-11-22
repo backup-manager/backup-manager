@@ -97,3 +97,8 @@ Credit: merged PRs keep authorship; reimplementations carry
 - 2026-11-22: CI is the test matrix; no local matrix script.
 - 2026-11-22: phpspec has no stable release supporting PHP 8.5; CI uses
   `^9.0@RC` on 8.5 until 9.0 is stable.
+- 2026-11-22: GHSA-cxf4-7mrp-vvpr (low) flags `league/flysystem <= 3.35.2`, i.e.
+  all of v1 and v2; phpseclib 2.x is also fully flagged. Composer blocks these by
+  default, so users resolving 3.1.0 today get Flysystem 3.35.3+, the major 3.1.0
+  fatals on. CI cells for v1/v2 use `--no-security-blocking`; consumer installs
+  are unaffected. 4.0 floor: `league/flysystem ^3.35.3`.
