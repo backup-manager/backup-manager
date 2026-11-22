@@ -8,7 +8,7 @@ the same for the framework packages (`backup-manager/laravel`,
 This document is the campaign's durable record. A new session resumes from
 **Status** and **Resume here**; everything else is reference.
 
-## Status (2026-11-22, after laravel 2.1.0)
+## Status (2026-11-22, after the follow-up batch)
 
 | Milestone | State | Where |
 |---|---|---|
@@ -22,10 +22,13 @@ This document is the campaign's durable record. A new session resumes from
 | M3b symfony 3.3.0 (minor, core ^3.3) | released 3.3.0 (from `3.x`) | symfony#92, #93 |
 | M3b symfony 4.0.0 (major, core ^4.1, Symfony 6.4/7.4/8.1+) | released 4.0.0 | symfony#94 |
 | M4 close-out | done | |
+| Follow-up: MySQL restore via stdin (security) | released core 3.3.1, 4.1.1 | #206, #207 |
+| Follow-up: laravel `DB_URL`, core floors | released laravel 3.1.0, 2.2.0 | laravel#140, #142 |
+| Follow-up: symfony core floors | released symfony 4.0.1, 3.3.1 | symfony#97, #96 |
 
 Campaign complete. All three repos: 0 open PRs, 0 open issues (each triaged
-and closed with a comment). Packagist: core 4.1.0 and 3.3.0, laravel 3.0.0
-and 2.1.0, symfony 4.0.0 and 3.3.0.
+and closed with a comment). Packagist: core 4.1.1 and 3.3.1, laravel 3.1.0
+and 2.2.0, symfony 4.0.1 and 3.3.1.
 
 ## Resume here
 
@@ -34,8 +37,9 @@ The campaign is complete (see **Summary**). For follow-up work:
 1. **Working conventions**, **Security baseline** and **Authority** below
    still apply to all three repos.
 2. Supported lines: core 4.x (master) and 3.x; laravel 3.x (master) and 2.x;
-   symfony 4.x (master) and 3.x. Fix on the oldest affected line and release
-   from its branch.
+   symfony 4.x (master) and 3.x. The previous-major lines get security fixes
+   until 2027-12-31 (stated in each README). Fix on the oldest affected line
+   and release from its branch.
 3. Merges, tags and `gh release create` are allowed in
    `.claude/settings.local.json` of the core checkout (git-excluded); Claude
    Code's auto-mode classifier blocked them without it, and blocks Claude from
@@ -55,6 +59,9 @@ The campaign is complete (see **Summary**). For follow-up work:
 | laravel | 3.0.0 | 3.x | PHP 8.2, Laravel 12/13, core 4.1, `BackupManagerServiceProvider`, Lumen removed |
 | symfony | 3.3.0 | 3.x | Symfony 5.4–8.1, Flysystem 1/2/3, AsyncAwsS3, Webdav, patched floors |
 | symfony | 4.0.0 | 4.x | PHP 8.2, Symfony 6.4/7.4/8.1+, core 4.1, final classes |
+| core | 3.3.1, 4.1.1 | both | security: MySQL restore reads the dump from stdin |
+| laravel | 2.2.0, 3.1.0 | both | `url` (`DB_URL`) connections; core floors 3.3.1 / 4.1.1 |
+| symfony | 3.3.1, 4.0.1 | both | core floors 3.3.1 / 4.1.1 |
 
 Credits (merged, or reimplemented with Co-authored-by and CHANGELOG mention):
 - core: meiyasan (#187, #191–#195), Nyholm (#168, #185), Jelle-S (#196),
@@ -370,3 +377,19 @@ Code survey (master 9aa06b8, unreleased since 3.2.1: Symfony 6 support #87,
   laravel 2.1.0 was squash-merged with Co-authored-by trailers for nafiesl
   (#130) and martindrapeau (#135). All laravel PRs and issues closed with
   comments.
+- 2026-11-22: Previous-major lines (core 3.x, laravel 2.x, symfony 3.x) get
+  security fixes until 2027-12-31; 1.x/2.x of core are unsupported (Shawn).
+- 2026-11-22: MySQL restore ran `mysql -e "source <path>"`. Shell quoting
+  alone left mysql client command injection through a newline in the path
+  (e.g. `\nsystem ...`); 3.3.1/4.1.1 run `mysql ... 'db' < 'path'` instead.
+  Verified against MySQL 8.4 with hostile file names. Affected: core <= 3.3.0
+  and 4.0.0-4.1.0. No GitHub Security Advisory published (Shawn).
+- 2026-11-22: laravel 3.1.0 / 2.2.0 parse a connection's `url` with
+  Laravel's `ConfigurationUrlParser` (URL parts win, as when Laravel
+  connects). Known limitation, documented: a malformed `url` on any
+  connection makes every backup fail.
+- 2026-11-22: laravel and symfony CI fail on deprecations (PHPUnit
+  `failOnDeprecation`, `ignoreSuppressionOfDeprecations`).
+- 2026-11-22: GitHub may report a finished job as `in_progress` after its run
+  concluded `success` (laravel#140 PHP-CS-Fixer); check the job via
+  `gh api .../actions/jobs/<id>` before waiting further.
