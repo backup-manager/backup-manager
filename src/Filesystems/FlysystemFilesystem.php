@@ -1,25 +1,32 @@
 <?php namespace BackupManager\Filesystems;
 
 use League\Flysystem\FilesystemInterface;
+use League\Flysystem\FilesystemOperator;
 use League\Flysystem\MountManager;
 
 /**
- * Class FlysystemFilesystem
+ * Exposes Flysystem instances you construct yourself, by name or by mount
+ * manager prefix.
+ *
  * @package BackupManager\Filesystems
  */
 class FlysystemFilesystem implements Filesystem
 {
     /**
-     * @var array|FilesystemInterface[]
+     * @var array|FilesystemInterface[]|FilesystemOperator[]
      */
     private $filesystems;
 
     /**
-     * @var MountManager
+     * @var MountManager|null
      */
     private $manager;
 
-    public function __construct(/* iterable */ $filesystems = [], MountManager $manager = null)
+    /**
+     * @param iterable|FilesystemInterface[]|FilesystemOperator[] $filesystems keyed by name
+     * @param MountManager|null $manager
+     */
+    public function __construct(/* iterable */ $filesystems = [], ?MountManager $manager = null)
     {
         $this->filesystems = $filesystems;
         $this->manager = $manager;
@@ -34,10 +41,20 @@ class FlysystemFilesystem implements Filesystem
         return strtolower($type ?? '') === 'flysystem';
     }
 
+    /**
+     * @param array $config
+     * @return FilesystemInterface|FilesystemOperator|MountManagerFilesystem
+     */
     public function get(array $config)
     {
         if (isset($config['prefix']) && null !== $this->manager) {
-            return $this->manager->getFilesystem($config['prefix']);
+            // Flysystem v1
+            if (method_exists($this->manager, 'getFilesystem')) {
+                return $this->manager->getFilesystem($config['prefix']);
+            }
+
+            // Flysystem v2/v3 address mounted filesystems as "prefix://path".
+            return new MountManagerFilesystem($this->manager, $config['prefix']);
         }
 
         return $this->filesystems[$config['name']];
