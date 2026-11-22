@@ -11,6 +11,9 @@ jobs:
   phpspec:
     name: PHP ${{ matrix.php }} ${{ matrix.dependencies }}
     runs-on: ubuntu-latest
+    env:
+      # The AWS SDK warns on PHP < 8.1; phpspec would report that as a broken example.
+      AWS_SUPPRESS_PHP_DEPRECATION_WARNING: 'true'
     strategy:
       fail-fast: false
       matrix:
