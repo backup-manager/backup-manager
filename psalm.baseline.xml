@@ -157,11 +157,34 @@
       <code><![CDATA[PostgresqlDatabase]]></code>
     </UnusedClass>
   </file>
+  <file src="src/Filesystems/AsyncAwsS3Filesystem.php">
+    <MissingOverrideAttribute>
+      <code><![CDATA[public function get(array $config)]]></code>
+      <code><![CDATA[public function handles($type)]]></code>
+    </MissingOverrideAttribute>
+    <UndefinedClass>
+      <code><![CDATA[Flysystem]]></code>
+    </UndefinedClass>
+    <UndefinedDocblockClass>
+      <code><![CDATA[Flysystem]]></code>
+    </UndefinedDocblockClass>
+    <UnusedClass>
+      <code><![CDATA[AsyncAwsS3Filesystem]]></code>
+    </UnusedClass>
+  </file>
   <file src="src/Filesystems/Awss3Filesystem.php">
     <MissingOverrideAttribute>
       <code><![CDATA[public function get(array $config)]]></code>
       <code><![CDATA[public function handles($type)]]></code>
     </MissingOverrideAttribute>
+    <UndefinedClass>
+      <code><![CDATA[AwsS3Adapter]]></code>
+      <code><![CDATA[Flysystem]]></code>
+      <code><![CDATA[Flysystem]]></code>
+    </UndefinedClass>
+    <UndefinedDocblockClass>
+      <code><![CDATA[Flysystem]]></code>
+    </UndefinedDocblockClass>
     <UnusedClass>
       <code><![CDATA[Awss3Filesystem]]></code>
     </UnusedClass>
@@ -172,9 +195,12 @@
       <code><![CDATA[public function handles($type)]]></code>
     </MissingOverrideAttribute>
     <UndefinedClass>
-      <code><![CDATA[BackblazeAdapter]]></code>
       <code><![CDATA[Client]]></code>
+      <code><![CDATA[Flysystem]]></code>
     </UndefinedClass>
+    <UndefinedDocblockClass>
+      <code><![CDATA[Flysystem]]></code>
+    </UndefinedDocblockClass>
     <UnusedClass>
       <code><![CDATA[BackblazeFilesystem]]></code>
     </UnusedClass>
@@ -189,6 +215,12 @@
       <code><![CDATA[public function get(array $config)]]></code>
       <code><![CDATA[public function handles($type)]]></code>
     </MissingOverrideAttribute>
+    <UndefinedClass>
+      <code><![CDATA[Flysystem]]></code>
+    </UndefinedClass>
+    <UndefinedDocblockClass>
+      <code><![CDATA[Flysystem]]></code>
+    </UndefinedDocblockClass>
     <UnusedClass>
       <code><![CDATA[DropboxFilesystem]]></code>
     </UnusedClass>
@@ -198,13 +230,28 @@
       <code><![CDATA[public function get(array $config)]]></code>
       <code><![CDATA[public function handles($type)]]></code>
     </MissingOverrideAttribute>
+    <UndefinedClass>
+      <code><![CDATA[DropboxClient]]></code>
+      <code><![CDATA[Flysystem]]></code>
+    </UndefinedClass>
+    <UndefinedDocblockClass>
+      <code><![CDATA[Flysystem]]></code>
+    </UndefinedDocblockClass>
     <UnusedClass>
       <code><![CDATA[DropboxV2Filesystem]]></code>
     </UnusedClass>
   </file>
   <file src="src/Filesystems/Filesystem.php">
+    <UndefinedDocblockClass>
+      <code><![CDATA[\League\Flysystem\Filesystem]]></code>
+    </UndefinedDocblockClass>
     <UnusedClass>
       <code><![CDATA[Filesystem]]></code>
+    </UnusedClass>
+  </file>
+  <file src="src/Filesystems/FilesystemAdapterMissing.php">
+    <UnusedClass>
+      <code><![CDATA[FilesystemAdapterMissing]]></code>
     </UnusedClass>
   </file>
   <file src="src/Filesystems/FilesystemProvider.php">
@@ -218,6 +265,12 @@
       <code><![CDATA[getAvailableProviders]]></code>
       <code><![CDATA[getConfig]]></code>
     </PossiblyUnusedMethod>
+    <UndefinedDocblockClass>
+      <code><![CDATA[\League\Flysystem\Filesystem]]></code>
+    </UndefinedDocblockClass>
+    <UnusedMethod>
+      <code><![CDATA[registrationHint]]></code>
+    </UnusedMethod>
     <UnusedProperty>
       <code><![CDATA[$config]]></code>
       <code><![CDATA[$filesystems]]></code>
@@ -229,10 +282,18 @@
     </UnusedClass>
   </file>
   <file src="src/Filesystems/FlysystemFilesystem.php">
+    <ImplementedReturnTypeMismatch>
+      <code><![CDATA[FilesystemInterface|FilesystemOperator|MountManagerFilesystem]]></code>
+    </ImplementedReturnTypeMismatch>
     <MissingOverrideAttribute>
       <code><![CDATA[public function get(array $config)]]></code>
       <code><![CDATA[public function handles($type)]]></code>
     </MissingOverrideAttribute>
+    <UndefinedDocblockClass>
+      <code><![CDATA[FilesystemInterface|FilesystemOperator|MountManagerFilesystem]]></code>
+      <code><![CDATA[array|FilesystemInterface[]|FilesystemOperator[]]]></code>
+      <code><![CDATA[iterable|FilesystemInterface[]|FilesystemOperator[]]]></code>
+    </UndefinedDocblockClass>
     <UnusedClass>
       <code><![CDATA[FlysystemFilesystem]]></code>
     </UnusedClass>
@@ -242,6 +303,13 @@
       <code><![CDATA[public function get(array $config)]]></code>
       <code><![CDATA[public function handles($type)]]></code>
     </MissingOverrideAttribute>
+    <UndefinedClass>
+      <code><![CDATA[Flysystem]]></code>
+      <code><![CDATA[Flysystem]]></code>
+    </UndefinedClass>
+    <UndefinedDocblockClass>
+      <code><![CDATA[Flysystem]]></code>
+    </UndefinedDocblockClass>
     <UnusedClass>
       <code><![CDATA[FtpFilesystem]]></code>
     </UnusedClass>
@@ -251,6 +319,14 @@
       <code><![CDATA[public function get(array $config)]]></code>
       <code><![CDATA[public function handles($type)]]></code>
     </MissingOverrideAttribute>
+    <UndefinedClass>
+      <code><![CDATA[Flysystem]]></code>
+      <code><![CDATA[Flysystem]]></code>
+      <code><![CDATA[GoogleStorageAdapter]]></code>
+    </UndefinedClass>
+    <UndefinedDocblockClass>
+      <code><![CDATA[Flysystem]]></code>
+    </UndefinedDocblockClass>
     <UnusedClass>
       <code><![CDATA[GcsFilesystem]]></code>
     </UnusedClass>
@@ -260,8 +336,21 @@
       <code><![CDATA[public function get(array $config)]]></code>
       <code><![CDATA[public function handles($type)]]></code>
     </MissingOverrideAttribute>
+    <UndefinedClass>
+      <code><![CDATA[Flysystem]]></code>
+      <code><![CDATA[Flysystem]]></code>
+      <code><![CDATA[Local]]></code>
+    </UndefinedClass>
+    <UndefinedDocblockClass>
+      <code><![CDATA[Flysystem]]></code>
+    </UndefinedDocblockClass>
     <UnusedClass>
       <code><![CDATA[LocalFilesystem]]></code>
+    </UnusedClass>
+  </file>
+  <file src="src/Filesystems/MountManagerFilesystem.php">
+    <UnusedClass>
+      <code><![CDATA[MountManagerFilesystem]]></code>
     </UnusedClass>
   </file>
   <file src="src/Filesystems/RackspaceFilesystem.php">
@@ -269,6 +358,13 @@
       <code><![CDATA[public function get(array $config)]]></code>
       <code><![CDATA[public function handles($type)]]></code>
     </MissingOverrideAttribute>
+    <UndefinedClass>
+      <code><![CDATA[Flysystem]]></code>
+      <code><![CDATA[Rackspace]]></code>
+    </UndefinedClass>
+    <UndefinedDocblockClass>
+      <code><![CDATA[Flysystem]]></code>
+    </UndefinedDocblockClass>
     <UnusedClass>
       <code><![CDATA[RackspaceFilesystem]]></code>
     </UnusedClass>
@@ -278,6 +374,15 @@
       <code><![CDATA[public function get(array $config)]]></code>
       <code><![CDATA[public function handles($type)]]></code>
     </MissingOverrideAttribute>
+    <UndefinedClass>
+      <code><![CDATA[Flysystem]]></code>
+      <code><![CDATA[Flysystem]]></code>
+      <code><![CDATA[Flysystem]]></code>
+      <code><![CDATA[PhpseclibV2SftpConnectionProvider]]></code>
+    </UndefinedClass>
+    <UndefinedDocblockClass>
+      <code><![CDATA[Flysystem]]></code>
+    </UndefinedDocblockClass>
     <UnusedClass>
       <code><![CDATA[SftpFilesystem]]></code>
     </UnusedClass>
@@ -287,6 +392,12 @@
       <code><![CDATA[public function get(array $config)]]></code>
       <code><![CDATA[public function handles($type)]]></code>
     </MissingOverrideAttribute>
+    <UndefinedClass>
+      <code><![CDATA[Flysystem]]></code>
+    </UndefinedClass>
+    <UndefinedDocblockClass>
+      <code><![CDATA[Flysystem]]></code>
+    </UndefinedDocblockClass>
     <UnusedClass>
       <code><![CDATA[WebdavFilesystem]]></code>
     </UnusedClass>
@@ -300,6 +411,11 @@
     </UnusedClass>
   </file>
   <file src="src/Procedures/BackupProcedure.php">
+    <InvalidArgument>
+      <code><![CDATA[$localFilesystem]]></code>
+      <code><![CDATA[$localFilesystem]]></code>
+      <code><![CDATA[$this->filesystems->get($destination->destinationFilesystem())]]></code>
+    </InvalidArgument>
     <UnusedClass>
       <code><![CDATA[BackupProcedure]]></code>
     </UnusedClass>
@@ -331,6 +447,9 @@
   </file>
   <file src="src/Procedures/RestoreProcedure.php">
     <InvalidArgument>
+      <code><![CDATA[$localFilesystem]]></code>
+      <code><![CDATA[$localFilesystem]]></code>
+      <code><![CDATA[$this->filesystems->get($sourceType)]]></code>
       <code><![CDATA[uniqid() . basename($sourcePath)]]></code>
     </InvalidArgument>
     <UnusedClass>
@@ -351,11 +470,17 @@
     <PossiblyUnusedMethod>
       <code><![CDATA[process]]></code>
     </PossiblyUnusedMethod>
+    <UndefinedClass>
+      <code><![CDATA[Process]]></code>
+    </UndefinedClass>
   </file>
   <file src="src/Tasks/Compression/CompressFile.php">
     <MissingOverrideAttribute>
       <code><![CDATA[public function execute()]]></code>
     </MissingOverrideAttribute>
+    <UndefinedClass>
+      <code><![CDATA[Process]]></code>
+    </UndefinedClass>
     <UnusedClass>
       <code><![CDATA[CompressFile]]></code>
     </UnusedClass>
@@ -364,6 +489,9 @@
     <MissingOverrideAttribute>
       <code><![CDATA[public function execute()]]></code>
     </MissingOverrideAttribute>
+    <UndefinedClass>
+      <code><![CDATA[Process]]></code>
+    </UndefinedClass>
     <UnusedClass>
       <code><![CDATA[DecompressFile]]></code>
     </UnusedClass>
@@ -372,6 +500,9 @@
     <MissingOverrideAttribute>
       <code><![CDATA[public function execute()]]></code>
     </MissingOverrideAttribute>
+    <UndefinedClass>
+      <code><![CDATA[Process]]></code>
+    </UndefinedClass>
     <UnusedClass>
       <code><![CDATA[DumpDatabase]]></code>
     </UnusedClass>
@@ -380,25 +511,67 @@
     <MissingOverrideAttribute>
       <code><![CDATA[public function execute()]]></code>
     </MissingOverrideAttribute>
+    <UndefinedClass>
+      <code><![CDATA[Process]]></code>
+    </UndefinedClass>
     <UnusedClass>
       <code><![CDATA[RestoreDatabase]]></code>
     </UnusedClass>
   </file>
   <file src="src/Tasks/Storage/DeleteFile.php">
+    <AssignmentToVoid>
+      <code><![CDATA[$result]]></code>
+    </AssignmentToVoid>
     <MissingOverrideAttribute>
       <code><![CDATA[public function execute()]]></code>
     </MissingOverrideAttribute>
+    <TypeDoesNotContainType>
+      <code><![CDATA[$result]]></code>
+    </TypeDoesNotContainType>
+    <UndefinedDocblockClass>
+      <code><![CDATA[$this->filesystem]]></code>
+      <code><![CDATA[FileNotFoundException]]></code>
+      <code><![CDATA[FilesystemInterface|FilesystemOperator]]></code>
+      <code><![CDATA[FilesystemInterface|FilesystemOperator]]></code>
+    </UndefinedDocblockClass>
     <UnusedClass>
       <code><![CDATA[DeleteFile]]></code>
     </UnusedClass>
+    <UnusedVariable>
+      <code><![CDATA[$result]]></code>
+    </UnusedVariable>
+  </file>
+  <file src="src/Tasks/Storage/FileTransferFailed.php">
+    <UnusedClass>
+      <code><![CDATA[FileTransferFailed]]></code>
+    </UnusedClass>
   </file>
   <file src="src/Tasks/Storage/TransferFile.php">
+    <AssignmentToVoid>
+      <code><![CDATA[$written]]></code>
+    </AssignmentToVoid>
     <MissingOverrideAttribute>
       <code><![CDATA[public function execute()]]></code>
     </MissingOverrideAttribute>
+    <TypeDoesNotContainType>
+      <code><![CDATA[$written === false]]></code>
+    </TypeDoesNotContainType>
+    <UndefinedDocblockClass>
+      <code><![CDATA[$this->destinationFilesystem]]></code>
+      <code><![CDATA[$this->sourceFilesystem]]></code>
+      <code><![CDATA[FileExistsException]]></code>
+      <code><![CDATA[FileNotFoundException]]></code>
+      <code><![CDATA[FilesystemInterface|FilesystemOperator]]></code>
+      <code><![CDATA[FilesystemInterface|FilesystemOperator]]></code>
+      <code><![CDATA[FilesystemInterface|FilesystemOperator]]></code>
+      <code><![CDATA[FilesystemInterface|FilesystemOperator]]></code>
+    </UndefinedDocblockClass>
     <UnusedClass>
       <code><![CDATA[TransferFile]]></code>
     </UnusedClass>
+    <UnusedVariable>
+      <code><![CDATA[$written]]></code>
+    </UnusedVariable>
   </file>
   <file src="src/Tasks/Task.php">
     <PossiblyUnusedMethod>
