@@ -354,6 +354,10 @@ Code survey (master 9aa06b8, unreleased since 3.2.1: Symfony 6 support #87,
   knew only Flysystem 1 classes); core reports a missing adapter when the
   storage is used. Tests use a hand-written TestKernel instead of
   nyholm/symfony-bundle-test so one suite runs on Symfony 3.4–8.
+- 2026-11-22: symfony 3.3 ships native return types on four overridable
+  methods (needed by Symfony 6–8), documented in Changelog (Shawn). Switching
+  `BMBackupManagerExtension` to the DI component's `Extension` (http-kernel
+  8.1 deprecates its own) narrows inherited API, so it waits for 4.0.
 - 2026-11-22: Released core 3.3.0, 4.1.0 and laravel 2.1.0 (Shawn's go).
   laravel 2.1.0 was squash-merged with Co-authored-by trailers for nafiesl
   (#130) and martindrapeau (#135). All laravel PRs and issues closed with
