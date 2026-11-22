@@ -203,9 +203,15 @@ planned. Feature requests that fit are scheduled into the minor or major.
 
 #### M3a: laravel 3.0 plan
 - Require `backup-manager/backup-manager ^4.1`, PHP ^8.2, Laravel 12 and 13
-  (the lines Laravel patches; decide whether to keep 11 if a patched 11
-  appears). Remove `Lumen55ServiceProvider`, and the `DropboxV2` and
-  `Rackspace` registrations and default config entries.
+  only (Shawn, 2026-11-22), with `illuminate/*` floors at the patched
+  releases (^12.71.0 || ^13.40.0, per CVE-2026-128083 and earlier). Remove
+  `Lumen55ServiceProvider`, and the `DropboxV2` and `Rackspace` registrations
+  and default config entries.
+- Rename (Shawn, 2026-11-22): `BackupManagerServiceProvider`, one final class
+  per command (`DbBackupCommand`, `DbRestoreCommand`, `DbListCommand`);
+  `Laravel55*` names remain as deprecated `class_alias`es, removed in 4.0.
+  Traits `AutoComplete`, `Laravel55Compatibility`, `GetDatabaseConfig` go.
+- `2.x` branch (from tag 2.1.0) receives 2.x fixes.
 - Native types, `strict_types`, PHPStan/Psalm like core 4.0; UPGRADE.md.
 - Consider renaming `Laravel55*` classes (keep aliases or document in UPGRADE).
 - The `db:restore` file prompt (`askSourcePath`) has no test; add one.
