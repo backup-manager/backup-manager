@@ -2,34 +2,23 @@
 
 namespace spec\BackupManager\Tasks\Storage;
 
-use BackupManager\Tasks\Storage\FileTransferFailed;
+use League\Flysystem\FilesystemOperator;
+use League\Flysystem\UnableToWriteFile;
 use PhpSpec\ObjectBehavior;
-use Prophecy\Argument;
-use spec\BackupManager\Support\StorageDouble;
 
 class TransferFileSpec extends ObjectBehavior
 {
-    public function it_is_initializable(StorageDouble $filesystem)
+    public function it_is_initializable(FilesystemOperator $filesystem)
     {
         $this->beConstructedWith($filesystem, 'source', $filesystem, 'destination');
         $this->shouldHaveType('BackupManager\Tasks\Storage\TransferFile');
     }
 
-    public function it_should_execute_the_transfer_file_command(StorageDouble $source, StorageDouble $destination)
+    public function it_should_execute_the_transfer_file_command(FilesystemOperator $source, FilesystemOperator $destination)
     {
         $stream = fopen('php://memory', 'r');
         $source->readStream('source')->willReturn($stream);
-        $destination->writeStream('destination', $stream)->shouldBeCalled()->willReturn(null);
-
-        $this->beConstructedWith($source, 'source', $destination, 'destination');
-        $this->execute();
-    }
-
-    public function it_should_close_the_source_stream(StorageDouble $source, StorageDouble $destination)
-    {
-        $stream = fopen('php://memory', 'r');
-        $source->readStream('source')->willReturn($stream);
-        $destination->writeStream('destination', $stream)->willReturn(true);
+        $destination->writeStream('destination', $stream)->shouldBeCalled();
 
         $this->beConstructedWith($source, 'source', $destination, 'destination');
         $this->execute();
@@ -39,21 +28,17 @@ class TransferFileSpec extends ObjectBehavior
         }
     }
 
-    public function it_should_fail_when_flysystem_v1_cannot_read_the_source(StorageDouble $source, StorageDouble $destination)
+    public function it_should_close_the_source_stream_when_the_write_fails(FilesystemOperator $source, FilesystemOperator $destination)
     {
-        $source->readStream('source')->willReturn(false);
-        $destination->writeStream(Argument::cetera())->shouldNotBeCalled();
+        $stream = fopen('php://memory', 'r');
+        $source->readStream('source')->willReturn($stream);
+        $destination->writeStream('destination', $stream)->willThrow(UnableToWriteFile::atLocation('destination'));
 
         $this->beConstructedWith($source, 'source', $destination, 'destination');
-        $this->shouldThrow(FileTransferFailed::class)->during('execute');
-    }
+        $this->shouldThrow(UnableToWriteFile::class)->during('execute');
 
-    public function it_should_fail_when_flysystem_v1_cannot_write_the_destination(StorageDouble $source, StorageDouble $destination)
-    {
-        $source->readStream('source')->willReturn(fopen('php://memory', 'r'));
-        $destination->writeStream('destination', Argument::any())->willReturn(false);
-
-        $this->beConstructedWith($source, 'source', $destination, 'destination');
-        $this->shouldThrow(FileTransferFailed::class)->during('execute');
+        if (is_resource($stream)) {
+            throw new \RuntimeException('Expected the source stream to be closed.');
+        }
     }
 }

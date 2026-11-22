@@ -1,45 +1,34 @@
-<?php namespace BackupManager\Filesystems;
+<?php
+
+declare(strict_types=1);
+
+namespace BackupManager\Filesystems;
 
 use BackupManager\Config\Config;
 use BackupManager\Config\ConfigFieldNotFound;
 use BackupManager\Config\ConfigNotFoundForConnection;
+use League\Flysystem\FilesystemOperator;
 
-/**
- * Class FilesystemProvider
- * @package BackupManager\Filesystems
- */
 class FilesystemProvider
 {
-    /** @var Config */
-    private $config;
-    /** @var array */
-    private $filesystems = [];
+    /** @var list<Filesystem> */
+    private array $filesystems = [];
 
-    /**
-     * @param Config $config
-     */
-    public function __construct(Config $config)
+    public function __construct(private readonly Config $config)
     {
-        $this->config = $config;
     }
 
-    /**
-     * @param Filesystem $filesystem
-     */
-    public function add(Filesystem $filesystem)
+    public function add(Filesystem $filesystem): void
     {
         $this->filesystems[] = $filesystem;
     }
 
     /**
-     * @param $name
-     * @return \League\Flysystem\FilesystemInterface|\League\Flysystem\FilesystemOperator|object a Flysystem instance,
-     *         or (FlysystemFilesystem with a Flysystem 2/3 mount manager) an object with readStream, writeStream and delete
      * @throws FilesystemTypeNotSupported
      * @throws ConfigNotFoundForConnection
      * @throws ConfigFieldNotFound
      */
-    public function get($name)
+    public function get(string $name): FilesystemOperator
     {
         $type = $this->getConfig($name, 'type');
 
@@ -55,22 +44,23 @@ class FilesystemProvider
     }
 
     /**
-     * @param $name
-     * @param null $key
-     * @return mixed
      * @throws ConfigNotFoundForConnection
      * @throws ConfigFieldNotFound
      */
-    public function getConfig($name, $key = null)
+    public function getConfig(string $name, ?string $key = null): mixed
     {
         return $this->config->get($name, $key);
     }
 
     /**
-     * @param string|null $type
-     * @return string
+     * @return list<string> connection names
      */
-    private function registrationHint($type)
+    public function getAvailableProviders(): array
+    {
+        return array_keys($this->config->getItems());
+    }
+
+    private function registrationHint(?string $type): string
     {
         $known = [
             'local' => LocalFilesystem::class,
@@ -78,9 +68,6 @@ class FilesystemProvider
             'asyncawss3' => AsyncAwsS3Filesystem::class,
             'async-awss3' => AsyncAwsS3Filesystem::class,
             'async-aws-s3' => AsyncAwsS3Filesystem::class,
-            'b2' => BackblazeFilesystem::class,
-            'rackspace' => RackspaceFilesystem::class,
-            'dropboxv2' => DropboxV2Filesystem::class,
             'gcs' => GcsFilesystem::class,
             'dropbox' => DropboxFilesystem::class,
             'ftp' => FtpFilesystem::class,
@@ -94,17 +81,13 @@ class FilesystemProvider
         }
 
         if (isset($known[$key])) {
-            return sprintf('Register it with $filesystemProvider->add(new \\%s);', $known[$key]);
+            return sprintf('Register it with $filesystemProvider->add(new \\%s());', $known[$key]);
+        }
+
+        if (in_array($key, ['b2', 'rackspace', 'dropboxv2'], true)) {
+            return 'This type was removed in 4.0; see UPGRADE.md.';
         }
 
         return sprintf('Register a \\%s implementation that handles it.', Filesystem::class);
-    }
-
-    /**
-     * @return array
-     */
-    public function getAvailableProviders()
-    {
-        return array_keys($this->config->getItems());
     }
 }

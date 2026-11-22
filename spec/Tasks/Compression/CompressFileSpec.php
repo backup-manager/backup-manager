@@ -1,4 +1,6 @@
-<?php namespace spec\BackupManager\Tasks\Compression;
+<?php
+
+namespace spec\BackupManager\Tasks\Compression;
 
 use Prophecy\Argument;
 use PhpSpec\ObjectBehavior;

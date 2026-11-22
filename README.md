@@ -6,11 +6,12 @@
 
 This package provides a framework-agnostic database backup manager for dumping to and restoring databases from S3, Google Cloud Storage, Dropbox, FTP, SFTP, WebDAV, and any other [Flysystem](https://flysystem.thephpleague.com/) filesystem.
 
+- use version 4 for PHP 8.2+ with Flysystem 3
 - use version 3 for PHP 7.4+ with Flysystem 1, 2 or 3
 - use version 2 for PHP 7.3
 - use version 1 for &lt;PHP 7.2
 
-See [CHANGELOG.md](CHANGELOG.md) for release notes.
+See [CHANGELOG.md](CHANGELOG.md) for release notes and [UPGRADE.md](UPGRADE.md) for upgrading from 3.x.
 
 [Watch a video tour](https://www.youtube.com/watch?v=vWXy0R8OavM) showing the Laravel driver in action to give you an idea what is possible.
 
@@ -94,14 +95,8 @@ See [CHANGELOG.md](CHANGELOG.md) for release notes.
     'root'   => '',
     'use_path_style_endpoint' => false,
 ],
-'b2' => [
-    'type' => 'B2',
-    'key'    => '',
-    'accountId' => '',
-    'bucket' => '',
-],
 'async-s3' => [
-    'type' => 'AsyncAwsS3', // Flysystem 2/3; uses async-aws instead of the AWS SDK
+    'type' => 'AsyncAwsS3', // uses async-aws instead of the AWS SDK
     'key'    => '',
     'secret' => '',
     'region' => 'us-east-1',
@@ -115,20 +110,9 @@ See [CHANGELOG.md](CHANGELOG.md) for release notes.
     'bucket' => '',
     'root'   => '',
 ],
-'rackspace' => [
-    'type' => 'Rackspace',
-    'username' => '',
-    'key' => '',
-    'container' => '',
-    'zone' => '',
-    'root' => '',
-],
 'dropbox' => [
     'type' => 'Dropbox',
     'token' => '',
-    'key' => '',
-    'secret' => '',
-    'app' => '',
     'root' => '',
 ],
 'ftp' => [
@@ -148,14 +132,13 @@ See [CHANGELOG.md](CHANGELOG.md) for release notes.
     'username' => '',
     'password' => '',
     'root' => '',
-    'port' => 21,
+    'port' => 22,
     'timeout' => 10,
     'privateKey' => '',
 ],
 'flysystem' => [
     'type' => 'Flysystem',
-    'name' => 's3_backup',
-    //'prefix' => 'upload',
+    'name' => 's3_backup', // key of a FilesystemOperator passed to new FlysystemFilesystem([...])
 ],
 'doSpaces' => [
     'type' => 'AwsS3',
@@ -217,11 +200,11 @@ foreach (['development', 'production'] as $database) {
 
 ### Requirements
 
-- PHP 7.4 or later
-- [Flysystem](https://flysystem.thephpleague.com/) 1, 2 or 3
+- PHP 8.2 or later
+- [Flysystem](https://flysystem.thephpleague.com/) 3
 - MySQL support requires `mysqldump` and `mysql` command-line binaries
 - PostgreSQL support requires `pg_dump` and `psql` command-line binaries
-- Gzip support requires `gzip` and `gunzip` command-line binaries
+- Gzip support requires the `gzip` command-line binary
 
 
 ### Installation
@@ -234,23 +217,21 @@ Run the following to include this via Composer
 composer require backup-manager/backup-manager
 ```
 
-Then, install the adapter package for each filesystem type you use. The package depends on your Flysystem major version (`composer show league/flysystem`).
+Then, install the adapter package for each filesystem type you use:
 
-| Type | Flysystem 3 | Flysystem 2 | Flysystem 1 |
-|---|---|---|---|
-| `Local` | included | included | included |
-| `AwsS3` | `league/flysystem-aws-s3-v3` | `league/flysystem-aws-s3-v3` | `league/flysystem-aws-s3-v3:^1.0` |
-| `AsyncAwsS3` | `league/flysystem-async-aws-s3` | `league/flysystem-async-aws-s3` | not available |
-| `Gcs` | `league/flysystem-google-cloud-storage` | `league/flysystem-google-cloud-storage:^2.0` | `superbalist/flysystem-google-storage` |
-| `Dropbox` | `spatie/flysystem-dropbox` | `spatie/flysystem-dropbox:^2.0` | `spatie/flysystem-dropbox:^1.2` |
-| `Ftp` | `league/flysystem-ftp` | `league/flysystem-ftp:^2.0` | included |
-| `Sftp` | `league/flysystem-sftp-v3` | `league/flysystem-sftp:^2.0` | `league/flysystem-sftp:^1.0` |
-| `Webdav` | `league/flysystem-webdav` | not available | `league/flysystem-webdav:^1.0` |
-| `DropboxV2` (deprecated) | not available | not available | `srmklive/flysystem-dropbox-v2` |
-| `Rackspace` (deprecated) | not available | not available | `league/flysystem-rackspace` |
-| `B2` (deprecated) | not available | not available | `mhetreramesh/flysystem-backblaze` |
+| Type | Package |
+|---|---|
+| `Local` | included |
+| `AwsS3` | `league/flysystem-aws-s3-v3` |
+| `AsyncAwsS3` | `league/flysystem-async-aws-s3` |
+| `Gcs` | `league/flysystem-google-cloud-storage` |
+| `Dropbox` | `spatie/flysystem-dropbox` |
+| `Ftp` | `league/flysystem-ftp` |
+| `Sftp` | `league/flysystem-sftp-v3` |
+| `Webdav` | `league/flysystem-webdav` |
+| `Flysystem` | none: pass your own `FilesystemOperator` instances to `FlysystemFilesystem` |
 
-Every Flysystem 1 and 2 release is affected by a security advisory, and Composer refuses to install them by default. Use Flysystem 3.
+For any other storage, construct the Flysystem adapter yourself and register it through the `Flysystem` type. A Flysystem `MountManager` can be registered the same way, with destination paths such as `upload://backup.sql`.
 
 ### Usage
 
@@ -263,11 +244,11 @@ The required bootstrapping can [be found in the example here](https://github.com
 
 ### Contribution Guidelines
 
-Run the specs with `vendor/bin/phpspec run`. `composer.json` installs the Flysystem 3 adapter packages for development; CI also runs the specs against Flysystem 1 and 2 using `.github/scripts/use-flysystem.sh`.
+Run the specs with `vendor/bin/phpspec run`. Static analysis: `phpstan analyze`, `psalm` and `php-cs-fixer fix --dry-run` (PSR-12).
 
 When contributing please consider the following guidelines:
 
-- Code style is PSR-2
+- Code style is PSR-12
     - Interfaces should NOT be suffixed with `Interface`, Traits should NOT be suffixed with `Trait`.
 - All methods and classes must contain docblocks.
 - Ensure that you submit tests that have minimal 100% coverage. Given the project's simplicity it just makes sense.

@@ -1,29 +1,22 @@
-<?php namespace BackupManager\Procedures;
+<?php
+
+declare(strict_types=1);
+
+namespace BackupManager\Procedures;
 
 use BackupManager\Tasks\Task;
 
-/**
- * Class Sequence
- * @package BackupManager\Procedures
- */
 class Sequence
 {
-    /** @var array|Task[] */
-    private $tasks = [];
+    /** @var list<Task> */
+    private array $tasks = [];
 
-    /**
-     * @param Task $task
-     */
-    public function add(Task $task)
+    public function add(Task $task): void
     {
         $this->tasks[] = $task;
     }
 
-    /**
-     * Run the procedure.
-     * @return void
-     */
-    public function execute()
+    public function execute(): void
     {
         foreach ($this->tasks as $task) {
             $task->execute();

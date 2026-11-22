@@ -1,52 +1,37 @@
-<?php namespace BackupManager\Compressors;
+<?php
 
-/**
- * Class NullCompressor
- * @package BackupManager\Compressors
- */
-class NullCompressor implements Compressor
+declare(strict_types=1);
+
+namespace BackupManager\Compressors;
+
+final class NullCompressor implements Compressor
 {
-    /**
-     * @param $type
-     * @return bool
-     */
-    public function handles($type)
+    #[\Override]
+    public function handles(?string $type): bool
     {
-        return strtolower($type ?? '') == 'null';
+        return strtolower($type ?? '') === 'null';
     }
 
-    /**
-     * @param $inputPath
-     * @return string
-     */
-    public function getCompressCommandLine($inputPath)
+    #[\Override]
+    public function getCompressCommandLine(string $inputPath): string
     {
         return '';
     }
 
-    /**
-     * @param $outputPath
-     * @return string
-     */
-    public function getDecompressCommandLine($outputPath)
+    #[\Override]
+    public function getDecompressCommandLine(string $inputPath): string
     {
         return '';
     }
 
-    /**
-     * @param $inputPath
-     * @return string
-     */
-    public function getCompressedPath($inputPath)
+    #[\Override]
+    public function getCompressedPath(string $inputPath): string
     {
         return $inputPath;
     }
 
-    /**
-     * @param $inputPath
-     * @return string
-     */
-    public function getDecompressedPath($inputPath)
+    #[\Override]
+    public function getDecompressedPath(string $inputPath): string
     {
         return $inputPath;
     }

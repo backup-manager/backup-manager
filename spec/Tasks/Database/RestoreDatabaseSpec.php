@@ -1,4 +1,6 @@
-<?php namespace spec\BackupManager\Tasks\Database;
+<?php
+
+namespace spec\BackupManager\Tasks\Database;
 
 use Prophecy\Argument;
 use PhpSpec\ObjectBehavior;

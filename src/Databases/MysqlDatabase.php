@@ -1,138 +1,108 @@
-<?php namespace BackupManager\Databases;
+<?php
 
-/**
- * Class MysqlDatabase
- * @package BackupManager\Databases
- */
-class MysqlDatabase implements Database
+declare(strict_types=1);
+
+namespace BackupManager\Databases;
+
+final class MysqlDatabase implements Database
 {
-    /** @var array */
-    private $config;
+    /** @var array<string, mixed> */
+    private array $config = [];
 
-    /**
-     * @param $type
-     * @return bool
-     */
-    public function handles($type)
+    #[\Override]
+    public function handles(?string $type): bool
     {
         return in_array(strtolower($type ?? ''), ['mysql', 'pdo_mysql'], true);
     }
 
-    /**
-     * @param array $config
-     * @return null
-     */
-    public function setConfig(array $config)
+    #[\Override]
+    public function setConfig(array $config): void
     {
         $this->config = $config;
     }
 
-    /**
-     * @param $outputPath
-     * @return string
-     */
-    public function getDumpCommandLine($outputPath)
+    #[\Override]
+    public function getDumpCommandLine(string $outputPath): string
     {
         $extras = [];
-        if (array_key_exists('singleTransaction', $this->config) && $this->config['singleTransaction'] === true) {
+        if (($this->config['singleTransaction'] ?? false) === true) {
             $extras[] = '--single-transaction';
         }
         if (array_key_exists('ignoreTables', $this->config)) {
             $extras[] = $this->getIgnoreTableParameter();
         }
-        if (array_key_exists('ssl', $this->config) && $this->config['ssl'] === true) {
+        if (($this->config['ssl'] ?? false) === true) {
             $extras[] = '--ssl';
         }
-        if (array_key_exists('columnStatistics', $this->config) && $this->config['columnStatistics'] === false) {
+        if (($this->config['columnStatistics'] ?? null) === false) {
             // MySQL 8 mysqldump queries column statistics that older servers and MariaDB lack.
             $extras[] = '--column-statistics=0';
         }
-        if (array_key_exists('extraParams', $this->config) && $this->config['extraParams']) {
+        if (!empty($this->config['extraParams'])) {
             $extras[] = $this->config['extraParams'];
         }
 
-        // Prepare a "params" string from our config
-        $params = '';
-        $keys = ['host' => 'host', 'port' => 'port', 'user' => 'user', 'pass' => 'password'];
-        foreach ($keys as $key => $mysqlParam) {
-            if (!empty($this->config[$key])) {
-                $params .= sprintf(' --%s=%s', $mysqlParam, escapeshellarg($this->config[$key]));
-            }
-        }
-
-        $command = 'mysqldump --routines ' . implode(' ', $extras) . '%s %s > %s';
         return sprintf(
-            $command,
-            $params,
-            escapeshellarg($this->config['database']) . $this->getOnlyTablesArguments(),
+            'mysqldump --routines %s%s %s > %s',
+            implode(' ', $extras),
+            $this->getConnectionParameters(),
+            escapeshellarg((string) $this->config['database']) . $this->getOnlyTablesArguments(),
             escapeshellarg($outputPath)
         );
     }
 
-    /**
-     * @param $inputPath
-     * @return string
-     */
-    public function getRestoreCommandLine($inputPath)
+    #[\Override]
+    public function getRestoreCommandLine(string $inputPath): string
     {
         $extras = [];
-        if (array_key_exists('ssl', $this->config) && $this->config['ssl'] === true) {
+        if (($this->config['ssl'] ?? false) === true) {
             $extras[] = '--ssl';
         }
 
-        // Prepare a "params" string from our config
-        $params = '';
-        $keys = ['host' => 'host', 'port' => 'port', 'user' => 'user', 'pass' => 'password'];
-        foreach ($keys as $key => $mysqlParam) {
-            if (!empty($this->config[$key])) {
-                $params .= sprintf(' --%s=%s', $mysqlParam, escapeshellarg($this->config[$key]));
-            }
-        }
-
         return sprintf(
-            'mysql%s ' . implode(' ', $extras) . ' %s -e "source %s"',
-            $params,
-            escapeshellarg($this->config['database']),
-            $inputPath
+            'mysql%s %s %s -e %s',
+            $this->getConnectionParameters(),
+            implode(' ', $extras),
+            escapeshellarg((string) $this->config['database']),
+            escapeshellarg('source ' . $inputPath)
         );
     }
 
-    /**
-     * Table names after the database name restrict the dump to those tables.
-     *
-     * @return string
-     */
-    private function getOnlyTablesArguments()
-    {
-        if (empty($this->config['onlyTables']) || !is_array($this->config['onlyTables'])) {
-            return '';
-        }
-
-        return ' ' . implode(' ', array_map('escapeshellarg', $this->config['onlyTables']));
-    }
-
-    /**
-     * @return string
-     */
-    public function getIgnoreTableParameter()
+    public function getIgnoreTableParameter(): string
     {
         if (!is_array($this->config['ignoreTables']) || count($this->config['ignoreTables']) === 0) {
             return '';
         }
 
         $db = $this->config['database'];
-        $ignoreTables = array_map(function ($table) use ($db) {
-            return $db . '.' . $table;
-        }, $this->config['ignoreTables']);
 
-        $commands = [];
-        foreach ($ignoreTables as $ignoreTable) {
-            $commands[] = sprintf(
-                '--ignore-table=%s',
-                escapeshellarg($ignoreTable)
-            );
+        return implode(' ', array_map(
+            static fn ($table): string => sprintf('--ignore-table=%s', escapeshellarg($db . '.' . $table)),
+            $this->config['ignoreTables']
+        ));
+    }
+
+    private function getConnectionParameters(): string
+    {
+        $params = '';
+        foreach (['host' => 'host', 'port' => 'port', 'user' => 'user', 'pass' => 'password'] as $key => $mysqlParam) {
+            if (!empty($this->config[$key])) {
+                $params .= sprintf(' --%s=%s', $mysqlParam, escapeshellarg((string) $this->config[$key]));
+            }
         }
 
-        return implode(' ', $commands);
+        return $params;
+    }
+
+    /**
+     * Table names after the database name restrict the dump to those tables.
+     */
+    private function getOnlyTablesArguments(): string
+    {
+        if (empty($this->config['onlyTables']) || !is_array($this->config['onlyTables'])) {
+            return '';
+        }
+
+        return ' ' . implode(' ', array_map('escapeshellarg', $this->config['onlyTables']));
     }
 }

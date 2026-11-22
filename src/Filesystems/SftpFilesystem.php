@@ -1,69 +1,44 @@
-<?php namespace BackupManager\Filesystems;
+<?php
+
+declare(strict_types=1);
+
+namespace BackupManager\Filesystems;
 
 use League\Flysystem\Filesystem as Flysystem;
-use League\Flysystem\PhpseclibV2\SftpAdapter as PhpseclibV2SftpAdapter;
-use League\Flysystem\PhpseclibV2\SftpConnectionProvider as PhpseclibV2SftpConnectionProvider;
-use League\Flysystem\PhpseclibV3\SftpAdapter as PhpseclibV3SftpAdapter;
-use League\Flysystem\PhpseclibV3\SftpConnectionProvider as PhpseclibV3SftpConnectionProvider;
-use League\Flysystem\Sftp\SftpAdapter;
+use League\Flysystem\FilesystemOperator;
+use League\Flysystem\PhpseclibV3\SftpAdapter;
+use League\Flysystem\PhpseclibV3\SftpConnectionProvider;
 
-/**
- * Class SftpFilesystem
- * @package BackupManager\Filesystems
- */
-class SftpFilesystem implements Filesystem
+final class SftpFilesystem implements Filesystem
 {
-    /**
-     * Test fitness of visitor.
-     * @param $type
-     * @return bool
-     */
-    public function handles($type)
+    #[\Override]
+    public function handles(?string $type): bool
     {
-        return strtolower($type ?? '') == 'sftp';
+        return strtolower($type ?? '') === 'sftp';
+    }
+
+    #[\Override]
+    public function get(array $config): FilesystemOperator
+    {
+        if (!class_exists(SftpAdapter::class)) {
+            throw FilesystemAdapterMissing::forType('Sftp', 'league/flysystem-sftp-v3');
+        }
+
+        return new Flysystem(new SftpAdapter(
+            SftpConnectionProvider::fromArray($this->connectionOptions($config)),
+            (string) ($config['root'] ?? '')
+        ));
     }
 
     /**
-     * @param array $config
-     * @return Flysystem
-     */
-    public function get(array $config)
-    {
-        // Flysystem v3 with league/flysystem-sftp-v3 (phpseclib 3)
-        if (class_exists(PhpseclibV3SftpAdapter::class)) {
-            return new Flysystem(new PhpseclibV3SftpAdapter(
-                PhpseclibV3SftpConnectionProvider::fromArray($this->connectionOptions($config)),
-                $config['root'] ?? ''
-            ));
-        }
-
-        // Flysystem v2/v3 with league/flysystem-sftp (phpseclib 2)
-        if (class_exists(PhpseclibV2SftpAdapter::class)) {
-            return new Flysystem(new PhpseclibV2SftpAdapter(
-                PhpseclibV2SftpConnectionProvider::fromArray($this->connectionOptions($config)),
-                $config['root'] ?? ''
-            ));
-        }
-
-        // Flysystem v1 with league/flysystem-sftp
-        if (class_exists(SftpAdapter::class)) {
-            return new Flysystem(new SftpAdapter($config));
-        }
-
-        throw FilesystemAdapterMissing::forType('Sftp', 'league/flysystem-sftp-v3');
-    }
-
-    /**
-     * Maps a Flysystem 1 style config onto the v2/v3 connection providers:
-     * - empty credentials are absent (v2/v3 try to use any non-null value);
-     * - with a private key and no 'passphrase', 'password' unlocks the key,
-     *   as in Flysystem 1;
-     * - scalars are cast, because the providers are strictly typed.
+     * - empty credentials are absent (the provider tries any non-null value);
+     * - with a private key and no 'passphrase', 'password' unlocks the key;
+     * - scalars are cast, because the provider is strictly typed.
      *
-     * @param array $config
-     * @return array
+     * @param array<string, mixed> $config
+     * @return array<string, mixed>
      */
-    private function connectionOptions(array $config)
+    private function connectionOptions(array $config): array
     {
         foreach (['password', 'privateKey', 'passphrase'] as $key) {
             if (isset($config[$key]) && $config[$key] === '') {
@@ -71,19 +46,10 @@ class SftpFilesystem implements Filesystem
             }
         }
 
-        if (isset($config['privateKey']) && ! isset($config['passphrase']) && isset($config['password'])) {
+        if (isset($config['privateKey']) && !isset($config['passphrase']) && isset($config['password'])) {
             $config['passphrase'] = $config['password'];
         }
 
-        foreach (['port', 'timeout', 'maxTries'] as $key) {
-            if (isset($config[$key])) {
-                $config[$key] = (int) $config[$key];
-            }
-        }
-        if (isset($config['useAgent'])) {
-            $config['useAgent'] = filter_var($config['useAgent'], FILTER_VALIDATE_BOOLEAN);
-        }
-
-        return $config;
+        return Scalars::cast($config, ['port', 'timeout', 'maxTries'], ['useAgent']);
     }
 }

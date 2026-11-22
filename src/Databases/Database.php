@@ -1,32 +1,19 @@
-<?php namespace BackupManager\Databases;
+<?php
 
-/**
- * Class Database
- * @package BackupManager\Databases
- */
+declare(strict_types=1);
+
+namespace BackupManager\Databases;
+
 interface Database
 {
-    /**
-     * @param $type
-     * @return bool
-     */
-    public function handles($type);
+    public function handles(?string $type): bool;
 
     /**
-     * @param array $config
-     * @return null
+     * @param array<string, mixed> $config
      */
-    public function setConfig(array $config);
+    public function setConfig(array $config): void;
 
-    /**
-     * @param $inputPath
-     * @return string
-     */
-    public function getDumpCommandLine($inputPath);
+    public function getDumpCommandLine(string $outputPath): string;
 
-    /**
-     * @param $outputPath
-     * @return string
-     */
-    public function getRestoreCommandLine($outputPath);
+    public function getRestoreCommandLine(string $inputPath): string;
 }

@@ -1,45 +1,32 @@
-<?php namespace BackupManager\Tasks\Database;
+<?php
 
-use BackupManager\Tasks\Task;
+declare(strict_types=1);
+
+namespace BackupManager\Tasks\Database;
+
 use BackupManager\Databases\Database;
-use Symfony\Component\Process\Process;
-use BackupManager\ShellProcessing\ShellProcessor;
 use BackupManager\ShellProcessing\ShellProcessFailed;
+use BackupManager\ShellProcessing\ShellProcessor;
+use BackupManager\Tasks\Task;
+use Symfony\Component\Process\Process;
 
-/**
- * Class RestoreDatabase
- * @package BackupManager\Tasks\Database
- */
-class RestoreDatabase implements Task
+final class RestoreDatabase implements Task
 {
-    /** @var string */
-    private $inputPath;
-    /** @var ShellProcessor */
-    private $shellProcessor;
-    /** @var Database */
-    private $database;
-
-    /**
-     * @param Database $database
-     * @param $inputPath
-     * @param ShellProcessor $shellProcessor
-     */
-    public function __construct(Database $database, $inputPath, ShellProcessor $shellProcessor)
-    {
-        $this->inputPath = $inputPath;
-        $this->shellProcessor = $shellProcessor;
-        $this->database = $database;
+    public function __construct(
+        private readonly Database $database,
+        private readonly string $inputPath,
+        private readonly ShellProcessor $shellProcessor,
+    ) {
     }
 
     /**
      * @throws ShellProcessFailed
      */
-    public function execute()
+    #[\Override]
+    public function execute(): void
     {
-        return $this->shellProcessor->process(
-            Process::fromShellCommandline(
-                $this->database->getRestoreCommandLine($this->inputPath)
-            )
+        $this->shellProcessor->process(
+            Process::fromShellCommandline($this->database->getRestoreCommandLine($this->inputPath))
         );
     }
 }

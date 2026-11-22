@@ -1,4 +1,6 @@
-<?php namespace spec\BackupManager\ShellProcessing;
+<?php
+
+namespace spec\BackupManager\ShellProcessing;
 
 use PhpSpec\ObjectBehavior;
 use Symfony\Component\Process\Process;

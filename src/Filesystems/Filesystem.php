@@ -1,21 +1,21 @@
-<?php namespace BackupManager\Filesystems;
+<?php
+
+declare(strict_types=1);
+
+namespace BackupManager\Filesystems;
+
+use League\Flysystem\FilesystemOperator;
 
 /**
- * Interface Filesystem
- * @package BackupManager\Filesystems
+ * A filesystem factory: reports which filesystem type it handles and builds a
+ * Flysystem instance from that type's storage config.
  */
 interface Filesystem
 {
-    /**
-     * Test fitness of visitor.
-     * @param $type
-     * @return bool
-     */
-    public function handles($type);
+    public function handles(?string $type): bool;
 
     /**
-     * @param array $config
-     * @return \League\Flysystem\Filesystem
+     * @param array<string, mixed> $config
      */
-    public function get(array $config);
+    public function get(array $config): FilesystemOperator;
 }

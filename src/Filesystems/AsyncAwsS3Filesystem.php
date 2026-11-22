@@ -1,39 +1,35 @@
-<?php namespace BackupManager\Filesystems;
+<?php
+
+declare(strict_types=1);
+
+namespace BackupManager\Filesystems;
 
 use AsyncAws\S3\S3Client;
 use League\Flysystem\AsyncAwsS3\AsyncAwsS3Adapter;
 use League\Flysystem\Filesystem as Flysystem;
+use League\Flysystem\FilesystemOperator;
 
 /**
  * S3 storage through AsyncAws, a lighter alternative to the official AWS SDK.
- * Requires Flysystem v2 or v3 and league/flysystem-async-aws-s3.
- *
- * @package BackupManager\Filesystems
  */
-class AsyncAwsS3Filesystem implements Filesystem
+final class AsyncAwsS3Filesystem implements Filesystem
 {
-    /**
-     * @param $type
-     * @return bool
-     */
-    public function handles($type)
+    #[\Override]
+    public function handles(?string $type): bool
     {
         return in_array(strtolower($type ?? ''), ['asyncawss3', 'async-awss3', 'async-aws-s3'], true);
     }
 
-    /**
-     * @param array $config
-     * @return Flysystem
-     */
-    public function get(array $config)
+    #[\Override]
+    public function get(array $config): FilesystemOperator
     {
-        if (! class_exists(AsyncAwsS3Adapter::class)) {
+        if (!class_exists(AsyncAwsS3Adapter::class)) {
             throw FilesystemAdapterMissing::forType('AsyncAwsS3', 'league/flysystem-async-aws-s3');
         }
 
         // AsyncAws configuration values are strings.
         $clientConfig = [
-            'pathStyleEndpoint' => ! empty($config['use_path_style_endpoint']) ? 'true' : 'false',
+            'pathStyleEndpoint' => !empty($config['use_path_style_endpoint']) ? 'true' : 'false',
         ];
 
         $options = ['key' => 'accessKeyId', 'secret' => 'accessKeySecret', 'region' => 'region', 'endpoint' => 'endpoint'];
@@ -46,7 +42,7 @@ class AsyncAwsS3Filesystem implements Filesystem
         return new Flysystem(new AsyncAwsS3Adapter(
             new S3Client($clientConfig),
             $config['bucket'],
-            isset($config['root']) ? $config['root'] : ''
+            (string) ($config['root'] ?? '')
         ));
     }
 }

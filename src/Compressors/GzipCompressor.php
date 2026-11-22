@@ -1,53 +1,38 @@
-<?php namespace BackupManager\Compressors;
+<?php
 
-/**
- * Class GzipCompressor
- * @package BackupManager\Compressors
- */
-class GzipCompressor implements Compressor
+declare(strict_types=1);
+
+namespace BackupManager\Compressors;
+
+final class GzipCompressor implements Compressor
 {
-    /**
-     * @param $type
-     * @return bool
-     */
-    public function handles($type)
+    #[\Override]
+    public function handles(?string $type): bool
     {
-        return strtolower($type ?? '') == 'gzip';
+        return strtolower($type ?? '') === 'gzip';
     }
 
-    /**
-     * @param $inputPath
-     * @return string
-     */
-    public function getCompressCommandLine($inputPath)
+    #[\Override]
+    public function getCompressCommandLine(string $inputPath): string
     {
         return 'gzip ' . escapeshellarg($inputPath);
     }
 
-    /**
-     * @param $outputPath
-     * @return string
-     */
-    public function getDecompressCommandLine($outputPath)
+    #[\Override]
+    public function getDecompressCommandLine(string $inputPath): string
     {
-        return 'gzip -d ' . escapeshellarg($outputPath);
+        return 'gzip -d ' . escapeshellarg($inputPath);
     }
 
-    /**
-     * @param $inputPath
-     * @return string
-     */
-    public function getCompressedPath($inputPath)
+    #[\Override]
+    public function getCompressedPath(string $inputPath): string
     {
         return $inputPath . '.gz';
     }
 
-    /**
-     * @param $inputPath
-     * @return string
-     */
-    public function getDecompressedPath($inputPath)
+    #[\Override]
+    public function getDecompressedPath(string $inputPath): string
     {
-        return preg_replace('/\.gz$/', '', $inputPath);
+        return (string) preg_replace('/\.gz$/', '', $inputPath);
     }
 }

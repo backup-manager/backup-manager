@@ -1,4 +1,8 @@
-<?php namespace BackupManager\Procedures;
+<?php
+
+declare(strict_types=1);
+
+namespace BackupManager\Procedures;
 
 use BackupManager\Compressors\CompressorTypeNotSupported;
 use BackupManager\Config\ConfigFieldNotFound;
@@ -15,18 +19,16 @@ use BackupManager\Tasks;
 class BackupProcedure extends Procedure
 {
     /**
-     * @param string $database
-     * @param Destination[] $destinations
-     * @param string $compression
+     * @param list<Destination> $destinations
      * @throws FilesystemTypeNotSupported
      * @throws ConfigFieldNotFound
      * @throws CompressorTypeNotSupported
      * @throws DatabaseTypeNotSupported
      * @throws ConfigNotFoundForConnection
      */
-    public function run($database, array $destinations, $compression)
+    public function run(string $database, array $destinations, ?string $compression): void
     {
-        $sequence = new Sequence;
+        $sequence = new Sequence();
 
         // begin the life of a new working file
         $localFilesystem = $this->filesystems->get('local');

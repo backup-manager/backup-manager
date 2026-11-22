@@ -2,63 +2,66 @@ name: Tests
 on:
   push:
   pull_request:
+  schedule:
+    # Weekly, so advisories published after the last push still surface.
+    - cron: '17 4 * * 1'
 
 concurrency:
   group: ${{ github.workflow }}-${{ github.event_name }}-${{ github.ref }}
   cancel-in-progress: true
 
+permissions:
+  contents: read
+
 jobs:
   phpspec:
-    name: PHP ${{ matrix.php }} Flysystem ${{ matrix.flysystem }} ${{ matrix.dependencies }}
+    name: PHP ${{ matrix.php }} ${{ matrix.dependencies }}
     runs-on: ubuntu-latest
-    env:
-      # The AWS SDK warns on PHP < 8.1; phpspec would report that as a broken example.
-      AWS_SUPPRESS_PHP_DEPRECATION_WARNING: 'true'
     strategy:
       fail-fast: false
       matrix:
+        php: ['8.2', '8.3', '8.4', '8.5']
+        dependencies: ['highest']
         include:
-          # Flysystem 1 (every release is advisory-flagged; still supported in 3.x)
-          - { php: '7.4', flysystem: 1, dependencies: lowest }
-          - { php: '7.4', flysystem: 1, dependencies: highest }
-          - { php: '8.1', flysystem: 1, dependencies: highest }
-          - { php: '8.3', flysystem: 1, dependencies: highest }
-          - { php: '8.4', flysystem: 1, dependencies: highest }
-          # Flysystem 2 (every release is advisory-flagged; still supported in 3.x)
-          - { php: '7.4', flysystem: 2, dependencies: lowest }
-          - { php: '7.4', flysystem: 2, dependencies: highest }
-          - { php: '8.1', flysystem: 2, dependencies: highest }
-          # Flysystem 3
-          - { php: '8.1', flysystem: 3, dependencies: lowest }
-          - { php: '8.0', flysystem: 3, dependencies: highest }
-          - { php: '8.1', flysystem: 3, dependencies: highest }
-          - { php: '8.2', flysystem: 3, dependencies: highest }
-          - { php: '8.3', flysystem: 3, dependencies: highest }
-          - { php: '8.4', flysystem: 3, dependencies: highest }
-          - { php: '8.5', flysystem: 3, dependencies: highest }
+          - { php: '8.2', dependencies: lowest }
 
     steps:
       - name: Set up PHP
-        uses: shivammathur/setup-php@2.40.0
+        uses: shivammathur/setup-php@eb7c497e18156a6bbabfef1d3a82760b9eda3962 # 2.40.0
         with:
           php-version: ${{ matrix.php }}
           extensions: ftp
           coverage: none
 
       - name: Checkout code
-        uses: actions/checkout@v7
-
-      - name: Select Flysystem ${{ matrix.flysystem }} dev dependencies
-        run: .github/scripts/use-flysystem.sh ${{ matrix.flysystem }}
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
 
       - name: Download dependencies
-        uses: ramsey/composer-install@v4
+        uses: ramsey/composer-install@65e4f84970763564f46a70b8a54b90d033b3bdda # 4.0.0
         with:
           dependency-versions: ${{ matrix.dependencies }}
-          composer-options: --no-security-blocking
 
       - name: Show resolved key packages
         run: composer show | grep -E '^(league/flysystem|phpspec/phpspec|symfony/process)'
 
       - name: Run tests
         run: ./vendor/bin/phpspec run -fpretty -v
+
+  audit:
+    name: Composer audit
+    runs-on: ubuntu-latest
+    steps:
+      - name: Set up PHP
+        uses: shivammathur/setup-php@eb7c497e18156a6bbabfef1d3a82760b9eda3962 # 2.40.0
+        with:
+          php-version: '8.4'
+          coverage: none
+
+      - name: Checkout code
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+
+      - name: Download dependencies
+        uses: ramsey/composer-install@65e4f84970763564f46a70b8a54b90d033b3bdda # 4.0.0
+
+      - name: Audit dependencies for security advisories
+        run: composer audit

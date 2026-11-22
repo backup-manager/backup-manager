@@ -1,37 +1,24 @@
-<?php namespace BackupManager\Filesystems;
+<?php
 
-use League\Flysystem\Adapter\Local;
+declare(strict_types=1);
+
+namespace BackupManager\Filesystems;
+
 use League\Flysystem\Filesystem as Flysystem;
+use League\Flysystem\FilesystemOperator;
 use League\Flysystem\Local\LocalFilesystemAdapter;
 
-/**
- * Class LocalFilesystem
- * @package BackupManager\Filesystems
- */
-class LocalFilesystem implements Filesystem
+final class LocalFilesystem implements Filesystem
 {
-    /**
-     * Test fitness of visitor.
-     * @param $type
-     * @return bool
-     */
-    public function handles($type)
+    #[\Override]
+    public function handles(?string $type): bool
     {
-        return strtolower($type ?? '') == 'local';
+        return strtolower($type ?? '') === 'local';
     }
 
-    /**
-     * @param array $config
-     * @return Flysystem
-     */
-    public function get(array $config)
+    #[\Override]
+    public function get(array $config): FilesystemOperator
     {
-        // Flysystem v2/v3
-        if (class_exists(LocalFilesystemAdapter::class)) {
-            return new Flysystem(new LocalFilesystemAdapter($config['root']));
-        }
-
-        // Flysystem v1
-        return new Flysystem(new Local($config['root']));
+        return new Flysystem(new LocalFilesystemAdapter($config['root']));
     }
 }

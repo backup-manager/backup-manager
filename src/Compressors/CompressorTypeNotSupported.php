@@ -1,9 +1,9 @@
-<?php namespace BackupManager\Compressors;
+<?php
 
-/**
- * Class CompressorTypeNotSupported
- * @package BackupManager\Compressors
- */
+declare(strict_types=1);
+
+namespace BackupManager\Compressors;
+
 class CompressorTypeNotSupported extends \Exception
 {
 }

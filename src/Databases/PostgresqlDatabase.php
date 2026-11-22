@@ -1,62 +1,50 @@
-<?php namespace BackupManager\Databases;
+<?php
 
-/**
- * Class PostgresqlDatabase
- * @package BackupManager\Databases
- */
-class PostgresqlDatabase implements Database
+declare(strict_types=1);
+
+namespace BackupManager\Databases;
+
+final class PostgresqlDatabase implements Database
 {
-    /** @var array */
-    private $config;
+    /** @var array<string, mixed> */
+    private array $config = [];
 
-    /**
-     * @param $type
-     * @return bool
-     */
-    public function handles($type)
+    #[\Override]
+    public function handles(?string $type): bool
     {
-        return in_array(strtolower($type ?? ''), ['postgresql', 'postgres', 'pgsql']);
+        return in_array(strtolower($type ?? ''), ['postgresql', 'postgres', 'pgsql'], true);
     }
 
-    /**
-     * @param array $config
-     * @return null
-     */
-    public function setConfig(array $config)
+    #[\Override]
+    public function setConfig(array $config): void
     {
         $this->config = $config;
     }
 
-    /**
-     * @param $outputPath
-     * @return string
-     */
-    public function getDumpCommandLine($outputPath)
+    #[\Override]
+    public function getDumpCommandLine(string $outputPath): string
     {
         return sprintf(
             'PGPASSWORD=%s pg_dump --clean --host=%s --port=%s --username=%s %s -f %s',
-            escapeshellarg($this->config['pass']),
-            escapeshellarg($this->config['host']),
-            escapeshellarg($this->config['port']),
-            escapeshellarg($this->config['user']),
-            escapeshellarg($this->config['database']),
+            escapeshellarg((string) $this->config['pass']),
+            escapeshellarg((string) $this->config['host']),
+            escapeshellarg((string) $this->config['port']),
+            escapeshellarg((string) $this->config['user']),
+            escapeshellarg((string) $this->config['database']),
             escapeshellarg($outputPath)
         );
     }
 
-    /**
-     * @param $inputPath
-     * @return string
-     */
-    public function getRestoreCommandLine($inputPath)
+    #[\Override]
+    public function getRestoreCommandLine(string $inputPath): string
     {
         return sprintf(
             'PGPASSWORD=%s psql --host=%s --port=%s --user=%s %s -f %s',
-            escapeshellarg($this->config['pass']),
-            escapeshellarg($this->config['host']),
-            escapeshellarg($this->config['port']),
-            escapeshellarg($this->config['user']),
-            escapeshellarg($this->config['database']),
+            escapeshellarg((string) $this->config['pass']),
+            escapeshellarg((string) $this->config['host']),
+            escapeshellarg((string) $this->config['port']),
+            escapeshellarg((string) $this->config['user']),
+            escapeshellarg((string) $this->config['database']),
             escapeshellarg($inputPath)
         );
     }

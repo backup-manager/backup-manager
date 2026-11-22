@@ -1,62 +1,48 @@
-<?php namespace BackupManager\Filesystems;
+<?php
 
-use League\Flysystem\FilesystemInterface;
+declare(strict_types=1);
+
+namespace BackupManager\Filesystems;
+
 use League\Flysystem\FilesystemOperator;
-use League\Flysystem\MountManager;
 
 /**
- * Exposes Flysystem instances you construct yourself, by name or by mount
- * manager prefix.
- *
- * @package BackupManager\Filesystems
+ * Exposes Flysystem instances you construct yourself, by name. A
+ * MountManager is a FilesystemOperator too: register it by name and use
+ * "prefix://path" destination paths.
  */
-class FlysystemFilesystem implements Filesystem
+final class FlysystemFilesystem implements Filesystem
 {
-    /**
-     * @var array|FilesystemInterface[]|FilesystemOperator[]
-     */
-    private $filesystems;
+    /** @var array<string, FilesystemOperator> */
+    private readonly array $filesystems;
 
     /**
-     * @var MountManager|null
+     * @param iterable<string, FilesystemOperator> $filesystems keyed by name
      */
-    private $manager;
-
-    /**
-     * @param iterable|FilesystemInterface[]|FilesystemOperator[] $filesystems keyed by name
-     * @param MountManager|null $manager
-     */
-    public function __construct(/* iterable */ $filesystems = [], ?MountManager $manager = null)
+    public function __construct(iterable $filesystems = [])
     {
-        $this->filesystems = $filesystems;
-        $this->manager = $manager;
+        $this->filesystems = is_array($filesystems) ? $filesystems : iterator_to_array($filesystems);
     }
 
-    /**
-     * @param $type
-     * @return bool
-     */
-    public function handles($type)
+    #[\Override]
+    public function handles(?string $type): bool
     {
         return strtolower($type ?? '') === 'flysystem';
     }
 
-    /**
-     * @param array $config
-     * @return FilesystemInterface|FilesystemOperator|MountManagerFilesystem
-     */
-    public function get(array $config)
+    #[\Override]
+    public function get(array $config): FilesystemOperator
     {
-        if (isset($config['prefix']) && null !== $this->manager) {
-            // Flysystem v1
-            if (method_exists($this->manager, 'getFilesystem')) {
-                return $this->manager->getFilesystem($config['prefix']);
-            }
+        $name = $config['name'] ?? null;
 
-            // Flysystem v2/v3 address mounted filesystems as "prefix://path".
-            return new MountManagerFilesystem($this->manager, $config['prefix']);
+        if (!is_string($name) || !isset($this->filesystems[$name])) {
+            throw new \InvalidArgumentException(sprintf(
+                'No Flysystem instance is registered under the name "%s". Registered: %s.',
+                is_string($name) ? $name : '',
+                implode(', ', array_keys($this->filesystems)) ?: 'none'
+            ));
         }
 
-        return $this->filesystems[$config['name']];
+        return $this->filesystems[$name];
     }
 }

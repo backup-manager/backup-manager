@@ -1,73 +1,68 @@
-<?php namespace BackupManager\Config;
+<?php
+
+declare(strict_types=1);
+
+namespace BackupManager\Config;
 
 /**
- * Class Config
- * @package BackupManager\Config
+ * Configuration entries keyed by connection name.
  */
 class Config
 {
-    /** @var array */
-    private $config = [];
+    /**
+     * @param array<string, array<string, mixed>> $config
+     */
+    final public function __construct(private readonly array $config)
+    {
+    }
 
     /**
-     * @param $path
-     * @return static
      * @throws ConfigFileNotFound
      */
-    public static function fromPhpFile($path)
+    public static function fromPhpFile(string $path): static
     {
         if (!file_exists($path)) {
             throw new ConfigFileNotFound('The configuration file "' . $path . '" could not be found.');
         }
-        /** @noinspection PhpIncludeInspection */
+
         return new static(require $path);
     }
 
     /**
-     * @param array $config
-     */
-    public function __construct(array $config)
-    {
-        $this->config = $config;
-    }
-
-    /**
-     * @param $name
-     * @param null $field
-     * @return mixed
-     * @throws ConfigFieldNotFound
+     * @return mixed the connection's config array, or one field of it
      * @throws ConfigNotFoundForConnection
+     * @throws ConfigFieldNotFound
      */
-    public function get($name, $field = null)
+    public function get(string $name, ?string $field = null): mixed
     {
         if (!array_key_exists($name, $this->config)) {
             throw new ConfigNotFoundForConnection("Could not find configuration for connection {$name}");
         }
-        if ($field) {
+
+        if ($field !== null && $field !== '') {
             return $this->getConfigField($name, $field);
         }
+
         return $this->config[$name];
     }
 
     /**
-     * @return array
+     * @return array<string, array<string, mixed>>
      */
-    public function getItems()
+    public function getItems(): array
     {
         return $this->config;
     }
 
     /**
-     * @param $name
-     * @param $field
-     * @return mixed
      * @throws ConfigFieldNotFound
      */
-    private function getConfigField($name, $field)
+    private function getConfigField(string $name, string $field): mixed
     {
         if (!array_key_exists($field, $this->config[$name])) {
             throw new ConfigFieldNotFound("Could not find field {$field} in configuration for connection type {$name}");
         }
+
         return $this->config[$name][$field];
     }
 }

@@ -1,40 +1,27 @@
-<?php namespace BackupManager\Tasks\Storage;
+<?php
 
-use League\Flysystem\FileNotFoundException;
-use League\Flysystem\FilesystemInterface;
-use League\Flysystem\FilesystemOperator;
+declare(strict_types=1);
+
+namespace BackupManager\Tasks\Storage;
+
 use BackupManager\Tasks\Task;
+use League\Flysystem\FilesystemException;
+use League\Flysystem\FilesystemOperator;
 
-/**
- * Class DeleteFile
- * @package BackupManager\Tasks\Storage
- */
-class DeleteFile implements Task
+final class DeleteFile implements Task
 {
-    /** @var FilesystemInterface|FilesystemOperator */
-    private $filesystem;
-    /** @var string */
-    private $filePath;
-
-    /**
-     * @param FilesystemInterface|FilesystemOperator $filesystem
-     * @param $filePath
-     */
-    public function __construct($filesystem, $filePath)
-    {
-        $this->filesystem = $filesystem;
-        $this->filePath = $filePath;
+    public function __construct(
+        private readonly FilesystemOperator $filesystem,
+        private readonly string $filePath,
+    ) {
     }
 
     /**
-     * @return bool false only when Flysystem v1 reports a failed delete
-     * @throws FileNotFoundException
+     * @throws FilesystemException
      */
-    public function execute()
+    #[\Override]
+    public function execute(): void
     {
-        $result = $this->filesystem->delete($this->filePath);
-
-        // Flysystem v2/v3 return void and throw on failure.
-        return $result === null ? true : $result;
+        $this->filesystem->delete($this->filePath);
     }
 }
