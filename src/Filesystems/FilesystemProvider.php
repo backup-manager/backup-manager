@@ -48,7 +48,9 @@ class FilesystemProvider
             }
         }
 
-        throw new FilesystemTypeNotSupported("The requested filesystem type {$type} is not currently supported.");
+        throw new FilesystemTypeNotSupported(
+            "The requested filesystem type {$type} is not currently supported. " . $this->registrationHint($type)
+        );
     }
 
     /**
@@ -61,6 +63,32 @@ class FilesystemProvider
     public function getConfig($name, $key = null)
     {
         return $this->config->get($name, $key);
+    }
+
+    /**
+     * @param string|null $type
+     * @return string
+     */
+    private function registrationHint($type)
+    {
+        $known = [
+            'local' => LocalFilesystem::class,
+            'awss3' => Awss3Filesystem::class,
+            'asyncawss3' => AsyncAwsS3Filesystem::class,
+            'gcs' => GcsFilesystem::class,
+            'dropbox' => DropboxFilesystem::class,
+            'ftp' => FtpFilesystem::class,
+            'sftp' => SftpFilesystem::class,
+            'webdav' => WebdavFilesystem::class,
+            'flysystem' => FlysystemFilesystem::class,
+        ];
+        $key = strtolower((string) $type);
+
+        if (isset($known[$key])) {
+            return sprintf('Register it with $filesystemProvider->add(new \\%s);', $known[$key]);
+        }
+
+        return sprintf('Register a \\%s implementation that handles it.', Filesystem::class);
     }
 
     /**
