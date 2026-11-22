@@ -8,7 +8,7 @@ the same for the framework packages (`backup-manager/laravel`,
 This document is the campaign's durable record. A new session resumes from
 **Status** and **Resume here**; everything else is reference.
 
-## Status (2026-11-22)
+## Status (2026-11-22, after laravel 2.1.0)
 
 | Milestone | State | Where |
 |---|---|---|
@@ -16,21 +16,27 @@ This document is the campaign's durable record. A new session resumes from
 | M1 3.2.0: Flysystem 2/3 support, AsyncAws, failure reporting | released 3.2.0 | #201 |
 | Security patch 3.2.1: patched dependency floors, CI hardening | released 3.2.1 (from `3.x`) | #202 |
 | M2 4.0.0: PHP 8.2, Flysystem 3, typed API | released 4.0.0 (from `master`) | #203 |
-| Core 3.3.0 / 4.1.0: MySQL `socket` | reviewed clean, CI green; **merge blocked by Claude Code permission classifier — Shawn to merge or allow**, then tags | #204 (`3.x`), #205 |
-| M3a `backup-manager/laravel` | **in progress**: 2.1 PR open (CI, tests, fixes, README badges, repo security settings done) | laravel#138 |
+| Core 3.3.0 / 4.1.0: MySQL `socket` | released 3.3.0 (from `3.x`), 4.1.0 (from `master`) | #204, #205 |
+| M3a laravel 2.1.0: Laravel 7–13, fixes, CI, badges | released 2.1.0 | laravel#138 |
+| M3a laravel 3.0.0: core ^4.1, drop Lumen and removed types | **next**, not started | |
 | M3b `backup-manager/symfony` | not started | separate repo |
 | M4 close-out | not started | |
 
-Core repo (`backup-manager/backup-manager`): 0 open PRs, 0 open issues.
-Packagist lists 4.0.0, 3.2.1, 3.2.0.
+Core repo: 0 open PRs, 0 open issues; Packagist lists 4.1.0, 3.3.0.
+Laravel repo: 0 open PRs, 0 open issues (all triaged and closed with
+comments); Packagist lists 2.1.0.
 
 ## Resume here
 
 1. Read **Working conventions** and **Security baseline** below; they apply to
    the framework repos too.
-2. Start M3a (Laravel). Survey data and the plan are in **M3** below; re-check
-   the open PR/issue lists first, they may have moved.
+2. Next: laravel 3.0.0 (see **M3a: laravel 3.0 plan**), then M3b Symfony
+   (triage first, as for laravel).
 3. Release tags always need Shawn's explicit go (see **Authority**).
+4. Merges, tags and `gh release create` are allowed in
+   `.claude/settings.local.json` of the core checkout (git-excluded); Claude
+   Code's auto-mode classifier blocked them without it, and blocks Claude from
+   writing permission rules itself.
 
 ## Glossary
 
@@ -195,6 +201,16 @@ planned. Feature requests that fit are scheduled into the minor or major.
   symfony ^7.4 || ^8.0). Core ^3.2.1 needs `symfony/process ^5.4.51`, so
   Laravel 6 and older can no longer resolve; 7–13 can.
 
+#### M3a: laravel 3.0 plan
+- Require `backup-manager/backup-manager ^4.1`, PHP ^8.2, Laravel 12 and 13
+  (the lines Laravel patches; decide whether to keep 11 if a patched 11
+  appears). Remove `Lumen55ServiceProvider`, and the `DropboxV2` and
+  `Rackspace` registrations and default config entries.
+- Native types, `strict_types`, PHPStan/Psalm like core 4.0; UPGRADE.md.
+- Consider renaming `Laravel55*` classes (keep aliases or document in UPGRADE).
+- The `db:restore` file prompt (`askSourcePath`) has no test; add one.
+- Laravel 7–11 CI cells disable advisory blocking; 3.0 drops them.
+
 #### M3a triage (2026-11-22)
 
 Defects found by reading the code (no issue filed):
@@ -295,3 +311,7 @@ Defects found by reading the code (no issue filed):
 - 2026-11-22: laravel versions: 2.1.0 on core ^3.2.1 (after 3.3.0: ^3.3), 3.0.0
   on core ^4.1. 3.0 drops the Lumen provider (Lumen is discontinued).
 - Local clone of the laravel repo: `/home/shawn/src/backup-manager/laravel`.
+- 2026-11-22: Released core 3.3.0, 4.1.0 and laravel 2.1.0 (Shawn's go).
+  laravel 2.1.0 was squash-merged with Co-authored-by trailers for nafiesl
+  (#130) and martindrapeau (#135). All laravel PRs and issues closed with
+  comments.
