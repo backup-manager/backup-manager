@@ -6,6 +6,20 @@ adheres to [Semantic Versioning](https://semver.org/).
 
 ## [Unreleased]
 
+## [3.3.1] - 2026-11-22
+
+### Security
+- MySQL restore passed the downloaded backup's path to the mysql client as
+  `-e "source <path>"` without escaping. The path ends with the source file's
+  base name, so a file name containing shell syntax such as `$(...)` ran
+  commands, and one containing a newline could run mysql client commands
+  such as `system`. The dump is now fed to `mysql` on stdin, with the path
+  shell-escaped. 4.0.0 escaped the shell syntax but not the client
+  commands; 4.1.1 has the same fix as this release.
+
+### Fixed
+- MySQL restore of backup files whose names contain `;` or end in whitespace.
+
 ## [3.3.0] - 2026-11-22
 
 ### Added
@@ -91,7 +105,8 @@ the Flysystem major you have installed.
 ### Removed
 - Support for `symfony/process` < 3.
 
-[Unreleased]: https://github.com/backup-manager/backup-manager/compare/3.3.0...3.x
+[Unreleased]: https://github.com/backup-manager/backup-manager/compare/3.3.1...3.x
+[3.3.1]: https://github.com/backup-manager/backup-manager/compare/3.3.0...3.3.1
 [3.3.0]: https://github.com/backup-manager/backup-manager/compare/3.2.1...3.3.0
 [3.2.1]: https://github.com/backup-manager/backup-manager/compare/3.2.0...3.2.1
 [3.2.0]: https://github.com/backup-manager/backup-manager/compare/3.1.0...3.2.0

@@ -75,11 +75,14 @@ class MysqlDatabase implements Database
 
         $params = $this->getConnectionParameters();
 
+        // The dump is read from stdin. Passing the path to the client's
+        // "source" command let a file name inject shell syntax or, through a
+        // newline, mysql client commands such as "system".
         return sprintf(
-            'mysql%s ' . implode(' ', $extras) . ' %s -e "source %s"',
+            'mysql%s ' . implode(' ', $extras) . ' %s < %s',
             $params,
             escapeshellarg($this->config['database']),
-            $inputPath
+            escapeshellarg($inputPath)
         );
     }
 
