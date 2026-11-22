@@ -75,11 +75,13 @@ class MysqlDatabase implements Database
 
         $params = $this->getConnectionParameters();
 
+        // The path is part of the -e argument; escape the whole argument so
+        // shell metacharacters in a backup file name are not executed.
         return sprintf(
-            'mysql%s ' . implode(' ', $extras) . ' %s -e "source %s"',
+            'mysql%s ' . implode(' ', $extras) . ' %s -e %s',
             $params,
             escapeshellarg($this->config['database']),
-            $inputPath
+            escapeshellarg('source ' . $inputPath)
         );
     }
 
