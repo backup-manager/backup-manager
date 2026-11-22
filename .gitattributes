@@ -1,0 +1,13 @@
+/.editorconfig export-ignore
+/.gitattributes export-ignore
+/.github export-ignore
+/.gitignore export-ignore
+/.php-cs-fixer.php export-ignore
+/docs export-ignore
+/examples export-ignore
+/phpspec.yml export-ignore
+/phpstan-baseline.neon export-ignore
+/phpstan.neon.dist export-ignore
+/psalm.baseline.xml export-ignore
+/psalm.xml export-ignore
+/spec export-ignore
