@@ -1,14 +1,24 @@
 name: Tests
-on: [pull_request]
+on:
+  push:
+  pull_request:
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.event_name }}-${{ github.ref }}
+  cancel-in-progress: true
 
 jobs:
-  phpunit:
-    name: PHPUnit
+  phpspec:
+    name: PHP ${{ matrix.php }} ${{ matrix.dependencies }}
     runs-on: ubuntu-latest
     strategy:
-      max-parallel: 10
+      fail-fast: false
       matrix:
-        php: [ '7.4', '8.0', '8.1']
+        php: ['7.4', '8.0', '8.1', '8.2', '8.3']
+        dependencies: ['highest']
+        include:
+          - php: '7.4'
+            dependencies: 'lowest'
 
     steps:
       - name: Set up PHP
@@ -16,34 +26,14 @@ jobs:
         with:
           php-version: ${{ matrix.php }}
           coverage: none
-          tools: flex
 
       - name: Checkout code
-        uses: actions/checkout@v2
+        uses: actions/checkout@v5
 
       - name: Download dependencies
-        uses: ramsey/composer-install@v2
-
-      - name: Run tests
-        run: ./vendor/bin/phpspec run -fpretty -v
-
-  lowest:
-    name: Lowest deps
-    runs-on: ubuntu-latest
-    steps:
-      - name: Set up PHP
-        uses: shivammathur/setup-php@v2
+        uses: ramsey/composer-install@v3
         with:
-          php-version: 7.4
-          coverage: none
-
-      - name: Checkout code
-        uses: actions/checkout@v2
-
-      - name: Download dependencies
-        uses: ramsey/composer-install@v2
-        with:
-          dependency-versions: "lowest"
+          dependency-versions: ${{ matrix.dependencies }}
 
       - name: Run tests
         run: ./vendor/bin/phpspec run -fpretty -v
