@@ -27,6 +27,8 @@ the Flysystem major you have installed.
 - `FilesystemAdapterMissing` is thrown when a filesystem type's adapter package
   is not installed, naming the package to install, instead of a "Class not
   found" fatal error. (#189)
+- MySQL `onlyTables` option to dump only the listed tables. (from @fezfez's
+  fork)
 - `postgres` as a PostgreSQL database type. (#175 by @aalinia)
 - `symfony/process` 7 and 8 are supported.
 - Tested on PHP 7.4 through 8.5.

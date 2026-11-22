@@ -47,6 +47,17 @@ class MysqlDatabaseSpec extends ObjectBehavior
         $this->getDumpCommandLine('outputPath')->shouldBe("mysqldump --routines --column-statistics=0 --host='foo' 'test' > 'outputPath'");
     }
 
+    public function it_should_dump_only_the_configured_tables()
+    {
+        $this->setConfig([
+            'type' => 'mysql',
+            'host' => 'foo',
+            'database' => 'test',
+            'onlyTables' => ['users', 'orders'],
+        ]);
+        $this->getDumpCommandLine('outputPath')->shouldBe("mysqldump --routines  --host='foo' 'test' 'users' 'orders' > 'outputPath'");
+    }
+
     public function it_should_generate_a_valid_database_restore_command()
     {
         $this->configure();

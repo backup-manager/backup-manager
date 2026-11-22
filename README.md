@@ -63,6 +63,8 @@ See [CHANGELOG.md](CHANGELOG.md) for release notes.
     // set to false to pass --column-statistics=0, needed when a MySQL 8 mysqldump
     // dumps from a server without column statistics. MariaDB's mysqldump rejects it.
     // 'columnStatistics' => false,
+    // Dump only these tables (table names without the database name)
+    // 'onlyTables' => ['table1', 'table2'],
 ],
 'production' => [
     'type' => 'postgresql',

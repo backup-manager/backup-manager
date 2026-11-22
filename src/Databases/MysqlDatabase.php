@@ -64,7 +64,7 @@ class MysqlDatabase implements Database
         return sprintf(
             $command,
             $params,
-            escapeshellarg($this->config['database']),
+            escapeshellarg($this->config['database']) . $this->getOnlyTablesArguments(),
             escapeshellarg($outputPath)
         );
     }
@@ -95,6 +95,20 @@ class MysqlDatabase implements Database
             escapeshellarg($this->config['database']),
             $inputPath
         );
+    }
+
+    /**
+     * Table names after the database name restrict the dump to those tables.
+     *
+     * @return string
+     */
+    private function getOnlyTablesArguments()
+    {
+        if (empty($this->config['onlyTables']) || !is_array($this->config['onlyTables'])) {
+            return '';
+        }
+
+        return ' ' . implode(' ', array_map('escapeshellarg', $this->config['onlyTables']));
     }
 
     /**
