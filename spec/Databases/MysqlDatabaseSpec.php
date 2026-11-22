@@ -61,7 +61,7 @@ class MysqlDatabaseSpec extends ObjectBehavior
     public function it_should_generate_a_valid_database_restore_command()
     {
         $this->configure();
-        $this->getRestoreCommandLine('outputPath')->shouldBe("mysql --host='foo' --port='3306' --user='bar' --password='baz'  'test' -e 'source outputPath'");
+        $this->getRestoreCommandLine('outputPath')->shouldBe("mysql --host='foo' --port='3306' --user='bar' --password='baz'  'test' < 'outputPath'");
     }
 
     public function it_should_connect_through_a_socket_instead_of_host_and_port()
@@ -76,7 +76,13 @@ class MysqlDatabaseSpec extends ObjectBehavior
             'database' => 'test',
         ]);
         $this->getDumpCommandLine('outputPath')->shouldBe("mysqldump --routines  --socket='/run/mysqld/mysqld.sock' --user='bar' --password='baz' 'test' > 'outputPath'");
-        $this->getRestoreCommandLine('outputPath')->shouldBe("mysql --socket='/run/mysqld/mysqld.sock' --user='bar' --password='baz'  'test' -e 'source outputPath'");
+        $this->getRestoreCommandLine('outputPath')->shouldBe("mysql --socket='/run/mysqld/mysqld.sock' --user='bar' --password='baz'  'test' < 'outputPath'");
+    }
+
+    public function it_should_not_pass_the_restore_path_to_the_mysql_client()
+    {
+        $this->configure();
+        $this->getRestoreCommandLine("/dev/null\nsystem id\n")->shouldBe("mysql --host='foo' --port='3306' --user='bar' --password='baz'  'test' < '/dev/null\nsystem id\n'");
     }
 
     private function configure($db = 'development')

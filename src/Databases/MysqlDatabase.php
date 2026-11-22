@@ -59,12 +59,15 @@ final class MysqlDatabase implements Database
             $extras[] = '--ssl';
         }
 
+        // The dump is read from stdin. Passing the path to the client's
+        // "source" command let a newline in the file name inject mysql
+        // client commands such as "system".
         return sprintf(
-            'mysql%s %s %s -e %s',
+            'mysql%s %s %s < %s',
             $this->getConnectionParameters(),
             implode(' ', $extras),
             escapeshellarg((string) $this->config['database']),
-            escapeshellarg('source ' . $inputPath)
+            escapeshellarg($inputPath)
         );
     }
 
