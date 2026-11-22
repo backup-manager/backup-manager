@@ -34,6 +34,14 @@ class FtpFilesystemSpec extends ObjectBehavior
         ], $this->getConfig());
     }
 
+    public function it_should_accept_scalars_given_as_strings()
+    {
+        $this->expectAdapter([
+            'League\\Flysystem\\Adapter\\Ftp',
+            'League\\Flysystem\\Ftp\\FtpAdapter',
+        ], ['port' => '21', 'timeout' => '30', 'ssl' => '1', 'passive' => 'true'] + $this->getConfig());
+    }
+
     public function getConfig()
     {
         return [

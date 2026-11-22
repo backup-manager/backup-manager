@@ -25,6 +25,20 @@ class TransferFileSpec extends ObjectBehavior
         $this->execute();
     }
 
+    public function it_should_close_the_source_stream(StorageDouble $source, StorageDouble $destination)
+    {
+        $stream = fopen('php://memory', 'r');
+        $source->readStream('source')->willReturn($stream);
+        $destination->writeStream('destination', $stream)->willReturn(true);
+
+        $this->beConstructedWith($source, 'source', $destination, 'destination');
+        $this->execute();
+
+        if (is_resource($stream)) {
+            throw new \RuntimeException('Expected the source stream to be closed.');
+        }
+    }
+
     public function it_should_fail_when_flysystem_v1_cannot_read_the_source(StorageDouble $source, StorageDouble $destination)
     {
         $source->readStream('source')->willReturn(false);

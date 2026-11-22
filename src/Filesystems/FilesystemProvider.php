@@ -33,7 +33,8 @@ class FilesystemProvider
 
     /**
      * @param $name
-     * @return \League\Flysystem\Filesystem
+     * @return \League\Flysystem\FilesystemInterface|\League\Flysystem\FilesystemOperator|object a Flysystem instance,
+     *         or (FlysystemFilesystem with a Flysystem 2/3 mount manager) an object with readStream, writeStream and delete
      * @throws FilesystemTypeNotSupported
      * @throws ConfigNotFoundForConnection
      * @throws ConfigFieldNotFound
@@ -75,14 +76,22 @@ class FilesystemProvider
             'local' => LocalFilesystem::class,
             'awss3' => Awss3Filesystem::class,
             'asyncawss3' => AsyncAwsS3Filesystem::class,
+            'async-awss3' => AsyncAwsS3Filesystem::class,
+            'async-aws-s3' => AsyncAwsS3Filesystem::class,
+            'b2' => BackblazeFilesystem::class,
+            'rackspace' => RackspaceFilesystem::class,
+            'dropboxv2' => DropboxV2Filesystem::class,
             'gcs' => GcsFilesystem::class,
             'dropbox' => DropboxFilesystem::class,
             'ftp' => FtpFilesystem::class,
             'sftp' => SftpFilesystem::class,
             'webdav' => WebdavFilesystem::class,
-            'flysystem' => FlysystemFilesystem::class,
         ];
         $key = strtolower((string) $type);
+
+        if ($key === 'flysystem') {
+            return sprintf('Register it with $filesystemProvider->add(new \\%s($filesystemsByName));', FlysystemFilesystem::class);
+        }
 
         if (isset($known[$key])) {
             return sprintf('Register it with $filesystemProvider->add(new \\%s);', $known[$key]);

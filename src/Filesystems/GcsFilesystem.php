@@ -22,8 +22,9 @@ class GcsFilesystem implements Filesystem
     }
 
     /**
-     * Accepts 'project' or 'projectId', and 'prefix' or 'root'; the sample
-     * config and the README used the second spelling of each.
+     * Accepts 'project' or 'projectId'. With Flysystem 2/3 the path prefix is
+     * 'prefix' or 'root'; the sample config and the README used the second
+     * spelling of each.
      *
      * @param array $config
      * @return Flysystem
@@ -41,13 +42,13 @@ class GcsFilesystem implements Filesystem
             'keyFilePath' => $this->first($config, ['keyFilePath']),
         ]);
         $bucket = $storageClient->bucket($config['bucket']);
-        $prefix = $this->first($config, ['prefix', 'root']);
 
         if ($v2OrV3) {
-            return new Flysystem(new GoogleCloudStorageAdapter($bucket, (string) $prefix));
+            return new Flysystem(new GoogleCloudStorageAdapter($bucket, (string) $this->first($config, ['prefix', 'root'])));
         }
 
-        return new Flysystem(new GoogleStorageAdapter($storageClient, $bucket, $prefix));
+        // Flysystem 1 reads only 'prefix', as 3.1 did, so existing backup paths do not move.
+        return new Flysystem(new GoogleStorageAdapter($storageClient, $bucket, $this->first($config, ['prefix'])));
     }
 
     /**

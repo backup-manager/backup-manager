@@ -36,9 +36,31 @@ class FtpFilesystem implements Filesystem
             throw FilesystemAdapterMissing::forType('Ftp', 'league/flysystem-ftp');
         }
 
-        // FtpConnectionOptions reads 'root' without a default; v1 defaulted it to ''.
+        return new Flysystem(new FtpAdapter(FtpConnectionOptions::fromArray($this->connectionOptions($config))));
+    }
+
+    /**
+     * FtpConnectionOptions is strictly typed; Flysystem 1 accepted strings
+     * such as a port read from an environment variable.
+     *
+     * @param array $config
+     * @return array
+     */
+    private function connectionOptions(array $config)
+    {
         $config += ['root' => ''];
 
-        return new Flysystem(new FtpAdapter(FtpConnectionOptions::fromArray($config)));
+        foreach (['port', 'timeout'] as $key) {
+            if (isset($config[$key])) {
+                $config[$key] = (int) $config[$key];
+            }
+        }
+        foreach (['ssl', 'passive', 'utf8', 'ignorePassiveAddress', 'timestampsOnUnixListingsEnabled', 'recurseManually'] as $key) {
+            if (isset($config[$key])) {
+                $config[$key] = filter_var($config[$key], FILTER_VALIDATE_BOOLEAN);
+            }
+        }
+
+        return $config;
     }
 }

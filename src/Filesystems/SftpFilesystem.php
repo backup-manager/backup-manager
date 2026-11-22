@@ -54,8 +54,11 @@ class SftpFilesystem implements Filesystem
     }
 
     /**
-     * Flysystem v1 treated empty credentials as absent; the v2/v3 connection
-     * providers try to use any non-null value, so empty strings become null.
+     * Maps a Flysystem 1 style config onto the v2/v3 connection providers:
+     * - empty credentials are absent (v2/v3 try to use any non-null value);
+     * - with a private key and no 'passphrase', 'password' unlocks the key,
+     *   as in Flysystem 1;
+     * - scalars are cast, because the providers are strictly typed.
      *
      * @param array $config
      * @return array
@@ -66,6 +69,19 @@ class SftpFilesystem implements Filesystem
             if (isset($config[$key]) && $config[$key] === '') {
                 $config[$key] = null;
             }
+        }
+
+        if (isset($config['privateKey']) && ! isset($config['passphrase']) && isset($config['password'])) {
+            $config['passphrase'] = $config['password'];
+        }
+
+        foreach (['port', 'timeout', 'maxTries'] as $key) {
+            if (isset($config[$key])) {
+                $config[$key] = (int) $config[$key];
+            }
+        }
+        if (isset($config['useAgent'])) {
+            $config['useAgent'] = filter_var($config['useAgent'], FILTER_VALIDATE_BOOLEAN);
         }
 
         return $config;

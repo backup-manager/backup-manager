@@ -35,6 +35,15 @@ class SftpFilesystemSpec extends ObjectBehavior
         ], $this->getConfig());
     }
 
+    public function it_should_accept_scalars_given_as_strings()
+    {
+        $this->expectAdapter([
+            'League\\Flysystem\\PhpseclibV3\\SftpAdapter',
+            'League\\Flysystem\\PhpseclibV2\\SftpAdapter',
+            'League\\Flysystem\\Sftp\\SftpAdapter',
+        ], ['port' => '22', 'timeout' => '10', 'useAgent' => '0'] + $this->getConfig());
+    }
+
     public function getConfig()
     {
         return [
