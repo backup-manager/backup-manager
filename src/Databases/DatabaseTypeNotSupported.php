@@ -1,9 +1,9 @@
-<?php namespace BackupManager\Databases;
+<?php
 
-/**
- * Class DatabaseTypeNotSupported
- * @package BackupManager\Databases
- */
+declare(strict_types=1);
+
+namespace BackupManager\Databases;
+
 class DatabaseTypeNotSupported extends \Exception
 {
 }

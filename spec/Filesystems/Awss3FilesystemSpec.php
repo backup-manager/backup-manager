@@ -30,7 +30,6 @@ class Awss3FilesystemSpec extends ObjectBehavior
     {
         $this->expectAdapter([
             'League\\Flysystem\\AwsS3V3\\AwsS3V3Adapter',
-            'League\\Flysystem\\AwsS3v3\\AwsS3Adapter',
         ], $this->getConfig());
     }
 

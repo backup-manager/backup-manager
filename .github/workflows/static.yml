@@ -15,14 +15,12 @@ jobs:
       - name: Setup PHP
         uses: shivammathur/setup-php@2.40.0
         with:
-          php-version: 8.1
+          php-version: 8.4
           coverage: none
-          tools: phpstan:1.5.3, cs2pr
+          tools: phpstan:2.3.7, cs2pr
 
       - name: Download dependencies
         uses: ramsey/composer-install@v4
-        with:
-          composer-options: --no-security-blocking
 
       - name: PHPStan
         run: phpstan analyze --no-progress --error-format=checkstyle | cs2pr
@@ -38,9 +36,9 @@ jobs:
       - name: Setup PHP
         uses: shivammathur/setup-php@2.40.0
         with:
-          php-version: 8.1
+          php-version: 8.4
           coverage: none
-          tools: php-cs-fixer:3.8.0, cs2pr
+          tools: php-cs-fixer:3.95.32, cs2pr
 
       - name: PHP-CS-Fixer
         run: php-cs-fixer fix --dry-run --format=checkstyle | cs2pr
@@ -55,14 +53,12 @@ jobs:
       - name: Setup PHP
         uses: shivammathur/setup-php@2.40.0
         with:
-          php-version: 8.3
+          php-version: 8.4
           coverage: none
           tools: vimeo/psalm:7.15.0
 
       - name: Download dependencies
         uses: ramsey/composer-install@v4
-        with:
-          composer-options: --no-security-blocking
 
       - name: Psalm
         run: psalm --no-progress --output-format=github
@@ -75,7 +71,7 @@ jobs:
       - name: Setup PHP
         uses: shivammathur/setup-php@2.40.0
         with:
-          php-version: 8.1
+          php-version: 8.4
           coverage: none
           tools: composer-normalize
 

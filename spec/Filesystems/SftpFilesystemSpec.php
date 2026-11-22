@@ -30,8 +30,6 @@ class SftpFilesystemSpec extends ObjectBehavior
     {
         $this->expectAdapter([
             'League\\Flysystem\\PhpseclibV3\\SftpAdapter',
-            'League\\Flysystem\\PhpseclibV2\\SftpAdapter',
-            'League\\Flysystem\\Sftp\\SftpAdapter',
         ], $this->getConfig());
     }
 
@@ -39,8 +37,6 @@ class SftpFilesystemSpec extends ObjectBehavior
     {
         $this->expectAdapter([
             'League\\Flysystem\\PhpseclibV3\\SftpAdapter',
-            'League\\Flysystem\\PhpseclibV2\\SftpAdapter',
-            'League\\Flysystem\\Sftp\\SftpAdapter',
         ], ['port' => '22', 'timeout' => '10', 'useAgent' => '0'] + $this->getConfig());
     }
 

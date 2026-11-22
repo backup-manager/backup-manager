@@ -23,12 +23,6 @@ return [
         'bucket' => '',
         'root'   => '',
     ],
-    'rackspace' => [
-        'type' => 'Rackspace',
-        'username' => '',
-        'password' => '',
-        'container' => '',
-    ],
     'dropbox' => [
         'type' => 'Dropbox',
         'token' => '',

@@ -22,15 +22,6 @@ return [
         'bucket'          => '',
         'root'            => '',
     ],
-    'rackspace' => [
-        'type' => 'Rackspace',
-        'username' => '',
-        'key' => '',
-        'container' => '',
-        'zone' => '',
-        'endpoint' => 'https://identity.api.rackspacecloud.com/v2.0/',
-        'root' => '',
-    ],
     'dropbox' => [
         'type' => 'Dropbox',
         'token' => '',

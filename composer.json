@@ -15,33 +15,28 @@
     }
   ],
   "require": {
-    "php": ">=7.4",
-    "league/flysystem": "^1.1.4 || ^2.1.1 || ^3.0",
-    "symfony/process": "^4.4 || ^5.0 || ^6.0 || ^7.0 || ^8.0"
+    "php": "^8.2",
+    "league/flysystem": "^3.35.3",
+    "symfony/process": "^6.4 || ^7.0 || ^8.0"
   },
   "require-dev": {
-    "league/flysystem-async-aws-s3": "^2.0 || ^3.0",
+    "league/flysystem-async-aws-s3": "^3.0",
     "league/flysystem-aws-s3-v3": "^3.0",
     "league/flysystem-ftp": "^3.0",
     "league/flysystem-google-cloud-storage": "^3.0",
     "league/flysystem-sftp-v3": "^3.0",
     "league/flysystem-webdav": "^3.0",
-    "phpspec/phpspec": "^7.5 || ^8.0",
-    "spatie/flysystem-dropbox": "^2.0 || ^3.0"
+    "phpspec/phpspec": "^8.0",
+    "spatie/flysystem-dropbox": "^3.0"
   },
   "suggest": {
-    "league/flysystem-async-aws-s3": "AsyncAws S3 adapter support (Flysystem 2/3).",
+    "league/flysystem-async-aws-s3": "AsyncAws S3 adapter support.",
     "league/flysystem-aws-s3-v3": "AWS S3 adapter support.",
-    "league/flysystem-ftp": "FTP adapter support (Flysystem 2/3; built into Flysystem 1).",
-    "league/flysystem-google-cloud-storage": "Google Cloud Storage adapter support (Flysystem 2/3).",
-    "league/flysystem-rackspace": "Rackspace adapter support (Flysystem 1 only).",
-    "league/flysystem-sftp": "SFTP adapter support (Flysystem 1/2).",
-    "league/flysystem-sftp-v3": "SFTP adapter support (Flysystem 3).",
+    "league/flysystem-ftp": "FTP adapter support.",
+    "league/flysystem-google-cloud-storage": "Google Cloud Storage adapter support.",
+    "league/flysystem-sftp-v3": "SFTP adapter support.",
     "league/flysystem-webdav": "WebDAV adapter support.",
-    "mhetreramesh/flysystem-backblaze": "B2 adapter support (Flysystem 1 only).",
-    "spatie/flysystem-dropbox": "Dropbox adapter support.",
-    "srmklive/flysystem-dropbox-v2": "Dropbox API v2 adapter support (Flysystem 1 only).",
-    "superbalist/flysystem-google-storage": "Google Cloud Storage adapter support (Flysystem 1 only)."
+    "spatie/flysystem-dropbox": "Dropbox adapter support."
   },
   "autoload": {
     "psr-4": {
@@ -55,7 +50,7 @@
   },
   "extra": {
     "branch-alias": {
-      "dev-master": "3.x-dev"
+      "dev-master": "4.x-dev"
     }
   }
 }

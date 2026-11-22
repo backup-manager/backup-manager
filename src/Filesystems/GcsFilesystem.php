@@ -1,62 +1,48 @@
-<?php namespace BackupManager\Filesystems;
+<?php
+
+declare(strict_types=1);
+
+namespace BackupManager\Filesystems;
 
 use Google\Cloud\Storage\StorageClient;
 use League\Flysystem\Filesystem as Flysystem;
+use League\Flysystem\FilesystemOperator;
 use League\Flysystem\GoogleCloudStorage\GoogleCloudStorageAdapter;
-use Superbalist\Flysystem\GoogleStorage\GoogleStorageAdapter;
 
-/**
- * Class GcsFilesystem
- * @package BackupManager\Filesystems
- */
-class GcsFilesystem implements Filesystem
+final class GcsFilesystem implements Filesystem
 {
-
-    /**
-     * @param $type
-     * @return bool
-     */
-    public function handles($type)
+    #[\Override]
+    public function handles(?string $type): bool
     {
-        return strtolower($type ?? '') == 'gcs';
+        return strtolower($type ?? '') === 'gcs';
     }
 
     /**
-     * Accepts 'project' or 'projectId'. With Flysystem 2/3 the path prefix is
-     * 'prefix' or 'root'; the sample config and the README used the second
-     * spelling of each.
-     *
-     * @param array $config
-     * @return Flysystem
+     * Accepts 'projectId' or 'project', and 'root' or 'prefix'.
      */
-    public function get(array $config)
+    #[\Override]
+    public function get(array $config): FilesystemOperator
     {
-        $v2OrV3 = class_exists(GoogleCloudStorageAdapter::class);
-
-        if (! $v2OrV3 && ! class_exists(GoogleStorageAdapter::class)) {
+        if (!class_exists(GoogleCloudStorageAdapter::class)) {
             throw FilesystemAdapterMissing::forType('Gcs', 'league/flysystem-google-cloud-storage');
         }
 
-        $storageClient = new StorageClient([
-            'projectId' => $this->first($config, ['project', 'projectId']),
+        $storageClient = new StorageClient(array_filter([
+            'projectId' => $this->first($config, ['projectId', 'project']),
             'keyFilePath' => $this->first($config, ['keyFilePath']),
-        ]);
-        $bucket = $storageClient->bucket($config['bucket']);
+        ]));
 
-        if ($v2OrV3) {
-            return new Flysystem(new GoogleCloudStorageAdapter($bucket, (string) $this->first($config, ['prefix', 'root'])));
-        }
-
-        // Flysystem 1 reads only 'prefix', as 3.1 did, so existing backup paths do not move.
-        return new Flysystem(new GoogleStorageAdapter($storageClient, $bucket, $this->first($config, ['prefix'])));
+        return new Flysystem(new GoogleCloudStorageAdapter(
+            $storageClient->bucket($config['bucket']),
+            (string) $this->first($config, ['root', 'prefix'])
+        ));
     }
 
     /**
-     * @param array $config
-     * @param string[] $keys
-     * @return mixed|null the first non-empty value among $keys
+     * @param array<string, mixed> $config
+     * @param list<string> $keys
      */
-    private function first(array $config, array $keys)
+    private function first(array $config, array $keys): mixed
     {
         foreach ($keys as $key) {
             if (isset($config[$key]) && $config[$key] !== '') {

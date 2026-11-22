@@ -22,7 +22,7 @@ class FilesystemProviderSpec extends ObjectBehavior
 
     public function it_should_provide_requested_filesystems_by_their_names()
     {
-        $this->add(new LocalFilesystem);
+        $this->add(new LocalFilesystem());
         $this->get('local')->shouldHaveType('League\Flysystem\Filesystem');
     }
 
@@ -34,7 +34,7 @@ class FilesystemProviderSpec extends ObjectBehavior
     public function it_should_say_how_to_register_an_unregistered_filesystem()
     {
         $this->shouldThrow(new \BackupManager\Filesystems\FilesystemTypeNotSupported(
-            'The requested filesystem type Local is not currently supported. Register it with $filesystemProvider->add(new \\BackupManager\\Filesystems\\LocalFilesystem);'
+            'The requested filesystem type Local is not currently supported. Register it with $filesystemProvider->add(new \\BackupManager\\Filesystems\\LocalFilesystem());'
         ))->during('get', ['local']);
     }
 

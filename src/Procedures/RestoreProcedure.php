@@ -1,4 +1,8 @@
-<?php namespace BackupManager\Procedures;
+<?php
+
+declare(strict_types=1);
+
+namespace BackupManager\Procedures;
 
 use BackupManager\Compressors\CompressorTypeNotSupported;
 use BackupManager\Config\ConfigFieldNotFound;
@@ -14,19 +18,15 @@ use BackupManager\Tasks;
 class RestoreProcedure extends Procedure
 {
     /**
-     * @param string $sourceType
-     * @param string $sourcePath
-     * @param string $databaseName
-     * @param string|null $compression
      * @throws FilesystemTypeNotSupported
      * @throws ConfigFieldNotFound
      * @throws CompressorTypeNotSupported
      * @throws DatabaseTypeNotSupported
      * @throws ConfigNotFoundForConnection
      */
-    public function run($sourceType, $sourcePath, $databaseName, $compression = null)
+    public function run(string $sourceType, string $sourcePath, string $databaseName, ?string $compression = null): void
     {
-        $sequence = new Sequence;
+        $sequence = new Sequence();
 
         // begin the life of a new working file
         $localFilesystem = $this->filesystems->get('local');

@@ -1,38 +1,18 @@
-<?php namespace BackupManager\Compressors;
+<?php
 
-/**
- * Interface Compressor
- * @package BackupManager\Compressors
- */
+declare(strict_types=1);
+
+namespace BackupManager\Compressors;
+
 interface Compressor
 {
-    /**
-     * @param $type
-     * @return bool
-     */
-    public function handles($type);
+    public function handles(?string $type): bool;
 
-    /**
-     * @param $inputPath
-     * @return string
-     */
-    public function getCompressCommandLine($inputPath);
+    public function getCompressCommandLine(string $inputPath): string;
 
-    /**
-     * @param $outputPath
-     * @return string
-     */
-    public function getDecompressCommandLine($outputPath);
+    public function getDecompressCommandLine(string $inputPath): string;
 
-    /**
-     * @param $inputPath
-     * @return string
-     */
-    public function getCompressedPath($inputPath);
+    public function getCompressedPath(string $inputPath): string;
 
-    /**
-     * @param $inputPath
-     * @return string
-     */
-    public function getDecompressedPath($inputPath);
+    public function getDecompressedPath(string $inputPath): string;
 }

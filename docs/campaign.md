@@ -30,12 +30,12 @@ framework packages (`backup-manager/laravel`, `backup-manager/symfony`).
 
 ## Milestones
 
-### M0: Foundation (no release)
+### M0: Foundation (no release) — merged #200
 - This document.
 - CI runs on every push and pull request; current runners and actions.
 - `.gitattributes` export-ignore (reimplements #171, credit fezfez).
 
-### M1: 3.2.0 (backward compatible)
+### M1: 3.2.0 (backward compatible) — released 2026-11-22
 - Version-aware factories for Local, FTP, SFTP, AwsS3, WebDAV, Dropbox (spatie),
   and `FlysystemFilesystem`, so the already-declared `^2 || ^3` Flysystem support
   works. Fixes #186, #188, #198 (partly), #189 (partly). Reimplements #191–#194, #187.
@@ -95,6 +95,13 @@ Credit: merged PRs keep authorship; reimplementations carry
   closes PRs and issues; release tags only with Shawn's explicit go.
 - 2026-11-22: 4.0 keeps providers (Nyholm's Flysystem-native proposal declined).
 - 2026-11-22: CI is the test matrix; no local matrix script.
+- 2026-11-22: `3.x` branch created from the 3.2.0 tag for 3.x fixes; master is 4.x.
+- 2026-11-22: The Laravel and Symfony packages register `DropboxV2Filesystem`,
+  `RackspaceFilesystem` (and Symfony `BackblazeFilesystem`) by class name, so
+  they need a release before they can require ^4.0. They pin ^3.0 today, so
+  4.0 does not reach their users until then.
+- 2026-11-22: 4.0 drops the `FlysystemFilesystem` mount-manager prefix: a v3
+  `MountManager` is itself a `FilesystemOperator` and can be registered by name.
 - 2026-11-22: phpspec `^7.5 || ^8.0` covers PHP 7.4–8.5 (7.x up to 8.3,
   8.3.x from 8.2 through 8.5).
 - 2026-11-22: GHSA-cxf4-7mrp-vvpr (low) flags `league/flysystem <= 3.35.2`, i.e.

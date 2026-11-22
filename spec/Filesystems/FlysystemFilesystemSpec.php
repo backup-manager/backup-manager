@@ -4,27 +4,12 @@ namespace spec\BackupManager\Filesystems;
 
 use BackupManager\Filesystems\FlysystemFilesystem;
 use BackupManager\Filesystems\LocalFilesystem;
+use League\Flysystem\FilesystemOperator;
 use League\Flysystem\MountManager;
 use PhpSpec\ObjectBehavior;
-use spec\BackupManager\Support\StorageDouble;
 
 class FlysystemFilesystemSpec extends ObjectBehavior
 {
-    /** @var string */
-    private $root;
-
-    public function let()
-    {
-        $this->root = sys_get_temp_dir() . '/backup-manager-spec-' . uniqid();
-        mkdir($this->root);
-    }
-
-    public function letGo()
-    {
-        array_map('unlink', glob($this->root . '/*') ?: []);
-        rmdir($this->root);
-    }
-
     public function it_is_initializable()
     {
         $this->shouldHaveType(FlysystemFilesystem::class);
@@ -41,33 +26,22 @@ class FlysystemFilesystemSpec extends ObjectBehavior
         }
     }
 
-    public function it_should_provide_a_filesystem_by_name(StorageDouble $filesystem)
+    public function it_should_provide_a_filesystem_by_name(FilesystemOperator $filesystem)
     {
-        $name = 's3_backup';
-        $this->beConstructedWith([$name => $filesystem]);
-        $this->get(['name' => $name])->shouldBe($filesystem);
+        $this->beConstructedWith(['s3_backup' => $filesystem]);
+        $this->get(['name' => 's3_backup'])->shouldBe($filesystem);
     }
 
-    public function it_should_provide_a_mount_manager_filesystem_by_prefix()
+    public function it_should_provide_a_mount_manager_by_name()
     {
-        $local = (new LocalFilesystem())->get(['root' => $this->root]);
-        $this->beConstructedWith([], new MountManager(['upload' => $local]));
+        $manager = new MountManager(['upload' => (new LocalFilesystem())->get(['root' => sys_get_temp_dir()])]);
+        $this->beConstructedWith(['mounts' => $manager]);
+        $this->get(['name' => 'mounts'])->shouldBe($manager);
+    }
 
-        $filesystem = $this->get(['prefix' => 'upload']);
-
-        $stream = fopen('php://memory', 'r+');
-        fwrite($stream, 'dump');
-        rewind($stream);
-        $filesystem->writeStream('backup.sql', $stream);
-
-        if (file_get_contents($this->root . '/backup.sql') !== 'dump') {
-            throw new \RuntimeException('Expected the mounted filesystem to receive the write.');
-        }
-
-        $filesystem->delete('backup.sql');
-
-        if (file_exists($this->root . '/backup.sql')) {
-            throw new \RuntimeException('Expected the mounted filesystem to receive the delete.');
-        }
+    public function it_should_reject_an_unknown_name(FilesystemOperator $filesystem)
+    {
+        $this->beConstructedWith(['s3_backup' => $filesystem]);
+        $this->shouldThrow(\InvalidArgumentException::class)->during('get', [['name' => 'other']]);
     }
 }

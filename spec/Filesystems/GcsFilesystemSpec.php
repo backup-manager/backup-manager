@@ -30,7 +30,6 @@ class GcsFilesystemSpec extends ObjectBehavior
     {
         $this->expectAdapter([
             'League\\Flysystem\\GoogleCloudStorage\\GoogleCloudStorageAdapter',
-            'Superbalist\\Flysystem\\GoogleStorage\\GoogleStorageAdapter',
         ], $this->getConfig());
     }
 

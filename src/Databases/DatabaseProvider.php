@@ -1,58 +1,50 @@
-<?php namespace BackupManager\Databases;
+<?php
+
+declare(strict_types=1);
+
+namespace BackupManager\Databases;
 
 use BackupManager\Config\Config;
+use BackupManager\Config\ConfigFieldNotFound;
 use BackupManager\Config\ConfigNotFoundForConnection;
 
-/**
- * Class DatabaseProvider
- * @package BackupManager\Databases
- */
 class DatabaseProvider
 {
-    /** @var Config */
-    private $config;
-    /** @var array */
-    private $databases = [];
+    /** @var list<Database> */
+    private array $databases = [];
 
-    /**
-     * @param Config $config
-     */
-    public function __construct(Config $config)
+    public function __construct(private readonly Config $config)
     {
-        $this->config = $config;
     }
 
-    /**
-     * @param Database $database
-     */
-    public function add(Database $database)
+    public function add(Database $database): void
     {
         $this->databases[] = $database;
     }
 
     /**
-     * @param $name
-     * @return Database
      * @throws DatabaseTypeNotSupported
      * @throws ConfigNotFoundForConnection
-     * @throws \BackupManager\Config\ConfigFieldNotFound
+     * @throws ConfigFieldNotFound
      */
-    public function get($name)
+    public function get(string $name): Database
     {
         $type = $this->config->get($name, 'type');
+
         foreach ($this->databases as $database) {
             if ($database->handles($type)) {
                 $database->setConfig($this->config->get($name));
                 return $database;
             }
         }
+
         throw new DatabaseTypeNotSupported("The requested database type {$type} is not currently supported.");
     }
 
     /**
-     * @return array
+     * @return list<string> connection names
      */
-    public function getAvailableProviders()
+    public function getAvailableProviders(): array
     {
         return array_keys($this->config->getItems());
     }

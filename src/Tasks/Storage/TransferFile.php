@@ -1,63 +1,39 @@
-<?php namespace BackupManager\Tasks\Storage;
+<?php
 
-use League\Flysystem\FileExistsException;
-use League\Flysystem\FileNotFoundException;
-use League\Flysystem\FilesystemInterface;
-use League\Flysystem\FilesystemOperator;
+declare(strict_types=1);
+
+namespace BackupManager\Tasks\Storage;
+
 use BackupManager\Tasks\Task;
+use League\Flysystem\FilesystemException;
+use League\Flysystem\FilesystemOperator;
 
-/**
- * Class TransferFile
- * @package BackupManager\Tasks\Storage
- */
-class TransferFile implements Task
+final class TransferFile implements Task
 {
-    /** @var FilesystemInterface|FilesystemOperator */
-    private $sourceFilesystem;
-    /** @var string */
-    private $sourcePath;
-    /** @var FilesystemInterface|FilesystemOperator */
-    private $destinationFilesystem;
-    /** @var string */
-    private $destinationPath;
-
-    /**
-     * @param FilesystemInterface|FilesystemOperator $sourceFilesystem
-     * @param $sourcePath
-     * @param FilesystemInterface|FilesystemOperator $destinationFilesystem
-     * @param $destinationPath
-     */
-    public function __construct($sourceFilesystem, $sourcePath, $destinationFilesystem, $destinationPath)
-    {
-        $this->sourceFilesystem = $sourceFilesystem;
-        $this->sourcePath = $sourcePath;
-        $this->destinationFilesystem = $destinationFilesystem;
-        $this->destinationPath = $destinationPath;
+    public function __construct(
+        private readonly FilesystemOperator $sourceFilesystem,
+        private readonly string $sourcePath,
+        private readonly FilesystemOperator $destinationFilesystem,
+        private readonly string $destinationPath,
+    ) {
     }
 
     /**
-     * @throws FileExistsException
-     * @throws FileNotFoundException
-     * @throws FileTransferFailed
+     * @throws FilesystemException
      */
-    public function execute()
+    #[\Override]
+    public function execute(): void
     {
         $stream = $this->sourceFilesystem->readStream($this->sourcePath);
 
-        if ($stream === false) {
-            throw new FileTransferFailed(sprintf('Unable to read "%s" from the source filesystem.', $this->sourcePath));
-        }
-
         try {
-            $written = $this->destinationFilesystem->writeStream($this->destinationPath, $stream);
+            $this->destinationFilesystem->writeStream($this->destinationPath, $stream);
         } finally {
+            // Some adapters close the stream themselves.
+            /** @psalm-suppress RedundantConditionGivenDocblockType */
             if (is_resource($stream)) {
                 fclose($stream);
             }
-        }
-
-        if ($written === false) {
-            throw new FileTransferFailed(sprintf('Unable to write "%s" to the destination filesystem.', $this->destinationPath));
         }
     }
 }

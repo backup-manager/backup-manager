@@ -22,7 +22,7 @@ class DatabaseProviderSpec extends ObjectBehavior
 
     public function it_should_provide_requested_databases_by_name()
     {
-        $this->add(new MysqlDatabase);
+        $this->add(new MysqlDatabase());
         $this->get('development')->shouldHaveType('BackupManager\Databases\MysqlDatabase');
     }
 

@@ -30,7 +30,6 @@ class LocalFilesystemSpec extends ObjectBehavior
     {
         $this->expectAdapter([
             'League\\Flysystem\\Local\\LocalFilesystemAdapter',
-            'League\\Flysystem\\Adapter\\Local',
         ], $this->getConfig());
     }
 

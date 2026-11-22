@@ -1,10 +1,10 @@
-<?php namespace BackupManager\Tasks;
+<?php
 
-/**
- * Interface Task
- * @package BackupManager\Tasks
- */
+declare(strict_types=1);
+
+namespace BackupManager\Tasks;
+
 interface Task
 {
-    public function execute();
+    public function execute(): void;
 }

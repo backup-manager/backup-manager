@@ -9,33 +9,15 @@ concurrency:
 
 jobs:
   phpspec:
-    name: PHP ${{ matrix.php }} Flysystem ${{ matrix.flysystem }} ${{ matrix.dependencies }}
+    name: PHP ${{ matrix.php }} ${{ matrix.dependencies }}
     runs-on: ubuntu-latest
-    env:
-      # The AWS SDK warns on PHP < 8.1; phpspec would report that as a broken example.
-      AWS_SUPPRESS_PHP_DEPRECATION_WARNING: 'true'
     strategy:
       fail-fast: false
       matrix:
+        php: ['8.2', '8.3', '8.4', '8.5']
+        dependencies: ['highest']
         include:
-          # Flysystem 1 (every release is advisory-flagged; still supported in 3.x)
-          - { php: '7.4', flysystem: 1, dependencies: lowest }
-          - { php: '7.4', flysystem: 1, dependencies: highest }
-          - { php: '8.1', flysystem: 1, dependencies: highest }
-          - { php: '8.3', flysystem: 1, dependencies: highest }
-          - { php: '8.4', flysystem: 1, dependencies: highest }
-          # Flysystem 2 (every release is advisory-flagged; still supported in 3.x)
-          - { php: '7.4', flysystem: 2, dependencies: lowest }
-          - { php: '7.4', flysystem: 2, dependencies: highest }
-          - { php: '8.1', flysystem: 2, dependencies: highest }
-          # Flysystem 3
-          - { php: '8.1', flysystem: 3, dependencies: lowest }
-          - { php: '8.0', flysystem: 3, dependencies: highest }
-          - { php: '8.1', flysystem: 3, dependencies: highest }
-          - { php: '8.2', flysystem: 3, dependencies: highest }
-          - { php: '8.3', flysystem: 3, dependencies: highest }
-          - { php: '8.4', flysystem: 3, dependencies: highest }
-          - { php: '8.5', flysystem: 3, dependencies: highest }
+          - { php: '8.2', dependencies: lowest }
 
     steps:
       - name: Set up PHP
@@ -48,14 +30,10 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v7
 
-      - name: Select Flysystem ${{ matrix.flysystem }} dev dependencies
-        run: .github/scripts/use-flysystem.sh ${{ matrix.flysystem }}
-
       - name: Download dependencies
         uses: ramsey/composer-install@v4
         with:
           dependency-versions: ${{ matrix.dependencies }}
-          composer-options: --no-security-blocking
 
       - name: Show resolved key packages
         run: composer show | grep -E '^(league/flysystem|phpspec/phpspec|symfony/process)'

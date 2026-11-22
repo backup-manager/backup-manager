@@ -6,6 +6,32 @@ adheres to [Semantic Versioning](https://semver.org/).
 
 ## [Unreleased]
 
+## [4.0.0]
+
+Requires PHP 8.2 and Flysystem 3. See [UPGRADE.md](UPGRADE.md).
+
+### Removed
+- Flysystem 1 and 2 support, PHP < 8.2, `symfony/process` < 6.4.
+- `DropboxV2`, `Rackspace` and `B2` filesystem types (deprecated in 3.2.0).
+- `FlysystemFilesystem` mount-manager prefix lookup; register the
+  `MountManager` by name instead.
+- `FileTransferFailed`; Flysystem 3 exceptions propagate.
+
+### Changed
+- Native parameter and return types and `strict_types` throughout; the
+  `Filesystem`, `Database`, `Compressor` and `Task` interfaces have typed
+  signatures. (from #185 by @Nyholm, #196 by @Jelle-S, and @fezfez's fork)
+- `FilesystemProvider::get()` returns `FilesystemOperator`.
+- Concrete factories, databases, compressors and tasks are `final`.
+- `Gcs` reads the path prefix from `root` or `prefix`.
+
+### Fixed
+- The MySQL restore command shell-escapes the input path.
+
+### Development
+- PHPStan 2 at level 8 and Psalm 7 at level 2, both without baselines;
+  PHP-CS-Fixer with PSR-12.
+
 ## [3.2.0] - 2026-11-22
 
 3.1.0 declared support for Flysystem 2 and 3 but only worked with Flysystem 1.
@@ -73,7 +99,8 @@ the Flysystem major you have installed.
 ### Removed
 - Support for `symfony/process` < 3.
 
-[Unreleased]: https://github.com/backup-manager/backup-manager/compare/3.2.0...HEAD
+[Unreleased]: https://github.com/backup-manager/backup-manager/compare/4.0.0...HEAD
+[4.0.0]: https://github.com/backup-manager/backup-manager/compare/3.2.0...4.0.0
 [3.2.0]: https://github.com/backup-manager/backup-manager/compare/3.1.0...3.2.0
 [3.1.0]: https://github.com/backup-manager/backup-manager/compare/3.0.1...3.1.0
 [3.0.1]: https://github.com/backup-manager/backup-manager/compare/3.0...3.0.1

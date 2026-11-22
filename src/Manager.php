@@ -1,74 +1,43 @@
-<?php namespace BackupManager;
+<?php
 
-use BackupManager\Procedures;
-use Symfony\Component\Process\Process;
+declare(strict_types=1);
+
+namespace BackupManager;
+
+use BackupManager\Compressors\CompressorProvider;
 use BackupManager\Databases\DatabaseProvider;
 use BackupManager\Filesystems\FilesystemProvider;
-use BackupManager\Compressors\CompressorProvider;
+use BackupManager\Procedures\BackupProcedure;
+use BackupManager\Procedures\RestoreProcedure;
 use BackupManager\ShellProcessing\ShellProcessor;
 
 /**
- * Class Manager
+ * Entry point to the backup and restore procedures.
  *
- * This is a facade class that gives consumers access to the simple backup and restore procedures.
- * This class can be copied and namespaced into your project, renamed, added to, modified, etc.
- * Once you've done that, your application can interact with the backup manager in one place only
- * and the rest of the system will interact with the new Manager-like construct that you created.
- *
- * @package BackupManager
+ * You can copy this class into your project and adapt it, so that your
+ * application depends on one place and the rest of the system on your copy.
  */
 class Manager
 {
-    /** @var FilesystemProvider */
-    private $filesystems;
-    /** @var DatabaseProvider */
-    private $databases;
-    /** @var CompressorProvider */
-    private $compressors;
-
-    /**
-     * @param FilesystemProvider $filesystems
-     * @param DatabaseProvider $databases
-     * @param CompressorProvider $compressors
-     */
-    public function __construct(FilesystemProvider $filesystems, DatabaseProvider $databases, CompressorProvider $compressors)
-    {
-        $this->filesystems = $filesystems;
-        $this->databases = $databases;
-        $this->compressors = $compressors;
+    public function __construct(
+        private readonly FilesystemProvider $filesystems,
+        private readonly DatabaseProvider $databases,
+        private readonly CompressorProvider $compressors,
+    ) {
     }
 
-    /**
-     * @return Procedures\BackupProcedure
-     */
-    public function makeBackup()
+    public function makeBackup(): BackupProcedure
     {
-        return new Procedures\BackupProcedure(
-            $this->filesystems,
-            $this->databases,
-            $this->compressors,
-            $this->getShellProcessor()
-        );
+        return new BackupProcedure($this->filesystems, $this->databases, $this->compressors, $this->getShellProcessor());
     }
 
-    /**
-     * @return Procedures\RestoreProcedure
-     */
-    public function makeRestore()
+    public function makeRestore(): RestoreProcedure
     {
-        return new Procedures\RestoreProcedure(
-            $this->filesystems,
-            $this->databases,
-            $this->compressors,
-            $this->getShellProcessor()
-        );
+        return new RestoreProcedure($this->filesystems, $this->databases, $this->compressors, $this->getShellProcessor());
     }
 
-    /**
-     * @return ShellProcessing\ShellProcessor
-     */
-    protected function getShellProcessor()
+    protected function getShellProcessor(): ShellProcessor
     {
-        return new ShellProcessor(new Process([], null, null, null, null));
+        return new ShellProcessor();
     }
 }

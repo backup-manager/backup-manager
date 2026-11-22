@@ -1,45 +1,32 @@
-<?php namespace BackupManager\Tasks\Compression;
+<?php
 
-use Symfony\Component\Process\Process;
-use BackupManager\ShellProcessing\ShellProcessFailed;
-use BackupManager\Tasks\Task;
+declare(strict_types=1);
+
+namespace BackupManager\Tasks\Compression;
+
 use BackupManager\Compressors\Compressor;
+use BackupManager\ShellProcessing\ShellProcessFailed;
 use BackupManager\ShellProcessing\ShellProcessor;
+use BackupManager\Tasks\Task;
+use Symfony\Component\Process\Process;
 
-/**
- * Class CompressFile
- * @package BackupManager\Tasks\Compression
- */
-class CompressFile implements Task
+final class CompressFile implements Task
 {
-    /** @var string */
-    private $sourcePath;
-    /** @var ShellProcessor */
-    private $shellProcessor;
-    /** @var Compressor */
-    private $compressor;
-
-    /**
-     * @param Compressor $compressor
-     * @param $sourcePath
-     * @param ShellProcessor $shellProcessor
-     */
-    public function __construct(Compressor $compressor, $sourcePath, ShellProcessor $shellProcessor)
-    {
-        $this->compressor = $compressor;
-        $this->sourcePath = $sourcePath;
-        $this->shellProcessor = $shellProcessor;
+    public function __construct(
+        private readonly Compressor $compressor,
+        private readonly string $sourcePath,
+        private readonly ShellProcessor $shellProcessor,
+    ) {
     }
 
     /**
      * @throws ShellProcessFailed
      */
-    public function execute()
+    #[\Override]
+    public function execute(): void
     {
-        return $this->shellProcessor->process(
-            Process::fromShellCommandline(
-                $this->compressor->getCompressCommandLine($this->sourcePath)
-            )
+        $this->shellProcessor->process(
+            Process::fromShellCommandline($this->compressor->getCompressCommandLine($this->sourcePath))
         );
     }
 }
