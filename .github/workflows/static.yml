@@ -10,17 +10,17 @@ jobs:
 
     steps:
       - name: Checkout code
-        uses: actions/checkout@v5
+        uses: actions/checkout@v7
 
       - name: Setup PHP
-        uses: shivammathur/setup-php@v2
+        uses: shivammathur/setup-php@2.40.0
         with:
           php-version: 8.1
           coverage: none
           tools: phpstan:1.5.3, cs2pr
 
       - name: Download dependencies
-        uses: ramsey/composer-install@v3
+        uses: ramsey/composer-install@v4
         with:
           composer-options: --no-security-blocking
 
@@ -33,10 +33,10 @@ jobs:
 
     steps:
       - name: Checkout code
-        uses: actions/checkout@v5
+        uses: actions/checkout@v7
 
       - name: Setup PHP
-        uses: shivammathur/setup-php@v2
+        uses: shivammathur/setup-php@2.40.0
         with:
           php-version: 8.1
           coverage: none
@@ -50,17 +50,17 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout code
-        uses: actions/checkout@v5
+        uses: actions/checkout@v7
 
       - name: Setup PHP
-        uses: shivammathur/setup-php@v2
+        uses: shivammathur/setup-php@2.40.0
         with:
-          php-version: 8.4
+          php-version: 8.3
           coverage: none
           tools: vimeo/psalm:7.15.0
 
       - name: Download dependencies
-        uses: ramsey/composer-install@v3
+        uses: ramsey/composer-install@v4
         with:
           composer-options: --no-security-blocking
 
@@ -73,14 +73,14 @@ jobs:
 
     steps:
       - name: Setup PHP
-        uses: shivammathur/setup-php@v2
+        uses: shivammathur/setup-php@2.40.0
         with:
           php-version: 8.1
           coverage: none
           tools: composer-normalize
 
       - name: Checkout code
-        uses: actions/checkout@v5
+        uses: actions/checkout@v7
 
       - name: Normalize
         run: composer-normalize --dry-run
