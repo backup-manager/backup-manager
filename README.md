@@ -11,10 +11,10 @@ Framework integrations: [Laravel](https://github.com/backup-manager/laravel) · 
 
 This package provides a framework-agnostic database backup manager for dumping to and restoring databases from S3, Google Cloud Storage, Dropbox, FTP, SFTP, WebDAV, and any other [Flysystem](https://flysystem.thephpleague.com/) filesystem.
 
-- use version 4 for PHP 8.2+ with Flysystem 3
-- use version 3 for PHP 7.4+ with Flysystem 1, 2 or 3
-- use version 2 for PHP 7.3
-- use version 1 for &lt;PHP 7.2
+- use version 4 for PHP 8.2+ with Flysystem 3 (active)
+- use version 3 for PHP 7.4+ with Flysystem 1, 2 or 3 (security fixes until 2027-12-31)
+- use version 2 for PHP 7.3 (unsupported)
+- use version 1 for &lt;PHP 7.2 (unsupported)
 
 See [CHANGELOG.md](CHANGELOG.md) for release notes and [UPGRADE.md](UPGRADE.md) for upgrading from 3.x.
 
