@@ -16,7 +16,7 @@ This document is the campaign's durable record. A new session resumes from
 | M1 3.2.0: Flysystem 2/3 support, AsyncAws, failure reporting | released 3.2.0 | #201 |
 | Security patch 3.2.1: patched dependency floors, CI hardening | released 3.2.1 (from `3.x`) | #202 |
 | M2 4.0.0: PHP 8.2, Flysystem 3, typed API | released 4.0.0 (from `master`) | #203 |
-| Core 3.3.0 / 4.1.0: MySQL `socket` | PRs open, CI green, in review | #204 (`3.x`), #205 |
+| Core 3.3.0 / 4.1.0: MySQL `socket` | reviewed clean, CI green; **merge blocked by Claude Code permission classifier — Shawn to merge or allow**, then tags | #204 (`3.x`), #205 |
 | M3a `backup-manager/laravel` | **in progress**: 2.1 PR open (CI, tests, fixes, README badges, repo security settings done) | laravel#138 |
 | M3b `backup-manager/symfony` | not started | separate repo |
 | M4 close-out | not started | |
@@ -283,6 +283,12 @@ Defects found by reading the code (no issue filed):
   default. laravel 2.1 still declares them (no narrowing in a minor) and CI
   tests them with `audit.block-insecure false`; Laravel 9 is tested on PHP 8.1
   (patched symfony/process 6.4.33 needs 8.1).
+- 2026-11-22: laravel 2.1 narrows `illuminate/*` to ^7.0+ (PHP 7.4+): core
+  ^3.3 needs CVE-patched symfony/process, which Laravel 5.5–6 cannot install
+  (same rule as 3.2.1 dropping symfony/process 4.4). Documented in CHANGELOG.
+- 2026-11-22: laravel 2.1 release order: tag core 3.3.0 → set laravel CI
+  `CORE_CONSTRAINT` away from the branch (remove it) → green CI → merge
+  laravel#138 → tag laravel 2.1.0 → close the issues listed in the PR.
 - 2026-11-22: laravel 2.1 reads config at use time via `RuntimeConfig` (a
   core `Config` subclass) instead of changing command constructors; this fixes
   #78/#82/#115 without an API change.
