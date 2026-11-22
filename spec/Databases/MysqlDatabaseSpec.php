@@ -15,7 +15,7 @@ class MysqlDatabaseSpec extends ObjectBehavior
 
     public function it_should_recognize_its_type_with_case_insensitivity()
     {
-        foreach (['mysql', 'MYsql', 'MYSQL'] as $type) {
+        foreach (['mysql', 'MYsql', 'MYSQL', 'pdo_mysql', 'PDO_MYSQL'] as $type) {
             $this->handles($type)->shouldBe(true);
         }
 
@@ -34,6 +34,17 @@ class MysqlDatabaseSpec extends ObjectBehavior
     {
         $this->configure('developmentSingleTrans');
         $this->getDumpCommandLine('outputPath')->shouldBe("mysqldump --routines --single-transaction --host='foo' --port='3306' --user='bar' --password='baz' 'test' > 'outputPath'");
+    }
+
+    public function it_should_disable_column_statistics_when_configured()
+    {
+        $this->setConfig([
+            'type' => 'mysql',
+            'host' => 'foo',
+            'database' => 'test',
+            'columnStatistics' => false,
+        ]);
+        $this->getDumpCommandLine('outputPath')->shouldBe("mysqldump --routines --column-statistics=0 --host='foo' 'test' > 'outputPath'");
     }
 
     public function it_should_generate_a_valid_database_restore_command()
