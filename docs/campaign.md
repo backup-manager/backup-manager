@@ -16,7 +16,8 @@ This document is the campaign's durable record. A new session resumes from
 | M1 3.2.0: Flysystem 2/3 support, AsyncAws, failure reporting | released 3.2.0 | #201 |
 | Security patch 3.2.1: patched dependency floors, CI hardening | released 3.2.1 (from `3.x`) | #202 |
 | M2 4.0.0: PHP 8.2, Flysystem 3, typed API | released 4.0.0 (from `master`) | #203 |
-| M3a `backup-manager/laravel` | **in progress**: triage done; next core 3.3.0/4.1.0 socket, then laravel foundation | separate repo |
+| Core 3.3.0 / 4.1.0: MySQL `socket` | PRs open, CI green, in review | #204 (`3.x`), #205 |
+| M3a `backup-manager/laravel` | **in progress**: 2.1 PR open (CI, tests, fixes, README badges, repo security settings done) | laravel#138 |
 | M3b `backup-manager/symfony` | not started | separate repo |
 | M4 close-out | not started | |
 
@@ -277,6 +278,14 @@ Defects found by reading the code (no issue filed):
 - 2026-11-22: Framework repos get the same PR/issue triage as core (Shawn).
 - 2026-11-22: laravel #128: add a MySQL `socket` key to core (3.3.0 on `3.x`,
   4.1.0 on master) rather than an extraParams workaround (restore would miss it).
+- 2026-11-22: Every Laravel 7–11 release has an unpatched advisory
+  (CVE-2026-128083 covers all below 12.71.0); Composer blocks them by
+  default. laravel 2.1 still declares them (no narrowing in a minor) and CI
+  tests them with `audit.block-insecure false`; Laravel 9 is tested on PHP 8.1
+  (patched symfony/process 6.4.33 needs 8.1).
+- 2026-11-22: laravel 2.1 reads config at use time via `RuntimeConfig` (a
+  core `Config` subclass) instead of changing command constructors; this fixes
+  #78/#82/#115 without an API change.
 - 2026-11-22: laravel versions: 2.1.0 on core ^3.2.1 (after 3.3.0: ^3.3), 3.0.0
   on core ^4.1. 3.0 drops the Lumen provider (Lumen is discontinued).
 - Local clone of the laravel repo: `/home/shawn/src/backup-manager/laravel`.
