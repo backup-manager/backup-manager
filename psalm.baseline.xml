@@ -122,10 +122,10 @@
             escapeshellarg($outputPath)
         )]]></code>
       <code><![CDATA[sprintf(
-            'mysql%s ' . implode(' ', $extras) . ' %s -e %s',
+            'mysql%s ' . implode(' ', $extras) . ' %s < %s',
             $params,
             escapeshellarg($this->config['database']),
-            escapeshellarg('source ' . $inputPath)
+            escapeshellarg($inputPath)
         )]]></code>
     </FalsableReturnStatement>
     <MissingOverrideAttribute>
