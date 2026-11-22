@@ -6,7 +6,7 @@ adheres to [Semantic Versioning](https://semver.org/).
 
 ## [Unreleased]
 
-## [3.2.0]
+## [3.2.0] - 2026-11-22
 
 3.1.0 declared support for Flysystem 2 and 3 but only worked with Flysystem 1.
 Composer now refuses to install any Flysystem 1.x or 2.x release by default
