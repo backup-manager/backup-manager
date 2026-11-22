@@ -1,8 +1,13 @@
 # Database Backup Manager
 
-![Packagist Version](https://img.shields.io/packagist/v/backup-manager/backup-manager)
-![Packagist License](https://img.shields.io/packagist/l/backup-manager/backup-manager)
-![Installs](https://img.shields.io/packagist/dt/backup-manager/backup-manager)
+[![Tests](https://github.com/backup-manager/backup-manager/actions/workflows/ci.yml/badge.svg)](https://github.com/backup-manager/backup-manager/actions/workflows/ci.yml)
+[![Static analysis](https://github.com/backup-manager/backup-manager/actions/workflows/static.yml/badge.svg)](https://github.com/backup-manager/backup-manager/actions/workflows/static.yml)
+[![Latest Version](https://img.shields.io/packagist/v/backup-manager/backup-manager)](https://packagist.org/packages/backup-manager/backup-manager)
+[![PHP Version](https://img.shields.io/packagist/dependency-v/backup-manager/backup-manager/php)](https://packagist.org/packages/backup-manager/backup-manager)
+[![Downloads](https://img.shields.io/packagist/dt/backup-manager/backup-manager)](https://packagist.org/packages/backup-manager/backup-manager/stats)
+[![License](https://img.shields.io/packagist/l/backup-manager/backup-manager)](LICENSE)
+
+Framework integrations: [Laravel](https://github.com/backup-manager/laravel) · [Symfony](https://github.com/backup-manager/symfony)
 
 This package provides a framework-agnostic database backup manager for dumping to and restoring databases from S3, Google Cloud Storage, Dropbox, FTP, SFTP, WebDAV, and any other [Flysystem](https://flysystem.thephpleague.com/) filesystem.
 

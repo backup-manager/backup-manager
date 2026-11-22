@@ -20,7 +20,7 @@ This document is the campaign's durable record. A new session resumes from
 | M3a laravel 2.1.0: Laravel 7–13, fixes, CI, badges | released 2.1.0 | laravel#138 |
 | M3a laravel 3.0.0: core ^4.1, Laravel 12/13, renamed classes | merged to master (reviewed, CI green); **awaiting Shawn's go to tag 3.0.0** | laravel#139 |
 | M3b symfony 3.3.0 (minor, core ^3.3) | merged to `3.x` (reviewed; floors at patched Symfony 5.4.56/6.4.50/7.4.23/8.1.11); **awaiting Shawn's go to tag 3.3.0 from `3.x`** | symfony#92, #93 |
-| M3b symfony 4.0.0 (major, core ^4.1) | PR open, CI green, in review | symfony#94 |
+| M3b symfony 4.0.0 (major, core ^4.1, Symfony 6.4/7.4/8.1+) | merged to master (reviewed, CI green); **awaiting Shawn's go to tag 4.0.0** | symfony#94 |
 | M4 close-out | not started | |
 
 Core repo: 0 open PRs, 0 open issues; Packagist lists 4.1.0, 3.3.0.
@@ -295,7 +295,7 @@ Code survey (master 9aa06b8, unreleased since 3.2.1: Symfony 6 support #87,
 | #78 | DSN user/password | answer: url-encode per RFC 3986 (Nyholm answered); verify decoding | 3.3 |
 
 ## M4: Close-out
-- README badges in all three repos (core, laravel, symfony): replace stale
+- [done for all three repos] README badges (core, laravel, symfony): replace stale
   badges with current ones that represent the project well (CI status from
   GitHub Actions, Packagist version, downloads, PHP version, license; drop
   dead services such as Travis/Scrutinizer/Coveralls). Do each framework
