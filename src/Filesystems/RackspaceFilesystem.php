@@ -26,6 +26,10 @@ class RackspaceFilesystem implements Filesystem
      */
     public function get(array $config)
     {
+        if (! class_exists(RackspaceAdapter::class)) {
+            throw FilesystemAdapterMissing::forFlysystemV1Type('Rackspace', 'league/flysystem-rackspace', 'There is no Flysystem 2 or 3 adapter for Rackspace Cloud Files.');
+        }
+
         $client = new Rackspace($config['endpoint'], [
             'username' => $config['username'],
             'apiKey' => $config['key'],

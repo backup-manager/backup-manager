@@ -25,6 +25,10 @@ class DropboxV2Filesystem implements Filesystem
      */
     public function get(array $config)
     {
+        if (! class_exists(DropboxAdapter::class)) {
+            throw FilesystemAdapterMissing::forFlysystemV1Type('DropboxV2', 'srmklive/flysystem-dropbox-v2', 'Use the "Dropbox" type with spatie/flysystem-dropbox instead.');
+        }
+
         $client = new DropboxClient($config['token']);
         return new Flysystem(new DropboxAdapter($client, $config['root']));
     }

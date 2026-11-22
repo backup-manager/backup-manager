@@ -3,11 +3,13 @@
 namespace spec\BackupManager\Filesystems;
 
 use PhpSpec\ObjectBehavior;
+use spec\BackupManager\Support\ExpectsAdapters;
 use Prophecy\Argument;
-use Superbalist\Flysystem\GoogleStorage\GoogleStorageAdapter;
 
 class GcsFilesystemSpec extends ObjectBehavior
 {
+    use ExpectsAdapters;
+
     public function it_is_initializable()
     {
         $this->shouldHaveType('BackupManager\Filesystems\GcsFilesystem');
@@ -26,7 +28,10 @@ class GcsFilesystemSpec extends ObjectBehavior
 
     public function it_should_provide_an_instance_of_an_gcp_filesystem()
     {
-        $this->get($this->getConfig())->getAdapter()->shouldHaveType(GoogleStorageAdapter::class);
+        $this->expectAdapter([
+            'League\\Flysystem\\GoogleCloudStorage\\GoogleCloudStorageAdapter',
+            'Superbalist\\Flysystem\\GoogleStorage\\GoogleStorageAdapter',
+        ], $this->getConfig());
     }
 
     public function getConfig()

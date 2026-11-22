@@ -3,10 +3,13 @@
 namespace spec\BackupManager\Filesystems;
 
 use PhpSpec\ObjectBehavior;
+use spec\BackupManager\Support\ExpectsAdapters;
 use Prophecy\Argument;
 
 class DropboxFilesystemSpec extends ObjectBehavior
 {
+    use ExpectsAdapters;
+
     public function it_is_initializable()
     {
         $this->shouldHaveType('BackupManager\Filesystems\DropboxFilesystem');
@@ -25,8 +28,9 @@ class DropboxFilesystemSpec extends ObjectBehavior
 
     public function it_should_provide_an_instance_of_a_dropbox_filesystem()
     {
-        $this->get($this->getConfig())->getAdapter()
-            ->shouldHaveType('Spatie\FlysystemDropbox\DropboxAdapter');
+        $this->expectAdapter([
+            'Spatie\\FlysystemDropbox\\DropboxAdapter',
+        ], $this->getConfig());
     }
 
     public function getConfig()

@@ -26,7 +26,11 @@ class DropboxFilesystem implements Filesystem
      */
     public function get(array $config)
     {
+        if (! class_exists(DropboxAdapter::class)) {
+            throw FilesystemAdapterMissing::forType('Dropbox', 'spatie/flysystem-dropbox');
+        }
+
         $client = new Client($config['token']);
-        return new Flysystem(new DropboxAdapter($client, $config['root']));
+        return new Flysystem(new DropboxAdapter($client, isset($config['root']) ? $config['root'] : ''));
     }
 }

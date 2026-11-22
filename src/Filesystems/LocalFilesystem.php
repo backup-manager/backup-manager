@@ -2,6 +2,7 @@
 
 use League\Flysystem\Adapter\Local;
 use League\Flysystem\Filesystem as Flysystem;
+use League\Flysystem\Local\LocalFilesystemAdapter;
 
 /**
  * Class LocalFilesystem
@@ -25,6 +26,12 @@ class LocalFilesystem implements Filesystem
      */
     public function get(array $config)
     {
+        // Flysystem v2/v3
+        if (class_exists(LocalFilesystemAdapter::class)) {
+            return new Flysystem(new LocalFilesystemAdapter($config['root']));
+        }
+
+        // Flysystem v1
         return new Flysystem(new Local($config['root']));
     }
 }

@@ -27,6 +27,10 @@ class BackblazeFilesystem implements Filesystem
      */
     public function get(array $config)
     {
+        if (! class_exists(BackblazeAdapter::class)) {
+            throw FilesystemAdapterMissing::forFlysystemV1Type('B2', 'mhetreramesh/flysystem-backblaze', 'Use the "AwsS3" type with the B2 S3-compatible endpoint instead.');
+        }
+
         if (!isset($config['options'])) {
             $config['options'] = [];
         }

@@ -8,9 +8,12 @@ use GuzzleHttp\HandlerStack;
 use GuzzleHttp\Psr7\Response;
 use PhpSpec\Exception\Example\SkippingException;
 use PhpSpec\ObjectBehavior;
+use spec\BackupManager\Support\ExpectsAdapters;
 
 class BackblazeFilesystemSpec extends ObjectBehavior
 {
+    use ExpectsAdapters;
+
     public function let(): void
     {
         if (!class_exists('Mhetreramesh\Flysystem\BackblazeAdapter')) {
@@ -36,7 +39,9 @@ class BackblazeFilesystemSpec extends ObjectBehavior
 
     public function it_should_provide_an_instance_of_an_b2_filesystem()
     {
-        $this->get($this->getConfig())->getAdapter()->shouldHaveType('Mhetreramesh\Flysystem\BackblazeAdapter');
+        $this->expectAdapter([
+            'Mhetreramesh\\Flysystem\\BackblazeAdapter',
+        ], $this->getConfig());
     }
 
     public function getConfig()
