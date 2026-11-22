@@ -47,7 +47,7 @@ framework packages (`backup-manager/laravel`, `backup-manager/symfony`).
 - `pdo_mysql` accepted as a MySQL database type; `--column-statistics=0` opt-in via config (#195, credit meiyasan).
 - Shell-escape the restore input path for MySQL.
 - `symfony/process` widened to include `^7.0 || ^8.0`.
-- CI matrix: PHP 7.4–8.5 × Flysystem v1/v2/v3 where installable, plus lowest deps.
+- CI matrix: Flysystem 1 on PHP 7.4–8.4, 2 on 7.4/8.1, 3 on 8.0–8.5, plus lowest deps.
 - `CHANGELOG.md` (#169), README corrections, multiple-database example (#173).
 
 ### M2: 4.0.0 (breaking)
@@ -95,8 +95,8 @@ Credit: merged PRs keep authorship; reimplementations carry
   closes PRs and issues; release tags only with Shawn's explicit go.
 - 2026-11-22: 4.0 keeps providers (Nyholm's Flysystem-native proposal declined).
 - 2026-11-22: CI is the test matrix; no local matrix script.
-- 2026-11-22: phpspec has no stable release supporting PHP 8.5; CI uses
-  `^9.0@RC` on 8.5 until 9.0 is stable.
+- 2026-11-22: phpspec `^7.5 || ^8.0` covers PHP 7.4–8.5 (7.x up to 8.3,
+  8.3.x from 8.2 through 8.5).
 - 2026-11-22: GHSA-cxf4-7mrp-vvpr (low) flags `league/flysystem <= 3.35.2`, i.e.
   all of v1 and v2; phpseclib 2.x is also fully flagged. Composer blocks these by
   default, so users resolving 3.1.0 today get Flysystem 3.35.3+, the major 3.1.0

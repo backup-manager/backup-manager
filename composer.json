@@ -26,7 +26,7 @@
     "league/flysystem-google-cloud-storage": "^3.0",
     "league/flysystem-sftp-v3": "^3.0",
     "league/flysystem-webdav": "^3.0",
-    "phpspec/phpspec": "^7.5 || ^8.0 || ^9.0@RC",
+    "phpspec/phpspec": "^7.5 || ^8.0",
     "spatie/flysystem-dropbox": "^2.0 || ^3.0"
   },
   "suggest": {
@@ -57,8 +57,5 @@
     "branch-alias": {
       "dev-master": "3.x-dev"
     }
-  },
-  "prefer-stable": true,
-  "config": {
   }
 }
