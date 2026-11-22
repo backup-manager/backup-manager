@@ -19,8 +19,8 @@ This document is the campaign's durable record. A new session resumes from
 | Core 3.3.0 / 4.1.0: MySQL `socket` | released 3.3.0 (from `3.x`), 4.1.0 (from `master`) | #204, #205 |
 | M3a laravel 2.1.0: Laravel 7–13, fixes, CI, badges | released 2.1.0 | laravel#138 |
 | M3a laravel 3.0.0: core ^4.1, Laravel 12/13, renamed classes | merged to master (reviewed, CI green); **awaiting Shawn's go to tag 3.0.0** | laravel#139 |
-| M3b symfony 3.3.0 (minor, core ^3.3) | PR open, CI green (Symfony 3.4–8, Flysystem 1/2/3), in review; repo security settings on | symfony#92 |
-| M3b symfony 4.0.0 (major, core ^4.1) | not started | |
+| M3b symfony 3.3.0 (minor, core ^3.3) | merged to `3.x` (reviewed; floors at patched Symfony 5.4.56/6.4.50/7.4.23/8.1.11); **awaiting Shawn's go to tag 3.3.0 from `3.x`** | symfony#92, #93 |
+| M3b symfony 4.0.0 (major, core ^4.1) | PR open, CI green, in review | symfony#94 |
 | M4 close-out | not started | |
 
 Core repo: 0 open PRs, 0 open issues; Packagist lists 4.1.0, 3.3.0.
@@ -31,8 +31,10 @@ comments); Packagist lists 2.1.0.
 
 1. Read **Working conventions** and **Security baseline** below; they apply to
    the framework repos too.
-2. Next: tag laravel 3.0.0 (on Shawn's go; date the CHANGELOG heading
-   first), finish symfony 3.3.0 (#92), then symfony 4.0.0 on core ^4.1.
+2. Next: on Shawn's go, tag laravel 3.0.0 (master), symfony 3.3.0 (`3.x`)
+   and symfony 4.0.0 (master, after #94 merges); date each changelog heading
+   first; then close symfony issues #78 #84 #88 #89 #90 #91 with comments,
+   then M4 close-out.
 3. Release tags always need Shawn's explicit go (see **Authority**).
 4. Merges, tags and `gh release create` are allowed in
    `.claude/settings.local.json` of the core checkout (git-excluded); Claude
@@ -358,6 +360,10 @@ Code survey (master 9aa06b8, unreleased since 3.2.1: Symfony 6 support #87,
   methods (needed by Symfony 6–8), documented in Changelog (Shawn). Switching
   `BMBackupManagerExtension` to the DI component's `Extension` (http-kernel
   8.1 deprecates its own) narrows inherited API, so it waits for 4.0.
+- 2026-11-22: symfony 3.3 floors raised to patched Symfony releases before
+  tagging (security baseline; Symfony 3.4/4.4 have no patched releases),
+  same rule as core 3.2.1. symfony 4.0: Symfony 6.4/7.4/8.1+ (8.0 has no
+  patched release), DI-component Extension, final classes.
 - 2026-11-22: Released core 3.3.0, 4.1.0 and laravel 2.1.0 (Shawn's go).
   laravel 2.1.0 was squash-merged with Co-authored-by trailers for nafiesl
   (#130) and martindrapeau (#135). All laravel PRs and issues closed with
