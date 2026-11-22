@@ -57,6 +57,8 @@ See [CHANGELOG.md](CHANGELOG.md) for release notes and [UPGRADE.md](UPGRADE.md) 
     // Example: ['table1', 'table2']
     // http://dev.mysql.com/doc/refman/5.7/en/mysqldump.html#option_mysqldump_ignore-table
     'ignoreTables' => [],
+    // connect through a unix socket; when set, host and port are not used (mysql only):
+    // 'socket' => '/run/mysqld/mysqld.sock',
     // using ssl to connect to your database - active ssl-support (mysql only):
     'ssl'=>false,
     // add additional options to dump-command (like '--max-allowed-packet')
