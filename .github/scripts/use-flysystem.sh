@@ -10,7 +10,7 @@ spatie/flysystem-dropbox"
 
 case "${1:-}" in
   3)
-    composer require --no-update "league/flysystem:^3.0"
+    composer require --no-update "league/flysystem:^3.35.3"
     ;;
   2)
     composer remove --dev --no-update $V3_DEV
