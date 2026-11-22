@@ -6,6 +6,18 @@ adheres to [Semantic Versioning](https://semver.org/).
 
 ## [Unreleased]
 
+## [3.2.1] - 2026-11-22
+
+### Security
+- `symfony/process` now requires a release patched for CVE-2024-51736
+  (command hijack on Windows) and CVE-2026-24739 (argument escaping under
+  MSYS2/Git Bash): `^5.4.51 || ^6.4.33 || ^7.4.5 || ^8.0.5`. `symfony/process`
+  4.4 is no longer accepted; it has no patched release.
+- With Flysystem 3, `league/flysystem` 3.35.3 or later is required
+  (CVE-2026-102601). Flysystem 1 and 2 remain supported in 3.x but have no
+  patched releases and Composer blocks them by default; upgrade to Flysystem 3
+  (and to backup-manager 4.0, which requires it).
+
 ## [3.2.0] - 2026-11-22
 
 3.1.0 declared support for Flysystem 2 and 3 but only worked with Flysystem 1.
@@ -73,7 +85,8 @@ the Flysystem major you have installed.
 ### Removed
 - Support for `symfony/process` < 3.
 
-[Unreleased]: https://github.com/backup-manager/backup-manager/compare/3.2.0...HEAD
+[Unreleased]: https://github.com/backup-manager/backup-manager/compare/3.2.1...3.x
+[3.2.1]: https://github.com/backup-manager/backup-manager/compare/3.2.0...3.2.1
 [3.2.0]: https://github.com/backup-manager/backup-manager/compare/3.1.0...3.2.0
 [3.1.0]: https://github.com/backup-manager/backup-manager/compare/3.0.1...3.1.0
 [3.0.1]: https://github.com/backup-manager/backup-manager/compare/3.0...3.0.1
