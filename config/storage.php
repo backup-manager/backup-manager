@@ -25,9 +25,6 @@ return [
     'dropbox' => [
         'type' => 'Dropbox',
         'token' => '',
-        'key' => '',
-        'secret' => '',
-        'app' => '',
         'root' => '',
     ],
     'ftp' => [
@@ -46,7 +43,7 @@ return [
         'host' => '',
         'username' => '',
         'password' => '',
-        'port' => 21,
+        'port' => 22,
         'timeout' => 10,
         'privateKey' => '',
         'root' => '',

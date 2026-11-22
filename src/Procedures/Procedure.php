@@ -14,10 +14,10 @@ use BackupManager\ShellProcessing\ShellProcessor;
 abstract class Procedure
 {
     public function __construct(
-        protected readonly FilesystemProvider $filesystems,
-        protected readonly DatabaseProvider $databases,
-        protected readonly CompressorProvider $compressors,
-        protected readonly ShellProcessor $shellProcessor,
+        protected FilesystemProvider $filesystems,
+        protected DatabaseProvider $databases,
+        protected CompressorProvider $compressors,
+        protected ShellProcessor $shellProcessor,
     ) {
     }
 

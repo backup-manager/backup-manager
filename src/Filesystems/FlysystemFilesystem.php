@@ -13,11 +13,15 @@ use League\Flysystem\FilesystemOperator;
  */
 final class FlysystemFilesystem implements Filesystem
 {
+    /** @var array<string, FilesystemOperator> */
+    private readonly array $filesystems;
+
     /**
-     * @param array<string, FilesystemOperator> $filesystems keyed by name
+     * @param iterable<string, FilesystemOperator> $filesystems keyed by name
      */
-    public function __construct(private readonly array $filesystems = [])
+    public function __construct(iterable $filesystems = [])
     {
+        $this->filesystems = is_array($filesystems) ? $filesystems : iterator_to_array($filesystems);
     }
 
     #[\Override]

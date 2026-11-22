@@ -18,7 +18,7 @@ final class GcsFilesystem implements Filesystem
     }
 
     /**
-     * Accepts 'projectId' or 'project', and 'root' or 'prefix'.
+     * Accepts 'project' or 'projectId', and 'prefix' or 'root' (first non-empty wins).
      */
     #[\Override]
     public function get(array $config): FilesystemOperator
@@ -28,13 +28,13 @@ final class GcsFilesystem implements Filesystem
         }
 
         $storageClient = new StorageClient(array_filter([
-            'projectId' => $this->first($config, ['projectId', 'project']),
+            'projectId' => $this->first($config, ['project', 'projectId']),
             'keyFilePath' => $this->first($config, ['keyFilePath']),
         ]));
 
         return new Flysystem(new GoogleCloudStorageAdapter(
             $storageClient->bucket($config['bucket']),
-            (string) $this->first($config, ['root', 'prefix'])
+            (string) $this->first($config, ['prefix', 'root'])
         ));
     }
 

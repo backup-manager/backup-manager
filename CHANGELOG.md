@@ -11,11 +11,14 @@ adheres to [Semantic Versioning](https://semver.org/).
 Requires PHP 8.2 and Flysystem 3. See [UPGRADE.md](UPGRADE.md).
 
 ### Removed
-- Flysystem 1 and 2 support, PHP < 8.2, `symfony/process` < 6.4.
+- Flysystem 1 and 2 support, PHP < 8.2, `symfony/process` < 6.4.33 (and
+  7.x < 7.4.5, 8.x < 8.0.5: unpatched for CVE-2024-51736/CVE-2026-24739).
 - `DropboxV2`, `Rackspace` and `B2` filesystem types (deprecated in 3.2.0).
 - `FlysystemFilesystem` mount-manager prefix lookup; register the
   `MountManager` by name instead.
-- `FileTransferFailed`; Flysystem 3 exceptions propagate.
+- `FileTransferFailed`, `MountManagerFilesystem` and
+  `FilesystemAdapterMissing::forFlysystemV1Type()`; Flysystem 3 exceptions
+  propagate.
 
 ### Changed
 - Native parameter and return types and `strict_types` throughout; the
@@ -23,14 +26,29 @@ Requires PHP 8.2 and Flysystem 3. See [UPGRADE.md](UPGRADE.md).
   signatures. (from #185 by @Nyholm, #196 by @Jelle-S, and @fezfez's fork)
 - `FilesystemProvider::get()` returns `FilesystemOperator`.
 - Concrete factories, databases, compressors and tasks are `final`.
-- `Gcs` reads the path prefix from `root` or `prefix`.
+- `Gcs` reads the path prefix from `prefix` or `root` on every install
+  (3.x read only `prefix` on Flysystem 1).
 
 ### Fixed
 - The MySQL restore command shell-escapes the input path.
 
 ### Development
+- CI: actions pinned to commit SHAs, read-only token, weekly scheduled run
+  and `composer audit`.
 - PHPStan 2 at level 8 and Psalm 7 at level 2, both without baselines;
   PHP-CS-Fixer with PSR-12.
+
+## [3.2.1] - 2026-11-22
+
+### Security
+- `symfony/process` now requires a release patched for CVE-2024-51736
+  (command hijack on Windows) and CVE-2026-24739 (argument escaping under
+  MSYS2/Git Bash): `^5.4.51 || ^6.4.33 || ^7.4.5 || ^8.0.5`. `symfony/process`
+  4.4 is no longer accepted; it has no patched release.
+- With Flysystem 3, `league/flysystem` 3.35.3 or later is required
+  (CVE-2026-102601). Flysystem 1 and 2 remain supported in 3.x but have no
+  patched releases and Composer blocks them by default; upgrade to Flysystem 3
+  (and to backup-manager 4.0, which requires it).
 
 ## [3.2.0] - 2026-11-22
 
@@ -100,7 +118,8 @@ the Flysystem major you have installed.
 - Support for `symfony/process` < 3.
 
 [Unreleased]: https://github.com/backup-manager/backup-manager/compare/4.0.0...HEAD
-[4.0.0]: https://github.com/backup-manager/backup-manager/compare/3.2.0...4.0.0
+[4.0.0]: https://github.com/backup-manager/backup-manager/compare/3.2.1...4.0.0
+[3.2.1]: https://github.com/backup-manager/backup-manager/compare/3.2.0...3.2.1
 [3.2.0]: https://github.com/backup-manager/backup-manager/compare/3.1.0...3.2.0
 [3.1.0]: https://github.com/backup-manager/backup-manager/compare/3.0.1...3.1.0
 [3.0.1]: https://github.com/backup-manager/backup-manager/compare/3.0...3.0.1

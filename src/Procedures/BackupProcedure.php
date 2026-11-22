@@ -26,7 +26,7 @@ class BackupProcedure extends Procedure
      * @throws DatabaseTypeNotSupported
      * @throws ConfigNotFoundForConnection
      */
-    public function run(string $database, array $destinations, string $compression): void
+    public function run(string $database, array $destinations, ?string $compression): void
     {
         $sequence = new Sequence();
 

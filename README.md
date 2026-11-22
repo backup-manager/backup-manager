@@ -96,7 +96,7 @@ See [CHANGELOG.md](CHANGELOG.md) for release notes and [UPGRADE.md](UPGRADE.md) 
     'use_path_style_endpoint' => false,
 ],
 'async-s3' => [
-    'type' => 'AsyncAwsS3', // Flysystem 2/3; uses async-aws instead of the AWS SDK
+    'type' => 'AsyncAwsS3', // uses async-aws instead of the AWS SDK
     'key'    => '',
     'secret' => '',
     'region' => 'us-east-1',
@@ -113,9 +113,6 @@ See [CHANGELOG.md](CHANGELOG.md) for release notes and [UPGRADE.md](UPGRADE.md) 
 'dropbox' => [
     'type' => 'Dropbox',
     'token' => '',
-    'key' => '',
-    'secret' => '',
-    'app' => '',
     'root' => '',
 ],
 'ftp' => [
@@ -135,7 +132,7 @@ See [CHANGELOG.md](CHANGELOG.md) for release notes and [UPGRADE.md](UPGRADE.md) 
     'username' => '',
     'password' => '',
     'root' => '',
-    'port' => 21,
+    'port' => 22,
     'timeout' => 10,
     'privateKey' => '',
 ],
@@ -207,7 +204,7 @@ foreach (['development', 'production'] as $database) {
 - [Flysystem](https://flysystem.thephpleague.com/) 3
 - MySQL support requires `mysqldump` and `mysql` command-line binaries
 - PostgreSQL support requires `pg_dump` and `psql` command-line binaries
-- Gzip support requires `gzip` and `gunzip` command-line binaries
+- Gzip support requires the `gzip` command-line binary
 
 
 ### Installation
