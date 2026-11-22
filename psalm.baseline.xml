@@ -118,7 +118,7 @@
       <code><![CDATA[sprintf(
             $command,
             $params,
-            escapeshellarg($this->config['database']),
+            escapeshellarg($this->config['database']) . $this->getOnlyTablesArguments(),
             escapeshellarg($outputPath)
         )]]></code>
       <code><![CDATA[sprintf(
@@ -265,9 +265,6 @@
       <code><![CDATA[getAvailableProviders]]></code>
       <code><![CDATA[getConfig]]></code>
     </PossiblyUnusedMethod>
-    <UndefinedDocblockClass>
-      <code><![CDATA[\League\Flysystem\Filesystem]]></code>
-    </UndefinedDocblockClass>
     <UnusedMethod>
       <code><![CDATA[registrationHint]]></code>
     </UnusedMethod>
@@ -411,11 +408,6 @@
     </UnusedClass>
   </file>
   <file src="src/Procedures/BackupProcedure.php">
-    <InvalidArgument>
-      <code><![CDATA[$localFilesystem]]></code>
-      <code><![CDATA[$localFilesystem]]></code>
-      <code><![CDATA[$this->filesystems->get($destination->destinationFilesystem())]]></code>
-    </InvalidArgument>
     <UnusedClass>
       <code><![CDATA[BackupProcedure]]></code>
     </UnusedClass>
@@ -447,9 +439,6 @@
   </file>
   <file src="src/Procedures/RestoreProcedure.php">
     <InvalidArgument>
-      <code><![CDATA[$localFilesystem]]></code>
-      <code><![CDATA[$localFilesystem]]></code>
-      <code><![CDATA[$this->filesystems->get($sourceType)]]></code>
       <code><![CDATA[uniqid() . basename($sourcePath)]]></code>
     </InvalidArgument>
     <UnusedClass>
