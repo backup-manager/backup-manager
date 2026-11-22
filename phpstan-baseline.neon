@@ -143,15 +143,25 @@ parameters:
 		-
 			message: "#^PHPDoc tag @param has invalid value \\(\\$type\\)\\: Unexpected token \"\\$type\", expected type at offset 18$#"
 			count: 1
+			path: src/Filesystems/AsyncAwsS3Filesystem.php
+
+		-
+			message: "#^Instantiated class League\\\\Flysystem\\\\AwsS3v3\\\\AwsS3Adapter not found\\.$#"
+			count: 1
+			path: src/Filesystems/Awss3Filesystem.php
+
+		-
+			message: "#^PHPDoc tag @param has invalid value \\(\\$type\\)\\: Unexpected token \"\\$type\", expected type at offset 18$#"
+			count: 1
+			path: src/Filesystems/Awss3Filesystem.php
+
+		-
+			message: "#^Parameter \\#1 \\$adapter of class League\\\\Flysystem\\\\Filesystem constructor expects League\\\\Flysystem\\\\FilesystemAdapter, League\\\\Flysystem\\\\AwsS3v3\\\\AwsS3Adapter given\\.$#"
+			count: 1
 			path: src/Filesystems/Awss3Filesystem.php
 
 		-
 			message: "#^Instantiated class BackblazeB2\\\\Client not found\\.$#"
-			count: 1
-			path: src/Filesystems/BackblazeFilesystem.php
-
-		-
-			message: "#^Instantiated class Mhetreramesh\\\\Flysystem\\\\BackblazeAdapter not found\\.$#"
 			count: 1
 			path: src/Filesystems/BackblazeFilesystem.php
 
@@ -161,7 +171,7 @@ parameters:
 			path: src/Filesystems/BackblazeFilesystem.php
 
 		-
-			message: "#^Parameter \\#1 \\$adapter of class League\\\\Flysystem\\\\Filesystem constructor expects League\\\\Flysystem\\\\AdapterInterface, Mhetreramesh\\\\Flysystem\\\\BackblazeAdapter given\\.$#"
+			message: "#^Parameter \\#1 \\$adapter of class League\\\\Flysystem\\\\Filesystem constructor expects League\\\\Flysystem\\\\FilesystemAdapter, Mhetreramesh\\\\Flysystem\\\\BackblazeAdapter given\\.$#"
 			count: 1
 			path: src/Filesystems/BackblazeFilesystem.php
 
@@ -171,7 +181,17 @@ parameters:
 			path: src/Filesystems/DropboxFilesystem.php
 
 		-
+			message: "#^Instantiated class Srmklive\\\\Dropbox\\\\Client\\\\DropboxClient not found\\.$#"
+			count: 1
+			path: src/Filesystems/DropboxV2Filesystem.php
+
+		-
 			message: "#^PHPDoc tag @param has invalid value \\(\\$type\\)\\: Unexpected token \"\\$type\", expected type at offset 50$#"
+			count: 1
+			path: src/Filesystems/DropboxV2Filesystem.php
+
+		-
+			message: "#^Parameter \\#1 \\$adapter of class League\\\\Flysystem\\\\Filesystem constructor expects League\\\\Flysystem\\\\FilesystemAdapter, Srmklive\\\\Dropbox\\\\Adapter\\\\DropboxAdapter given\\.$#"
 			count: 1
 			path: src/Filesystems/DropboxV2Filesystem.php
 
@@ -191,12 +211,22 @@ parameters:
 			path: src/Filesystems/FilesystemProvider.php
 
 		-
-			message: "#^Method BackupManager\\\\Filesystems\\\\FlysystemFilesystem\\:\\:get\\(\\) should return League\\\\Flysystem\\\\Filesystem but returns League\\\\Flysystem\\\\FilesystemInterface\\.$#"
-			count: 2
+			message: "#^Method BackupManager\\\\Filesystems\\\\FlysystemFilesystem\\:\\:get\\(\\) has invalid return type League\\\\Flysystem\\\\FilesystemInterface\\.$#"
+			count: 1
 			path: src/Filesystems/FlysystemFilesystem.php
 
 		-
 			message: "#^PHPDoc tag @param has invalid value \\(\\$type\\)\\: Unexpected token \"\\$type\", expected type at offset 18$#"
+			count: 1
+			path: src/Filesystems/FlysystemFilesystem.php
+
+		-
+			message: "#^Parameter \\$filesystems of method BackupManager\\\\Filesystems\\\\FlysystemFilesystem\\:\\:__construct\\(\\) has invalid type League\\\\Flysystem\\\\FilesystemInterface\\.$#"
+			count: 1
+			path: src/Filesystems/FlysystemFilesystem.php
+
+		-
+			message: "#^Property BackupManager\\\\Filesystems\\\\FlysystemFilesystem\\:\\:\\$filesystems has unknown class League\\\\Flysystem\\\\FilesystemInterface as its type\\.$#"
 			count: 1
 			path: src/Filesystems/FlysystemFilesystem.php
 
@@ -206,9 +236,29 @@ parameters:
 			path: src/Filesystems/FtpFilesystem.php
 
 		-
+			message: "#^Parameter \\#1 \\$adapter of class League\\\\Flysystem\\\\Filesystem constructor expects League\\\\Flysystem\\\\FilesystemAdapter, League\\\\Flysystem\\\\Adapter\\\\Ftp given\\.$#"
+			count: 1
+			path: src/Filesystems/FtpFilesystem.php
+
+		-
+			message: "#^Instantiated class Superbalist\\\\Flysystem\\\\GoogleStorage\\\\GoogleStorageAdapter not found\\.$#"
+			count: 1
+			path: src/Filesystems/GcsFilesystem.php
+
+		-
 			message: "#^PHPDoc tag @param has invalid value \\(\\$type\\)\\: Unexpected token \"\\$type\", expected type at offset 18$#"
 			count: 1
 			path: src/Filesystems/GcsFilesystem.php
+
+		-
+			message: "#^Parameter \\#1 \\$adapter of class League\\\\Flysystem\\\\Filesystem constructor expects League\\\\Flysystem\\\\FilesystemAdapter, Superbalist\\\\Flysystem\\\\GoogleStorage\\\\GoogleStorageAdapter given\\.$#"
+			count: 1
+			path: src/Filesystems/GcsFilesystem.php
+
+		-
+			message: "#^Instantiated class League\\\\Flysystem\\\\Adapter\\\\Local not found\\.$#"
+			count: 1
+			path: src/Filesystems/LocalFilesystem.php
 
 		-
 			message: "#^PHPDoc tag @param has invalid value \\(\\$type\\)\\: Unexpected token \"\\$type\", expected type at offset 50$#"
@@ -216,9 +266,34 @@ parameters:
 			path: src/Filesystems/LocalFilesystem.php
 
 		-
+			message: "#^Parameter \\#1 \\$adapter of class League\\\\Flysystem\\\\Filesystem constructor expects League\\\\Flysystem\\\\FilesystemAdapter, League\\\\Flysystem\\\\Adapter\\\\Local given\\.$#"
+			count: 1
+			path: src/Filesystems/LocalFilesystem.php
+
+		-
+			message: "#^Call to method objectStoreService\\(\\) on an unknown class OpenCloud\\\\Rackspace\\.$#"
+			count: 1
+			path: src/Filesystems/RackspaceFilesystem.php
+
+		-
+			message: "#^Instantiated class OpenCloud\\\\Rackspace not found\\.$#"
+			count: 1
+			path: src/Filesystems/RackspaceFilesystem.php
+
+		-
 			message: "#^PHPDoc tag @param has invalid value \\(\\$type\\)\\: Unexpected token \"\\$type\", expected type at offset 50$#"
 			count: 1
 			path: src/Filesystems/RackspaceFilesystem.php
+
+		-
+			message: "#^Parameter \\#1 \\$adapter of class League\\\\Flysystem\\\\Filesystem constructor expects League\\\\Flysystem\\\\FilesystemAdapter, League\\\\Flysystem\\\\Rackspace\\\\RackspaceAdapter given\\.$#"
+			count: 1
+			path: src/Filesystems/RackspaceFilesystem.php
+
+		-
+			message: "#^Call to static method fromArray\\(\\) on an unknown class League\\\\Flysystem\\\\PhpseclibV2\\\\SftpConnectionProvider\\.$#"
+			count: 1
+			path: src/Filesystems/SftpFilesystem.php
 
 		-
 			message: "#^PHPDoc tag @param has invalid value \\(\\$type\\)\\: Unexpected token \"\\$type\", expected type at offset 50$#"
@@ -226,7 +301,17 @@ parameters:
 			path: src/Filesystems/SftpFilesystem.php
 
 		-
-			message: "#^PHPDoc tag @param has invalid value \\(\\$type\\)\\: Unexpected token \"\\$type\", expected type at offset 50$#"
+			message: "#^Parameter \\#1 \\$adapter of class League\\\\Flysystem\\\\Filesystem constructor expects League\\\\Flysystem\\\\FilesystemAdapter, League\\\\Flysystem\\\\PhpseclibV2\\\\SftpAdapter given\\.$#"
+			count: 1
+			path: src/Filesystems/SftpFilesystem.php
+
+		-
+			message: "#^Parameter \\#1 \\$adapter of class League\\\\Flysystem\\\\Filesystem constructor expects League\\\\Flysystem\\\\FilesystemAdapter, League\\\\Flysystem\\\\Sftp\\\\SftpAdapter given\\.$#"
+			count: 1
+			path: src/Filesystems/SftpFilesystem.php
+
+		-
+			message: "#^PHPDoc tag @param has invalid value \\(\\$type\\)\\: Unexpected token \"\\$type\", expected type at offset 18$#"
 			count: 1
 			path: src/Filesystems/WebdavFilesystem.php
 
@@ -271,17 +356,92 @@ parameters:
 			path: src/Tasks/Database/RestoreDatabase.php
 
 		-
-			message: "#^PHPDoc tag @param has invalid value \\(\\$filePath\\)\\: Unexpected token \"\\$filePath\", expected type at offset 55$#"
+			message: "#^Call to method delete\\(\\) on an unknown class League\\\\Flysystem\\\\FilesystemInterface\\.$#"
 			count: 1
 			path: src/Tasks/Storage/DeleteFile.php
 
 		-
-			message: "#^PHPDoc tag @param has invalid value \\(\\$destinationPath\\)\\: Unexpected token \"\\$destinationPath\", expected type at offset 135$#"
+			message: "#^Method BackupManager\\\\Tasks\\\\Storage\\\\DeleteFile\\:\\:execute\\(\\) should return bool but returns void\\.$#"
+			count: 1
+			path: src/Tasks/Storage/DeleteFile.php
+
+		-
+			message: "#^PHPDoc tag @param has invalid value \\(\\$filePath\\)\\: Unexpected token \"\\$filePath\", expected type at offset 83$#"
+			count: 1
+			path: src/Tasks/Storage/DeleteFile.php
+
+		-
+			message: "#^PHPDoc tag @throws with type League\\\\Flysystem\\\\FileNotFoundException is not subtype of Throwable$#"
+			count: 1
+			path: src/Tasks/Storage/DeleteFile.php
+
+		-
+			message: "#^Parameter \\$filesystem of method BackupManager\\\\Tasks\\\\Storage\\\\DeleteFile\\:\\:__construct\\(\\) has invalid type League\\\\Flysystem\\\\FilesystemInterface\\.$#"
+			count: 1
+			path: src/Tasks/Storage/DeleteFile.php
+
+		-
+			message: "#^Property BackupManager\\\\Tasks\\\\Storage\\\\DeleteFile\\:\\:\\$filesystem has unknown class League\\\\Flysystem\\\\FilesystemInterface as its type\\.$#"
+			count: 1
+			path: src/Tasks/Storage/DeleteFile.php
+
+		-
+			message: "#^Strict comparison using \\=\\=\\= between void and null will always evaluate to false\\.$#"
+			count: 1
+			path: src/Tasks/Storage/DeleteFile.php
+
+		-
+			message: "#^Call to method readStream\\(\\) on an unknown class League\\\\Flysystem\\\\FilesystemInterface\\.$#"
 			count: 1
 			path: src/Tasks/Storage/TransferFile.php
 
 		-
-			message: "#^PHPDoc tag @param has invalid value \\(\\$sourcePath\\)\\: Unexpected token \"\\$sourcePath\", expected type at offset 61$#"
+			message: "#^Call to method writeStream\\(\\) on an unknown class League\\\\Flysystem\\\\FilesystemInterface\\.$#"
+			count: 1
+			path: src/Tasks/Storage/TransferFile.php
+
+		-
+			message: "#^PHPDoc tag @param has invalid value \\(\\$destinationPath\\)\\: Unexpected token \"\\$destinationPath\", expected type at offset 191$#"
+			count: 1
+			path: src/Tasks/Storage/TransferFile.php
+
+		-
+			message: "#^PHPDoc tag @param has invalid value \\(\\$sourcePath\\)\\: Unexpected token \"\\$sourcePath\", expected type at offset 89$#"
+			count: 1
+			path: src/Tasks/Storage/TransferFile.php
+
+		-
+			message: "#^PHPDoc tag @throws with type BackupManager\\\\Tasks\\\\Storage\\\\FileTransferFailed\\|League\\\\Flysystem\\\\FileExistsException\\|League\\\\Flysystem\\\\FileNotFoundException is not subtype of Throwable$#"
+			count: 1
+			path: src/Tasks/Storage/TransferFile.php
+
+		-
+			message: "#^Parameter \\$destinationFilesystem of method BackupManager\\\\Tasks\\\\Storage\\\\TransferFile\\:\\:__construct\\(\\) has invalid type League\\\\Flysystem\\\\FilesystemInterface\\.$#"
+			count: 1
+			path: src/Tasks/Storage/TransferFile.php
+
+		-
+			message: "#^Parameter \\$sourceFilesystem of method BackupManager\\\\Tasks\\\\Storage\\\\TransferFile\\:\\:__construct\\(\\) has invalid type League\\\\Flysystem\\\\FilesystemInterface\\.$#"
+			count: 1
+			path: src/Tasks/Storage/TransferFile.php
+
+		-
+			message: "#^Property BackupManager\\\\Tasks\\\\Storage\\\\TransferFile\\:\\:\\$destinationFilesystem has unknown class League\\\\Flysystem\\\\FilesystemInterface as its type\\.$#"
+			count: 1
+			path: src/Tasks/Storage/TransferFile.php
+
+		-
+			message: "#^Property BackupManager\\\\Tasks\\\\Storage\\\\TransferFile\\:\\:\\$sourceFilesystem has unknown class League\\\\Flysystem\\\\FilesystemInterface as its type\\.$#"
+			count: 1
+			path: src/Tasks/Storage/TransferFile.php
+
+		-
+			message: "#^Strict comparison using \\=\\=\\= between resource and false will always evaluate to false\\.$#"
+			count: 1
+			path: src/Tasks/Storage/TransferFile.php
+
+		-
+			message: "#^Strict comparison using \\=\\=\\= between void and false will always evaluate to false\\.$#"
 			count: 1
 			path: src/Tasks/Storage/TransferFile.php
 

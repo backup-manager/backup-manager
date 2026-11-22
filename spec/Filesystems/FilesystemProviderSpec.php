@@ -31,6 +31,13 @@ class FilesystemProviderSpec extends ObjectBehavior
         $this->shouldThrow('BackupManager\Filesystems\FilesystemTypeNotSupported')->during('get', ['unsupported']);
     }
 
+    public function it_should_say_how_to_register_an_unregistered_filesystem()
+    {
+        $this->shouldThrow(new \BackupManager\Filesystems\FilesystemTypeNotSupported(
+            'The requested filesystem type Local is not currently supported. Register it with $filesystemProvider->add(new \\BackupManager\\Filesystems\\LocalFilesystem);'
+        ))->during('get', ['local']);
+    }
+
     public function it_should_provide_a_list_of_all_available_providers()
     {
         $this->getAvailableProviders()->shouldBe(['local', 's3', 'unsupported', 'null']);

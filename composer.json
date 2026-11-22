@@ -17,36 +17,45 @@
   "require": {
     "php": ">=7.4",
     "league/flysystem": "^1.1.4 || ^2.1.1 || ^3.0",
-    "symfony/process": "^5.4 || ^6.0"
+    "symfony/process": "^4.4 || ^5.0 || ^6.0 || ^7.0 || ^8.0"
   },
   "require-dev": {
-    "aws/aws-sdk-php": "^3.133.20",
-    "league/flysystem-aws-s3-v3": "^1.0.24",
-    "league/flysystem-rackspace": "^1.0",
-    "league/flysystem-sftp": "^1.0",
-    "league/flysystem-webdav": "^1.0",
-    "phpspec/phpspec": "^7.2",
-    "spatie/flysystem-dropbox": "^1.2",
-    "srmklive/flysystem-dropbox-v2": "^1.0",
-    "superbalist/flysystem-google-storage": "^7.2"
+    "league/flysystem-async-aws-s3": "^2.0 || ^3.0",
+    "league/flysystem-aws-s3-v3": "^3.0",
+    "league/flysystem-ftp": "^3.0",
+    "league/flysystem-google-cloud-storage": "^3.0",
+    "league/flysystem-sftp-v3": "^3.0",
+    "league/flysystem-webdav": "^3.0",
+    "phpspec/phpspec": "^7.5 || ^8.0",
+    "spatie/flysystem-dropbox": "^2.0 || ^3.0"
   },
   "suggest": {
+    "league/flysystem-async-aws-s3": "AsyncAws S3 adapter support (Flysystem 2/3).",
     "league/flysystem-aws-s3-v3": "AWS S3 adapter support.",
-    "league/flysystem-rackspace": "Rackspace adapter support.",
-    "league/flysystem-sftp": "SFTP adapter support.",
-    "league/flysystem-webdav": "Webdav adapter support.",
-    "mhetreramesh/flysystem-backblaze": "B2 adapter support.",
-    "srmklive/flysystem-dropbox-v2": "Dropbox API v2 adapter support.",
-    "superbalist/flysystem-google-storage": "Google Cloud Storage adapter support."
+    "league/flysystem-ftp": "FTP adapter support (Flysystem 2/3; built into Flysystem 1).",
+    "league/flysystem-google-cloud-storage": "Google Cloud Storage adapter support (Flysystem 2/3).",
+    "league/flysystem-rackspace": "Rackspace adapter support (Flysystem 1 only).",
+    "league/flysystem-sftp": "SFTP adapter support (Flysystem 1/2).",
+    "league/flysystem-sftp-v3": "SFTP adapter support (Flysystem 3).",
+    "league/flysystem-webdav": "WebDAV adapter support.",
+    "mhetreramesh/flysystem-backblaze": "B2 adapter support (Flysystem 1 only).",
+    "spatie/flysystem-dropbox": "Dropbox adapter support.",
+    "srmklive/flysystem-dropbox-v2": "Dropbox API v2 adapter support (Flysystem 1 only).",
+    "superbalist/flysystem-google-storage": "Google Cloud Storage adapter support (Flysystem 1 only)."
   },
   "autoload": {
     "psr-4": {
       "BackupManager\\": "src/"
     }
   },
+  "autoload-dev": {
+    "psr-4": {
+      "spec\\BackupManager\\": "spec/"
+    }
+  },
   "extra": {
     "branch-alias": {
-      "dev-master": "1.0-dev"
+      "dev-master": "3.x-dev"
     }
   }
 }

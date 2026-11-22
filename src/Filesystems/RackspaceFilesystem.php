@@ -7,6 +7,7 @@ use OpenCloud\Rackspace;
 /**
  * Class RackspaceFilesystem
  * @package BackupManager\Filesystems
+ * @deprecated since 3.2.0, removed in 4.0: its adapter package only supports Flysystem 1. There is no Flysystem 2 or 3 adapter for Rackspace Cloud Files.
  */
 class RackspaceFilesystem implements Filesystem
 {
@@ -26,6 +27,10 @@ class RackspaceFilesystem implements Filesystem
      */
     public function get(array $config)
     {
+        if (! class_exists(RackspaceAdapter::class)) {
+            throw FilesystemAdapterMissing::forFlysystemV1Type('Rackspace', 'league/flysystem-rackspace', 'There is no Flysystem 2 or 3 adapter for Rackspace Cloud Files.');
+        }
+
         $client = new Rackspace($config['endpoint'], [
             'username' => $config['username'],
             'apiKey' => $config['key'],

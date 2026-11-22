@@ -1,6 +1,7 @@
 <?php namespace BackupManager\Filesystems;
 
 use League\Flysystem\Filesystem as Flysystem;
+use League\Flysystem\FilesystemOperator;
 use League\Flysystem\WebDAV\WebDAVAdapter;
 use Sabre\DAV\Client;
 
@@ -11,7 +12,6 @@ use Sabre\DAV\Client;
 class WebdavFilesystem implements Filesystem
 {
     /**
-     * Test fitness of visitor.
      * @param $type
      * @return bool
      */
@@ -26,6 +26,16 @@ class WebdavFilesystem implements Filesystem
      */
     public function get(array $config)
     {
-        return new Flysystem(new WebDAVAdapter(new Client($config), $config['prefix']));
+        if (! class_exists(WebDAVAdapter::class)) {
+            throw FilesystemAdapterMissing::forType('Webdav', 'league/flysystem-webdav');
+        }
+
+        // The adapter class name is the same in every major; v3 requires a string prefix.
+        $prefix = isset($config['prefix']) ? $config['prefix'] : null;
+        if ($prefix === null && interface_exists(FilesystemOperator::class)) {
+            $prefix = '';
+        }
+
+        return new Flysystem(new WebDAVAdapter(new Client($config), $prefix));
     }
 }

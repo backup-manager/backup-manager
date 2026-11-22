@@ -15,7 +15,7 @@ class MysqlDatabase implements Database
      */
     public function handles($type)
     {
-        return strtolower($type ?? '') == 'mysql';
+        return in_array(strtolower($type ?? ''), ['mysql', 'pdo_mysql'], true);
     }
 
     /**
@@ -43,6 +43,10 @@ class MysqlDatabase implements Database
         if (array_key_exists('ssl', $this->config) && $this->config['ssl'] === true) {
             $extras[] = '--ssl';
         }
+        if (array_key_exists('columnStatistics', $this->config) && $this->config['columnStatistics'] === false) {
+            // MySQL 8 mysqldump queries column statistics that older servers and MariaDB lack.
+            $extras[] = '--column-statistics=0';
+        }
         if (array_key_exists('extraParams', $this->config) && $this->config['extraParams']) {
             $extras[] = $this->config['extraParams'];
         }
@@ -60,7 +64,7 @@ class MysqlDatabase implements Database
         return sprintf(
             $command,
             $params,
-            escapeshellarg($this->config['database']),
+            escapeshellarg($this->config['database']) . $this->getOnlyTablesArguments(),
             escapeshellarg($outputPath)
         );
     }
@@ -91,6 +95,20 @@ class MysqlDatabase implements Database
             escapeshellarg($this->config['database']),
             $inputPath
         );
+    }
+
+    /**
+     * Table names after the database name restrict the dump to those tables.
+     *
+     * @return string
+     */
+    private function getOnlyTablesArguments()
+    {
+        if (empty($this->config['onlyTables']) || !is_array($this->config['onlyTables'])) {
+            return '';
+        }
+
+        return ' ' . implode(' ', array_map('escapeshellarg', $this->config['onlyTables']));
     }
 
     /**
