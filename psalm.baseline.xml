@@ -114,6 +114,20 @@
     </UnusedClass>
   </file>
   <file src="src/Databases/MysqlDatabase.php">
+    <FalsableReturnStatement>
+      <code><![CDATA[sprintf(
+            $command,
+            $params,
+            escapeshellarg($this->config['database']),
+            escapeshellarg($outputPath)
+        )]]></code>
+      <code><![CDATA[sprintf(
+            'mysql%s ' . implode(' ', $extras) . ' %s -e "source %s"',
+            $params,
+            escapeshellarg($this->config['database']),
+            $inputPath
+        )]]></code>
+    </FalsableReturnStatement>
     <MissingOverrideAttribute>
       <code><![CDATA[public function getDumpCommandLine($outputPath)]]></code>
       <code><![CDATA[public function getRestoreCommandLine($inputPath)]]></code>
