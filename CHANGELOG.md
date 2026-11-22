@@ -6,6 +6,10 @@ adheres to [Semantic Versioning](https://semver.org/).
 
 ## [Unreleased]
 
+### Added
+- MySQL `socket` option: connects `mysqldump` and `mysql` through a unix
+  socket instead of host and port. (backup-manager/laravel#128 by @brucek2)
+
 ## [4.0.0] - 2026-11-22
 
 Requires PHP 8.2 and Flysystem 3. See [UPGRADE.md](UPGRADE.md).

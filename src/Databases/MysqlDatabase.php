@@ -82,10 +82,18 @@ final class MysqlDatabase implements Database
         ));
     }
 
+    /**
+     * Connection options for mysqldump and mysql. A configured socket replaces
+     * host and port, as with Laravel's unix_socket.
+     */
     private function getConnectionParameters(): string
     {
+        $keys = empty($this->config['socket'])
+            ? ['host' => 'host', 'port' => 'port', 'user' => 'user', 'pass' => 'password']
+            : ['socket' => 'socket', 'user' => 'user', 'pass' => 'password'];
+
         $params = '';
-        foreach (['host' => 'host', 'port' => 'port', 'user' => 'user', 'pass' => 'password'] as $key => $mysqlParam) {
+        foreach ($keys as $key => $mysqlParam) {
             if (!empty($this->config[$key])) {
                 $params .= sprintf(' --%s=%s', $mysqlParam, escapeshellarg((string) $this->config[$key]));
             }
