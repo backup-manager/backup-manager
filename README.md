@@ -251,7 +251,7 @@ The required bootstrapping can [be found in the example here](https://github.com
 
 ### Contribution Guidelines
 
-Run the specs with `vendor/bin/phpspec run`. Static analysis: `phpstan analyze`, `psalm` and `php-cs-fixer fix --dry-run` (PSR-12).
+See [docs/MAINTAINING.md](docs/MAINTAINING.md) for supported versions, the release procedure and the security baseline. Run the specs with `vendor/bin/phpspec run`. Static analysis: `phpstan analyze`, `psalm` and `php-cs-fixer fix --dry-run` (PSR-12).
 
 When contributing please consider the following guidelines:
 
