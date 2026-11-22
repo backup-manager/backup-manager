@@ -18,53 +18,55 @@ This document is the campaign's durable record. A new session resumes from
 | M2 4.0.0: PHP 8.2, Flysystem 3, typed API | released 4.0.0 (from `master`) | #203 |
 | Core 3.3.0 / 4.1.0: MySQL `socket` | released 3.3.0 (from `3.x`), 4.1.0 (from `master`) | #204, #205 |
 | M3a laravel 2.1.0: Laravel 7–13, fixes, CI, badges | released 2.1.0 | laravel#138 |
-| M3a laravel 3.0.0: core ^4.1, Laravel 12/13, renamed classes | merged to master (reviewed, CI green); **awaiting Shawn's go to tag 3.0.0** | laravel#139 |
-| M3b symfony 3.3.0 (minor, core ^3.3) | merged to `3.x` (reviewed; floors at patched Symfony 5.4.56/6.4.50/7.4.23/8.1.11); **awaiting Shawn's go to tag 3.3.0 from `3.x`** | symfony#92, #93 |
-| M3b symfony 4.0.0 (major, core ^4.1, Symfony 6.4/7.4/8.1+) | merged to master (reviewed, CI green); **awaiting Shawn's go to tag 4.0.0** | symfony#94 |
-| M4 close-out | not started | |
+| M3a laravel 3.0.0: core ^4.1, Laravel 12/13, renamed classes | released 3.0.0 | laravel#139 |
+| M3b symfony 3.3.0 (minor, core ^3.3) | released 3.3.0 (from `3.x`) | symfony#92, #93 |
+| M3b symfony 4.0.0 (major, core ^4.1, Symfony 6.4/7.4/8.1+) | released 4.0.0 | symfony#94 |
+| M4 close-out | done | |
 
-Core repo: 0 open PRs, 0 open issues; Packagist lists 4.1.0, 3.3.0.
-Laravel repo: 0 open PRs, 0 open issues (all triaged and closed with
-comments); Packagist lists 2.1.0.
+Campaign complete. All three repos: 0 open PRs, 0 open issues (each triaged
+and closed with a comment). Packagist: core 4.1.0 and 3.3.0, laravel 3.0.0
+and 2.1.0, symfony 4.0.0 and 3.3.0.
 
 ## Resume here
 
-1. Read **Working conventions** and **Security baseline** below; they apply to
-   the framework repos too.
-2. Next: on Shawn's go, tag laravel 3.0.0 (master), symfony 3.3.0 (`3.x`)
-   and symfony 4.0.0 (master, after #94 merges); date each changelog heading
-   first; then close symfony issues #78 #84 #88 #89 #90 #91 with comments,
-   then M4 close-out.
-3. Release tags always need Shawn's explicit go (see **Authority**).
-4. Merges, tags and `gh release create` are allowed in
+The campaign is complete (see **Summary**). For follow-up work:
+
+1. **Working conventions**, **Security baseline** and **Authority** below
+   still apply to all three repos.
+2. Supported lines: core 4.x (master) and 3.x; laravel 3.x (master) and 2.x;
+   symfony 4.x (master) and 3.x. Fix on the oldest affected line and release
+   from its branch.
+3. Merges, tags and `gh release create` are allowed in
    `.claude/settings.local.json` of the core checkout (git-excluded); Claude
    Code's auto-mode classifier blocked them without it, and blocks Claude from
-   writing permission rules itself.
+   writing permission rules itself. SSH pushes intermittently hang on the
+   agent; the GitHub API (`gh api .../git/tags`, `.../git/refs`,
+   `.../contents`) works for tags and small commits.
+
+## Summary
+
+| Package | Release | Line | Highlights |
+|---|---|---|---|
+| core | 3.2.0 | 3.x | Flysystem 2/3, AsyncAwsS3, failure reporting |
+| core | 3.2.1 | 3.x | patched `symfony/process` and Flysystem floors |
+| core | 4.0.0 | 4.x | PHP 8.2, Flysystem 3, typed API |
+| core | 3.3.0, 4.1.0 | both | MySQL `socket` option |
+| laravel | 2.1.0 | 2.x | Laravel 7–13, PHP 8, runtime config, Flysystem 2/3 listing, MySQL socket and options |
+| laravel | 3.0.0 | 3.x | PHP 8.2, Laravel 12/13, core 4.1, `BackupManagerServiceProvider`, Lumen removed |
+| symfony | 3.3.0 | 3.x | Symfony 5.4–8.1, Flysystem 1/2/3, AsyncAwsS3, Webdav, patched floors |
+| symfony | 4.0.0 | 4.x | PHP 8.2, Symfony 6.4/7.4/8.1+, core 4.1, final classes |
+
+Credits (merged, or reimplemented with Co-authored-by and CHANGELOG mention):
+- core: meiyasan (#187, #191–#195), Nyholm (#168, #185), Jelle-S (#196),
+  fezfez (#171, onlyTables), DjThossi (#172 report).
+- laravel: nafiesl (#130), martindrapeau (#135), brucek2 (#128 report),
+  whoacowboy (#91, in 2.0).
+- symfony: trsteel88 (#87), benr77 (#83, #84 report), Branlute (#82),
+  mikeyudin (#91 report).
 
 ## Glossary
 
-- **Flysystem major**: the installed major version of `league/flysystem`
-  (v1, v2 or v3). v2 and v3 share most class names; v1 differs.
-- **Flysystem instance**: an object from `league/flysystem` that performs file
-  operations (`FilesystemInterface` in v1, `FilesystemOperator` in v2/v3).
-- **Adapter package**: an optional Composer package providing a Flysystem
-  storage backend (e.g. `league/flysystem-aws-s3-v3`). The user installs it;
-  this package lists it under `suggest`.
-- **Filesystem factory**: a class in `src/Filesystems/` implementing
-  `BackupManager\Filesystems\Filesystem`. It reports which **filesystem type**
-  it handles and builds a Flysystem instance from config. (Named `Filesystem`
-  for historical reasons; it is a factory.)
-- **Filesystem type**: the `type` value of a storage config entry (`Local`,
-  `AwsS3`, `sftp`, ...), matched case-insensitively.
-- **Connection name**: the key of a config entry in `storage.php` or
-  `database.php` (`local`, `s3`, `production`, ...).
-- **Version-aware factory** (3.x only): a filesystem factory that builds the
-  adapter for whichever Flysystem major is installed.
-- **Public API**: every public class, interface, public/protected method and
-  its signature, config key, and filesystem/database type. An incompatible
-  change requires a major release.
-- **Framework package**: `backup-manager/laravel` or `backup-manager/symfony`,
-  which wire this library into a framework.
+Moved to [GLOSSARY.md](GLOSSARY.md).
 
 ## Branches and releases
 
