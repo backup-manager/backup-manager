@@ -19,7 +19,7 @@ This document is the campaign's durable record. A new session resumes from
 | Core 3.3.0 / 4.1.0: MySQL `socket` | released 3.3.0 (from `3.x`), 4.1.0 (from `master`) | #204, #205 |
 | M3a laravel 2.1.0: Laravel 7–13, fixes, CI, badges | released 2.1.0 | laravel#138 |
 | M3a laravel 3.0.0: core ^4.1, drop Lumen and removed types | **next**, not started | |
-| M3b `backup-manager/symfony` | not started | separate repo |
+| M3b `backup-manager/symfony` | triaged; minor 3.3 next after laravel 3.0 | separate repo |
 | M4 close-out | not started | |
 
 Core repo: 0 open PRs, 0 open issues; Packagist lists 4.1.0, 3.3.0.
@@ -261,6 +261,35 @@ Defects found by reading the code (no issue filed):
 - Open PRs: none. Open issues (6): #91 Flysystem v2; #90 release 3.2.2 (is it
   dead?); #89 PHP 8.1 + Symfony 6; #88 config not loaded with Flex; #84
   AsyncAWS instead of AWS SDK; #78 error on DSN.
+
+#### M3b triage (2026-11-22)
+
+Code survey (master 9aa06b8, unreleased since 3.2.1: Symfony 6 support #87,
+`extraParams` #82, PHP 8.0 constraint #83):
+- Bundle `BMBackupManagerBundle`, `BMBackupManagerExtension`,
+  `Configuration` (storage types validated against a fixed list), services in
+  `Resources/config/services.yml`, `ConfigFactory` (DSN via nyholm/dsn),
+  commands `backup-manager:backup` / `backup-manager:restore`. PHPUnit tests
+  exist (nyholm/symfony-bundle-test); CI was Travis (dead).
+- D1: `BMBackupManagerExtension::validateStorage()` checks Flysystem 1
+  adapter classes (`League\Flysystem\Adapter\Local`, `AwsS3Adapter`, ...), so
+  on Flysystem 2/3 every storage type fails at container build (#91). Fix:
+  version-aware check, or defer to core's `FilesystemAdapterMissing`.
+- D2: `Configuration` key lists: `Dropbox` lists Flysystem-1 keys (`key`,
+  `secret`, `app`); `AsyncAwsS3`, `Webdav` missing; `AwsS3` lacks
+  `use_path_style_endpoint`; MySQL lacks `onlyTables`, `columnStatistics`,
+  `socket`.
+- D3: `protected static $defaultName` is deprecated in Symfony 6.1+ (use
+  `#[AsCommand]`); Symfony 7 removed it.
+
+| # | Kind | Decision | Release |
+|---|---|---|---|
+| #91 | Flysystem 2/3 | fix (D1, D2) | 3.3 |
+| #90 | release / dead? | release 3.3.0 with Symfony 6/7/8 support | 3.3 |
+| #89 | PHP 8.1 + Symfony 6 | fix: core ^3.3 allows symfony/process 6–8 | 3.3 |
+| #88 | Flex config not loaded | fixed on master, unreleased; verify with a test | 3.3 |
+| #84 | AsyncAws instead of AWS SDK | add `AsyncAwsS3` type (core 3.2+) | 3.3 |
+| #78 | DSN user/password | answer: url-encode per RFC 3986 (Nyholm answered); verify decoding | 3.3 |
 
 ## M4: Close-out
 - README badges in all three repos (core, laravel, symfony): replace stale
