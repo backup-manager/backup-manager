@@ -18,8 +18,9 @@ This document is the campaign's durable record. A new session resumes from
 | M2 4.0.0: PHP 8.2, Flysystem 3, typed API | released 4.0.0 (from `master`) | #203 |
 | Core 3.3.0 / 4.1.0: MySQL `socket` | released 3.3.0 (from `3.x`), 4.1.0 (from `master`) | #204, #205 |
 | M3a laravel 2.1.0: Laravel 7–13, fixes, CI, badges | released 2.1.0 | laravel#138 |
-| M3a laravel 3.0.0: core ^4.1, drop Lumen and removed types | **next**, not started | |
-| M3b `backup-manager/symfony` | triaged; minor 3.3 next after laravel 3.0 | separate repo |
+| M3a laravel 3.0.0: core ^4.1, Laravel 12/13, renamed classes | merged to master (reviewed, CI green); **awaiting Shawn's go to tag 3.0.0** | laravel#139 |
+| M3b symfony 3.3.0 (minor, core ^3.3) | PR open, CI green (Symfony 3.4–8, Flysystem 1/2/3), in review; repo security settings on | symfony#92 |
+| M3b symfony 4.0.0 (major, core ^4.1) | not started | |
 | M4 close-out | not started | |
 
 Core repo: 0 open PRs, 0 open issues; Packagist lists 4.1.0, 3.3.0.
@@ -30,8 +31,8 @@ comments); Packagist lists 2.1.0.
 
 1. Read **Working conventions** and **Security baseline** below; they apply to
    the framework repos too.
-2. Next: laravel 3.0.0 (see **M3a: laravel 3.0 plan**), then M3b Symfony
-   (triage first, as for laravel).
+2. Next: tag laravel 3.0.0 (on Shawn's go; date the CHANGELOG heading
+   first), finish symfony 3.3.0 (#92), then symfony 4.0.0 on core ^4.1.
 3. Release tags always need Shawn's explicit go (see **Authority**).
 4. Merges, tags and `gh release create` are allowed in
    `.claude/settings.local.json` of the core checkout (git-excluded); Claude
@@ -346,6 +347,13 @@ Code survey (master 9aa06b8, unreleased since 3.2.1: Symfony 6 support #87,
 - 2026-11-22: laravel versions: 2.1.0 on core ^3.2.1 (after 3.3.0: ^3.3), 3.0.0
   on core ^4.1. 3.0 drops the Lumen provider (Lumen is discontinued).
 - Local clone of the laravel repo: `/home/shawn/src/backup-manager/laravel`.
+- 2026-11-22: laravel 3.0 review fixes: prompts only on a terminal
+  (Laravel's ConfiguresPrompts rule), confirmation defaults to no, discovery
+  registers `BackupManagerServiceProvider`; `2.x` branch cut from 2.1.0.
+- 2026-11-22: symfony 3.3 removes the bundle's build-time adapter check (it
+  knew only Flysystem 1 classes); core reports a missing adapter when the
+  storage is used. Tests use a hand-written TestKernel instead of
+  nyholm/symfony-bundle-test so one suite runs on Symfony 3.4–8.
 - 2026-11-22: Released core 3.3.0, 4.1.0 and laravel 2.1.0 (Shawn's go).
   laravel 2.1.0 was squash-merged with Co-authored-by trailers for nafiesl
   (#130) and martindrapeau (#135). All laravel PRs and issues closed with
